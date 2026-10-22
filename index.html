@@ -3,975 +3,293 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>E-Dolphin IRUKA</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="E-Dolphin IRUKA, le jet-ski électrique premium haute performance. 215 ch, 60 nœuds, zéro bruit de moteur thermique. Design français.">
-<meta name="theme-color" content="#050E14">
+<title>E-Dolphin · IRUKA, le jet-ski électrique de luxe</title>
+<meta name="description" content="IRUKA, jet-ski 100 % électrique conçu et assemblé en France. Essais en mer à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.">
 <meta name="robots" content="noindex, nofollow">
-
-<!-- Fonts: Plus Jakarta Sans (display + text) and JetBrains Mono (units and data) -->
+<meta name="theme-color" content="#06131C">
+<link rel="alternate" hreflang="en" href="en/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script defer src="assets/js/icons.js"></script>
+<script defer src="assets/js/site.js"></script>
 
-<!-- Tailwind CSS (play CDN, pinned) -->
-<script src="https://cdn.tailwindcss.com/3.4.17"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          abyss: '#050E14', deep: '#0A1E2B', foam: '#F6F8F7', mist: '#9FB3BC',
-          lagoon: '#2EE6A8', teal: '#0FA3B1', lime: '#9BE15D'
-        },
-        fontFamily: {
-          sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
-        }
-      }
-    }
-  }
-</script>
-<!-- Lucide icons (UMD, pinned) -->
-<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
-
-<style>
-  /* Layout concept: one long dive from the surface (hero photo) down to the hull (CFD),
-     built on a calm dark ocean ground with glass panels and a single lagoon gradient accent. */
-  :root {
-    --abyss: #050E14;      /* page ground */
-    --deep: #0A1E2B;       /* raised navy */
-    --glass: rgba(246, 248, 247, 0.055);
-    --line: rgba(159, 179, 188, 0.18);
-    --foam: #F6F8F7;       /* primary text */
-    --mist: #9FB3BC;       /* secondary text */
-    --lagoon: #2EE6A8;     /* accent */
-    --teal: #0FA3B1;       /* accent 2 */
-    --lime: #9BE15D;       /* charging state */
-    --grad: linear-gradient(110deg, var(--lagoon) 0%, var(--teal) 100%);
-    --display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-    color-scheme: dark;
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--abyss); color: var(--foam); font-family: var(--display);
-    -webkit-font-smoothing: antialiased; overflow-x: hidden; margin: 0;
-  }
-  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--abyss); }
-  .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; }
-  .eyebrow { font-family: var(--mono); font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--lagoon); }
-  .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .glass { background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
-  .num { font-variant-numeric: tabular-nums; }
-  img { max-width: 100%; }
-  :focus-visible { outline: 2px solid var(--lagoon); outline-offset: 3px; border-radius: 6px; }
-
-  /* Header becomes glass once the page scrolls */
-  #top { top: env(safe-area-inset-top, 0px); transition: background .4s, border-color .4s; border-bottom: 1px solid transparent; }
-  #top.scrolled { background: rgba(5, 14, 20, .72); border-color: var(--line); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-
-  /* Hero */
-  .hero-img { object-position: 62% 40%; transform: scale(1.04); transition: transform 1.6s cubic-bezier(.2,.7,.2,1); }
-  .loaded .hero-img { transform: scale(1); }
-  .hero-shade { background: linear-gradient(90deg, rgba(5,14,20,.92) 0%, rgba(5,14,20,.55) 45%, rgba(5,14,20,.05) 75%), linear-gradient(0deg, var(--abyss) 0%, transparent 35%); }
-  @media (max-width: 640px) { .hero-shade { background: linear-gradient(0deg, var(--abyss) 4%, rgba(5,14,20,.8) 50%, rgba(5,14,20,.6) 100%); } }
-  #waves { position: absolute; inset: auto 0 0 0; width: 100%; height: 38%; pointer-events: none; }
-
-  /* Scroll reveal: elements are fully visible at rest, they only glide up a little */
-  .rise { transition: transform .9s cubic-bezier(.2,.7,.2,1); }
-  .js .rise:not(.in) { transform: translateY(18px); }
-
-  /* Cards and micro-interactions */
-  .lift { transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .35s, background .35s; }
-  .lift:hover { transform: translateY(-4px); border-color: rgba(46,230,168,.45); }
-  .zoom img { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
-  .zoom:hover img { transform: scale(1.05); }
-  .btn-primary { background: var(--grad); color: var(--abyss); transition: box-shadow .3s, transform .3s; }
-  .btn-primary:hover { box-shadow: 0 10px 40px -8px rgba(46,230,168,.55); transform: translateY(-1px); }
-
-  /* Spec toggle */
-  .seg button[aria-pressed="true"] { background: var(--foam); color: var(--abyss); }
-
-  /* Detail explorer tabs */
-  .tab[aria-selected="true"] { border-color: var(--lagoon); color: var(--foam); background: rgba(46,230,168,.08); }
-
-  /* CFD wipe comparison */
-  .wipe { position: relative; overflow: hidden; touch-action: pan-y; }
-  .wipe .top { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); }
-  .wipe .bar { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 2px; background: var(--foam); transform: translateX(-1px); }
-  .wipe .knob { position: absolute; top: 50%; left: var(--x, 50%); transform: translate(-50%, -50%); }
-
-
-  /* Booking */
-  [hidden] { display: none !important; }
-  .bk-opt.is-on, .bk-chip.is-on { border-color: var(--lagoon); background: rgba(46,230,168,.10); }
-  .bk-opt:has(input:focus-visible), .bk-chip:has(input:focus-visible) { outline: 2px solid var(--lagoon); outline-offset: 3px; }
-  .cal-on { color: var(--foam); background: rgba(46,230,168,.08); border: 1px solid rgba(46,230,168,.25); }
-  .cal-on:hover { border-color: var(--lagoon); }
-  .cal-off { color: rgba(159,179,188,.35); }
-  .cal-on[aria-pressed="true"], .slot-on[aria-pressed="true"] { background: var(--grad); color: var(--abyss); font-weight: 700; border-color: transparent; }
-  .slot-on { border: 1px solid var(--line); background: var(--glass); color: var(--foam); }
-  .slot-on:hover { border-color: var(--lagoon); }
-  .slot-off { border: 1px dashed rgba(159,179,188,.18); color: rgba(159,179,188,.35); text-decoration: line-through; }
-
-  /* Range input */
-  input[type=range] { accent-color: var(--lagoon); width: 100%; }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
-    .js .rise:not(.in) { transform: none; }
-  }
-</style>
 </head>
-
-<body>
-<!-- ========== HEADER ========== -->
-<header id="top" class="fixed inset-x-0 z-50 gutter">
-  <nav class="mx-auto flex max-w-7xl items-center justify-between py-4" aria-label="Navigation principale">
-    <a href="#hero" class="flex items-center gap-3" aria-label="E-Dolphin, accueil">
-      <!-- Brand mark: the E-Dolphin symbol drawn as a rounded capsule -->
+<body class="page-index">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-foam focus:px-4 focus:py-2 focus:text-abyss">Aller au contenu</a>
+<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 py-3" aria-label="Navigation principale">
+    <a href="./" class="flex shrink-0 items-center gap-3" aria-label="E-Dolphin, accueil">
       <svg width="48" height="36" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg>
-      <span class="font-extrabold tracking-[.18em] text-sm">E-DOLPHIN</span>
+      <span class="font-display text-sm font-semibold tracking-[.22em]">E-DOLPHIN</span>
     </a>
-    <ul class="hidden items-center gap-8 text-sm text-mist md:flex">
-      <li><a class="hover:text-foam transition" href="#iruka">IRUKA</a></li>
-      <li><a class="hover:text-foam transition" href="#details">Finitions</a></li>
-      <li><a class="hover:text-foam transition" href="#journee">Une journée</a></li>
-      <li><a class="hover:text-foam transition" href="#gamme">Gamme</a></li>
-      <li><a class="hover:text-foam transition" href="#carene">Carène</a></li>
-      <li><a class="hover:text-foam transition" href="#reserver">Réserver</a></li>
-    </ul>
-    <div class="flex items-center gap-3">
-      <a href="#launch" class="btn-primary hidden rounded-full px-5 py-2.5 text-sm font-bold sm:inline-flex">Launch Edition</a>
-      <button id="menuBtn" class="glass rounded-full p-2.5 md:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Ouvrir le menu"><i data-lucide="menu" class="h-5 w-5"></i></button>
+    <ul class="hidden items-center gap-6 text-sm xl:gap-7 lg:flex"><li><a class="nav-link" href="iruka.html">IRUKA</a></li><li><a class="nav-link" href="experience.html">L'expérience</a></li><li><a class="nav-link" href="yachts-flottes.html">Yachts et flottes</a></li><li><a class="nav-link" href="launch-edition.html">Launch Edition</a></li><li><a class="nav-link" href="configurateur.html">Configurer</a></li><li><a class="nav-link" href="boutique.html">Boutique</a></li><li><a class="nav-link" href="maison.html">La maison</a></li></ul>
+    <div class="flex items-center gap-2">
+      <div class="lang hidden items-center gap-1 rounded-full p-1 sm:flex" role="group" aria-label="Langue">
+        <a href="#" hreflang="fr" lang="fr" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px] is-on" aria-current="true" aria-label="Français"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</a>
+        <a href="en/" hreflang="en" lang="en" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px]" aria-label="English"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c1"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t1"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c1)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t1)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>EN</a>
+      </div>
+      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="Ouvrir le panier"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /> <path d="M3 6h18" /> <path d="M16 10a4 4 0 0 1-8 0" /></svg><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
+      <a href="reserver.html" class="btn-primary hidden rounded-full px-5 py-2.5 text-sm font-semibold sm:inline-flex">Réserver un essai</a>
+      <button id="menuBtn" class="glass rounded-full p-2.5 lg:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Ouvrir le menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12" /> <line x1="4" x2="20" y1="6" y2="6" /> <line x1="4" x2="20" y1="18" y2="18" /></svg></button>
     </div>
   </nav>
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="glass mx-auto mb-3 max-w-7xl rounded-2xl p-2 md:hidden" hidden>
-    <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#iruka">IRUKA</a>
-    <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#details">Finitions</a>
-    <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#journee">Une journée sur l'eau</a>
-    <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#gamme">Gamme</a>
-    <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#carene">Carène</a>
-    <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#reserver">Réserver un essai</a>
-    <a class="btn-primary mt-1 block rounded-xl px-4 py-3 text-center font-bold" href="#launch">Launch Edition</a>
+  <div id="mobileMenu" class="glass mx-auto mb-3 max-w-7xl rounded-2xl p-2 lg:hidden" hidden>
+    <a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="iruka.html">IRUKA</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="experience.html">L'expérience</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="yachts-flottes.html">Yachts et flottes</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="launch-edition.html">Launch Edition</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="configurateur.html">Configurer</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="boutique.html">Boutique</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="maison.html">La maison</a>
+    <div class="mt-1 flex gap-2 border-t border-white/10 px-2 pt-3">
+      <a href="#" hreflang="fr" class="flag inline-flex items-center gap-2 rounded-full px-3 py-2 font-mono text-xs is-on"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>Français</a>
+      <a href="en/" hreflang="en" class="flag inline-flex items-center gap-2 rounded-full px-3 py-2 font-mono text-xs"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c2"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t2"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c2)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t2)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>English</a>
+    </div>
   </div>
 </header>
 
-<main>
-  <!-- ========== HERO ========== -->
-  <section id="hero" class="relative isolate overflow-hidden">
-    <img src="assets/hero-s300.jpg" alt="Le prototype E-Dolphin S300 en pleine accélération, pilote debout, gerbe d'écume" class="hero-img absolute inset-0 -z-20 h-full w-full object-cover" fetchpriority="high">
+<main id="main">
+
+  <!-- 1. Hero -->
+  <section class="relative isolate flex min-h-[100svh] items-end overflow-hidden">
+    <img src="assets/img/hero-s300.jpg" alt="Le prototype S300 en pleine accélération, gerbe d'écume" class="hero-img absolute inset-0 -z-20 h-full w-full object-cover" fetchpriority="high">
     <div class="hero-shade absolute inset-0 -z-10"></div>
-    <canvas id="waves" aria-hidden="true"></canvas>
-
-    <div class="gutter">
-      <div class="mx-auto max-w-7xl pb-16 pt-32 sm:pb-24 sm:pt-44 lg:pt-52">
-        <p class="eyebrow rise">Jet-ski électrique premium · design français</p>
-        <h1 class="rise mt-5 max-w-3xl text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
-          Le silence <br class="hidden sm:block">a une <span class="grad-text">vitesse.</span>
-        </h1>
-        <p class="rise mt-6 max-w-xl text-base leading-relaxed text-mist sm:text-lg">
-          IRUKA, c'est 215 ch, 60 nœuds et aucune odeur d'essence. On n'entend plus que l'eau, le vent et votre accélération.
-        </p>
+    <div class="gutter w-full">
+      <div class="mx-auto max-w-7xl pb-28 pt-36 sm:pb-24">
+        <p class="eyebrow rise">Jet-ski 100 % électrique · conçu et assemblé en France</p>
+        <h1 class="rise mt-5 max-w-3xl font-display text-[2.7rem] font-semibold leading-[1.02] sm:text-7xl">Le silence <br class="hidden sm:block">a une vitesse.</h1>
+        <p class="rise mt-6 max-w-xl text-brume sm:text-lg">IRUKA : 215 ch, 60 nœuds et pas une goutte d'essence. On n'entend plus que l'eau, le vent et votre accélération.</p>
         <div class="rise mt-9 flex flex-wrap gap-3">
-          <a href="#launch" class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-bold">Réserver ma Launch Edition <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
-          <a href="#reserver" data-book="essai" class="glass lift inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Réserver un essai <i data-lucide="calendar-check" class="h-4 w-4"></i></a>
-          <a href="#journee" class="glass lift inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Planifier une journée <i data-lucide="sun" class="h-4 w-4"></i></a>
+          <a href="reserver.html"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Réserver un essai en mer <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg></a>
+          <a href="iruka.html"  class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Découvrir IRUKA <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a>
         </div>
-
-        <!-- Key figures, glass strip -->
-        <dl class="rise glass mt-14 grid grid-cols-2 overflow-hidden rounded-2xl sm:grid-cols-4">
-          <div class="border-b border-r border-white/10 p-5 sm:border-b-0"><dt class="text-xs text-mist">Puissance</dt><dd class="num mt-1 text-2xl font-bold">215 <span class="font-mono text-sm text-mist">ch</span></dd></div>
-          <div class="border-b border-white/10 p-5 sm:border-b-0 sm:border-r"><dt class="text-xs text-mist">Vitesse de pointe</dt><dd class="num mt-1 text-2xl font-bold">60 <span class="font-mono text-sm text-mist">nœuds</span></dd></div>
-          <div class="border-r border-white/10 p-5"><dt class="text-xs text-mist">Autonomie réelle</dt><dd class="num mt-1 text-2xl font-bold">2,5 h<span class="font-mono text-sm text-mist">+</span></dd></div>
-          <div class="p-5"><dt class="text-xs text-mist">Recharge rapide DC</dt><dd class="num mt-1 text-2xl font-bold">≈ 30 <span class="font-mono text-sm text-mist">min</span></dd></div>
-        </dl>
-        <p class="mt-3 font-mono text-[11px] text-mist/80">Photo réelle du prototype S300. Chiffres IRUKA : objectifs de conception, confirmés par les essais 2027.</p>
+        <p class="rise mt-8 font-display text-lg">À partir de <span class="num font-semibold">35 990 € HT</span></p>
+        <p class="mt-2 tag text-brume/80">Photo réelle du prototype S300</p>
       </div>
     </div>
   </section>
 
-  <!-- ========== ALREADY ON THE WATER (real S300 photos) ========== -->
-  <section class="gutter pt-4" aria-labelledby="real-title">
-    <div class="mx-auto max-w-7xl">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <h2 id="real-title" class="text-2xl font-extrabold sm:text-3xl">Déjà sur l'eau. <span class="text-mist font-semibold">200 heures de navigation.</span></h2>
-        <p class="font-mono text-[11px] text-mist">Photos réelles · prototype S300</p>
-      </div>
-      <div class="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-        <figure class="zoom relative col-span-2 overflow-hidden rounded-3xl"><img src="assets/s300-real-side.jpg" alt="Le S300 à l'arrêt sur une mer bleu profond, vu de profil" class="aspect-[2/1] h-full w-full object-cover" loading="lazy"><figcaption class="glass absolute bottom-3 left-3 rounded-full px-3 py-1 font-mono text-[11px]">Full electric</figcaption></figure>
-        <figure class="zoom relative overflow-hidden rounded-3xl"><img src="assets/s300-real-bow.jpg" alt="L'étrave du S300 fend l'eau, gerbe d'écume" class="aspect-square h-full w-full object-cover" loading="lazy"><figcaption class="glass absolute bottom-3 left-3 rounded-full px-3 py-1 font-mono text-[11px]">Étrave</figcaption></figure>
-        <figure class="zoom relative overflow-hidden rounded-3xl"><img src="assets/s300-real-ccs2.jpg" alt="Prise de recharge rapide CCS2 sous la trappe avant du S300" class="aspect-square h-full w-full object-cover" loading="lazy"><figcaption class="glass absolute bottom-3 left-3 rounded-full px-3 py-1 font-mono text-[11px]">Prise CCS2</figcaption></figure>
-      </div>
-    </div>
+  <!-- 2. Proof strip -->
+  <section class="gutter">
+    <dl class="rise glass mx-auto grid max-w-7xl grid-cols-2 overflow-hidden rounded-2xl lg:grid-cols-4">
+      <div class="border-b border-r border-white/10 p-5 lg:border-b-0"><dt class="tag text-brume">Sur l'eau</dt><dd class="mt-1 font-display text-2xl font-semibold">0 émission</dd></div>
+      <div class="border-b border-white/10 p-5 lg:border-b-0 lg:border-r"><dt class="tag text-brume">Autonomie en usage mixte</dt><dd class="num mt-1 font-display text-2xl font-semibold text-lime">2,5 h<span class="text-base">+</span></dd></div>
+      <div class="border-r border-white/10 p-5"><dt class="tag text-brume">Recharge rapide CCS2</dt><dd class="num mt-1 font-display text-2xl font-semibold text-lime">≈ 30 min</dd></div>
+      <div class="p-5"><dt class="tag text-brume">Fabrication</dt><dd class="mt-1 font-display text-2xl font-semibold">Assemblé en France</dd></div>
+    </dl>
+    <p class="mx-auto mt-3 max-w-7xl tag text-brume/80">Objectifs de conception IRUKA, confirmés par les essais de validation.</p>
   </section>
 
-  <!-- ========== WHY ELECTRIC ========== -->
-  <section class="gutter py-20 sm:py-28" aria-labelledby="why-title">
-    <div class="mx-auto max-w-7xl">
-      <p class="eyebrow">Pourquoi maintenant</p>
-      <h2 id="why-title" class="mt-4 max-w-3xl text-3xl font-extrabold sm:text-5xl">Les plus beaux plans d'eau se ferment au thermique. Pas à IRUKA.</h2>
-
-      <!-- Bento grid -->
-      <div class="mt-12 grid gap-4 md:grid-cols-6">
-        <article class="glass lift zoom relative overflow-hidden rounded-3xl md:col-span-3 md:row-span-2">
-          <img src="assets/problem-closed.jpg" alt="Lac de montagne avec un panneau d'interdiction des jet-skis" class="h-64 w-full object-cover md:h-[26rem]" loading="lazy">
-          <div class="p-6">
-            <i data-lucide="ban" class="h-6 w-6 text-lagoon"></i>
-            <h3 class="mt-3 text-xl font-bold">Des eaux qui rouvrent</h3>
-            <p class="mt-2 text-mist">Lacs et parcs marins ferment leurs accès aux moteurs thermiques. L'électrique rouvre la porte.</p>
-          </div>
-        </article>
-        <article class="glass lift rounded-3xl p-6 md:col-span-3">
-          <i data-lucide="volume-x" class="h-6 w-6 text-lagoon"></i>
-          <h3 class="mt-3 text-xl font-bold">Le silence comme droit d'accès</h3>
-          <p class="mt-2 text-mist">Ports, criques et plages privées acceptent ce qu'ils n'entendent pas.</p>
-        </article>
-        <article class="glass lift rounded-3xl p-6 md:col-span-3 lg:col-span-1 lg:col-start-4">
-          <i data-lucide="fuel" class="h-6 w-6 text-lagoon"></i>
-          <h3 class="mt-3 text-lg font-bold">Zéro essence à bord</h3>
-          <p class="mt-2 text-sm text-mist">Plus simple pour les équipages et les assureurs.</p>
-        </article>
-        <article class="glass lift rounded-3xl p-6 md:col-span-3 lg:col-span-2">
-          <i data-lucide="leaf" class="h-6 w-6 text-lagoon"></i>
-          <h3 class="mt-3 text-lg font-bold">Ni irisation, ni fumée</h3>
-          <p class="mt-2 text-sm text-mist">Une pratique propre pour une clientèle qui l'exige. La batterie est traçable et prévue pour une seconde vie en marina.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== IRUKA: S300 TODAY vs IRUKA 2027 ========== -->
-  <section id="iruka" class="gutter py-20 sm:py-28" aria-labelledby="iruka-title">
+  <!-- 3. Why electric -->
+  <section class="gutter py-20 sm:py-28">
     <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-      <div class="min-w-0">
-        <p class="eyebrow">Du prototype au modèle de série</p>
-        <h2 id="iruka-title" class="mt-4 text-3xl font-extrabold sm:text-5xl">200 heures en mer. <span class="grad-text">IRUKA va plus loin.</span></h2>
-        <p class="mt-5 max-w-xl text-mist">Le S300 navigue déjà. IRUKA reprend sa plateforme de propulsion brevetée avec une carène carbone, une batterie 800 V refroidie par liquide et un équipement premium de série.</p>
-
-        <!-- Toggle between the prototype and the production target -->
-        <div class="seg glass mt-8 inline-flex rounded-full p-1" role="group" aria-label="Comparer le prototype et IRUKA">
-          <button type="button" id="segS300" class="rounded-full px-5 py-2 text-sm font-semibold transition" aria-pressed="false">S300 · aujourd'hui</button>
-          <button type="button" id="segIruka" class="rounded-full px-5 py-2 text-sm font-semibold transition" aria-pressed="true">IRUKA · 2027</button>
-        </div>
-
-        <dl id="specs" class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <!-- Filled by script; values are written here too so the page reads without JavaScript -->
-          <div class="glass rounded-2xl p-4"><dt class="text-xs text-mist">Puissance</dt><dd class="num mt-1 text-2xl font-bold" data-k="kw">160 <small class="font-mono text-xs text-mist">kW</small></dd></div>
-          <div class="glass rounded-2xl p-4"><dt class="text-xs text-mist">Vitesse</dt><dd class="num mt-1 text-2xl font-bold" data-k="kn">60 <small class="font-mono text-xs text-mist">nœuds</small></dd></div>
-          <div class="glass rounded-2xl p-4"><dt class="text-xs text-mist">Batterie</dt><dd class="num mt-1 text-2xl font-bold" data-k="kwh">35 <small class="font-mono text-xs text-mist">kWh</small></dd></div>
-          <div class="glass rounded-2xl p-4"><dt class="text-xs text-mist">Recharge DC</dt><dd class="num mt-1 text-2xl font-bold" data-k="dc">70 <small class="font-mono text-xs text-mist">kW</small></dd></div>
-          <div class="glass rounded-2xl p-4"><dt class="text-xs text-mist">Masse</dt><dd class="num mt-1 text-2xl font-bold" data-k="kg">≈ 350 <small class="font-mono text-xs text-mist">kg</small></dd></div>
-          <div class="glass rounded-2xl p-4"><dt class="text-xs text-mist">Carène</dt><dd class="mt-1 text-lg font-bold" data-k="hull">Carbone</dd></div>
-        </dl>
-        <p class="mt-4 flex flex-wrap gap-2 font-mono text-[11px] text-mist">
-          <span class="rounded-full border border-white/15 px-3 py-1">CE · 2013/53/UE</span>
-          <span class="rounded-full border border-white/15 px-3 py-1">ISO 16315</span>
-          <span class="rounded-full border border-white/15 px-3 py-1">ISO 13297</span>
-          <span class="rounded-full border border-white/15 px-3 py-1">CCS2</span>
-        </p>
+      <div>
+        
+  <p class="eyebrow">Pourquoi l'électrique</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Au mouillage, personne ne vous entend arriver.</h2>
+  <p class="mt-5 max-w-2xl text-brume sm:text-lg">Ports, criques et plages privées deviennent exigeants sur le bruit et la pollution. IRUKA ne laisse ni odeur, ni fumée, ni irisation sur l'eau, et n'embarque pas un litre d'essence dans le garage du yacht.</p>
+        <ul class="mt-8 grid gap-4 sm:grid-cols-3">
+          <li class="glass rounded-2xl p-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5 text-lagoon" aria-hidden="true"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /> <line x1="22" x2="16" y1="9" y2="15" /> <line x1="16" x2="22" y1="9" y2="15" /></svg><p class="mt-3 font-semibold">Silence</p><p class="mt-1 text-sm text-brume">Plus de moteur thermique, seulement le jet.</p></li>
+          <li class="glass rounded-2xl p-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5 text-lagoon" aria-hidden="true"><line x1="3" x2="15" y1="22" y2="22" /> <line x1="4" x2="14" y1="9" y2="9" /> <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18" /> <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5" /></svg><p class="mt-3 font-semibold">Zéro essence</p><p class="mt-1 text-sm text-brume">Plus simple pour l'équipage et l'assureur.</p></li>
+          <li class="glass rounded-2xl p-5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5 text-lagoon" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg><p class="mt-3 font-semibold">Eau propre</p><p class="mt-1 text-sm text-brume">Batterie traçable, prévue pour une seconde vie.</p></li>
+        </ul>
       </div>
-      <figure class="zoom relative min-w-0 overflow-hidden rounded-3xl">
-        <img id="irukaImg" src="assets/iruka-side.jpg" alt="IRUKA vu de profil sur une mer calme" class="aspect-[4/3] w-full object-cover" loading="lazy">
-        <figcaption id="irukaCap" class="glass absolute bottom-4 left-4 rounded-full px-4 py-2 font-mono text-[11px]">Visuel de conception · IRUKA</figcaption>
-      </figure>
+      
+  <figure class="zoom relative overflow-hidden rounded-3xl ">
+    <img src="assets/img/s300-real-side.jpg" alt="Le S300 à l'arrêt sur une mer bleu profond" class="aspect-[4/3] h-full w-full object-cover" loading="lazy">
+    <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">Photo réelle · S300</figcaption>
+  </figure>
     </div>
   </section>
 
-  <!-- ========== DETAIL EXPLORER ========== -->
-  <section id="details" class="gutter py-20 sm:py-28" aria-labelledby="details-title">
+  <!-- 4. IRUKA in three details -->
+  <section class="gutter pb-20 sm:pb-28">
     <div class="mx-auto max-w-7xl">
       <div class="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p class="eyebrow">Finitions de série</p>
-          <h2 id="details-title" class="mt-4 max-w-2xl text-3xl font-extrabold sm:text-5xl">Aucune option à cocher pour se démarquer sur l'eau.</h2>
-        </div>
+  <p class="eyebrow">IRUKA</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Trois détails qui disent tout.</h2>
+  </div>
+        <a href="iruka.html" class="inline-flex items-center gap-2 text-sm font-semibold text-lagoon">Voir la fiche technique <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a>
       </div>
-      <div class="mt-12 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
-        <div class="grid grid-cols-2 gap-3 self-start sm:grid-cols-3 lg:grid-cols-2" role="tablist" aria-label="Détails IRUKA">
-          <!-- Tabs generated by script from the DETAILS list -->
-        </div>
-        <div class="glass relative min-w-0 overflow-hidden rounded-3xl">
-          <div id="detailSvg" class="aspect-[16/9] w-full" hidden>
-            <!-- Dashcam coverage drawn in SVG: top view of IRUKA with front and rear camera fields of view -->
-            <svg viewBox="0 0 640 360" class="h-full w-full" role="img" aria-label="Vue de dessus d'IRUKA avec les champs de vision des caméras avant et arrière">
-              <defs>
-                <radialGradient id="fovF" cx="0" cy="0.5" r="1"><stop offset="0" stop-color="#2EE6A8" stop-opacity=".55"/><stop offset="1" stop-color="#2EE6A8" stop-opacity="0"/></radialGradient>
-                <radialGradient id="fovR" cx="1" cy="0.5" r="1"><stop offset="0" stop-color="#0FA3B1" stop-opacity=".55"/><stop offset="1" stop-color="#0FA3B1" stop-opacity="0"/></radialGradient>
-                <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="rgba(159,179,188,.08)"/></pattern>
-              </defs>
-              <rect width="640" height="360" fill="#081720"/><rect width="640" height="360" fill="url(#grid)"/>
-              <path class="fov" d="M430 180 L640 40 L640 320 Z" fill="url(#fovF)"/>
-              <path class="fov" d="M210 180 L0 60 L0 300 Z" fill="url(#fovR)"/>
-              <path d="M215 150 Q215 132 240 130 L360 128 Q420 128 448 160 Q458 180 448 200 Q420 232 360 232 L240 230 Q215 228 215 210 Z" fill="#0F2633" stroke="#9FB3BC" stroke-width="1.5"/>
-              <path d="M262 160 Q262 150 274 150 L340 150 Q352 150 352 162 L352 198 Q352 210 340 210 L274 210 Q262 210 262 200 Z" fill="#132f3e" stroke="rgba(159,179,188,.5)"/>
-              <path d="M372 148 L392 140 M372 212 L392 220" stroke="#F6F8F7" stroke-width="4" stroke-linecap="round"/>
-              <circle cx="436" cy="180" r="7" fill="#2EE6A8"/><circle cx="436" cy="180" r="13" fill="none" stroke="#2EE6A8" opacity=".5"/>
-              <circle cx="222" cy="180" r="7" fill="#0FA3B1"/><circle cx="222" cy="180" r="13" fill="none" stroke="#0FA3B1" opacity=".5"/>
-              <text x="560" y="186" fill="#F6F8F7" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="middle">AVANT</text>
-              <text x="80" y="186" fill="#F6F8F7" font-family="JetBrains Mono, monospace" font-size="14" text-anchor="middle">ARRIÈRE</text>
-              <g font-family="JetBrains Mono, monospace" font-size="12" fill="#9FB3BC"><circle cx="28" cy="30" r="5" fill="#FF5A5F"><animate attributeName="opacity" values="1;.2;1" dur="1.6s" repeatCount="indefinite"/></circle><text x="42" y="34">REC · enregistrement en continu</text></g>
-            </svg>
-          </div>
-          <img id="detailImg" src="assets/detail-led.jpg" alt="" class="aspect-[16/9] w-full object-cover transition-opacity duration-500">
-          <div class="p-6">
-            <h3 id="detailTitle" class="text-xl font-bold">Signature lumineuse LED</h3>
-            <p id="detailText" class="mt-2 text-mist">Une signature avant et arrière reconnaissable de loin, de jour comme de nuit.</p>
-          </div>
-        </div>
-      </div>
-      <ul class="mt-8 grid gap-3 text-sm text-mist sm:grid-cols-2 lg:grid-cols-4">
-        <li class="flex items-center gap-2"><i data-lucide="speaker" class="h-4 w-4 text-lagoon"></i>Système audio</li>
-        <li class="flex items-center gap-2"><i data-lucide="map" class="h-4 w-4 text-lagoon"></i>Écran HD, GPS, antivol</li>
-        <li class="flex items-center gap-2"><i data-lucide="radio-tower" class="h-4 w-4 text-lagoon"></i>Télématique connectée</li>
-        <li class="flex items-center gap-2"><i data-lucide="refresh-cw" class="h-4 w-4 text-lagoon"></i>Mises à jour à distance</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ========== DAY PLANNER (signature interactive) ========== -->
-  <section id="journee" class="gutter py-20 sm:py-28" aria-labelledby="day-title">
-    <div class="mx-auto max-w-7xl">
-      <p class="eyebrow">Simulateur</p>
-      <h2 id="day-title" class="mt-4 max-w-3xl text-3xl font-extrabold sm:text-5xl">Votre journée sur l'eau, recharge comprise.</h2>
-      <p class="mt-5 max-w-2xl text-mist">Réglez vos sorties. Le simulateur place les recharges rapides DC quand la batterie le demande et vous montre combien de sorties tiennent entre l'ouverture et la fermeture du ponton.</p>
-
-      <div class="mt-10 grid gap-6 lg:grid-cols-[22rem_1fr]">
-        <form id="dayForm" class="glass grid gap-6 rounded-3xl p-6" onsubmit="return false">
-          <div>
-            <label for="sessLen" class="flex justify-between text-sm font-semibold">Durée d'une sortie <output id="sessLenOut" class="num font-mono text-lagoon">60 min</output></label>
-            <input id="sessLen" type="range" min="20" max="120" step="10" value="60" class="mt-3">
-          </div>
-          <div>
-            <label for="gap" class="flex justify-between text-sm font-semibold">Pause entre deux sorties <output id="gapOut" class="num font-mono text-lagoon">10 min</output></label>
-            <input id="gap" type="range" min="5" max="30" step="5" value="10" class="mt-3">
-          </div>
-          <div>
-            <label for="open" class="flex justify-between text-sm font-semibold">Ouverture du ponton <output id="openOut" class="num font-mono text-lagoon">9 h – 18 h</output></label>
-            <input id="open" type="range" min="6" max="12" step="1" value="9" class="mt-3">
-          </div>
-          <fieldset>
-            <legend class="text-sm font-semibold">Usage</legend>
-            <div class="mt-3 grid grid-cols-2 gap-2 text-sm">
-              <label class="glass flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2"><input type="radio" name="use" id="usePrivate" value="private" class="accent-[#2EE6A8]"> Privé</label>
-              <label class="glass flex cursor-pointer items-center gap-2 rounded-xl px-3 py-2"><input type="radio" name="use" id="useFleet" value="fleet" checked class="accent-[#2EE6A8]"> Location</label>
-            </div>
-          </fieldset>
-          <p class="text-xs leading-relaxed text-mist">Hypothèses : 2,5 h d'autonomie en usage mixte, recharge DC 70 kW d'environ 30 min, réserve de sécurité de 10 %. Estimation indicative, à confirmer par les essais.</p>
-        </form>
-
-        <div class="glass min-w-0 rounded-3xl p-6">
-          <div class="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p class="text-sm text-mist">Sorties dans la journée</p>
-              <p class="num text-5xl font-extrabold"><span id="sessCount">6</span> <span class="text-base font-semibold text-mist">sorties</span></p>
-            </div>
-            <div class="flex gap-6 text-sm">
-              <div><p class="text-mist">Sur l'eau</p><p class="num font-mono text-lg" id="onWater">6 h 00</p></div>
-              <div><p class="text-mist">Recharges</p><p class="num font-mono text-lg" id="charges">2</p></div>
-            </div>
-          </div>
-          <div class="mt-6 overflow-x-auto">
-            <svg id="dayChart" viewBox="0 0 800 260" class="h-auto w-full min-w-[560px]" role="img" aria-label="Niveau de batterie au fil de la journée"></svg>
-          </div>
-          <div class="mt-3 flex flex-wrap gap-5 text-xs text-mist">
-            <span class="flex items-center gap-2"><span class="h-2.5 w-5 rounded-full" style="background:var(--lagoon)"></span>Sortie</span>
-            <span class="flex items-center gap-2"><span class="h-2.5 w-5 rounded-full" style="background:var(--lime)"></span>Recharge DC</span>
-            <span class="flex items-center gap-2"><span class="h-2.5 w-5 rounded-full bg-white/20"></span>Pause</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== RANGE ========== -->
-  <section id="gamme" class="gutter py-20 sm:py-28" aria-labelledby="range-title">
-    <div class="mx-auto max-w-7xl">
-      <p class="eyebrow">Une plateforme, une gamme</p>
-      <h2 id="range-title" class="mt-4 max-w-3xl text-3xl font-extrabold sm:text-5xl">Pour les propriétaires, les flottes et les yachts.</h2>
-
       <div class="mt-12 grid gap-4 md:grid-cols-3">
-        <article class="glass lift zoom overflow-hidden rounded-3xl">
-          <img src="assets/iruka-front.jpg" alt="IRUKA vu de face" class="aspect-[16/10] w-full object-cover" loading="lazy">
-          <div class="p-6">
-            <p class="font-mono text-[11px] text-lagoon">01 · PROPRIÉTAIRES</p>
-            <h3 class="mt-2 text-xl font-bold">IRUKA</h3>
-            <p class="mt-2 text-sm text-mist">La silhouette pure, la version la plus légère et la plus agile de la gamme.</p>
-            <p class="mt-4 text-sm">À partir de <strong class="num">35 990 € HT</strong></p>
-          </div>
-        </article>
-        <article class="glass lift zoom overflow-hidden rounded-3xl">
-          <img src="assets/iruka-floats.jpg" alt="IRUKA Fleet avec son boudin gonflable, plusieurs vues" class="aspect-[16/10] w-full object-cover" loading="lazy">
-          <div class="p-6">
-            <p class="font-mono text-[11px] text-lagoon">02 · FLOTTES ET YACHTS</p>
-            <h3 class="mt-2 text-xl font-bold">IRUKA Fleet</h3>
-            <p class="mt-2 text-sm text-mist">Boudin gonflable, stable même à l'arrêt. Protège coques, pontons et baigneurs.</p>
-            <p class="num mt-4 font-mono text-xs text-mist">330 × 145 cm</p>
-          </div>
-        </article>
-        <article class="glass lift zoom overflow-hidden rounded-3xl">
-          <img src="assets/charging-station.jpg" alt="Ponton de recharge flottant avec plusieurs IRUKA amarrés" class="aspect-[16/10] w-full object-cover" loading="lazy">
-          <div class="p-6">
-            <p class="font-mono text-[11px] text-lime">03 · ÉNERGIE</p>
-            <h3 class="mt-2 text-xl font-bold">Station de recharge flottante</h3>
-            <p class="mt-2 text-sm text-mist">Deux chargeurs rapides DC, un écran de contrôle et un tampon de batteries de seconde vie.</p>
-          </div>
-        </article>
+        <article>
+  <figure class="zoom relative overflow-hidden rounded-3xl ">
+    <img src="assets/img/s300-real-bow.jpg" alt="L'étrave du S300 fend l'eau" class="aspect-[4/5] h-full w-full object-cover" loading="lazy">
+    <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">Photo réelle</figcaption>
+  </figure><h3 class="mt-4 font-display text-xl font-semibold">Une étrave taillée pour la mer</h3><p class="mt-1 text-sm text-brume">Plus de 200 heures de navigation sur le prototype.</p></article>
+        <article>
+  <figure class="zoom relative overflow-hidden rounded-3xl ">
+    <img src="assets/img/s300-real-ccs2.jpg" alt="Prise de recharge rapide CCS2 sous la trappe avant" class="aspect-[4/5] h-full w-full object-cover" loading="lazy">
+    <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">Photo réelle</figcaption>
+  </figure><h3 class="mt-4 font-display text-xl font-semibold">La prise des voitures électriques</h3><p class="mt-1 text-sm text-brume">Recharge rapide CCS2 sur les bornes DC des marinas.</p></article>
+        <article>
+  <figure class="zoom relative overflow-hidden rounded-3xl ">
+    <img src="assets/img/detail-led.jpg" alt="Signature lumineuse LED d'IRUKA" class="aspect-[4/5] h-full w-full object-cover" loading="lazy">
+    <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">Rendu</figcaption>
+  </figure><h3 class="mt-4 font-display text-xl font-semibold">Une signature reconnaissable de loin</h3><p class="mt-1 text-sm text-brume">LED avant et arrière, de jour comme de nuit.</p></article>
       </div>
-
-      <!-- Fleet pack strip -->
-      <div class="glass mt-4 grid gap-6 rounded-3xl p-6 sm:grid-cols-[1.4fr_repeat(3,1fr)] sm:items-center">
-        <div><p class="font-mono text-[11px] text-lagoon">LE PACK FLOTTE</p><p class="mt-2 font-semibold">Machines, recharge, données et financement, clés en main pour resorts, charters et bases de location.</p></div>
-        <div><p class="num text-3xl font-extrabold">≈ 6</p><p class="text-xs text-mist">sorties par jour et par machine</p></div>
-        <div><p class="num text-3xl font-extrabold">≈ 30 min</p><p class="text-xs text-mist">de recharge entre deux sorties</p></div>
-        <div><p class="num text-3xl font-extrabold">&lt; 2</p><p class="text-xs text-mist">saisons pour amortir l'écart de prix</p></div>
-      </div>
-
-      <!-- Use cases -->
-      <div class="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <figure class="zoom relative overflow-hidden rounded-3xl"><img src="assets/use-fleet.jpg" alt="Flotte de location à quai" class="aspect-[4/3] w-full object-cover" loading="lazy"><figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/90 p-4 text-sm font-semibold">Location</figcaption></figure>
-        <figure class="zoom relative overflow-hidden rounded-3xl"><img src="assets/use-private.jpg" alt="Pilote privé en mer" class="aspect-[4/3] w-full object-cover" loading="lazy"><figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/90 p-4 text-sm font-semibold">Propriétaires</figcaption></figure>
-        <figure class="zoom relative overflow-hidden rounded-3xl"><img src="assets/use-yacht.jpg" alt="IRUKA dans le garage d'un yacht" class="aspect-[4/3] w-full object-cover" loading="lazy"><figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/90 p-4 text-sm font-semibold">Yachts et charters</figcaption></figure>
-        <figure class="zoom relative overflow-hidden rounded-3xl"><img src="assets/use-safety.jpg" alt="Jet-ski de sécurité escortant un semi-rigide" class="aspect-[4/3] w-full object-cover" loading="lazy"><figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-abyss/90 p-4 text-sm font-semibold">Sécurité et course</figcaption></figure>
-      </div>
-      <p class="mt-3 font-mono text-[11px] text-mist/80">Visuels de concept, non contractuels.</p>
     </div>
   </section>
 
-  <!-- ========== HULL CFD ========== -->
-  <section id="carene" class="gutter py-20 sm:py-28" aria-labelledby="hull-title">
-    <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_1.2fr]">
-      <div class="min-w-0">
-        <p class="eyebrow">Ingénierie</p>
-        <h2 id="hull-title" class="mt-4 text-3xl font-extrabold sm:text-5xl">Chaque kWh gagné commence sous la coque.</h2>
-        <p class="mt-5 text-mist">Avant de fabriquer le moule, la carène est simulée en mécanique des fluides à vitesse de déjaugeage. Faites glisser le curseur pour passer de la surface mouillée aux pressions sur le fond.</p>
-        <ol class="mt-8 grid gap-5">
-          <li class="flex gap-4"><span class="num grid h-8 w-8 shrink-0 place-items-center rounded-full border border-lagoon/50 font-mono text-sm text-lagoon">1</span><div><h3 class="font-bold">Moins de surface mouillée</h3><p class="text-sm text-mist">En déjaugeage, seul l'arrière de la coque touche l'eau. L'avant court à sec.</p></div></li>
-          <li class="flex gap-4"><span class="num grid h-8 w-8 shrink-0 place-items-center rounded-full border border-lagoon/50 font-mono text-sm text-lagoon">2</span><div><h3 class="font-bold">La portance là où il faut</h3><p class="text-sm text-mist">La pression se concentre derrière la ligne d'embruns, là où la coque porte.</p></div></li>
-          <li class="flex gap-4"><span class="num grid h-8 w-8 shrink-0 place-items-center rounded-full border border-lagoon/50 font-mono text-sm text-lagoon">3</span><div><h3 class="font-bold">Plus d'autonomie</h3><p class="text-sm text-mist">Moins de traînée, moins d'énergie par heure : le premier levier de l'autonomie IRUKA.</p></div></li>
-        </ol>
-      </div>
-      <figure class="min-w-0">
-        <div id="wipe" class="wipe glass aspect-[16/10] rounded-3xl" style="--x:50%">
-          <img src="assets/cfd-water.jpg" alt="Fraction d'eau sur le fond de coque, simulation CFD" class="absolute inset-0 h-full w-full object-contain p-4" style="background:#bfeffb" loading="lazy">
-          <div class="top"><img src="assets/cfd-pressure.jpg" alt="Pression sur le fond de coque, simulation CFD" class="absolute inset-0 h-full w-full object-contain p-4" style="background:#80e0f8" loading="lazy"></div>
-          <div class="bar"></div>
-          <div class="knob grid h-11 w-11 place-items-center rounded-full bg-foam text-abyss shadow-xl"><i data-lucide="move-horizontal" class="h-5 w-5"></i></div>
-          <label for="wipeRange" class="sr-only">Comparer pression et surface mouillée</label>
-          <input id="wipeRange" type="range" min="0" max="100" value="50" class="absolute inset-0 h-full w-full cursor-ew-resize opacity-0">
+  <!-- 5. Yachts and fleets -->
+  <section class="gutter">
+    <div class="panel mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] lg:grid-cols-2">
+      <div class="p-8 sm:p-14">
+        
+  <p class="eyebrow">Pour votre yacht et votre flotte</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Le tender qui ne réveille personne.</h2>
+  
+        <div class="mt-10 grid gap-8 sm:grid-cols-2">
+          <div><p class="eyebrow-sand">Yachts et charters</p><p class="mt-3 text-brume">Rangé dans le garage sans essence à bord, rechargé en 30 minutes, prêt pour les invités au mouillage.</p></div>
+          <div><p class="eyebrow-sand">Hôtels, clubs, loueurs</p><p class="mt-3 text-brume">Une flotte connectée, environ six sorties par jour et par machine, recharge comprise.</p></div>
         </div>
-        <figcaption class="mt-3 flex justify-between font-mono text-[11px] text-mist"><span>← Pression sur le fond</span><span>Surface mouillée →</span></figcaption>
-      </figure>
+        <div class="mt-10"><a href="yachts-flottes.html"  class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Parler à un conseiller <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a></div>
+      </div>
+      <img src="assets/img/use-yacht.jpg" alt="IRUKA dans le garage d'un yacht" class="h-72 w-full object-cover lg:h-full" loading="lazy">
     </div>
+    <p class="mx-auto mt-3 max-w-7xl tag text-brume/80">Rendu</p>
   </section>
 
-  <!-- ========== LAUNCH EDITION ========== -->
-  <!-- ========== BOOKING ========== -->
-  <!-- Booking request flow (no payment, no deposit). Requests are sent to BOOKING.endpoint. -->
-  <section id="reserver" class="gutter py-20 sm:py-28" aria-labelledby="book-title">
+  <!-- 6. Express booking -->
+  <section class="gutter py-20 sm:py-28">
     <div class="mx-auto max-w-7xl">
-      <p class="eyebrow">Réservation </p>
-      <h2 id="book-title" class="mt-4 max-w-3xl text-3xl font-extrabold sm:text-5xl">Prenez la barre. <span class="grad-text">Réservez votre essai.</span></h2>
-      <p class="mt-5 max-w-2xl text-mist">Un essai en mer accompagné, une présentation privée ou une demande de réservation Launch Edition. Essais et présentations sans paiement : l'équipe E-Dolphin confirme chaque demande personnellement. La Launch Edition se réserve avec un acompte sécurisé.</p>
+      
+  <p class="eyebrow">Réservation</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Choisissez votre rendez-vous.</h2>
+  
+      <div class="mt-12 grid gap-4 md:grid-cols-3">
+        <a href="reserver.html?formule=essai" class="glass lift rounded-3xl p-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-6 w-6 text-lagoon" aria-hidden="true"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /> <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /> <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg><h3 class="mt-4 font-display text-xl font-semibold">Essai en mer</h3><p class="mt-1 text-sm text-brume">45 minutes accompagné, briefing compris.</p></a>
+        <a href="reserver.html?formule=presentation" class="glass lift rounded-3xl p-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-6 w-6 text-lagoon" aria-hidden="true"><path d="M12 22V8" /> <path d="M5 12H2a10 10 0 0 0 20 0h-3" /> <circle cx="12" cy="5" r="3" /></svg><h3 class="mt-4 font-display text-xl font-semibold">Présentation privée</h3><p class="mt-1 text-sm text-brume">1 heure, à quai ou à bord de votre yacht.</p></a>
+        <a href="reserver.html?formule=launch" class="glass lift rounded-3xl p-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-6 w-6 text-sand" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z" /> <path d="M11 3 8 9l4 13 4-13-3-6" /> <path d="M2 9h20" /></svg><h3 class="mt-4 font-display text-xl font-semibold">Launch Edition</h3><p class="mt-1 text-sm text-brume">Demande de réservation, 300 exemplaires.</p></a>
+      </div>
+      <div class="mt-6 flex flex-wrap items-center gap-2 text-sm">
+        <span class="mr-2 text-brume">Lieux :</span>
+        <span class="glass rounded-full px-4 py-2">Monaco</span><span class="glass rounded-full px-4 py-2">Antibes</span><span class="glass rounded-full px-4 py-2">Saint-Tropez</span><span class="glass rounded-full px-4 py-2">À bord de votre yacht</span><span class="glass rounded-full px-4 py-2 text-brume">Lac d'Annecy · présentation à quai</span>
+      </div>
+      <div class="mt-8"><a href="reserver.html"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Choisir une date <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg></a></div>
+    </div>
+  </section>
 
-      <div class="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <form id="booking" class="glass grid gap-8 rounded-3xl p-5 sm:p-8" novalidate>
-          <!-- Step 1: type -->
-          <fieldset class="grid gap-3">
-            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">1</span>Que souhaitez-vous réserver ?</legend>
-            <div class="grid gap-3 sm:grid-cols-3" id="bkTypes">
-              <label class="bk-opt glass lift cursor-pointer rounded-2xl p-4"><input type="radio" name="type" value="essai" class="sr-only" checked>
-                <i data-lucide="waves" class="h-5 w-5 text-lagoon"></i><span class="mt-3 block font-bold">Essai en mer</span><span class="mt-1 block text-sm text-mist">45 min accompagné, briefing compris</span></label>
-              <label class="bk-opt glass lift cursor-pointer rounded-2xl p-4"><input type="radio" name="type" value="presentation" class="sr-only">
-                <i data-lucide="anchor" class="h-5 w-5 text-lagoon"></i><span class="mt-3 block font-bold">Présentation privée</span><span class="mt-1 block text-sm text-mist">1 h, à quai ou à bord de votre yacht</span></label>
-              <label class="bk-opt glass lift cursor-pointer rounded-2xl p-4"><input type="radio" name="type" value="launch" class="sr-only">
-                <i data-lucide="gem" class="h-5 w-5 text-lagoon"></i><span class="mt-3 block font-bold">Launch Edition</span><span class="mt-1 block text-sm text-mist">Demande de réservation, sans acompte</span></label>
-            </div>
-          </fieldset>
-
-          <!-- Step 2: place -->
-          <fieldset class="grid gap-3">
-            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">2</span>Où ?</legend>
-            <div class="flex flex-wrap gap-2" id="bkPlaces">
-              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Monaco · Port Hercule" class="sr-only" checked>Monaco · Port Hercule</label>
-              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Antibes · Port Vauban" class="sr-only">Antibes · Port Vauban</label>
-              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Saint-Tropez" class="sr-only">Saint-Tropez</label>
-              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm" data-no-trial><input type="radio" name="place" value="Lac d'Annecy" class="sr-only">Lac d'Annecy · présentation à quai</label>
-              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="À bord de mon yacht" class="sr-only">À bord de mon yacht</label>
-            </div>
-            <p class="font-mono text-[11px] text-mist/80">Lieux d'essai proposés, confirmés avec vous selon la saison et les autorisations locales.</p>
-          </fieldset>
-
-          <!-- Step 3: date and slot -->
-          <fieldset class="grid gap-3" id="bkWhen">
-            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">3</span>Quand ?</legend>
-            <div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-              <div class="glass rounded-2xl p-4">
-                <div class="flex items-center justify-between">
-                  <button type="button" id="calPrev" class="glass rounded-full p-2" aria-label="Mois précédent"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
-                  <p id="calTitle" class="font-bold capitalize"></p>
-                  <button type="button" id="calNext" class="glass rounded-full p-2" aria-label="Mois suivant"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
-                </div>
-                <div class="mt-4 grid grid-cols-7 gap-1 text-center font-mono text-[11px] text-mist" aria-hidden="true"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
-                <div id="calGrid" class="mt-1 grid grid-cols-7 gap-1" role="grid" aria-label="Choisir une date"></div>
-                <p class="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] text-mist"><span><i class="mr-1 inline-block h-2 w-2 rounded-full bg-lagoon"></i>disponible</span><span><i class="mr-1 inline-block h-2 w-2 rounded-full bg-white/20"></i>complet ou fermé</span></p>
-              </div>
-              <div>
-                <p class="text-sm text-mist" id="slotHint">Choisissez une date pour voir les créneaux.</p>
-                <div id="slots" class="mt-3 grid grid-cols-3 gap-2"></div>
-                <p class="mt-3 font-mono text-[11px] text-mist/80">Disponibilités indicatives, confirmées par l'équipe.</p>
-              </div>
-            </div>
-          </fieldset>
-
-          <!-- Step 4: contact -->
-          <fieldset class="grid gap-4">
-            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">4</span>Vos coordonnées</legend>
-            <div class="grid gap-4 sm:grid-cols-2">
-              <div><label for="bkName" class="text-sm text-mist">Nom</label><input id="bkName" name="name" required autocomplete="name" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
-              <div><label for="bkEmail" class="text-sm text-mist">E-mail</label><input id="bkEmail" name="email" type="email" required autocomplete="email" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
-              <div><label for="bkPhone" class="text-sm text-mist">Téléphone</label><input id="bkPhone" name="phone" type="tel" required autocomplete="tel" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
-              <div><label for="bkPeople" class="text-sm text-mist">Personnes</label>
-                <select id="bkPeople" name="people" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"><option value="1">1 pilote</option><option value="2">1 pilote + 1 passager</option><option value="3">Groupe (3 et plus)</option></select></div>
-            </div>
-            <div id="bkLaunchFields" class="grid gap-4 sm:grid-cols-2" hidden>
-              <div><label for="bkLivery" class="text-sm text-mist">Livrée souhaitée</label>
-                <select id="bkLivery" name="livery" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"><option>Blanc · noir · lime</option><option>Gris · rouge</option><option>Predator</option><option>Magma</option><option>Wasp</option><option>Je ne sais pas encore</option></select></div>
-              <div><label for="bkUnits" class="text-sm text-mist">Nombre d'unités</label><input id="bkUnits" name="units" type="number" min="1" max="20" value="1" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
-              <div class="glass rounded-2xl p-4 sm:col-span-2">
-                <div class="flex flex-wrap items-center justify-between gap-3">
-                  <div><p class="font-bold">Acompte de réservation</p><p class="mt-1 text-sm text-mist">Montant : <span id="depAmount" class="text-foam">communiqué à l'ouverture</span> · paiement sécurisé Stripe</p></div>
-                  <span class="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1 font-mono text-[11px] text-mist"><i data-lucide="lock" class="h-3.5 w-3.5"></i>Bientôt disponible</span>
-                </div>
-                <p class="mt-3 text-xs text-mist">Votre demande réserve votre place dans la file. Le lien de paiement de l'acompte vous sera proposé dès l'ouverture.</p>
-              </div>
-            </div>
-            <label class="flex items-start gap-3 text-sm text-mist"><input id="bkLicence" type="checkbox" name="licence" class="mt-1 accent-[#2EE6A8]">J'ai un permis bateau (sinon, l'essai se fait avec un pilote E-Dolphin)</label>
-            <div><label for="bkMsg" class="text-sm text-mist">Message (facultatif)</label><textarea id="bkMsg" name="message" rows="3" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></textarea></div>
-            <label class="flex items-start gap-3 text-sm text-mist"><input id="bkConsent" type="checkbox" required class="mt-1 accent-[#2EE6A8]">J'accepte d'être recontacté au sujet de ma demande. Mes données ne servent qu'à cette réservation.</label>
-          </fieldset>
-
-          <div class="flex flex-wrap items-center gap-4">
-            <button class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-bold" type="submit">Envoyer ma demande <i data-lucide="calendar-check" class="h-4 w-4"></i></button>
-            <p id="bkErr" class="text-sm text-[#FFB4A8]" role="alert"></p>
-          </div>
-        </form>
-
-        <!-- Live summary / confirmation -->
-        <aside class="lg:sticky lg:top-24 lg:self-start" aria-live="polite">
-          <div id="bkSummary" class="glass rounded-3xl p-6">
-            <p class="eyebrow">Récapitulatif</p>
-            <dl class="mt-5 grid gap-4 text-sm">
-              <div><dt class="text-mist">Formule</dt><dd id="sumType" class="mt-1 font-bold">Essai en mer</dd></div>
-              <div><dt class="text-mist">Lieu</dt><dd id="sumPlace" class="mt-1 font-bold">Monaco · Port Hercule</dd></div>
-              <div><dt class="text-mist">Date et heure</dt><dd id="sumWhen" class="mt-1 font-bold">À choisir</dd></div>
-              <div><dt class="text-mist">Durée</dt><dd id="sumDur" class="mt-1 font-bold">45 min</dd></div>
-              <div><dt class="text-mist">Paiement</dt><dd id="sumPay" class="mt-1 font-bold text-lagoon">Aucun · confirmation par l'équipe</dd></div>
-            </dl>
-            <p class="mt-6 border-t border-white/10 pt-4 text-xs text-mist">Gilet, briefing sécurité et bracelet de retour au pilote fournis. Annulation gratuite à tout moment.</p>
-          </div>
-          <div id="bkDone" class="glass rounded-3xl p-6" hidden>
-            <i data-lucide="circle-check" class="h-8 w-8 text-lagoon"></i>
-            <h3 id="doneTitle" class="mt-4 text-xl font-bold">Demande envoyée</h3>
-            <p class="mt-2 text-sm text-mist">Référence <span id="doneRef" class="font-mono text-foam"></span></p>
-            <p id="doneText" class="mt-4 text-sm"></p>
-            <p id="doneNote" class="mt-3 text-xs text-mist"></p>
-            <div class="mt-6 flex flex-wrap gap-2">
-              <button type="button" id="depBtn" class="btn-primary inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold" hidden><i data-lucide="credit-card" class="h-4 w-4"></i><span id="depBtnTxt">Verser l'acompte</span></button>
-              <button type="button" id="icsBtn" class="glass lift inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"><i data-lucide="calendar-plus" class="h-4 w-4"></i>Ajouter à mon agenda</button>
-              <button type="button" id="bkAgain" class="glass lift inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"><i data-lucide="rotate-ccw" class="h-4 w-4"></i>Nouvelle demande</button>
-            </div>
-          </div>
-        </aside>
+  <!-- 7. Launch Edition -->
+  <section class="gutter">
+    <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-white/10">
+      <img src="assets/img/signature-veil.jpg" alt="Un jet-ski sous un voile dans un showroom" class="absolute inset-0 h-full w-full object-cover opacity-45" loading="lazy">
+      <div class="absolute inset-0 bg-gradient-to-r from-abyss via-abyss/85 to-abyss/20"></div>
+      <div class="relative max-w-2xl p-8 sm:p-14">
+        <p class="eyebrow-sand">Launch Edition</p>
+        <h2 class="mt-4 font-display text-3xl font-semibold sm:text-5xl">300 exemplaires numérotés.</h2>
+        <p class="mt-5 text-brume">La première série d'IRUKA, finitions signature et priorité de livraison.</p>
+        <p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1"><span class="num font-display text-3xl font-semibold">90 000 $ HT</span><span class="text-sm text-brume">Acompte de 30 %, ouverture prochaine</span></p>
+        <div class="mt-8"><a href="launch-edition.html"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Découvrir la Launch Edition <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a></div>
       </div>
     </div>
   </section>
 
-  <section id="launch" class="gutter py-20 sm:py-28" aria-labelledby="launch-title">
-    <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-white/10">
-      <img src="assets/signature-veil.jpg" alt="Un jet-ski sous un voile dans un showroom, avant sa présentation" class="absolute inset-0 h-full w-full object-cover opacity-50" loading="lazy">
-      <div class="absolute inset-0 bg-gradient-to-r from-abyss via-abyss/85 to-abyss/30"></div>
-      <div class="relative grid gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:p-14">
-        <div>
-          <p class="eyebrow">Launch Edition</p>
-          <h2 id="launch-title" class="mt-4 text-3xl font-extrabold sm:text-5xl">300 exemplaires. <span class="grad-text">Hiver 2027.</span></h2>
-          <p class="mt-5 max-w-md text-mist">La première série d'IRUKA, numérotée, pour les propriétaires et les yachts. Les 50 premières unités sont livrées dès l'été 2027.</p>
-          <p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1"><span class="num text-3xl font-extrabold">90 000 $ HT</span><span class="text-sm text-mist">Acompte de 30 % (27 000 $ HT) à l'ouverture des réservations</span></p>
-          <ul class="mt-6 grid gap-2 text-sm">
-            <li class="flex items-center gap-2"><i data-lucide="hash" class="h-4 w-4 text-lagoon"></i>Série limitée et numérotée</li>
-            <li class="flex items-center gap-2"><i data-lucide="sparkles" class="h-4 w-4 text-lagoon"></i>Finitions signature</li>
-            <li class="flex items-center gap-2"><i data-lucide="calendar-check" class="h-4 w-4 text-lagoon"></i>Priorité de livraison</li>
-          </ul>
-        </div>
-
-        <!-- Waitlist form: sent to BOOKING.endpoint in script -->
-        <form id="waitlist" class="glass grid gap-4 self-start rounded-3xl p-6" novalidate>
-          <h3 class="text-lg font-bold">Rejoindre la liste prioritaire</h3>
-          <div class="grid gap-4 sm:grid-cols-2">
-            <div><label for="wlName" class="text-sm text-mist">Nom</label><input id="wlName" name="name" required autocomplete="name" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
-            <div><label for="wlEmail" class="text-sm text-mist">E-mail</label><input id="wlEmail" name="email" type="email" required autocomplete="email" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
-          </div>
-          <div><label for="wlProfile" class="text-sm text-mist">Vous êtes</label>
-            <select id="wlProfile" name="profile" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon">
-              <option>Propriétaire privé</option><option>Yacht ou charter</option><option>Base de location ou resort</option><option>Revendeur</option>
-            </select>
-          </div>
-          <button class="btn-primary mt-1 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-bold" type="submit">Être recontacté <i data-lucide="send" class="h-4 w-4"></i></button>
-          <p id="wlMsg" class="text-sm" role="status" aria-live="polite"></p>
-        </form>
+  <!-- 8. Coming soon -->
+  <section class="gutter py-20 sm:py-28">
+    <div class="mx-auto max-w-7xl">
+      
+  <p class="eyebrow">Bientôt</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">La famille s'agrandit.</h2>
+  <p class="mt-5 max-w-2xl text-brume sm:text-lg">Deux projets en développement : les Tridens, des modèles trois places, et une gamme pensée pour les enfants.</p>
+      <div class="mt-12 grid gap-4 md:grid-cols-2">
+        <article>
+  <figure class="zoom relative overflow-hidden rounded-3xl ">
+    <img src="assets/img/tridens.jpg" alt="Concept Tridens, modèle trois places" class="aspect-[16/9] h-full w-full object-cover" loading="lazy">
+    <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">Rendu · concept</figcaption>
+  </figure><h3 class="mt-4 font-display text-xl font-semibold">Tridens</h3><p class="mt-1 text-sm text-brume">Trois places, trois coques. Bientôt.</p></article>
+        <article>
+  <figure class="zoom relative overflow-hidden rounded-3xl ">
+    <img src="assets/img/kids-echo.jpg" alt="Concept de jet-ski électrique pour enfants" class="aspect-[16/9] h-full w-full object-cover" loading="lazy">
+    <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">Rendu · concept</figcaption>
+  </figure><h3 class="mt-4 font-display text-xl font-semibold">Gamme enfants</h3><p class="mt-1 text-sm text-brume">Jet-skis et kart-boats pour les 6-12 ans, sous contrôle des parents. Bientôt.</p></article>
+      </div>
+    </div>
+  </section>
+  
+  <section class="gutter py-20 sm:py-28">
+    <div class="panel relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] p-8 sm:p-14">
+      <div class="rule-sand mb-8 w-40"></div>
+      <h2 class="max-w-2xl font-display text-3xl font-semibold sm:text-5xl">Le plus simple, c'est de prendre la barre.</h2>
+      <p class="mt-5 max-w-xl text-brume">Essai en mer de 45 minutes ou présentation privée d'une heure, à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht. Sans engagement, confirmé personnellement par notre équipe.</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="reserver.html"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Réserver un essai en mer <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg></a>
+        <a href="reserver.html?formule=presentation"  class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Demander une présentation privée <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M12 22V8" /> <path d="M5 12H2a10 10 0 0 0 20 0h-3" /> <circle cx="12" cy="5" r="3" /></svg></a>
       </div>
     </div>
   </section>
 </main>
 
-<!-- ========== FOOTER ========== -->
-<footer class="gutter border-t border-white/10 py-12">
-  <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 text-sm text-mist">
-    <div class="flex items-center gap-3 text-foam">
-      <svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg>
-      <span class="font-extrabold tracking-[.18em]">E-DOLPHIN</span>
+<footer class="gutter border-t border-white/10 pb-28 pt-14 sm:pb-14">
+  <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
+    <div>
+      <a href="./" class="inline-flex items-center gap-3"><svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg><span class="font-display font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
+      <p class="mt-4 max-w-xs text-sm text-brume">Jet-skis 100 % électriques de luxe, conçus et assemblés en France.</p>
     </div>
-    <p>Jet-skis électriques premium · conçus en France</p>
-    <a href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener" class="glass lift inline-flex items-center gap-2 rounded-full px-4 py-2 text-foam"><i data-lucide="instagram" class="h-4 w-4"></i>@_e_dolphin_</a>
+    <div>
+      <p class="eyebrow-sand">Le modèle</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="iruka.html">IRUKA</a></li>
+        <li><a class="hover:text-foam" href="launch-edition.html">Launch Edition</a></li>
+        <li><a class="hover:text-foam" href="experience.html">L'expérience</a></li>
+        <li><a class="hover:text-foam" href="maison.html">La maison</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Partenaires</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="yachts-flottes.html">Yachts et flottes</a></li>
+        <li><a class="hover:text-foam" href="reserver.html">Réserver un essai</a></li>
+        <li><a class="hover:text-foam" href="reserver.html#faq">Questions fréquentes</a></li>
+
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Suivre</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><circle cx="8" cy="18" r="4" /> <path d="M12 18V2l7 4" /></svg>TikTok</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>Instagram</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="en/" hreflang="en"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c3"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t3"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c3)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t3)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>English</a></li>
+      </ul>
+    </div>
   </div>
-  <p class="mx-auto mt-6 max-w-7xl font-mono text-[11px] text-mist/70">Caractéristiques IRUKA : objectifs de conception, à confirmer par les essais de validation 2027. Visuels de concept non contractuels.</p>
+  <form id="newsletter" class="mx-auto mt-12 grid max-w-7xl gap-4 rounded-3xl border border-white/10 p-6 sm:p-8 md:grid-cols-[1fr_1.2fr] md:items-center" novalidate>
+    <div>
+      <p class="eyebrow-sand">Newsletter</p>
+      <p class="mt-3 font-display text-xl font-semibold">Les premiers essais, les dates de livraison, les nouveaux modèles.</p>
+      <p class="mt-1 text-sm text-brume">Quelques e-mails par an, désinscription en un clic.</p>
+    </div>
+    <div>
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <label for="nlEmail" class="sr-only">E-mail</label>
+        <input id="nlEmail" type="email" required autocomplete="email" placeholder="votre@e-mail.com" class="field !mt-0 flex-1">
+        <button type="submit" class="btn-primary rounded-full px-6 py-3 font-semibold">S'inscrire</button>
+      </div>
+      <label class="mt-3 flex items-start gap-2 text-xs text-brume"><input id="nlConsent" type="checkbox" class="mt-0.5 accent-[#2EE6A8]">J'accepte de recevoir la newsletter E-Dolphin. Mon e-mail ne sert qu'à cet envoi.</label>
+      <p id="nlMsg" class="mt-2 text-sm" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+  <ul class="mx-auto mt-10 flex max-w-7xl flex-wrap gap-x-6 gap-y-2 text-xs text-brume">
+    <li><a class="hover:text-foam" href="mentions-legales.html">Mentions légales</a></li>
+    <li><a class="hover:text-foam" href="confidentialite.html">Confidentialité et cookies</a></li>
+    <li><a class="hover:text-foam" href="cgv.html">Conditions générales de vente</a></li>
+    <li>© 2026 E-Dolphin</li>
+  </ul>
+  <p class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-6 font-mono text-[11px] leading-relaxed text-brume/80">Site privé partagé avec nos partenaires. Caractéristiques IRUKA : objectifs de conception, confirmés par les essais de validation. Visuels marqués « Rendu » : images de synthèse non contractuelles.</p>
 </footer>
 
-<script>
-/* ---------- Boot ---------- */
-document.documentElement.classList.add('js');
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const $ = (s) => document.querySelector(s);
+<div id="cartShade" class="fixed inset-0 z-[55] bg-abyss/70 backdrop-blur-sm" hidden></div>
+<aside id="cart" class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-md flex-col border-l border-white/10 bg-deep" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <div class="flex items-center justify-between border-b border-white/10 p-5">
+    <h2 id="cartTitle" class="font-display text-xl font-semibold">Votre panier</h2>
+    <button type="button" id="cartClose" class="glass rounded-full p-2" aria-label="Fermer le panier"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+  </div>
+  <div id="cartItems" class="flex-1 overflow-y-auto p-5"></div>
+  <div class="border-t border-white/10 p-5">
+    <dl id="cartTotals" class="grid gap-1 text-sm"></dl>
+    <button type="button" class="btn-primary mt-4 w-full cursor-not-allowed rounded-full py-3.5 font-semibold opacity-45" disabled aria-describedby="payNote"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mr-1 inline h-4 w-4" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>Paiement en ligne</button>
+    <p id="payNote" class="mt-2 text-center text-xs text-brume">Paiement sécurisé bientôt disponible. En attendant, envoyez votre panier à notre équipe.</p>
+    <a href="boutique.html#demande" id="cartSend" class="btn-ghost mt-3 flex w-full items-center justify-center gap-2 rounded-full py-3 font-semibold">Envoyer ma demande <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg></a>
+  </div>
+</aside>
 
-window.addEventListener('load', () => document.body.classList.add('loaded'));
-lucide.createIcons();
-
-/* ---------- Header: glass on scroll + mobile menu ---------- */
-const header = $('#top');
-const onScroll = () => header.classList.toggle('scrolled', scrollY > 24);
-addEventListener('scroll', onScroll, { passive: true }); onScroll();
-
-const menuBtn = $('#menuBtn'), menu = $('#mobileMenu');
-menuBtn.addEventListener('click', () => {
-  const open = menu.hidden; menu.hidden = !open;
-  menuBtn.setAttribute('aria-expanded', String(open));
-});
-menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); }));
-
-/* ---------- Scroll reveal (content is visible without it) ---------- */
-const io = new IntersectionObserver((entries) => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
-document.querySelectorAll('.rise, section .glass, section figure').forEach(el => { el.classList.add('rise'); io.observe(el); });
-
-/* ---------- Hero: generative wake lines on canvas ---------- */
-(() => {
-  const c = $('#waves'), ctx = c.getContext('2d');
-  let w, h, t = 0, mx = .6;
-  const size = () => { const r = devicePixelRatio || 1; w = c.clientWidth; h = c.clientHeight; c.width = w * r; c.height = h * r; ctx.setTransform(r, 0, 0, r, 0, 0); };
-  size(); addEventListener('resize', size);
-  addEventListener('pointermove', e => { mx = e.clientX / innerWidth; }, { passive: true });
-  const draw = () => {
-    ctx.clearRect(0, 0, w, h);
-    for (let i = 0; i < 7; i++) {
-      ctx.beginPath();
-      const y0 = h * (.35 + i * .09), amp = 6 + i * 2.2;
-      for (let x = 0; x <= w; x += 8) {
-        const y = y0 + Math.sin(x * .006 + t * (.6 + i * .05) + i) * amp + Math.sin(x * .013 - t * .4) * amp * .4 * mx;
-        x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-      }
-      ctx.strokeStyle = `rgba(46,230,168,${.05 + i * .018})`; ctx.lineWidth = 1; ctx.stroke();
-    }
-    t += .012; if (!reduce) requestAnimationFrame(draw);
-  };
-  draw();
-})();
-
-/* ---------- Spec toggle: S300 prototype today vs IRUKA target ---------- */
-const SPECS = {
-  s300:  { kw: [120, 'kW'], kn: [50, 'nœuds'], kwh: [21, 'kWh'], dc: [50, 'kW'], kg: [400, 'kg'], hull: 'Prototype', img: 'assets/s300-prototype.jpg', alt: 'Le prototype S300 sur l\'eau', cap: 'Photo réelle · S300 · 200 h en mer' },
-  iruka: { kw: [160, 'kW'], kn: [60, 'nœuds'], kwh: [35, 'kWh'], dc: [70, 'kW'], kg: [350, 'kg', '≈ '], hull: 'Carbone', img: 'assets/iruka-side.jpg', alt: 'IRUKA vu de profil sur une mer calme', cap: 'Visuel de conception · IRUKA' }
-};
-function countTo(el, to, unit, prefix = '') {
-  const from = parseFloat(el.dataset.v || to), start = performance.now(), dur = reduce ? 0 : 700;
-  el.dataset.v = to;
-  const step = (now) => {
-    const p = dur ? Math.min(1, (now - start) / dur) : 1, e = 1 - Math.pow(1 - p, 3);
-    el.innerHTML = `${prefix}${Math.round(from + (to - from) * e)} <small class="font-mono text-xs text-mist">${unit}</small>`;
-    if (p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-}
-function showSpecs(key) {
-  const s = SPECS[key];
-  $('#segS300').setAttribute('aria-pressed', key === 's300');
-  $('#segIruka').setAttribute('aria-pressed', key === 'iruka');
-  for (const k of ['kw', 'kn', 'kwh', 'dc', 'kg']) countTo(document.querySelector(`[data-k="${k}"]`), s[k][0], s[k][1], s[k][2] || '');
-  document.querySelector('[data-k="hull"]').textContent = s.hull;
-  const img = $('#irukaImg'); img.src = s.img; img.alt = s.alt; $('#irukaCap').textContent = s.cap;
-}
-$('#segS300').addEventListener('click', () => showSpecs('s300'));
-$('#segIruka').addEventListener('click', () => showSpecs('iruka'));
-
-/* ---------- Detail explorer ---------- */
-const DETAILS = [
-  { icon: 'lightbulb', title: 'Signature lumineuse LED', text: 'Une signature avant et arrière reconnaissable de loin, de jour comme de nuit.', img: 'detail-led' },
-  { icon: 'layers', title: 'Inserts carbone', text: 'Du carbone apparent sur les zones de contact, léger et rigide.', img: 'detail-carbon' },
-  { icon: 'armchair', title: 'Selle sport confort', text: 'Maintien latéral pour le pilotage sportif, coutures contrastées.', img: 'detail-seat' },
-  { icon: 'gauge', title: 'Guidon sport', text: 'Poignées ergonomiques et commandes à portée de pouce.', img: 'detail-handlebar' },
-  { icon: 'wind', title: 'Ailerons sport', text: 'Stabilité en courbe et à haute vitesse.', img: 'detail-fins' },
-  { icon: 'circle-dot', title: 'Sortie de jet course', text: 'Une tuyère dessinée pour la poussée, soulignée de lumière.', img: 'detail-jet' },
-  { icon: 'video', title: 'Dashcam avant et arrière', text: 'Deux caméras filment devant et derrière en continu : vos sorties en souvenir, et une preuve en cas d’incident au port ou en mer.', img: 'dashcam', svg: true }
-];
-const tablist = document.querySelector('[role="tablist"]');
-DETAILS.forEach((d, i) => {
-  const b = document.createElement('button');
-  b.type = 'button'; b.role = 'tab'; b.id = 'tab-' + d.img; b.className = 'tab glass lift flex items-center gap-3 rounded-2xl p-4 text-left text-sm font-semibold text-mist';
-  b.setAttribute('aria-selected', i === 0);
-  if (d.svg) b.classList.add('col-span-2', 'sm:col-span-3', 'lg:col-span-2');
-  b.innerHTML = `<i data-lucide="${d.icon}" class="h-5 w-5 shrink-0 text-lagoon"></i><span>${d.title}</span>`;
-  b.addEventListener('click', () => selectDetail(i));
-  tablist.appendChild(b);
-});
-lucide.createIcons();
-function selectDetail(i) {
-  const d = DETAILS[i], img = $('#detailImg');
-  tablist.querySelectorAll('[role="tab"]').forEach((t, k) => t.setAttribute('aria-selected', k === i));
-  const svgBox = $('#detailSvg');
-  if (d.svg) { img.hidden = true; svgBox.hidden = false; }
-  else {
-    svgBox.hidden = true; img.hidden = false; img.style.opacity = .2;
-    setTimeout(() => { img.src = `assets/${d.img}.jpg`; img.alt = d.title; img.style.opacity = 1; }, reduce ? 0 : 180);
-  }
-  $('#detailTitle').textContent = d.title; $('#detailText').textContent = d.text;
-}
-
-/* ---------- Day planner ----------
-   Model: full battery lasts 150 min of mixed riding (2.5 h), a DC stop takes 30 min
-   and brings the pack back to 100 %, a 10 % reserve is always kept. */
-const RANGE_MIN = 150, CHARGE_MIN = 30, RESERVE = 10;
-function simulate(len, gap, openH, closeH, fleet) {
-  let t = openH * 60; const end = closeH * 60; let soc = 100; const events = []; let sessions = 0, charges = 0, ride = 0;
-  const drain = 100 / RANGE_MIN * (fleet ? 1.1 : 1); // rental riders push a bit harder
-  while (t < end) {
-    const need = len * drain;
-    if (soc - need < RESERVE) {
-      if (t + CHARGE_MIN > end) break;
-      events.push({ type: 'charge', a: t, b: t + CHARGE_MIN, s0: soc, s1: 100 }); t += CHARGE_MIN; soc = 100; charges++; continue;
-    }
-    if (t + len > end) break;
-    events.push({ type: 'ride', a: t, b: t + len, s0: soc, s1: soc - need }); t += len; soc -= need; sessions++; ride += len;
-    if (t + gap < end) { events.push({ type: 'gap', a: t, b: t + gap, s0: soc, s1: soc }); t += gap; } else break;
-  }
-  return { events, sessions, charges, ride };
-}
-function drawDay() {
-  const len = +$('#sessLen').value, gap = +$('#gap').value, openH = +$('#open').value, closeH = openH + 9;
-  const fleet = $('#useFleet').checked;
-  $('#sessLenOut').textContent = `${len} min`; $('#gapOut').textContent = `${gap} min`; $('#openOut').textContent = `${openH} h – ${closeH} h`;
-  const r = simulate(len, gap, openH, closeH, fleet);
-  $('#sessCount').textContent = r.sessions; $('#charges').textContent = r.charges;
-  $('#onWater').textContent = `${Math.floor(r.ride / 60)} h ${String(r.ride % 60).padStart(2, '0')}`;
-
-  const W = 800, H = 260, L = 44, R = 16, T = 16, B = 46, x0 = openH * 60, x1 = closeH * 60;
-  const X = m => L + (m - x0) / (x1 - x0) * (W - L - R), Y = s => T + (100 - s) / 100 * (H - T - B);
-  const col = { ride: '#2EE6A8', charge: '#9BE15D', gap: 'rgba(246,248,247,.18)' };
-  let svg = '';
-  for (const s of [0, 25, 50, 75, 100]) svg += `<line x1="${L}" x2="${W - R}" y1="${Y(s)}" y2="${Y(s)}" stroke="rgba(159,179,188,.14)"/><text x="${L - 8}" y="${Y(s) + 4}" text-anchor="end" font-size="11" fill="#9FB3BC" font-family="JetBrains Mono, monospace">${s}%</text>`;
-  svg += `<line x1="${L}" x2="${W - R}" y1="${Y(RESERVE)}" y2="${Y(RESERVE)}" stroke="#9FB3BC" stroke-dasharray="4 5" opacity=".6"/><text x="${W - R}" y="${Y(RESERVE) - 6}" text-anchor="end" font-size="10" fill="#9FB3BC" font-family="JetBrains Mono, monospace">réserve 10 %</text>`;
-  for (let hh = openH; hh <= closeH; hh++) svg += `<text x="${X(hh * 60)}" y="${H - 8}" text-anchor="middle" font-size="11" fill="#9FB3BC" font-family="JetBrains Mono, monospace">${hh}h</text>`;
-  // timeline bar under the curve
-  for (const e of r.events) svg += `<rect x="${X(e.a)}" y="${H - B + 8}" width="${Math.max(1, X(e.b) - X(e.a) - 1)}" height="10" rx="5" fill="${col[e.type]}"/>`;
-  // battery curve with area fill
-  let d = `M${X(x0)} ${Y(100)}`;
-  for (const e of r.events) d += ` L${X(e.a)} ${Y(e.s0)} L${X(e.b)} ${Y(e.s1)}`;
-  const last = r.events.at(-1);
-  if (last) svg += `<path d="${d} L${X(last.b)} ${Y(0)} L${X(x0)} ${Y(0)} Z" fill="url(#g)" opacity=".35"/>`;
-  svg += `<defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2EE6A8"/><stop offset="1" stop-color="#2EE6A8" stop-opacity="0"/></linearGradient></defs>`;
-  svg += `<path d="${d}" fill="none" stroke="#2EE6A8" stroke-width="2.4" stroke-linejoin="round"/>`;
-  if (last) svg += `<circle cx="${X(last.b)}" cy="${Y(last.s1)}" r="5" fill="#2EE6A8" stroke="#050E14" stroke-width="2"/>`;
-  $('#dayChart').innerHTML = svg;
-}
-['sessLen', 'gap', 'open', 'usePrivate', 'useFleet'].forEach(id => $('#' + id).addEventListener('input', drawDay));
-drawDay();
-
-/* ---------- CFD wipe ---------- */
-const wipe = $('#wipe');
-$('#wipeRange').addEventListener('input', e => wipe.style.setProperty('--x', e.target.value + '%'));
-
-/* ---------- Waitlist form (sent with the booking endpoint) ---------- */
-$('#waitlist').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const name = $('#wlName').value.trim(), email = $('#wlEmail').value.trim(), msg = $('#wlMsg');
-  if (!name || !/^\S+@\S+\.\S+$/.test(email)) { msg.textContent = 'Indiquez votre nom et une adresse e-mail valide.'; msg.style.color = '#FFB4A8'; return; }
-  let sent = false;
-  try {
-    const r = await fetch(BOOKING.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ liste: 'Launch Edition · liste prioritaire', nom: name, email, profil: $('#wlProfile').value, _subject: 'IRUKA · Liste prioritaire Launch Edition', _template: 'table', _captcha: 'false' }) });
-    const j = await r.json().catch(() => ({}));
-    sent = r.ok && String(j.success) !== 'false';
-  } catch (_) { sent = false; }
-  msg.style.color = sent ? '#2EE6A8' : '#FFB4A8';
-  msg.textContent = sent ? `Merci ${name}. L'équipe E-Dolphin vous recontacte à ${email}.` : 'L\'envoi n\'a pas abouti. Réessayez dans quelques minutes.';
-  if (sent) e.target.reset();
-});
-
-/* ---------- Booking (request only: no payment, no deposit) ---------- */
-// Requests go to a provisional mailbox through FormSubmit (first submission triggers an activation e-mail).
-// While it is empty, requests are kept in the visitor's browser and the confirmation says the team will be in touch once booking opens.
-// Launch Edition deposit: stays disabled until the company's own Stripe account is open.
-// To activate: enabled: true, amount (EUR), link = Stripe Payment Link (https://buy.stripe.com/...).
-const DEPOSIT = { enabled: false, percent: 30, price: 90000, amount: 27000, currency: '$ HT', link: '' };
-const BOOKING = { endpoint: 'https://formsubmit.co/ajax/nicolas.flores@kedgebs.com', slots: ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'], leadDays: 3, horizonDays: 120 };
-const TYPES = {
-  essai: { label: 'Essai en mer', dur: 45, needsSlot: true },
-  presentation: { label: 'Présentation privée', dur: 60, needsSlot: true },
-  launch: { label: 'Launch Edition · demande de réservation', dur: 0, needsSlot: false }
-};
-const bk = { type: 'essai', place: 'Monaco · Port Hercule', date: null, slot: null, month: null };
-const fmtDate = (d) => d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
-const iso = (d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-const today = new Date(); today.setHours(0, 0, 0, 0);
-const first = new Date(today); first.setDate(first.getDate() + BOOKING.leadDays);
-const last = new Date(today); last.setDate(last.getDate() + BOOKING.horizonDays);
-bk.month = new Date(first.getFullYear(), first.getMonth(), 1);
-
-// Indicative availability: closed on Mondays, some slots already taken (stable per date)
-function seed(s) { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
-function freeSlots(d) {
-  if (d < first || d > last || d.getDay() === 1) return [];
-  const h = seed(iso(d) + bk.place);
-  return BOOKING.slots.filter((_, i) => ((h >> (i * 3)) & 7) > 2);
-}
-
-function drawCal() {
-  const m = bk.month, grid = $('#calGrid');
-  $('#calTitle').textContent = m.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
-  $('#calPrev').disabled = m <= new Date(first.getFullYear(), first.getMonth(), 1);
-  $('#calNext').disabled = m >= new Date(last.getFullYear(), last.getMonth(), 1);
-  ['#calPrev', '#calNext'].forEach(s => $(s).style.opacity = $(s).disabled ? .35 : 1);
-  grid.innerHTML = '';
-  const offset = (m.getDay() + 6) % 7, days = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
-  for (let i = 0; i < offset; i++) grid.append(document.createElement('span'));
-  for (let n = 1; n <= days; n++) {
-    const d = new Date(m.getFullYear(), m.getMonth(), n), free = freeSlots(d).length, b = document.createElement('button');
-    b.type = 'button'; b.textContent = n; b.dataset.date = iso(d);
-    b.className = 'num aspect-square rounded-xl font-mono text-sm transition ' + (free ? 'cal-on' : 'cal-off');
-    b.disabled = !free; b.setAttribute('aria-label', fmtDate(d) + (free ? ', ' + free + ' créneaux' : ', indisponible'));
-    if (bk.date && iso(bk.date) === iso(d)) b.setAttribute('aria-pressed', 'true');
-    b.addEventListener('click', () => { bk.date = d; bk.slot = null; drawCal(); drawSlots(); summary(); });
-    grid.append(b);
-  }
-}
-function drawSlots() {
-  const box = $('#slots'); box.innerHTML = '';
-  if (!bk.date) { $('#slotHint').textContent = 'Choisissez une date pour voir les créneaux.'; return; }
-  const free = freeSlots(bk.date);
-  $('#slotHint').textContent = fmtDate(bk.date) + ' · ' + bk.place;
-  BOOKING.slots.forEach(s => {
-    const b = document.createElement('button'), ok = free.includes(s);
-    b.type = 'button'; b.textContent = s.replace(':', 'h').replace(/^0/, ''); b.disabled = !ok;
-    b.className = 'num rounded-xl px-2 py-3 font-mono text-sm transition ' + (ok ? 'slot-on' : 'slot-off');
-    if (bk.slot === s) b.setAttribute('aria-pressed', 'true');
-    b.addEventListener('click', () => { bk.slot = s; drawSlots(); summary(); });
-    box.append(b);
-  });
-}
-const depositReady = () => DEPOSIT.enabled && /^https:\/\/buy\.stripe\.com\//.test(DEPOSIT.link);
-const depAmountTxt = () => DEPOSIT.amount ? DEPOSIT.amount.toLocaleString('fr-FR') + ' ' + DEPOSIT.currency + ' (' + DEPOSIT.percent + ' %)' : DEPOSIT.percent + ' % du prix';
-function summary() {
-  const t = TYPES[bk.type];
-  $('#sumType').textContent = t.label;
-  $('#sumPlace').textContent = bk.place;
-  $('#sumWhen').textContent = !t.needsSlot ? 'Rendez-vous fixé avec l\'équipe' : bk.date ? fmtDate(bk.date) + (bk.slot ? ' · ' + bk.slot.replace(':', 'h').replace(/^0/, '') : ' · créneau à choisir') : 'À choisir';
-  $('#sumDur').textContent = t.dur ? t.dur + ' min' : 'Série limitée à 300 exemplaires';
-  $('#sumPay').textContent = bk.type !== 'launch' ? 'Aucun · confirmation par l\'équipe' : depositReady() ? 'Acompte de ' + depAmountTxt() + ' via Stripe' : 'Acompte de ' + depAmountTxt() + ' · bientôt disponible';
-}
-function syncType() {
-  const t = TYPES[bk.type];
-  // Jet-skis may not sail on Lake Annecy: that place is offered for presentations and Launch Edition only
-  document.querySelectorAll('[data-no-trial]').forEach(l => {
-    const off = bk.type === 'essai', inp = l.querySelector('input');
-    inp.disabled = off; l.style.opacity = off ? .4 : 1; l.style.cursor = off ? 'not-allowed' : 'pointer';
-    l.title = off ? 'Pas d\'essai en navigation sur le lac : choisissez une présentation' : '';
-    if (off && inp.checked) { const m = document.querySelector('#bkPlaces input'); m.checked = true; bk.place = m.value; drawCal(); drawSlots(); }
-  });
-  $('#bkWhen').hidden = !t.needsSlot;
-  $('#bkLaunchFields').hidden = bk.type !== 'launch';
-  document.querySelectorAll('.bk-opt, .bk-chip').forEach(l => l.classList.toggle('is-on', l.querySelector('input').checked));
-  summary();
-}
-document.querySelectorAll('#bkTypes input').forEach(i => i.addEventListener('change', () => { bk.type = i.value; syncType(); }));
-document.querySelectorAll('#bkPlaces input').forEach(i => i.addEventListener('change', () => { bk.place = i.value; bk.slot = null; syncType(); drawCal(); drawSlots(); }));
-$('#calPrev').addEventListener('click', () => { bk.month = new Date(bk.month.getFullYear(), bk.month.getMonth() - 1, 1); drawCal(); });
-$('#calNext').addEventListener('click', () => { bk.month = new Date(bk.month.getFullYear(), bk.month.getMonth() + 1, 1); drawCal(); });
-// Links such as "Réserver ma Launch Edition" can preselect a formula with data-book
-document.querySelectorAll('[data-book]').forEach(a => a.addEventListener('click', () => {
-  const inp = document.querySelector(`#bkTypes input[value="${a.dataset.book}"]`); if (inp) { inp.checked = true; bk.type = inp.value; syncType(); }
-}));
-drawCal(); drawSlots(); syncType();
-$('#depAmount').textContent = depAmountTxt();
-
-let lastReq = null;
-$('#booking').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const err = $('#bkErr'), t = TYPES[bk.type];
-  const name = $('#bkName').value.trim(), email = $('#bkEmail').value.trim(), phone = $('#bkPhone').value.trim();
-  if (t.needsSlot && (!bk.date || !bk.slot)) { err.textContent = 'Choisissez une date et un créneau.'; $('#bkWhen').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); return; }
-  if (!name || !/^\S+@\S+\.\S+$/.test(email) || phone.replace(/\D/g, '').length < 8) { err.textContent = 'Indiquez votre nom, un e-mail valide et un téléphone.'; return; }
-  if (!$('#bkConsent').checked) { err.textContent = 'Merci d\'accepter d\'être recontacté.'; return; }
-  err.textContent = '';
-  const ref = 'ED-' + Date.now().toString(36).slice(-5).toUpperCase();
-  const req = {
-    reference: ref, formule: t.label, lieu: bk.place,
-    date: t.needsSlot ? iso(bk.date) : '', heure: t.needsSlot ? bk.slot : '',
-    nom: name, email, telephone: phone, personnes: $('#bkPeople').selectedOptions[0].text,
-    permis: $('#bkLicence').checked ? 'oui' : 'non', message: $('#bkMsg').value.trim(),
-    livree: bk.type === 'launch' ? $('#bkLivery').value : '', unites: bk.type === 'launch' ? $('#bkUnits').value : '',
-    paiement: bk.type === 'launch' ? (depositReady() ? 'acompte via Stripe' : 'acompte à venir') : 'aucun', envoye_le: new Date().toISOString()
-  };
-  let sent = false;
-  if (BOOKING.endpoint) {
-    try {
-      const r = await fetch(BOOKING.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ ...req, _subject: 'IRUKA · ' + t.label + ' · ' + ref, _template: 'table', _captcha: 'false' }) });
-      const j = await r.json().catch(() => ({}));
-      sent = r.ok && String(j.success) !== 'false';
-    } catch (_) { sent = false; }
-  }
-  try { const k = 'edolphin-bookings'; const all = JSON.parse(localStorage.getItem(k) || '[]'); all.push(req); localStorage.setItem(k, JSON.stringify(all)); } catch (_) {}
-  lastReq = { ...req, d: bk.date, dur: t.dur };
-  $('#doneRef').textContent = ref;
-  $('#doneText').textContent = t.needsSlot
-    ? `${t.label}, ${fmtDate(bk.date)} à ${bk.slot.replace(':', 'h').replace(/^0/, '')}, ${bk.place}.`
-    : `Demande Launch Edition (${req.unites} unité${req.unites > 1 ? 's' : ''}, livrée ${req.livree}), ${bk.place}.`;
-  $('#doneNote').textContent = sent
-    ? `Un membre de l'équipe vous confirme ce rendez-vous par e-mail à ${email}. Aucun paiement ne vous sera demandé en ligne.`
-    : `L'envoi n'a pas abouti. Réessayez dans quelques minutes ; aucun paiement n'est demandé.`;
-  $('#doneTitle').textContent = sent ? 'Demande envoyée' : 'Demande non envoyée';
-  $('#icsBtn').hidden = !t.needsSlot;
-  const db = $('#depBtn'); db.hidden = bk.type !== 'launch';
-  if (bk.type === 'launch') {
-    db.disabled = !depositReady(); db.style.opacity = depositReady() ? 1 : .45; db.style.cursor = depositReady() ? 'pointer' : 'not-allowed';
-    $('#depBtnTxt').textContent = depositReady() ? 'Verser l\'acompte de ' + depAmountTxt() : 'Acompte de ' + depAmountTxt() + ' · bientôt disponible';
-    db.onclick = () => { if (depositReady()) location.href = DEPOSIT.link + '?client_reference_id=' + encodeURIComponent(ref) + '&prefilled_email=' + encodeURIComponent(email); };
-  }
-  $('#bkSummary').hidden = true; $('#bkDone').hidden = false;
-  $('#bkDone').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-});
-$('#bkAgain').addEventListener('click', () => {
-  $('#booking').reset(); Object.assign(bk, { type: 'essai', place: 'Monaco · Port Hercule', date: null, slot: null });
-  $('#bkDone').hidden = true; $('#bkSummary').hidden = false; drawCal(); drawSlots(); syncType();
-});
-// Calendar file for the requested slot (marked as pending confirmation)
-$('#icsBtn').addEventListener('click', () => {
-  if (!lastReq || !lastReq.d) return;
-  const [h, mi] = lastReq.heure.split(':').map(Number), s = new Date(lastReq.d); s.setHours(h, mi);
-  const e2 = new Date(s.getTime() + lastReq.dur * 60000), f = (d) => iso(d).replace(/-/g, '') + 'T' + String(d.getHours()).padStart(2, '0') + String(d.getMinutes()).padStart(2, '0') + '00';
-  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//E-Dolphin//Reservation//FR', 'BEGIN:VEVENT', 'UID:' + lastReq.reference + '@e-dolphin',
-    'DTSTAMP:' + f(new Date()), 'DTSTART:' + f(s), 'DTEND:' + f(e2), 'SUMMARY:E-Dolphin IRUKA · ' + lastReq.formule + ' (à confirmer)',
-    'LOCATION:' + lastReq.lieu, 'DESCRIPTION:Référence ' + lastReq.reference + '. Rendez-vous confirmé par e-mail par l\'équipe E-Dolphin.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
-  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'e-dolphin-' + lastReq.reference + '.ics'; a.click();
-});
-</script>
+<a href="reserver.html" class="btn-primary fixed inset-x-4 bottom-4 z-40 flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold shadow-2xl sm:hidden" style="bottom:max(16px, env(safe-area-inset-bottom))"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg>Réserver un essai</a>
 </body>
 </html>

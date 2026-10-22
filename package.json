@@ -2,7 +2,7 @@
   "name": "e-dolphin-site",
   "private": true,
   "scripts": {
-    "build": "node src/build.mjs && tailwindcss -c tailwind.config.cjs -i src/styles.css -o v2/assets/site.css --minify"
+    "build": "node src/build.mjs && tailwindcss -c tailwind.config.cjs -i src/styles.css -o v2/assets/site.css --minify && node src/publish.mjs"
   },
   "devDependencies": {
     "lucide-static": "^0.468.0",
