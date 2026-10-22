@@ -68,7 +68,13 @@ const Cart = {
     this.set(items); this.open();
   },
   unit(i) { return PRODUCTS[i.id].price + (i.extra || 0); },
-  money(n, cur) { return n.toLocaleString(LANG === 'fr' ? 'fr-FR' : 'en-US', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + ' ' + cur; },
+  money(n, cur) {
+    const num = n.toLocaleString(LANG === 'fr' ? 'fr-FR' : 'en-US', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+    if (LANG === 'fr') return num + ' ' + cur;
+    const [sym, ...rest] = cur.split(' ');
+    return sym + num + (rest.join(' ') === 'HT' ? ' excl. VAT' : rest.length ? ' ' + rest.join(' ') : '');
+  },
+  curLabel(cur) { return LANG === 'fr' ? cur : cur.replace(/^(\S+) HT$/, '$1 excl. VAT'); },
   totals(items) {
     const by = {};
     items.forEach(i => { const p = PRODUCTS[i.id]; if (p) by[p.cur] = (by[p.cur] || 0) + this.unit(i) * i.qty; });
@@ -100,7 +106,7 @@ const Cart = {
       </div>`;
     }).join('') : `<p class="text-brume">${tt('Votre panier est vide.', 'Your cart is empty.')}</p>`;
     const tot = this.totals(items);
-    $('#cartTotals').innerHTML = Object.keys(tot).length ? Object.entries(tot).map(([cur, v]) => `<div class="flex justify-between"><dt class="text-brume">${tt('Total', 'Total')} ${cur}</dt><dd class="num font-semibold">${this.money(v, cur)}</dd></div><div class="flex justify-between text-sm"><dt class="text-brume">${tt('Acompte 30 %', '30 % deposit')}</dt><dd class="num text-lagoon">${this.money(Math.round(v * 30) / 100, cur)}</dd></div>`).join('') : '';
+    $('#cartTotals').innerHTML = Object.keys(tot).length ? Object.entries(tot).map(([cur, v]) => `<div class="flex justify-between"><dt class="text-brume">${tt('Total', 'Total')} ${this.curLabel(cur)}</dt><dd class="num font-semibold">${this.money(v, cur)}</dd></div><div class="flex justify-between text-sm"><dt class="text-brume">${tt('Acompte 30 %', '30 % deposit')}</dt><dd class="num text-lagoon">${this.money(Math.round(v * 30) / 100, cur)}</dd></div>`).join('') : '';
     $('#cartSend').hidden = !items.length;
     $$('[data-q]').forEach(b => b.onclick = () => { const it = this.get(), i = it[+b.dataset.q]; i.qty = Math.max(1, Math.min(20, i.qty + +b.dataset.d)); this.set(it); });
     $$('[data-rm]').forEach(b => b.onclick = () => { const it = this.get(); it.splice(+b.dataset.rm, 1); this.set(it); });

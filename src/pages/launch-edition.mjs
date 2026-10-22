@@ -36,7 +36,7 @@ export const body = (L, R) => {
   <section class="gutter py-20 sm:py-28">
     <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.15fr_1fr]">
       <div class="plaque-wrap" data-finish="carbon">
-        <div class="plaque-float">${plaque('pl')}</div>
+        <div class="plaque-float">${plaque('pl', L)}</div>
         <p class="mt-6 text-center tag text-brume/80">${t('Visuel d\'illustration · gravure et finition définitives présentées à la réservation', 'Illustration · final engraving and finish shown when you reserve')}</p>
       </div>
       <div>

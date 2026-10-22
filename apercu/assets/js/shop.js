@@ -9,7 +9,7 @@ addEventListener('DOMContentLoaded', () => {
     const items = Cart.get(), tot = Cart.totals(items);
     $('#reqCart').innerHTML = items.length
       ? `<ul class="grid gap-2">${items.map(i => `<li class="flex justify-between gap-4"><span>${i.qty} × ${PRODUCTS[i.id].name}${i.livery ? ' · ' + i.livery : ''}${i.opts && i.opts.length ? ' + ' + i.opts.join(', ') : ''}</span><span class="num text-brume">${Cart.money(Cart.unit(i) * i.qty, PRODUCTS[i.id].cur)}</span></li>`).join('')}</ul>`
-        + `<div class="mt-4 border-t border-white/10 pt-3">${Object.entries(tot).map(([c, v]) => `<p class="flex justify-between font-semibold"><span>Total ${c}</span><span class="num">${Cart.money(v, c)}</span></p><p class="mt-1 flex justify-between text-brume"><span>${tt('Acompte 30 %', '30 % deposit')}</span><span class="num text-lagoon">${Cart.money(Math.round(v * 30) / 100, c)}</span></p>`).join('')}</div>`
+        + `<div class="mt-4 border-t border-white/10 pt-3">${Object.entries(tot).map(([c, v]) => `<p class="flex justify-between font-semibold"><span>Total ${Cart.curLabel(c)}</span><span class="num">${Cart.money(v, c)}</span></p><p class="mt-1 flex justify-between text-brume"><span>${tt('Acompte 30 %', '30 % deposit')}</span><span class="num text-lagoon">${Cart.money(Math.round(v * 30) / 100, c)}</span></p>`).join('')}</div>`
       : `<p class="text-brume">${tt('Votre panier est vide : ajoutez un modèle ci-dessus.', 'Your cart is empty: add a model above.')}</p>`;
   };
   document.addEventListener('cart:change', showCart); showCart();

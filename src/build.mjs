@@ -12,6 +12,10 @@ import * as configurateur from './pages/configurateur.mjs';
 import * as maison from './pages/maison.mjs';
 import * as decouvrir from './pages/decouvrir.mjs';
 import * as reserver from './pages/reserver.mjs';
+
+// English pages: "35 990 € HT" becomes "€35,990 excl. VAT"
+const enPrices = (html) => html.replace(/(\d{1,3}(?:[ \u00a0\u202f]\d{3})*(?:,\d+)?)\s?(€|\$)(\s?HT)?(?![\w])/g,
+  (_, n, sym, ht) => `${sym}${n.replace(/[ \u00a0\u202f]/g, ',').replace(/,(\d{1,2})$/, '.$1')}${ht ? ' excl. VAT' : ''}`);
 import { mentions, privacy, terms } from './pages/legal.mjs';
 
 // RAIL=1 builds the next version (left navigation rail, new home page) into apercu/ for review;
@@ -40,7 +44,7 @@ for (const L of ['fr', 'en']) {
   mkdirSync(dir, { recursive: true });
   for (const [slug, mod] of Object.entries(SOURCES)) {
     const html = page({ L, slug, title: mod.meta[L].title, desc: mod.meta[L].desc, body: mod.body(L, R), scripts: mod.scripts || [], rail: RAIL });
-    writeFileSync(`${dir}/${slug}.html`, inlineIcons(html));
+    writeFileSync(`${dir}/${slug}.html`, inlineIcons(L === 'en' ? enPrices(html) : html));
   }
 }
 // Icons created by scripts at runtime (detail tabs, cart, menu) come from a small generated map

@@ -1,6 +1,6 @@
 // Launch Edition numbered plate, drawn in SVG (illustration). Two finishes: carbon or brushed aluminium.
 // The number is a <tspan id="plNum"> that plaque.js updates; the finish switches with data-finish on the wrapper.
-export const plaque = (uid = 'pl') => `
+export const plaque = (uid = 'pl', L = 'fr') => `
 <svg viewBox="0 0 640 320" class="plaque block h-auto w-full" role="img" aria-labelledby="${uid}-t">
   <title id="${uid}-t">IRUKA Launch Edition N° 001 / 300</title>
   <defs>
@@ -50,6 +50,6 @@ export const plaque = (uid = 'pl') => `
     <text x="134" y="80" font-size="26" font-weight="700" letter-spacing="6">IRUKA</text>
     <text x="568" y="80" font-size="15" font-weight="600" letter-spacing="5" text-anchor="end" class="pl-gold" fill="url(#${uid}-sand)">LAUNCH EDITION</text>
     <text x="316" y="214" font-size="118" font-weight="700" text-anchor="middle" letter-spacing="2"><tspan class="pl-n" font-size="34" font-weight="600" dx="-6" dy="-62">N°</tspan><tspan id="${uid}-num" dy="62" dx="10">001</tspan><tspan font-size="54" font-weight="500" dx="8" class="pl-of">/300</tspan></text>
-    <text x="316" y="270" font-size="11.5" font-weight="600" letter-spacing="4.2" text-anchor="middle" class="pl-sub">E-DOLPHIN · CONÇU ET ASSEMBLÉ EN FRANCE</text>
+    <text x="316" y="270" font-size="11.5" font-weight="600" letter-spacing="4.2" text-anchor="middle" class="pl-sub">E-DOLPHIN · ${L === 'fr' ? 'CONÇU ET ASSEMBLÉ EN FRANCE' : 'DESIGNED AND ASSEMBLED IN FRANCE'}</text>
   </g>
 </svg>`;

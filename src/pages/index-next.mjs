@@ -128,7 +128,7 @@ export const body = (L, R) => {
   <!-- 5. The numbered plate -->
   <section class="home-wrap gutter pb-16 sm:pb-24">
     <div class="relative grid items-center gap-10 overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(ellipse_at_top_right,rgba(203,185,148,.16),transparent_60%)] p-6 sm:p-12 lg:grid-cols-2">
-      <div class="plaque-wrap" data-finish="carbon"><div class="plaque-float">${plaque('pl')}</div></div>
+      <div class="plaque-wrap" data-finish="carbon"><div class="plaque-float">${plaque('pl', L)}</div></div>
       <div>
         <p class="eyebrow-sand">Launch Edition</p>
         <h2 class="mt-4 font-display text-3xl font-semibold sm:text-5xl">${t('Votre numéro, gravé en relief.', 'Your number, engraved in relief.')}</h2>

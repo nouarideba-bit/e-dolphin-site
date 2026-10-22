@@ -62,7 +62,8 @@ addEventListener('DOMContentLoaded', () => {
   }
   const depositReady = () => DEPOSIT.enabled && /^https:\/\/buy\.stripe\.com\//.test(DEPOSIT.link);
   const units = () => Math.max(1, Math.min(20, +$('#bkUnits').value || 1));
-  const depAmountTxt = () => (DEPOSIT.amount * units()).toLocaleString(loc) + ' ' + DEPOSIT.currency + ' (' + DEPOSIT.percent + ' %)';
+  const depMoney = () => (typeof Cart !== 'undefined' ? Cart.money(DEPOSIT.amount * units(), DEPOSIT.currency) : (DEPOSIT.amount * units()).toLocaleString(loc) + ' ' + DEPOSIT.currency);
+  const depAmountTxt = () => depMoney() + ' (' + DEPOSIT.percent + ' %)';
   function summary() {
     const t = TYPES[bk.type];
     $('#sumType').textContent = t.label;
@@ -70,7 +71,7 @@ addEventListener('DOMContentLoaded', () => {
     $('#sumWhen').textContent = !t.needsSlot ? tt('Rendez-vous fixé avec l\'équipe', 'Appointment set with the team') : bk.date ? fmtDate(bk.date) + (bk.slot ? ' · ' + fmtSlot(bk.slot) : ' · ' + tt('créneau à choisir', 'slot to choose')) : tt('À choisir', 'To choose');
     $('#sumDur').textContent = t.dur ? t.dur + ' min' : tt('Série limitée à 300 exemplaires', 'Limited series of 300 units');
     $('#sumPay').textContent = bk.type !== 'launch' ? tt('Aucun · confirmation par l\'équipe', 'None · confirmed by the team') : tt('Acompte de ', 'Deposit of ') + depAmountTxt() + (depositReady() ? '' : tt(' · bientôt disponible', ' · opening soon'));
-    $('#depAmount').textContent = (DEPOSIT.amount * units()).toLocaleString(loc) + ' ' + DEPOSIT.currency;
+    $('#depAmount').textContent = depMoney();
   }
   function syncType() {
     const t = TYPES[bk.type];
