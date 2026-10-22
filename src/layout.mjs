@@ -1,6 +1,6 @@
 // Shared page frame: <head>, header, footer and the mobile booking bar.
 // Every page is rendered twice, French at v2/ and English at v2/en/, with the same file names.
-// With rail = true (preview build, apercu/), the top header gives way to the left navigation rail.
+// With rail = true (the live site since 22 Oct), the top header gives way to the left navigation rail.
 import { rail as railNav } from './rail.mjs';
 
 export const PAGES = [

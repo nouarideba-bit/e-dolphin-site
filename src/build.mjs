@@ -1,8 +1,7 @@
 // Renders every page in French (v2/) and English (v2/en/). Run with: npm run build
 import { mkdirSync, writeFileSync, readFileSync, existsSync, cpSync } from 'node:fs';
 import { page } from './layout.mjs';
-import * as indexLive from './pages/index.mjs';
-import * as indexNext from './pages/index-next.mjs';
+import * as index from './pages/index-next.mjs';
 import * as iruka from './pages/iruka.mjs';
 import * as experience from './pages/experience.mjs';
 import * as yachts from './pages/yachts-flottes.mjs';
@@ -18,11 +17,10 @@ const enPrices = (html) => html.replace(/(\d{1,3}(?:[ \u00a0\u202f]\d{3})*(?:,\d
   (_, n, sym, ht) => `${sym}${n.replace(/[ \u00a0\u202f]/g, ',').replace(/,(\d{1,2})$/, '.$1')}${ht ? ' excl. VAT' : ''}`);
 import { mentions, privacy, terms } from './pages/legal.mjs';
 
-// RAIL=1 builds the next version (left navigation rail, new home page) into apercu/ for review;
-// the live site (v2/, copied to the root) is untouched until it is validated.
+// The live site uses the left navigation rail and the new home page (adam, 22 Oct: "bascule").
+// RAIL=1 (npm run build:apercu) writes the same site into apercu/, kept as a preview area for the next changes.
 const RAIL = !!process.env.RAIL;
 const OUT = RAIL ? 'apercu' : 'v2';
-const index = RAIL ? indexNext : indexLive;
 if (RAIL) cpSync('v2/assets', `${OUT}/assets`, { recursive: true });
 
 // Lucide icons are inlined at build time (no icon CDN at runtime)
@@ -43,7 +41,7 @@ for (const L of ['fr', 'en']) {
   const dir = L === 'fr' ? OUT : `${OUT}/en`, R = L === 'fr' ? '' : '../';
   mkdirSync(dir, { recursive: true });
   for (const [slug, mod] of Object.entries(SOURCES)) {
-    const html = page({ L, slug, title: mod.meta[L].title, desc: mod.meta[L].desc, body: mod.body(L, R), scripts: mod.scripts || [], rail: RAIL });
+    const html = page({ L, slug, title: mod.meta[L].title, desc: mod.meta[L].desc, body: mod.body(L, R), scripts: mod.scripts || [], rail: true });
     writeFileSync(`${dir}/${slug}.html`, inlineIcons(L === 'en' ? enPrices(html) : html));
   }
 }
