@@ -13,6 +13,16 @@ export const body = (L, R) => {
   const input = (id, label, val, min, max, step = 1) => `<div><label for="${id}" class="text-sm text-brume">${label}</label><input id="${id}" type="number" value="${val}" min="${min}" max="${max}" step="${step}" inputmode="decimal" class="field num"></div>`;
   const out = (id, label, cls = '') => `<div class="rounded-2xl border border-white/10 p-4"><p class="text-xs text-brume">${label}</p><p id="${id}" class="num mt-1 font-display text-2xl font-semibold ${cls}">–</p></div>`;
   const faq = (q, a) => `<details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">${q}<i data-lucide="plus" class="chev h-5 w-5 shrink-0 text-lagoon"></i></summary><p class="mt-3 max-w-3xl text-brume">${a}</p></details>`;
+  const pillar = (icon, title, text) => `<li class="glass rounded-3xl p-6"><i data-lucide="${icon}" class="h-6 w-6 text-lagoon"></i><h3 class="mt-4 font-display text-xl font-semibold">${title}</h3><p class="mt-2 text-sm text-brume">${text}</p></li>`;
+  // IRUKA Fleet feature tabs (modelled on the Sea-Doo rental page, adam 22 Oct)
+  const TABS = [
+    ['zap', t('Économie', 'Savings'), 'charging-station.jpg', t('Rendu', 'Render'), t('Quelques euros d\'énergie par heure.', 'A few euros of energy per hour.'), t('Environ 14 kWh par heure de location : avec les hypothèses du calculateur, près de 3,50 € d\'électricité contre près de 48 € d\'essence pour un thermique.', 'About 14 kWh per rental hour: with the calculator\'s assumptions, about €3.50 of electricity against about €48 of fuel for a combustion craft.')],
+    ['wrench', t('Entretien', 'Servicing'), 'detail-jet.jpg', t('Rendu', 'Render'), t('Ni vidange, ni bougies.', 'No oil change, no spark plugs.'), t('Un moteur électrique a peu de pièces d\'usure : moins d\'immobilisation en pleine saison, et une batterie suivie à distance.', 'An electric motor has few wearing parts: less downtime in peak season, and a battery monitored remotely.')],
+    ['life-buoy', t('Stabilité', 'Stability'), 'iruka-floats.jpg', t('Rendu', 'Render'), t('Le boudin qui rassure les débutants.', 'The collar that reassures beginners.'), t('La version Fleet a un boudin gonflable : stable à l\'arrêt, plus facile pour monter à bord, et elle protège pontons et coques.', 'The Fleet version has an inflatable collar: stable at rest, easier to board, and it protects pontoons and hulls.')],
+    ['shield-check', t('Sécurité', 'Safety'), 'use-safety.jpg', t('Rendu', 'Render'), t('Vos clients restent dans la zone.', 'Your customers stay in the zone.'), t('Chaque machine est géolocalisée sur le tableau de bord de flotte, avec des zones de navigation et des caméras avant et arrière.', 'Each craft is geolocated on the fleet dashboard, with riding zones and front and rear cameras.')],
+    ['volume-x', t('Silence', 'Silence'), 'use-fleet.jpg', t('Rendu', 'Render'), t('Une expérience que l\'on raconte.', 'An experience people talk about.'), t('Pas de bruit de moteur ni d\'odeur d\'essence : vos clients se parlent en navigant, et vos voisins de plage vous le rendent.', 'No engine noise and no smell of fuel: your customers can talk while riding, and your beach neighbours notice.')],
+    ['battery-charging', t('Recharge', 'Charging'), 's300-real-ccs2.jpg', t('Photo réelle', 'Real photo'), t('Environ 30 minutes entre deux locations.', 'About 30 minutes between rentals.'), t('Prise rapide CCS2 sous la trappe avant, jusqu\'à 70 kW en courant continu : la machine repart pendant que le client suivant s\'équipe.', 'CCS2 fast socket under the front hatch, up to 70 kW DC: the craft is ready again while the next customer gets kitted out.')]
+  ];
   const opt = (v, label) => `<label class="flex items-center gap-2 text-sm"><input type="checkbox" name="options" value="${v}" class="accent-[#2EE6A8]">${label}</label>`;
   return `
   <section class="relative isolate overflow-hidden">
@@ -27,8 +37,20 @@ export const body = (L, R) => {
     </div></div>
   </section>
 
+  <!-- Rental programme: three pillars (Sea-Doo rental page model, adam 22 Oct) -->
+  <section class="gutter py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl">
+      ${head({ eyebrow: t('Programme loueurs E-Dolphin', 'E-Dolphin rental programme'), title: t('Devenez loueur E-Dolphin.', 'Become an E-Dolphin rental partner.'), lead: t('Loueurs de jet-skis, hôtels, clubs de plage et marinas, partout dans le monde : proposez à vos clients le jet-ski électrique de luxe, avec un programme pensé pour une flotte.', 'Jet-ski rental companies, hotels, beach clubs and marinas, worldwide: offer your customers the electric luxury jet ski, with a programme built for a fleet.') })}
+      <ul class="mt-10 grid gap-4 md:grid-cols-3">
+        ${pillar('badge-percent', t('Tarifs flotte dédiés', 'Dedicated fleet pricing'), t('Un tarif selon le nombre de machines, à l\'achat ou en loyer mensuel clés en main.', 'Pricing based on the number of craft, bought outright or on a turnkey monthly fee.'))}
+        ${pillar('shield-check', t('Garantie et service', 'Warranty and service'), t('Garantie, pièces et formation de vos équipes : les conditions sont précisées dans votre offre.', 'Warranty, parts and training for your staff: the terms are set out in your offer.'))}
+        ${pillar('megaphone', t('Accompagnement marketing', 'Marketing support'), t('Photos, film, supports de vente et kit capitainerie pour lancer votre saison électrique.', 'Photos, film, sales material and harbour-office kit to launch your electric season.'))}
+      </ul>
+    </div>
+  </section>
+
   <!-- Return calculator: every assumption is shown and can be changed -->
-  <section id="calcul" class="gutter scroll-mt-24 py-16 sm:py-24">
+  <section id="calcul" class="gutter scroll-mt-24 pb-16 sm:pb-24">
     <div class="mx-auto max-w-7xl">
       ${head({ eyebrow: t('Calculateur de rentabilité', 'Return calculator'), title: t('Ce que votre flotte rapporte, et ce qu\'elle économise.', 'What your fleet earns, and what it saves.'), lead: t('Remplacez nos hypothèses par les vôtres : le calcul se met à jour tout de suite.', 'Replace our assumptions with yours: the result updates at once.') })}
       <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
@@ -75,6 +97,21 @@ export const body = (L, R) => {
     </div>
   </section>
 
+  <!-- Discover IRUKA Fleet: one tab per argument -->
+  <section id="iruka-fleet" class="gutter scroll-mt-24 pb-16 sm:pb-24">
+    <div class="mx-auto max-w-7xl">
+      ${head({ eyebrow: 'IRUKA Fleet', title: t('Découvrez IRUKA Fleet.', 'Discover IRUKA Fleet.'), lead: t('La version d\'IRUKA pensée pour la location : ce qu\'elle change pour votre activité.', 'The IRUKA version built for rental: what it changes for your business.') })}
+      <div class="mt-8 flex gap-2 overflow-x-auto pb-2" role="tablist" aria-label="IRUKA Fleet" data-fleet-tabs>
+        ${TABS.map(([icon, label], i) => `<button type="button" role="tab" id="ft-${i}" aria-controls="fp-${i}" aria-selected="${i === 0}" class="tab inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-brume"><i data-lucide="${icon}" class="h-4 w-4"></i>${label}</button>`).join('')}
+      </div>
+      ${TABS.map(([, , pic, tag, title, text], i) => `<div role="tabpanel" id="fp-${i}" aria-labelledby="ft-${i}" class="mt-6 grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]"${i ? ' hidden' : ''}>
+        ${fig(img(R, pic), title, tag, 'aspect-[16/10]')}
+        <div><h3 class="font-display text-2xl font-semibold sm:text-3xl">${title}</h3><p class="mt-4 text-brume sm:text-lg">${text}</p></div>
+      </div>`).join('')}
+      <div class="mt-10 flex flex-wrap gap-3">${btn('iruka.html', t('Explorez la gamme', 'Explore the range'), 'arrow-right', false)}${btn('#offre', t('Demander une offre flotte', 'Request a fleet offer'), 'send')}</div>
+    </div>
+  </section>
+
   <!-- Connected fleet -->
   <section class="gutter pb-16 sm:pb-24">
     <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
@@ -102,6 +139,7 @@ export const body = (L, R) => {
         ${faq(t('Quelle garantie sur la batterie ?', 'What battery warranty?'), t('Les conditions de garantie de la batterie sont précisées dans votre offre flotte. La santé de chaque batterie est suivie à distance.', 'Battery warranty terms are set out in your fleet offer. Each battery\'s health is monitored remotely.'))}
         ${faq(t('Et l\'entretien, les pièces, la formation ?', 'What about servicing, parts and training?'), t('Un moteur électrique n\'a ni vidange, ni bougies. La prise en main est faite à la livraison ; le programme de formation de vos équipes et l\'organisation des pièces sont précisés dans l\'offre.', 'An electric motor needs no oil change and no spark plugs. A hand-over is done at delivery; the training programme for your staff and the parts set-up are set out in the offer.'))}
         ${faq(t('Puis-je louer là où le jet-ski est interdit ?', 'Can I rent where jet skis are banned?'), t('Non. Les interdictions de jet-ski s\'appliquent quelle que soit l\'énergie, par exemple sur le lac d\'Annecy. Le silence et l\'absence de carburant sont en revanche de vrais arguments auprès des autorités locales : c\'est l\'objet du kit capitainerie.', 'No. Jet-ski bans apply whatever the energy, for example on Lake Annecy. Silence and zero fuel are, however, real arguments with local authorities: that is what the harbour-office kit is for.'))}
+        ${faq(t('Je veux aussi vendre IRUKA dans mon pays.', 'I also want to sell IRUKA in my country.'), t('Le réseau de distributeurs est ouvert aux candidatures : six questions, puis votre dossier.', 'The dealer network is open to applications: six questions, then your application.') + ' <a class="font-semibold text-lagoon underline" href="distributeurs.html">' + t('Devenir distributeur', 'Become a dealer') + '</a>')}
         ${faq(t('Quel tarif pour une flotte ?', 'What price for a fleet?'), t(`IRUKA est à ${PRICE.iruka} à l'unité. Le prix d'une flotte, à l'achat ou en loyer mensuel, dépend du nombre de machines et du calendrier de livraison : il est précisé dans votre offre.`, `IRUKA is ${PRICE.iruka} per unit. A fleet's price, bought or on a monthly fee, depends on the number of craft and the delivery schedule: it is set out in your offer.`))}
       </div>
     </div>

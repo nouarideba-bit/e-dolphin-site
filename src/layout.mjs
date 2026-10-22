@@ -18,6 +18,7 @@ export const PAGES = [
   { slug: 'boutique', nav: true, fr: 'Commander', en: 'Order' },
   { slug: 'location', nav: false, fr: 'Pour ma location', en: 'For rental operators' },
   { slug: 'distributeurs', nav: false, fr: 'Devenir distributeur', en: 'Become a dealer' },
+  { slug: 'dossier-distributeur', nav: false, fr: 'Demande de distributeur', en: 'Dealer application' },
   { slug: 'maison', nav: true, fr: 'La maison', en: 'The house' },
   { slug: 'reserver', nav: false, fr: 'Réserver', en: 'Book' },
   { slug: 'mentions-legales', nav: false, fr: 'Mentions légales', en: 'Legal notice' },

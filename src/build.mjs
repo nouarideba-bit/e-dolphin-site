@@ -13,6 +13,7 @@ import * as decouvrir from './pages/decouvrir.mjs';
 import * as reserver from './pages/reserver.mjs';
 import * as location from './pages/location.mjs';
 import * as distributeurs from './pages/distributeurs.mjs';
+import * as dossier from './pages/dossier-distributeur.mjs';
 
 // English pages: "35 990 € HT" becomes "€35,990 excl. VAT"
 const enPrices = (html) => html.replace(/(\d{1,3}(?:[ \u00a0\u202f]\d{3})*(?:,\d+)?)\s?(€|\$)(\s?HT)?(?![\w])/g,
@@ -36,7 +37,7 @@ const inlineIcons = (html) => html.replace(/<i data-lucide="([a-z0-9-]+)"(?: cla
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide ${cls}" aria-hidden="true">${svgInner(name)}</svg>`);
 const SOURCES = {
   index, iruka, experience, 'yachts-flottes': yachts, 'launch-edition': launch,
-  configurateur, boutique, maison, decouvrir, reserver, location, distributeurs, 'mentions-legales': mentions, confidentialite: privacy, cgv: terms
+  configurateur, boutique, maison, decouvrir, reserver, location, distributeurs, 'dossier-distributeur': dossier, 'mentions-legales': mentions, confidentialite: privacy, cgv: terms
 };
 
 for (const L of ['fr', 'en']) {

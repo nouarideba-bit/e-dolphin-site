@@ -34,3 +34,21 @@ addEventListener('DOMContentLoaded', () => {
   $$('#calcul input').forEach(i => i.addEventListener('input', run));
   run();
 });
+
+// "Discover IRUKA Fleet" tabs (arrow keys move between tabs)
+addEventListener('DOMContentLoaded', () => {
+  const list = $('[data-fleet-tabs]'); if (!list) return;
+  const tabs = $$('[role=tab]', list);
+  const pick = (i, focus) => tabs.forEach((b, k) => {
+    b.setAttribute('aria-selected', String(k === i)); b.tabIndex = k === i ? 0 : -1;
+    $('#' + b.getAttribute('aria-controls')).hidden = k !== i;
+    if (k === i && focus) b.focus();
+  });
+  tabs.forEach((b, i) => {
+    b.addEventListener('click', () => pick(i));
+    b.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); pick((i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length, true); }
+    });
+  });
+  pick(0);
+});

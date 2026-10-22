@@ -224,3 +224,6 @@ details[open] .chev { transform: rotate(45deg); }
   body.print-fiche #fiche * { color: #000 !important; border-color: #bbb !important; background: transparent !important; }
   body.print-fiche main { padding: 0 !important; margin: 0 !important; }
 }
+.seg button[role="radio"][aria-checked="true"] { background: var(--foam); color: var(--abyss); }
+.dz-step[hidden] { display: none; }
+.dz-bar { transition: width .4s ease; }
