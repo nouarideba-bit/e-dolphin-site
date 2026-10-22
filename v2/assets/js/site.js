@@ -53,26 +53,29 @@ addEventListener('DOMContentLoaded', () => {
    Items live in localStorage. Checkout stays disabled until the company's Stripe account is open:
    the cart is sent to the team as a request instead (shop page, #demande). */
 const PRODUCTS = {
-  iruka: { name: 'IRUKA', price: 35990, cur: '€ HT', img: 'iruka-side.jpg', note: { fr: 'Prix de lancement', en: 'Launch price' } },
+  iruka: { name: 'IRUKA', price: 35990, cur: '€ HT', img: 'iruka-side.jpg', note: { fr: 'Prix de lancement · acompte 30 %', en: 'Launch price · 30 % deposit' } },
   launch: { name: 'IRUKA Launch Edition', price: 90000, cur: '$ HT', img: 'signature-veil.jpg', note: { fr: 'Série de 300 exemplaires · acompte 30 %', en: '300-unit series · 30 % deposit' } }
 };
 const Cart = {
   key: 'edolphin-cart',
   get() { try { return JSON.parse(localStorage.getItem(this.key) || '[]'); } catch (_) { return []; } },
   set(items) { try { localStorage.setItem(this.key, JSON.stringify(items)); } catch (_) {} this.render(); },
-  add(id, livery) {
-    const items = this.get(), hit = items.find(i => i.id === id && i.livery === livery);
-    if (hit) hit.qty = Math.min(20, hit.qty + 1); else items.push({ id, livery, qty: 1 });
+  // opts: names of chosen equipment; extra: their total, added to the unit price
+  add(id, livery, { opts = [], extra = 0 } = {}) {
+    const items = this.get(), key = opts.join('|');
+    const hit = items.find(i => i.id === id && i.livery === livery && (i.opts || []).join('|') === key);
+    if (hit) hit.qty = Math.min(20, hit.qty + 1); else items.push({ id, livery, qty: 1, opts, extra });
     this.set(items); this.open();
   },
-  money(n, cur) { return n.toLocaleString(LANG === 'fr' ? 'fr-FR' : 'en-US') + ' ' + cur; },
+  unit(i) { return PRODUCTS[i.id].price + (i.extra || 0); },
+  money(n, cur) { return n.toLocaleString(LANG === 'fr' ? 'fr-FR' : 'en-US', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 }) + ' ' + cur; },
   totals(items) {
     const by = {};
-    items.forEach(i => { const p = PRODUCTS[i.id]; if (p) by[p.cur] = (by[p.cur] || 0) + p.price * i.qty; });
+    items.forEach(i => { const p = PRODUCTS[i.id]; if (p) by[p.cur] = (by[p.cur] || 0) + this.unit(i) * i.qty; });
     return by;
   },
   summary() {
-    return this.get().map(i => `${i.qty} × ${PRODUCTS[i.id].name}${i.livery ? ' (' + i.livery + ')' : ''}`).join(' ; ');
+    return this.get().map(i => `${i.qty} × ${PRODUCTS[i.id].name}${i.livery ? ' (' + i.livery + ')' : ''}${i.opts && i.opts.length ? ' + ' + i.opts.join(', ') : ''} = ${this.money(this.unit(i) * i.qty, PRODUCTS[i.id].cur)}`).join(' ; ');
   },
   render() {
     const items = this.get(), n = items.reduce((a, i) => a + i.qty, 0), c = $('#cartCount');
@@ -85,7 +88,8 @@ const Cart = {
         <div class="min-w-0 flex-1">
           <p class="font-display font-semibold">${p.name}</p>
           <p class="text-xs text-brume">${i.livery ? i.livery + ' · ' : ''}${p.note[LANG]}</p>
-          <p class="num mt-1 text-sm">${this.money(p.price, p.cur)}</p>
+          ${i.opts && i.opts.length ? `<p class="mt-1 text-xs text-brume">+ ${i.opts.join(', ')}</p>` : ''}
+          <p class="num mt-1 text-sm">${this.money(this.unit(i), p.cur)}</p>
           <div class="mt-2 flex items-center gap-2">
             <button type="button" class="glass rounded-full px-2.5 py-0.5" data-q="${k}" data-d="-1" aria-label="${tt('Retirer une unité', 'Remove one')}">−</button>
             <span class="num w-6 text-center text-sm">${i.qty}</span>
@@ -96,7 +100,7 @@ const Cart = {
       </div>`;
     }).join('') : `<p class="text-brume">${tt('Votre panier est vide.', 'Your cart is empty.')}</p>`;
     const tot = this.totals(items);
-    $('#cartTotals').innerHTML = Object.keys(tot).length ? Object.entries(tot).map(([cur, v]) => `<div class="flex justify-between"><dt class="text-brume">${tt('Total', 'Total')} ${cur}</dt><dd class="num font-semibold">${this.money(v, cur)}</dd></div>`).join('') : '';
+    $('#cartTotals').innerHTML = Object.keys(tot).length ? Object.entries(tot).map(([cur, v]) => `<div class="flex justify-between"><dt class="text-brume">${tt('Total', 'Total')} ${cur}</dt><dd class="num font-semibold">${this.money(v, cur)}</dd></div><div class="flex justify-between text-sm"><dt class="text-brume">${tt('Acompte 30 %', '30 % deposit')}</dt><dd class="num text-lagoon">${this.money(Math.round(v * 30) / 100, cur)}</dd></div>`).join('') : '';
     $('#cartSend').hidden = !items.length;
     $$('[data-q]').forEach(b => b.onclick = () => { const it = this.get(), i = it[+b.dataset.q]; i.qty = Math.max(1, Math.min(20, i.qty + +b.dataset.d)); this.set(it); });
     $$('[data-rm]').forEach(b => b.onclick = () => { const it = this.get(); it.splice(+b.dataset.rm, 1); this.set(it); });

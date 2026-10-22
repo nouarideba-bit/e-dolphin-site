@@ -7,6 +7,7 @@ export const PAGES = [
   { slug: 'experience', nav: true, fr: "L'expérience", en: 'Experience' },
   { slug: 'yachts-flottes', nav: true, fr: 'Yachts et flottes', en: 'Yachts & fleets' },
   { slug: 'launch-edition', nav: true, fr: 'Launch Edition', en: 'Launch Edition' },
+  { slug: 'configurateur', nav: true, fr: 'Configurer', en: 'Build yours' },
   { slug: 'boutique', nav: true, fr: 'Boutique', en: 'Shop' },
   { slug: 'maison', nav: true, fr: 'La maison', en: 'The house' },
   { slug: 'reserver', nav: false, fr: 'Réserver', en: 'Book' },
@@ -159,7 +160,7 @@ ${body}
   </div>
 </aside>
 
-${slug === 'reserver' ? '' : `<a href="${href('reserver')}" class="btn-primary fixed inset-x-4 bottom-4 z-40 flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold shadow-2xl sm:hidden" style="bottom:max(16px, env(safe-area-inset-bottom))"><i data-lucide="calendar-check" class="h-4 w-4"></i>${book}</a>`}
+${slug === 'reserver' || slug === 'configurateur' ? '' : `<a href="${href('reserver')}" class="btn-primary fixed inset-x-4 bottom-4 z-40 flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold shadow-2xl sm:hidden" style="bottom:max(16px, env(safe-area-inset-bottom))"><i data-lucide="calendar-check" class="h-4 w-4"></i>${book}</a>`}
 </body>
 </html>
 `;

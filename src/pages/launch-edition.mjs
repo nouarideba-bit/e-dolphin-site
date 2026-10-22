@@ -1,10 +1,11 @@
+import { plaque } from '../plaque.mjs';
 import { tr, img, head, btn } from '../ui.mjs';
 
 export const meta = {
   fr: { title: 'IRUKA Launch Edition · 300 exemplaires · E-Dolphin', desc: 'La première série d\'IRUKA : 300 exemplaires numérotés, 90 000 $ HT, acompte de 30 %.' },
   en: { title: 'IRUKA Launch Edition · 300 units · E-Dolphin', desc: 'The first IRUKA series: 300 numbered units, $90,000 excl. VAT, 30 % deposit.' }
 };
-export const scripts = ['waitlist.js'];
+export const scripts = ['waitlist.js', 'plaque.js'];
 
 export const body = (L, R) => {
   const t = tr(L);
@@ -24,10 +25,41 @@ export const body = (L, R) => {
       </div>
       <div class="mt-9 flex flex-wrap gap-3">
         ${btn('reserver.html?formule=launch', t('Réserver mon exemplaire', 'Reserve my unit'), 'gem')}
+        ${btn('configurateur.html?modele=launch&livree=predator', t('Configurer en 360°', 'Configure in 360°'), 'rotate-3d', false)}
         <button type="button" data-add="launch" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter au panier', 'Add to cart')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
       </div>
       <p class="mt-4 inline-flex items-center gap-2 tag text-brume"><i data-lucide="lock" class="h-3.5 w-3.5"></i>${t('Paiement de l\'acompte en ligne bientôt disponible. Votre demande réserve dès maintenant votre place dans la file.', 'Online deposit payment opening soon. Your request holds your place in line today.')}</p>
     </div></div>
+  </section>
+
+  <!-- Numbered plate: the owner's privilege made visible -->
+  <section class="gutter py-20 sm:py-28">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.15fr_1fr]">
+      <div class="plaque-wrap" data-finish="carbon">
+        <div class="plaque-float">${plaque('pl')}</div>
+        <p class="mt-6 text-center tag text-brume/80">${t('Visuel d\'illustration · gravure et finition définitives présentées à la réservation', 'Illustration · final engraving and finish shown when you reserve')}</p>
+      </div>
+      <div>
+        ${head({ eyebrow: t('Votre plaque', 'Your plate'), title: t('Votre numéro, gravé pour toujours.', 'Your number, engraved for good.'), lead: t('Chaque Launch Edition porte une plaque numérotée de 001 à 300, gravée en relief et fixée sur la machine. Elle dit une chose simple : vous étiez parmi les premiers.', 'Every Launch Edition carries a plate numbered 001 to 300, engraved in relief and fixed to the craft. It says one simple thing: you were among the first.') })}
+        <div class="mt-8 grid gap-5">
+          <div>
+            <p class="text-sm text-brume">${t('Finition', 'Finish')}</p>
+            <div class="seg glass mt-2 inline-flex rounded-full p-1" role="group" aria-label="${t('Finition de la plaque', 'Plate finish')}">
+              <button type="button" data-finish="carbon" aria-pressed="true" class="rounded-full px-4 py-2 text-sm font-medium">${t('Carbone', 'Carbon')}</button>
+              <button type="button" data-finish="alu" aria-pressed="false" class="rounded-full px-4 py-2 text-sm font-medium">${t('Aluminium brossé', 'Brushed aluminium')}</button>
+            </div>
+          </div>
+          <div>
+            <label for="plInput" class="text-sm text-brume">${t('Essayez votre numéro', 'Try your number')}</label>
+            <div class="mt-2 flex items-center gap-3">
+              <input id="plInput" type="number" min="1" max="300" value="1" inputmode="numeric" class="field num !mt-0 w-28 text-center font-display text-lg">
+              <span class="text-sm text-brume">${t('sur 300', 'of 300')}</span>
+            </div>
+            <p class="mt-2 text-xs text-brume/80">${t('Les numéros sont attribués dans l\'ordre des réservations confirmées ; une demande de numéro particulier est étudiée selon disponibilité.', 'Numbers are allocated in order of confirmed reservations; a request for a specific number is considered subject to availability.')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="gutter py-20 sm:py-28">

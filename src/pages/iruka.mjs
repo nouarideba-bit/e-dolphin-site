@@ -19,7 +19,7 @@ export const body = (L, R) => {
         <p class="mt-6 font-display text-xl">${t('À partir de', 'From')} <span class="num font-semibold">35 990 € HT</span></p>
         <div class="mt-8 flex flex-wrap gap-3">
           ${btn('reserver.html', t('Réserver un essai', 'Book a sea trial'), 'calendar-check')}
-          ${btn('boutique.html', t('Configurer et commander', 'Configure and order'), 'shopping-bag', false)}
+          ${btn('configurateur.html', t('Configurer et commander', 'Configure and order'), 'sliders-horizontal', false)}
         </div>
       </div>
       ${fig(img(R, 's300-prototype.jpg'), t('Le prototype S300 sur l\'eau', 'The S300 prototype on the water'), t('Photo réelle · S300', 'Real photo · S300'), 'aspect-[4/3]')}

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Configurator · IRUKA · E-Dolphin</title>
+<meta name="description" content="Build your IRUKA: model, livery, 360° view, equipment, live total and deposit.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#06131C">
+<link rel="alternate" hreflang="fr" href="../configurateur.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<script defer src="../assets/js/icons.js"></script>
+<script defer src="../assets/js/site.js"></script>
+<script defer src="../assets/js/cfg-options.js"></script>
+<script defer src="../assets/js/jet3d.js"></script>
+<script defer src="../assets/js/config.js"></script>
+</head>
+<body class="page-configurateur">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-foam focus:px-4 focus:py-2 focus:text-abyss">Skip to content</a>
+<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 py-3" aria-label="Main navigation">
+    <a href="./" class="flex shrink-0 items-center gap-3" aria-label="E-Dolphin, home">
+      <svg width="48" height="36" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg>
+      <span class="font-display text-sm font-semibold tracking-[.22em]">E-DOLPHIN</span>
+    </a>
+    <ul class="hidden items-center gap-6 text-sm xl:gap-7 lg:flex"><li><a class="nav-link" href="iruka.html">IRUKA</a></li><li><a class="nav-link" href="experience.html">Experience</a></li><li><a class="nav-link" href="yachts-flottes.html">Yachts & fleets</a></li><li><a class="nav-link" href="launch-edition.html">Launch Edition</a></li><li><a class="nav-link is-on" href="configurateur.html" aria-current="page">Build yours</a></li><li><a class="nav-link" href="boutique.html">Shop</a></li><li><a class="nav-link" href="maison.html">The house</a></li></ul>
+    <div class="flex items-center gap-2">
+      <div class="lang hidden items-center gap-1 rounded-full p-1 sm:flex" role="group" aria-label="Language">
+        <a href="../configurateur.html" hreflang="fr" lang="fr" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px]" aria-label="Français"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</a>
+        <a href="#" hreflang="en" lang="en" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px] is-on" aria-current="true" aria-label="English"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c47"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t47"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c47)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t47)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>EN</a>
+      </div>
+      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="Open cart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /> <path d="M3 6h18" /> <path d="M16 10a4 4 0 0 1-8 0" /></svg><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
+      <a href="reserver.html" class="btn-primary hidden rounded-full px-5 py-2.5 text-sm font-semibold sm:inline-flex">Book a sea trial</a>
+      <button id="menuBtn" class="glass rounded-full p-2.5 lg:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12" /> <line x1="4" x2="20" y1="6" y2="6" /> <line x1="4" x2="20" y1="18" y2="18" /></svg></button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="glass mx-auto mb-3 max-w-7xl rounded-2xl p-2 lg:hidden" hidden>
+    <a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="iruka.html">IRUKA</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="experience.html">Experience</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="yachts-flottes.html">Yachts & fleets</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="launch-edition.html">Launch Edition</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5 text-lagoon" href="configurateur.html">Build yours</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="boutique.html">Shop</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="maison.html">The house</a>
+    <div class="mt-1 flex gap-2 border-t border-white/10 px-2 pt-3">
+      <a href="../configurateur.html" hreflang="fr" class="flag inline-flex items-center gap-2 rounded-full px-3 py-2 font-mono text-xs"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>Français</a>
+      <a href="#" hreflang="en" class="flag inline-flex items-center gap-2 rounded-full px-3 py-2 font-mono text-xs is-on"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c48"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t48"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c48)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t48)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>English</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="cfg-light">
+  <section class="gutter pb-4 pt-24 sm:pt-28">
+    <div class="mx-auto max-w-7xl">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="eyebrow !text-teal">Configurator</p>
+          <h1 class="mt-2 font-display text-3xl font-semibold sm:text-4xl">Build <span id="cfgTitle">IRUKA</span></h1>
+        </div>
+        <ol class="flex w-full gap-1 sm:w-auto" role="tablist" aria-label="Steps">
+          <li class="flex-1 sm:flex-none"><button type="button" role="tab" id="tab-model" aria-controls="pane-model" aria-selected="true" class="cfg-step w-full px-2 py-2 text-xs sm:px-4 sm:text-sm"><span class="num mr-1">1</span>Model</button></li><li class="flex-1 sm:flex-none"><button type="button" role="tab" id="tab-color" aria-controls="pane-color" aria-selected="false" class="cfg-step w-full px-2 py-2 text-xs sm:px-4 sm:text-sm"><span class="num mr-1">2</span>Colour</button></li><li class="flex-1 sm:flex-none"><button type="button" role="tab" id="tab-equip" aria-controls="pane-equip" aria-selected="false" class="cfg-step w-full px-2 py-2 text-xs sm:px-4 sm:text-sm"><span class="num mr-1">3</span>Equipment</button></li><li class="flex-1 sm:flex-none"><button type="button" role="tab" id="tab-sum" aria-controls="pane-sum" aria-selected="false" class="cfg-step w-full px-2 py-2 text-xs sm:px-4 sm:text-sm"><span class="num mr-1">4</span>Summary</button></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="gutter pb-36">
+    <div class="mx-auto grid max-w-7xl items-start gap-6 lg:grid-cols-[1.6fr_1fr]">
+      <!-- Stage -->
+      <div class="lg:sticky lg:top-24">
+        <div class="mb-3 flex items-center justify-between gap-3">
+          <div class="cfg-seg inline-flex rounded-full p-1" role="group" aria-label="Display">
+            <button type="button" data-mode="photo" aria-pressed="true" class="rounded-full px-4 py-1.5 text-sm font-medium">Photos</button>
+            <button type="button" data-mode="3d" aria-pressed="false" class="rounded-full px-4 py-1.5 text-sm font-medium">3D 360°</button>
+          </div>
+          <p class="hidden text-xs text-ink2 sm:block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mr-1 inline h-4 w-4" aria-hidden="true"><path d="m18 8 4 4-4 4" /> <path d="M2 12h20" /> <path d="m6 8-4 4 4 4" /></svg>Drag to turn</p>
+        </div>
+        <figure id="cfgStage" class="relative overflow-hidden rounded-[1.75rem] bg-[#0b0d0f] select-none">
+          <img id="cfgImg" src="../assets/img/cfg-blanc-face.jpg" alt="IRUKA" width="1400" height="787" draggable="false" class="aspect-[16/9] w-full object-cover transition-opacity duration-200">
+          <div id="cfg3d" class="absolute inset-0" hidden></div>
+          <figcaption class="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 font-mono text-[11px] text-white"><span id="cfgImgKind">Render</span> · <span id="cfgImgLabel">White · black · lime</span></figcaption>
+          <button type="button" id="cfgPrev" class="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="Turn left"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /></svg></button>
+          <button type="button" id="cfgNext" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="Turn right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" /></svg></button>
+        </figure>
+        <div id="cfgThumbs" class="mt-3 grid grid-cols-4 gap-2 sm:gap-3" role="group" aria-label="View angle">
+          <button type="button" data-view="face" aria-pressed="true" class="cfg-view card overflow-hidden rounded-xl text-left"><img src="../assets/img/cfg-blanc-face-s.jpg" alt="" class="aspect-[16/9] w-full object-cover"><span class="block px-2 py-1 text-xs text-ink2">Front</span></button><button type="button" data-view="profil" aria-pressed="false" class="cfg-view card overflow-hidden rounded-xl text-left"><img src="../assets/img/cfg-blanc-profil-s.jpg" alt="" class="aspect-[16/9] w-full object-cover"><span class="block px-2 py-1 text-xs text-ink2">Side</span></button><button type="button" data-view="arriere" aria-pressed="false" class="cfg-view card overflow-hidden rounded-xl text-left"><img src="../assets/img/cfg-blanc-arriere-s.jpg" alt="" class="aspect-[16/9] w-full object-cover"><span class="block px-2 py-1 text-xs text-ink2">Rear</span></button><button type="button" data-view="dessus" aria-pressed="false" class="cfg-view card overflow-hidden rounded-xl text-left"><img src="../assets/img/cfg-blanc-dessus-s.jpg" alt="" class="aspect-[16/9] w-full object-cover"><span class="block px-2 py-1 text-xs text-ink2">Top</span></button>
+        </div>
+      </div>
+
+      <!-- Choices -->
+      <div id="cfgPanel" class="card scroll-mt-24 rounded-[1.75rem] p-5 sm:p-7">
+        <div id="pane-model" role="tabpanel" aria-labelledby="tab-model">
+          <h2 class="font-display text-xl font-semibold">Choose your model</h2>
+          <div class="mt-4 grid gap-3">
+            
+    <button type="button" data-model="iruka" aria-pressed="true" class="cfg-model card flex items-center gap-4 rounded-2xl p-3 text-left ">
+      <img src="../assets/img/cfg-blanc-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+      <span class="min-w-0 flex-1"><span class="block font-display font-semibold">IRUKA</span><span class="block text-xs text-ink2">The series model</span></span>
+      <span class="num shrink-0 text-sm font-semibold">35 990 € HT</span>
+    </button>
+            
+    <button type="button" data-model="launch" aria-pressed="false" class="cfg-model card flex items-center gap-4 rounded-2xl p-3 text-left ">
+      <img src="../assets/img/cfg-predator-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+      <span class="min-w-0 flex-1"><span class="block font-display font-semibold">IRUKA Launch Edition</span><span class="block text-xs text-ink2">Limited series · 300 units</span></span>
+      <span class="num shrink-0 text-sm font-semibold">90 000 $ HT</span>
+    </button>
+            
+    <button type="button" disabled aria-pressed="false" class="cfg-model card flex items-center gap-4 rounded-2xl p-3 text-left opacity-50">
+      <img src="../assets/img/tridens.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+      <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Tridens</span><span class="block text-xs text-ink2">Next model</span></span>
+      <span class="num shrink-0 text-sm font-semibold">Soon</span>
+    </button>
+            
+    <button type="button" disabled aria-pressed="false" class="cfg-model card flex items-center gap-4 rounded-2xl p-3 text-left opacity-50">
+      <img src="../assets/img/kids-echo.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+      <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Kids range</span><span class="block text-xs text-ink2">Ages 6 to 12</span></span>
+      <span class="num shrink-0 text-sm font-semibold">Soon</span>
+    </button>
+          </div>
+        </div>
+
+        <div id="pane-color" role="tabpanel" aria-labelledby="tab-color" hidden>
+          <h2 class="font-display text-xl font-semibold">Livery : <span id="cfgLiveryName">White · black · lime</span></h2>
+          <div id="cfgSwatches" class="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-3 xl:grid-cols-5"></div>
+          <p class="mt-5 text-xs text-ink2">Livery included in the price. Non-contractual renders; final colours shown at the trial.</p>
+        </div>
+
+        <div id="pane-equip" role="tabpanel" aria-labelledby="tab-equip" hidden>
+          <h2 class="font-display text-xl font-semibold">Equipment and accessories</h2>
+          <p class="mt-1 text-sm text-ink2">Tick: the total updates at the bottom of the screen.</p>
+          <div id="cfgOptions" class="mt-4 grid gap-3"></div>
+          <p class="mt-5 text-xs text-ink2">Indicative prices excl. VAT, confirmed on quotation. Electronic features being validated on the prototype.</p>
+        </div>
+
+        <div id="pane-sum" role="tabpanel" aria-labelledby="tab-sum" hidden>
+          <h2 class="font-display text-xl font-semibold">Your configuration</h2>
+          <dl id="cfgSummary" class="mt-4 grid gap-2.5 text-sm"></dl>
+          <div class="mt-6 grid gap-3">
+            <button type="button" id="cfgAdd" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">Add to cart <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /> <path d="M3 6h18" /> <path d="M16 10a4 4 0 0 1-8 0" /></svg></button>
+            <div class="grid grid-cols-2 gap-3">
+              <a id="cfgBook" href="reserver.html" class="cfg-ghost inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg>Try it</a>
+              <button type="button" id="cfgShare" class="cfg-ghost inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><circle cx="18" cy="5" r="3" /> <circle cx="6" cy="12" r="3" /> <circle cx="18" cy="19" r="3" /> <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" /> <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" /></svg>Share</button>
+            </div>
+            <p id="cfgOut" class="min-h-[1.25rem] text-center text-sm text-teal" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Running total, always visible -->
+  <div class="cfg-bar fixed inset-x-0 bottom-0 z-40 gutter" style="padding-bottom:max(10px, env(safe-area-inset-bottom))">
+    <div class="mx-auto flex max-w-7xl items-center gap-4 py-3">
+      <dl class="grid flex-1 grid-cols-2 gap-x-6 gap-y-0.5 text-xs sm:flex sm:items-center sm:gap-8 sm:text-sm">
+        <div class="hidden sm:block"><dt class="text-ink2"><span id="cfgModelName">IRUKA</span></dt><dd class="num font-semibold" id="cfgBase">35 990 € HT</dd></div>
+        <div class="hidden sm:block"><dt class="text-ink2">Equipment</dt><dd class="num font-semibold" id="cfgExtra">+ 0 € HT</dd></div>
+        <div><dt class="text-ink2">Total</dt><dd class="num cfg-total whitespace-nowrap font-display text-base font-bold sm:text-xl">35 990 € HT</dd></div>
+        <div><dt class="text-ink2">30 % deposit</dt><dd class="num cfg-deposit whitespace-nowrap font-semibold text-teal sm:text-lg">10 797 € HT</dd></div>
+      </dl>
+      <button type="button" id="cfgNextStep" class="btn-primary inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold sm:px-7">Next <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></button>
+    </div>
+  </div>
+  <p id="cfgPriceNote" hidden></p>
+  </div>
+</main>
+
+<footer class="gutter border-t border-white/10 pb-28 pt-14 sm:pb-14">
+  <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
+    <div>
+      <a href="./" class="inline-flex items-center gap-3"><svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg><span class="font-display font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
+      <p class="mt-4 max-w-xs text-sm text-brume">Luxury 100 % electric jet-skis, designed and assembled in France.</p>
+    </div>
+    <div>
+      <p class="eyebrow-sand">The model</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="iruka.html">IRUKA</a></li>
+        <li><a class="hover:text-foam" href="launch-edition.html">Launch Edition</a></li>
+        <li><a class="hover:text-foam" href="experience.html">Experience</a></li>
+        <li><a class="hover:text-foam" href="maison.html">The house</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Partners</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="yachts-flottes.html">Yachts & fleets</a></li>
+        <li><a class="hover:text-foam" href="reserver.html">Book a sea trial</a></li>
+        <li><a class="hover:text-foam" href="reserver.html#faq">FAQ</a></li>
+
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Follow</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><circle cx="8" cy="18" r="4" /> <path d="M12 18V2l7 4" /></svg>TikTok</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>Instagram</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="../configurateur.html" hreflang="fr"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>Français</a></li>
+      </ul>
+    </div>
+  </div>
+  <form id="newsletter" class="mx-auto mt-12 grid max-w-7xl gap-4 rounded-3xl border border-white/10 p-6 sm:p-8 md:grid-cols-[1fr_1.2fr] md:items-center" novalidate>
+    <div>
+      <p class="eyebrow-sand">Newsletter</p>
+      <p class="mt-3 font-display text-xl font-semibold">First trials, delivery dates, new models.</p>
+      <p class="mt-1 text-sm text-brume">A few e-mails a year, one-click unsubscribe.</p>
+    </div>
+    <div>
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <label for="nlEmail" class="sr-only">E-mail</label>
+        <input id="nlEmail" type="email" required autocomplete="email" placeholder="your@email.com" class="field !mt-0 flex-1">
+        <button type="submit" class="btn-primary rounded-full px-6 py-3 font-semibold">Subscribe</button>
+      </div>
+      <label class="mt-3 flex items-start gap-2 text-xs text-brume"><input id="nlConsent" type="checkbox" class="mt-0.5 accent-[#2EE6A8]">I agree to receive the E-Dolphin newsletter. My e-mail is used for nothing else.</label>
+      <p id="nlMsg" class="mt-2 text-sm" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+  <ul class="mx-auto mt-10 flex max-w-7xl flex-wrap gap-x-6 gap-y-2 text-xs text-brume">
+    <li><a class="hover:text-foam" href="mentions-legales.html">Legal notice</a></li>
+    <li><a class="hover:text-foam" href="confidentialite.html">Privacy and cookies</a></li>
+    <li><a class="hover:text-foam" href="cgv.html">Terms of sale</a></li>
+    <li>© 2026 E-Dolphin</li>
+  </ul>
+  <p class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-6 font-mono text-[11px] leading-relaxed text-brume/80">Private site shared with our partners. IRUKA specifications are design targets, to be confirmed by validation trials. Visuals marked “Render” are computer-generated and non-contractual.</p>
+</footer>
+
+<div id="cartShade" class="fixed inset-0 z-[55] bg-abyss/70 backdrop-blur-sm" hidden></div>
+<aside id="cart" class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-md flex-col border-l border-white/10 bg-deep" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <div class="flex items-center justify-between border-b border-white/10 p-5">
+    <h2 id="cartTitle" class="font-display text-xl font-semibold">Your cart</h2>
+    <button type="button" id="cartClose" class="glass rounded-full p-2" aria-label="Close cart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+  </div>
+  <div id="cartItems" class="flex-1 overflow-y-auto p-5"></div>
+  <div class="border-t border-white/10 p-5">
+    <dl id="cartTotals" class="grid gap-1 text-sm"></dl>
+    <button type="button" class="btn-primary mt-4 w-full cursor-not-allowed rounded-full py-3.5 font-semibold opacity-45" disabled aria-describedby="payNote"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mr-1 inline h-4 w-4" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>Online payment</button>
+    <p id="payNote" class="mt-2 text-center text-xs text-brume">Secure payment opening soon. Meanwhile, send your cart to our team.</p>
+    <a href="boutique.html#demande" id="cartSend" class="btn-ghost mt-3 flex w-full items-center justify-center gap-2 rounded-full py-3 font-semibold">Send my request <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg></a>
+  </div>
+</aside>
+
+
+</body>
+</html>

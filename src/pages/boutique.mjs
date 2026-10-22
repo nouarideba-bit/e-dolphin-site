@@ -30,7 +30,8 @@ export const body = (L, R) => {
         <ul class="mt-5 grid gap-2 text-sm text-brume">${lines.map(l => `<li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-lagoon"></i>${l}</li>`).join('')}</ul>
         <label for="liv-${id}" class="mt-6 text-sm text-brume">${t('Livrée', 'Livery')}</label>
         <select id="liv-${id}" class="field" data-preview="#img-${id}">${options}</select>
-        <button type="button" data-add="${id}" data-livery-from="#liv-${id}" class="btn-primary mt-6 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter au panier', 'Add to cart')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
+        <a href="configurateur.html?modele=${id}" class="btn-ghost mt-6 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold">${t('Personnaliser : options et 360°', 'Customise: options and 360°')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
+        <button type="button" data-add="${id}" data-livery-from="#liv-${id}" class="btn-primary mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter au panier', 'Add to cart')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
       </div>
     </article>`;
   return `
@@ -47,7 +48,8 @@ export const body = (L, R) => {
       ${product('iruka', 'IRUKA', `${t('À partir de', 'From')} 35 990 € HT`, t('Le modèle', 'The model'), [
         t('Moteur 160 kW, 60 nœuds, batterie 35 kWh', '160 kW motor, 60 knots, 35 kWh battery'),
         t('Recharge rapide CCS2, environ 30 min', 'CCS2 fast charging, about 30 min'),
-        t('Écran HD, GPS, caméras avant et arrière, audio', 'HD screen, GPS, front and rear cameras, audio'),
+        t('Écran tactile connecté, caméras avant et arrière', 'Connected touchscreen, front and rear cameras'),
+        t('Acompte de 30 % : 10 797 € HT (hors options)', '30 % deposit: €10,797 excl. VAT (before options)'),
         t('Prix hors taxes, livraison et options en sus', 'Price excl. VAT, delivery and options extra')
       ], img(R, 'livery-blanc.jpg'))}
       ${product('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), [
