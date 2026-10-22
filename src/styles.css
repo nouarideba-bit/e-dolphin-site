@@ -200,3 +200,4 @@ details[open] .chev { transform: rotate(45deg); }
 @media (min-width: 768px) { .disc-road::before { content: ""; position: absolute; left: 7px; right: 0; top: 6px; height: 2px; background: linear-gradient(90deg, var(--lagoon), var(--line) 30%, var(--line)); } }
 .disc-chapters { scrollbar-width: none; }
 .disc-chapters::-webkit-scrollbar { display: none; }
+.sound-btn[aria-pressed="true"] .snd-off, .sound-btn[aria-pressed="false"] .snd-on { display: none; }
