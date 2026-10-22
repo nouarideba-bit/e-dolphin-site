@@ -2,7 +2,8 @@
   "name": "e-dolphin-site",
   "private": true,
   "scripts": {
-    "build": "node src/build.mjs && tailwindcss -c tailwind.config.cjs -i src/styles.css -o v2/assets/site.css --minify && node src/publish.mjs"
+    "build": "node src/build.mjs && tailwindcss -c tailwind.config.cjs -i src/styles.css -o v2/assets/site.css --minify && node src/publish.mjs",
+    "build:apercu": "RAIL=1 node src/build.mjs && tailwindcss -c tailwind.config.cjs --content './apercu/**/*.html,./apercu/assets/js/*.js' -i src/styles.css -o apercu/assets/site.css --minify"
   },
   "devDependencies": {
     "lucide-static": "^0.468.0",

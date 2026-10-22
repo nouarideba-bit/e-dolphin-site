@@ -1,5 +1,7 @@
 // Shared page frame: <head>, header, footer and the mobile booking bar.
 // Every page is rendered twice, French at v2/ and English at v2/en/, with the same file names.
+// With rail = true (preview build, apercu/), the top header gives way to the left navigation rail.
+import { rail as railNav } from './rail.mjs';
 
 export const PAGES = [
   { slug: 'index', nav: false, fr: 'Accueil', en: 'Home' },
@@ -24,7 +26,7 @@ const FLAG_FR = `<svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true
 let flagN = 0;
 const flagEn = () => { const n = ++flagN; return `<svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>`.replace(/uk-c/g, 'uk-c' + n).replace(/uk-t/g, 'uk-t' + n); };
 
-export function page({ L, slug, title, desc, body, scripts = [] }) {
+export function page({ L, slug, title, desc, body, scripts = [], rail = false }) {
   const t = (fr, en) => (L === 'fr' ? fr : en);
   const root = L === 'fr' ? '' : '../';
   const href = (s) => (s === 'index' ? './' : `${s}.html`);
@@ -52,10 +54,11 @@ export function page({ L, slug, title, desc, body, scripts = [] }) {
 <script defer src="${root}assets/js/icons.js"></script>
 <script defer src="${root}assets/js/site.js"></script>
 ${scripts.map(s => `<script defer src="${root}assets/js/${s}"></script>`).join('\n')}
+${rail ? `<script defer src="${root}assets/js/rail.js"></script>` : ''}
 </head>
-<body class="page-${slug}">
+<body class="page-${slug}${rail ? ' has-rail' : ''}">
 <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-foam focus:px-4 focus:py-2 focus:text-abyss">${t('Aller au contenu', 'Skip to content')}</a>
-<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
+${rail ? railNav({ L, slug, href, other, flagFr: FLAG_FR, flagEn }) : `<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
   <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 py-3" aria-label="${t('Navigation principale', 'Main navigation')}">
     <a href="${href('index')}" class="flex shrink-0 items-center gap-3" aria-label="E-Dolphin, ${t('accueil', 'home')}">
       ${logo(48, 36)}
@@ -80,6 +83,7 @@ ${scripts.map(s => `<script defer src="${root}assets/js/${s}"></script>`).join('
     </div>
   </div>
 </header>
+`}
 
 <main id="main">
 ${body}
@@ -160,7 +164,7 @@ ${body}
   </div>
 </aside>
 
-${slug === 'reserver' || slug === 'configurateur' ? '' : `<a href="${href('reserver')}" class="btn-primary fixed inset-x-4 bottom-4 z-40 flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold shadow-2xl sm:hidden" style="bottom:max(16px, env(safe-area-inset-bottom))"><i data-lucide="calendar-check" class="h-4 w-4"></i>${book}</a>`}
+${rail || slug === 'reserver' || slug === 'configurateur' ? '' : `<a href="${href('reserver')}" class="btn-primary fixed inset-x-4 bottom-4 z-40 flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold shadow-2xl sm:hidden" style="bottom:max(16px, env(safe-area-inset-bottom))"><i data-lucide="calendar-check" class="h-4 w-4"></i>${book}</a>`}
 </body>
 </html>
 `;
