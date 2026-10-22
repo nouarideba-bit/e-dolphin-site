@@ -473,7 +473,7 @@
   <!-- Booking request flow (no payment, no deposit). Requests are sent to BOOKING.endpoint once a form service is connected. -->
   <section id="reserver" class="gutter py-20 sm:py-28" aria-labelledby="book-title">
     <div class="mx-auto max-w-7xl">
-      <p class="eyebrow">Réservation</p>
+      <p class="eyebrow">Réservation <span class="ml-2 rounded-full border border-white/20 px-2 py-0.5 text-[10px] tracking-[.18em] text-mist">Version bêta</span></p>
       <h2 id="book-title" class="mt-4 max-w-3xl text-3xl font-extrabold sm:text-5xl">Prenez la barre. <span class="grad-text">Réservez votre essai.</span></h2>
       <p class="mt-5 max-w-2xl text-mist">Un essai en mer accompagné, une présentation privée ou une demande de réservation Launch Edition. Essais et présentations sans paiement : l'équipe E-Dolphin confirme chaque demande personnellement. La Launch Edition se réserve avec un acompte sécurisé.</p>
 
@@ -938,7 +938,7 @@ $('#booking').addEventListener('submit', async (e) => {
     : `Demande Launch Edition (${req.unites} unité${req.unites > 1 ? 's' : ''}, livrée ${req.livree}), ${bk.place}.`;
   $('#doneNote').textContent = sent
     ? `Un membre de l'équipe vous confirme ce rendez-vous par e-mail à ${email}. Aucun paiement ne vous sera demandé en ligne.`
-    : `La réservation en ligne est en cours d'activation : votre demande n'a pas encore été transmise à l'équipe. Envoyez-nous la référence ${ref} sur Instagram (@_e_dolphin_) pour bloquer ce créneau. Aucun paiement ne vous sera demandé.`;
+    : `Version bêta : cette demande n'est pas encore transmise à l'équipe. Elle sert à présenter le parcours de réservation. Aucun paiement n'est demandé.`;
   $('#doneTitle').textContent = sent ? 'Demande envoyée' : 'Demande prête';
   $('#icsBtn').hidden = !t.needsSlot;
   const db = $('#depBtn'); db.hidden = bk.type !== 'launch';
