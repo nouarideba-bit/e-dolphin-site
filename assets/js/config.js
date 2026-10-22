@@ -16,9 +16,9 @@ addEventListener('DOMContentLoaded', () => {
   // Rotation order for the drag viewer; extra in-between angles are added per livery when they exist
   const VIEWS = { fr: { profil: 'Profil', face: 'Face', arriere: 'Arrière', dessus: 'Dessus' }, en: { profil: 'Side', face: 'Front', arriere: 'Rear', dessus: 'Top' } };
   // Predator (Launch Edition livery) has a 15-frame turn: AI renders in between, the far side mirrored
+  // 24 views every 15° for every livery (the top view stays a thumbnail only)
   const FRAMES = {
-    default: ['face', 'profil', 'arriere', 'dessus'],
-    predator: ['face', 'a022', 'a045', 'a067', 'profil', 'a112', 'a135', 'a157', 'a202', 'arriere', 'a247', 'a270', 'a292', 'a315', 'a337']
+    default: ['face', 'a015', 'a030', 'a045', 'a060', 'a075', 'profil', 'a105', 'a120', 'a135', 'a150', 'a165', 'a180', 'a195', 'arriere', 'a225', 'a240', 'a255', 'a270', 'a285', 'a300', 'a315', 'a330', 'a345']
   };
   const viewName = (v) => VIEWS[LANG][v] || (v.startsWith('a') ? `${+v.slice(1)}°` : '');
   const frames = (liv) => FRAMES[liv] || FRAMES.default;
