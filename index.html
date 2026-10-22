@@ -499,6 +499,7 @@
               <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Monaco · Port Hercule" class="sr-only" checked>Monaco · Port Hercule</label>
               <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Antibes · Port Vauban" class="sr-only">Antibes · Port Vauban</label>
               <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Saint-Tropez" class="sr-only">Saint-Tropez</label>
+              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm" data-no-trial><input type="radio" name="place" value="Lac d'Annecy" class="sr-only">Lac d'Annecy · présentation à quai</label>
               <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="À bord de mon yacht" class="sr-only">À bord de mon yacht</label>
             </div>
             <p class="font-mono text-[11px] text-mist/80">Lieux d'essai proposés, confirmés avec vous selon la saison et les autorisations locales.</p>
@@ -813,7 +814,7 @@ $('#waitlist').addEventListener('submit', (e) => {
 // While it is empty, requests are kept in the visitor's browser and the confirmation says the team will be in touch once booking opens.
 // Launch Edition deposit: stays disabled until the company's own Stripe account is open.
 // To activate: enabled: true, amount (EUR), link = Stripe Payment Link (https://buy.stripe.com/...).
-const DEPOSIT = { enabled: false, amount: null, link: '' };
+const DEPOSIT = { enabled: false, percent: 30, amount: null, link: '' };
 const BOOKING = { endpoint: '', slots: ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'], leadDays: 3, horizonDays: 120 };
 const TYPES = {
   essai: { label: 'Essai en mer', dur: 45, needsSlot: true },
@@ -870,17 +871,24 @@ function drawSlots() {
   });
 }
 const depositReady = () => DEPOSIT.enabled && /^https:\/\/buy\.stripe\.com\//.test(DEPOSIT.link);
-const depAmountTxt = () => DEPOSIT.amount ? DEPOSIT.amount.toLocaleString('fr-FR') + ' €' : 'communiqué à l\'ouverture';
+const depAmountTxt = () => DEPOSIT.amount ? DEPOSIT.amount.toLocaleString('fr-FR') + ' €' : DEPOSIT.percent + ' % du prix';
 function summary() {
   const t = TYPES[bk.type];
   $('#sumType').textContent = t.label;
   $('#sumPlace').textContent = bk.place;
   $('#sumWhen').textContent = !t.needsSlot ? 'Rendez-vous fixé avec l\'équipe' : bk.date ? fmtDate(bk.date) + (bk.slot ? ' · ' + bk.slot.replace(':', 'h').replace(/^0/, '') : ' · créneau à choisir') : 'À choisir';
   $('#sumDur').textContent = t.dur ? t.dur + ' min' : 'Série limitée à 300 exemplaires';
-  $('#sumPay').textContent = bk.type !== 'launch' ? 'Aucun · confirmation par l\'équipe' : depositReady() ? 'Acompte de ' + depAmountTxt() + ' via Stripe' : 'Acompte · bientôt disponible';
+  $('#sumPay').textContent = bk.type !== 'launch' ? 'Aucun · confirmation par l\'équipe' : depositReady() ? 'Acompte de ' + depAmountTxt() + ' via Stripe' : 'Acompte de ' + depAmountTxt() + ' · bientôt disponible';
 }
 function syncType() {
   const t = TYPES[bk.type];
+  // Jet-skis may not sail on Lake Annecy: that place is offered for presentations and Launch Edition only
+  document.querySelectorAll('[data-no-trial]').forEach(l => {
+    const off = bk.type === 'essai', inp = l.querySelector('input');
+    inp.disabled = off; l.style.opacity = off ? .4 : 1; l.style.cursor = off ? 'not-allowed' : 'pointer';
+    l.title = off ? 'Pas d\'essai en navigation sur le lac : choisissez une présentation' : '';
+    if (off && inp.checked) { const m = document.querySelector('#bkPlaces input'); m.checked = true; bk.place = m.value; drawCal(); drawSlots(); }
+  });
   $('#bkWhen').hidden = !t.needsSlot;
   $('#bkLaunchFields').hidden = bk.type !== 'launch';
   document.querySelectorAll('.bk-opt, .bk-chip').forEach(l => l.classList.toggle('is-on', l.querySelector('input').checked));
@@ -936,7 +944,7 @@ $('#booking').addEventListener('submit', async (e) => {
   const db = $('#depBtn'); db.hidden = bk.type !== 'launch';
   if (bk.type === 'launch') {
     db.disabled = !depositReady(); db.style.opacity = depositReady() ? 1 : .45; db.style.cursor = depositReady() ? 'pointer' : 'not-allowed';
-    $('#depBtnTxt').textContent = depositReady() ? 'Verser l\'acompte de ' + depAmountTxt() : 'Acompte · bientôt disponible';
+    $('#depBtnTxt').textContent = depositReady() ? 'Verser l\'acompte de ' + depAmountTxt() : 'Acompte de ' + depAmountTxt() + ' · bientôt disponible';
     db.onclick = () => { if (depositReady()) location.href = DEPOSIT.link + '?client_reference_id=' + encodeURIComponent(ref) + '&prefilled_email=' + encodeURIComponent(email); };
   }
   $('#bkSummary').hidden = true; $('#bkDone').hidden = false;
