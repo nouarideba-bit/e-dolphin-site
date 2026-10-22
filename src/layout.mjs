@@ -2,16 +2,22 @@
 // Every page is rendered twice, French at v2/ and English at v2/en/, with the same file names.
 // With rail = true (the live site since 22 Oct), the top header gives way to the left navigation rail.
 import { rail as railNav } from './rail.mjs';
+import { WA, waLink } from './ui.mjs';
+
+// Public address, used for link previews (WhatsApp, LinkedIn, iMessage)
+const BASE = 'https://nouarideba-bit.github.io/e-dolphin-site/';
 
 export const PAGES = [
   { slug: 'index', nav: false, fr: 'Accueil', en: 'Home' },
   { slug: 'decouvrir', nav: true, fr: 'Découvrir', en: 'Discover' },
   { slug: 'iruka', nav: true, fr: 'IRUKA', en: 'IRUKA' },
   { slug: 'experience', nav: true, fr: "L'expérience", en: 'Experience' },
-  { slug: 'yachts-flottes', nav: true, fr: 'Yachts et flottes', en: 'Yachts & fleets' },
+  { slug: 'yachts-flottes', nav: true, fr: 'Pour mon yacht', en: 'For my yacht' },
   { slug: 'launch-edition', nav: true, fr: 'Launch Edition', en: 'Launch Edition' },
   { slug: 'configurateur', nav: true, fr: 'Configurer', en: 'Build yours' },
-  { slug: 'boutique', nav: true, fr: 'Boutique', en: 'Shop' },
+  { slug: 'boutique', nav: true, fr: 'Commander', en: 'Order' },
+  { slug: 'location', nav: false, fr: 'Pour ma location', en: 'For rental operators' },
+  { slug: 'distributeurs', nav: false, fr: 'Devenir distributeur', en: 'Become a dealer' },
   { slug: 'maison', nav: true, fr: 'La maison', en: 'The house' },
   { slug: 'reserver', nav: false, fr: 'Réserver', en: 'Book' },
   { slug: 'mentions-legales', nav: false, fr: 'Mentions légales', en: 'Legal notice' },
@@ -50,6 +56,16 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false })
 <meta name="google" content="notranslate">
 <meta name="theme-color" content="#06131C">
 <link rel="alternate" hreflang="${L === 'fr' ? 'en' : 'fr'}" href="${other}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="E-Dolphin">
+<meta property="og:title" content="${title}">
+<meta property="og:description" content="${desc}">
+<meta property="og:url" content="${BASE}${L === 'en' ? 'en/' : ''}${slug === 'index' ? '' : slug + '.html'}">
+<meta property="og:image" content="${BASE}assets/img/og-e-dolphin.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="${L === 'fr' ? 'fr_FR' : 'en_GB'}">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -73,7 +89,7 @@ ${rail ? railNav({ L, slug, href, other, flagFr: FLAG_FR, flagEn }) : `<header i
         <a href="${L === 'fr' ? '#' : other}" hreflang="fr" lang="fr" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px]${L === 'fr' ? ' is-on' : ''}"${L === 'fr' ? ' aria-current="true"' : ''} aria-label="Français">${FLAG_FR}FR</a>
         <a href="${L === 'en' ? '#' : other}" hreflang="en" lang="en" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px]${L === 'en' ? ' is-on' : ''}"${L === 'en' ? ' aria-current="true"' : ''} aria-label="English">${flagEn()}EN</a>
       </div>
-      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="${t('Ouvrir le panier', 'Open cart')}"><i data-lucide="shopping-bag" class="h-5 w-5"></i><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
+      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="${t('Ouvrir ma sélection', 'Open my selection')}"><i data-lucide="shopping-bag" class="h-5 w-5"></i><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
       <a href="${href('reserver')}" class="btn-primary hidden rounded-full px-5 py-2.5 text-sm font-semibold sm:inline-flex">${book}</a>
       <button id="menuBtn" class="glass rounded-full p-2.5 lg:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="${t('Ouvrir le menu', 'Open menu')}"><i data-lucide="menu" class="h-5 w-5"></i></button>
     </div>
@@ -109,17 +125,19 @@ ${body}
       </ul>
     </div>
     <div>
-      <p class="eyebrow-sand">${t('Partenaires', 'Partners')}</p>
+      <p class="eyebrow-sand">${t('Vous êtes', 'You are')}</p>
       <ul class="mt-4 grid gap-2 text-sm text-brume">
-        <li><a class="hover:text-foam" href="${href('yachts-flottes')}">${t('Yachts et flottes', 'Yachts & fleets')}</a></li>
+        <li><a class="hover:text-foam" href="${href('yachts-flottes')}">${t('Propriétaire ou capitaine de yacht', 'A yacht owner or captain')}</a></li>
+        <li><a class="hover:text-foam" href="${href('location')}">${t('Loueur, hôtel ou club', 'A rental operator, hotel or club')}</a></li>
+        <li><a class="hover:text-foam" href="${href('distributeurs')}">${t('Futur distributeur', 'A future dealer')}</a></li>
         <li><a class="hover:text-foam" href="${href('reserver')}">${t('Réserver un essai', 'Book a sea trial')}</a></li>
         <li><a class="hover:text-foam" href="${href('reserver')}#faq">${t('Questions fréquentes', 'FAQ')}</a></li>
-
       </ul>
     </div>
     <div>
-      <p class="eyebrow-sand">${t('Suivre', 'Follow')}</p>
+      <p class="eyebrow-sand">${t('Nous parler', 'Talk to us')}</p>
       <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="${waLink(L)}" target="_blank" rel="noopener"><i data-lucide="message-circle" class="h-4 w-4"></i>WhatsApp <span class="num">${WA.show}</span></a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><i data-lucide="music-2" class="h-4 w-4"></i>TikTok</a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><i data-lucide="instagram" class="h-4 w-4"></i>Instagram</a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}">${L === 'fr' ? flagEn() : FLAG_FR}${t('English', 'Français')}</a></li>
@@ -156,18 +174,19 @@ ${body}
 <div id="cartShade" class="fixed inset-0 z-[55] bg-abyss/70 backdrop-blur-sm" hidden></div>
 <aside id="cart" class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-md flex-col border-l border-white/10 bg-deep" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
   <div class="flex items-center justify-between border-b border-white/10 p-5">
-    <h2 id="cartTitle" class="font-display text-xl font-semibold">${t('Votre panier', 'Your cart')}</h2>
-    <button type="button" id="cartClose" class="glass rounded-full p-2" aria-label="${t('Fermer le panier', 'Close cart')}"><i data-lucide="x" class="h-4 w-4"></i></button>
+    <h2 id="cartTitle" class="font-display text-xl font-semibold">${t('Votre sélection', 'Your selection')}</h2>
+    <button type="button" id="cartClose" class="glass rounded-full p-2" aria-label="${t('Fermer ma sélection', 'Close my selection')}"><i data-lucide="x" class="h-4 w-4"></i></button>
   </div>
   <div id="cartItems" class="flex-1 overflow-y-auto p-5"></div>
   <div class="border-t border-white/10 p-5">
     <dl id="cartTotals" class="grid gap-1 text-sm"></dl>
     <button type="button" class="btn-primary mt-4 w-full cursor-not-allowed rounded-full py-3.5 font-semibold opacity-45" disabled aria-describedby="payNote"><i data-lucide="lock" class="mr-1 inline h-4 w-4"></i>${t('Paiement en ligne', 'Online payment')}</button>
-    <p id="payNote" class="mt-2 text-center text-xs text-brume">${t('Paiement sécurisé bientôt disponible. En attendant, envoyez votre panier à notre équipe.', 'Secure payment opening soon. Meanwhile, send your cart to our team.')}</p>
+    <p id="payNote" class="mt-2 text-center text-xs text-brume">${t('Paiement sécurisé bientôt disponible. En attendant, envoyez votre sélection à notre équipe.', 'Secure payment opening soon. Meanwhile, send your selection to our team.')}</p>
     <a href="${href('boutique')}#demande" id="cartSend" class="btn-ghost mt-3 flex w-full items-center justify-center gap-2 rounded-full py-3 font-semibold">${t('Envoyer ma demande', 'Send my request')} <i data-lucide="send" class="h-4 w-4"></i></a>
   </div>
 </aside>
 
+<a href="${waLink(L)}" target="_blank" rel="noopener" class="wa-float" aria-label="${t('Écrire sur WhatsApp', 'Message us on WhatsApp')}"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.34-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.93-4.66-4.11-.13-.18-1.11-1.48-1.11-2.83s.7-2 .96-2.28c.25-.27.55-.34.73-.34l.52.01c.17 0 .39-.06.61.47.24.55.79 1.9.86 2.04.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.56.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.36.27.14.43.11.59-.07.16-.18.68-.79.86-1.07.18-.27.36-.23.61-.14.25.09 1.59.75 1.86.89.27.14.45.2.52.32.07.11.07.66-.17 1.34z"/></svg><span class="wa-float-label">WhatsApp</span></a>
 ${rail || slug === 'reserver' || slug === 'configurateur' ? '' : `<a href="${href('reserver')}" class="btn-primary fixed inset-x-4 bottom-4 z-40 flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold shadow-2xl sm:hidden" style="bottom:max(16px, env(safe-area-inset-bottom))"><i data-lucide="calendar-check" class="h-4 w-4"></i>${book}</a>`}
 </body>
 </html>

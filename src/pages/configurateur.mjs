@@ -87,7 +87,7 @@ export const body = (L, R) => {
           <h2 class="font-display text-xl font-semibold">${t('Votre configuration', 'Your configuration')}</h2>
           <dl id="cfgSummary" class="mt-4 grid gap-2.5 text-sm"></dl>
           <div class="mt-6 grid gap-3">
-            <button type="button" id="cfgAdd" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter au panier', 'Add to cart')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
+            <button type="button" id="cfgAdd" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter à ma sélection', 'Add to my selection')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
             <div class="grid grid-cols-2 gap-3">
               <a id="cfgBook" href="reserver.html" class="cfg-ghost inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold"><i data-lucide="calendar-check" class="h-4 w-4"></i>${t('Essayer', 'Try it')}</a>
               <button type="button" id="cfgShare" class="cfg-ghost inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold"><i data-lucide="share-2" class="h-4 w-4"></i>${t('Partager', 'Share')}</button>

@@ -4,7 +4,7 @@ addEventListener('DOMContentLoaded', () => {
   const kn = tt('nœuds', 'knots');
   const SPECS = {
     s300: { kw: [120, 'kW'], kn: [50, kn], kwh: [21, 'kWh'], dc: [50, 'kW'], kg: [400, 'kg'], hull: tt('Prototype', 'Prototype'), img: 's300-prototype.jpg', alt: tt('Le prototype S300 sur l\'eau', 'The S300 prototype on the water'), cap: tt('Photo réelle · S300 · 200 h en mer', 'Real photo · S300 · 200 h at sea') },
-    iruka: { kw: [160, 'kW'], kn: [60, kn], kwh: [35, 'kWh'], dc: [70, 'kW'], kg: [350, 'kg', '≈ '], hull: tt('Carbone', 'Carbon'), img: 'iruka-side.jpg', alt: tt('IRUKA vu de profil sur une mer calme', 'IRUKA in profile on calm water'), cap: tt('Rendu · IRUKA', 'Render · IRUKA') }
+    iruka: { kw: [160, 'kW'], kn: [60, kn], kwh: [35, 'kWh'], dc: [70, 'kW'], kg: [400, 'kg', ''], hull: tt('Carbone', 'Carbon'), img: 'iruka-side.jpg', alt: tt('IRUKA vu de profil sur une mer calme', 'IRUKA in profile on calm water'), cap: tt('Rendu · IRUKA', 'Render · IRUKA') }
   };
   function countTo(el, to, unit, prefix = '') {
     const from = parseFloat(el.dataset.v || to), start = performance.now(), dur = reduce ? 0 : 700;

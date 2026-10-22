@@ -206,3 +206,21 @@ details[open] .chev { transform: rotate(45deg); }
 .film-dlg { max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; padding: 4rem 1rem 1rem; background: transparent; color: var(--foam, #F6F8F7); border: 0; display: none; place-items: center; }
 .film-dlg[open] { display: grid; }
 .film-dlg::backdrop { background: rgba(3, 10, 15, .92); backdrop-filter: blur(4px); }
+
+/* Home hero (audit 22 Oct): the headline sits on the footage, so the bottom of the picture darkens */
+.home-hero-shade { background: linear-gradient(180deg, rgba(6,19,28,.35) 0%, rgba(6,19,28,0) 22%, rgba(6,19,28,.15) 45%, rgba(6,19,28,.88) 100%); }
+
+/* WhatsApp button, on every page; above the tab bar on phones */
+.wa-float { position: fixed; right: 1rem; bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 45; display: inline-flex; align-items: center; gap: .5rem; border-radius: 9999px; background: #25D366; color: #06131C; padding: .7rem; box-shadow: 0 10px 30px rgba(0,0,0,.35); font-weight: 600; transition: transform .2s; }
+.wa-float:hover { transform: translateY(-2px); }
+.wa-float-label { display: none; }
+@media (min-width: 1024px) { .wa-float { bottom: 1.5rem; right: 1.5rem; padding: .75rem 1.1rem .75rem .85rem; } .wa-float-label { display: inline; } }
+
+/* Captain's sheet: printed (or saved as PDF) on its own, black on white */
+@media print {
+  body.print-fiche main > *:not(#fiche), body.print-fiche #rail, body.print-fiche .rail-tabs, body.print-fiche .rail-top, body.print-fiche footer,
+  body.print-fiche .wa-float, body.print-fiche #railFly, body.print-fiche .fiche-actions { display: none !important; }
+  body.print-fiche, body.print-fiche #fiche { background: #fff !important; color: #000 !important; }
+  body.print-fiche #fiche * { color: #000 !important; border-color: #bbb !important; background: transparent !important; }
+  body.print-fiche main { padding: 0 !important; margin: 0 !important; }
+}

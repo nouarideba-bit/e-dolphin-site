@@ -16,8 +16,10 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">${name}</span><span class="block text-xs text-brume">${sub}</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">${price}</span>
       </a>`;
+  // Menu by intention (audit, 22 Oct): who you are first; everything else sits under "More"
   const more = [
-    ['decouvrir', t('Découvrir E-Dolphin', 'Discover E-Dolphin')], ['maison', t('La maison', 'The house')], ['boutique', t('Boutique', 'Shop')], ['experience', t("L'expérience", 'Experience')],
+    ['reserver', t('Essai en mer', 'Sea trial')], ['configurateur', t('Configurer le vôtre', 'Build yours')], ['distributeurs', t('Devenir distributeur', 'Become a dealer')],
+    ['decouvrir', t('Découvrir E-Dolphin', 'Discover E-Dolphin')], ['experience', t("L'expérience", 'Experience')], ['maison', t('La maison', 'The house')], ['boutique', t('Commander', 'Order')],
     ['reserver', t('Questions fréquentes', 'FAQ'), '#faq'], ['cgv', t('Conditions de vente', 'Terms of sale')], ['mentions-legales', t('Mentions légales', 'Legal notice')]
   ].map(([s, label, hash = '']) => `<a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="${href(s)}${hash}">${label}<i data-lucide="chevron-right" class="h-4 w-4 text-brume"></i></a>`).join('');
 
@@ -33,17 +35,16 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
   <nav class="rail-nav flex-1 overflow-y-auto">
     <ul>
       ${panelBtn('models', 'ship', t('Modèles', 'Models'))}
-      ${item('decouvrir', 'circle-play', t('Découvrir E-Dolphin', 'Discover E-Dolphin'))}
-      ${item('configurateur', 'sliders-horizontal', t('Configurer le vôtre', 'Build yours'))}
+      ${item('yachts-flottes', 'anchor', t('Pour mon yacht', 'For my yacht'))}
+      ${item('location', 'sailboat', t('Pour ma location', 'For my rental'))}
       ${item('launch-edition', 'gem', 'Launch Edition', ' rail-sand')}
-      ${item('experience', 'waves', t("L'expérience", 'Experience'))}
-      ${item('yachts-flottes', 'anchor', t('Yachts et flottes', 'Yachts & fleets'))}
+      ${item('configurateur', 'sliders-horizontal', t('Configurer', 'Build yours'))}
       ${item('reserver', 'calendar-check', t('Essai en mer', 'Sea trial'), ' rail-cta')}
       ${panelBtn('more', 'ellipsis', t('Plus', 'More'))}
     </ul>
   </nav>
   <div class="rail-foot shrink-0">
-    <button type="button" data-cart-open class="rail-item relative" aria-label="${t('Ouvrir le panier', 'Open cart')}"><i data-lucide="shopping-bag" class="h-[22px] w-[22px]"></i><span>${t('Panier', 'Cart')}</span><b data-cart-count class="num absolute right-6 top-3 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</b></button>
+    <button type="button" data-cart-open class="rail-item relative" aria-label="${t('Ouvrir ma sélection', 'Open my selection')}"><i data-lucide="shopping-bag" class="h-[22px] w-[22px]"></i><span>${t('Ma sélection', 'My selection')}</span><b data-cart-count class="num absolute right-6 top-3 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</b></button>
     <a href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}" class="rail-item !min-h-[58px]">${L === 'fr' ? flagEn() : flagFr}<span>${L === 'fr' ? 'English' : 'Français'}</span></a>
   </div>
 </aside>
@@ -70,15 +71,15 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
     <a href="${href('index')}" class="flex items-center gap-2.5" aria-label="E-Dolphin, ${t('accueil', 'home')}">${logo(40, 30)}<span class="font-display text-xs font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
     <div class="flex items-center gap-2">
       <a href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}" class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-mono text-[11px]">${L === 'fr' ? flagEn() : flagFr}${L === 'fr' ? 'EN' : 'FR'}</a>
-      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="${t('Ouvrir le panier', 'Open cart')}"><i data-lucide="shopping-bag" class="h-5 w-5"></i><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
+      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="${t('Ouvrir ma sélection', 'Open my selection')}"><i data-lucide="shopping-bag" class="h-5 w-5"></i><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
     </div>
   </div>
 </header>
 
 <nav class="rail-tabs fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 lg:hidden" aria-label="${t('Navigation', 'Navigation')}" style="padding-bottom:env(safe-area-inset-bottom)">
   <button type="button" class="rail-tab" data-fly="models" aria-expanded="false" aria-controls="railFly"><i data-lucide="ship" class="h-5 w-5"></i><span>${t('Modèles', 'Models')}</span></button>
-  <a class="rail-tab${on('configurateur')}" href="${href('configurateur')}"><i data-lucide="sliders-horizontal" class="h-5 w-5"></i><span>${t('Configurer', 'Build')}</span></a>
-  <a class="rail-tab rail-tab-cta${on('reserver')}" href="${href('reserver')}"><i data-lucide="calendar-check" class="h-5 w-5"></i><span>${t('Essai', 'Trial')}</span></a>
+  <a class="rail-tab${on('yachts-flottes')}" href="${href('yachts-flottes')}"><i data-lucide="anchor" class="h-5 w-5"></i><span>Yacht</span></a>
+  <a class="rail-tab${on('location')}" href="${href('location')}"><i data-lucide="sailboat" class="h-5 w-5"></i><span>${t('Location', 'Rental')}</span></a>
   <a class="rail-tab rail-sand${on('launch-edition')}" href="${href('launch-edition')}"><i data-lucide="gem" class="h-5 w-5"></i><span>Launch</span></a>
   <button type="button" id="menuBtn" class="rail-tab" data-fly="more" aria-expanded="false" aria-controls="railFly"><i data-lucide="ellipsis" class="h-5 w-5"></i><span>${t('Plus', 'More')}</span></button>
 </nav>

@@ -1,8 +1,8 @@
 import { tr, img, head } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Boutique · IRUKA · E-Dolphin', desc: 'Configurez IRUKA ou la Launch Edition, choisissez votre livrée et envoyez votre panier à notre équipe.' },
-  en: { title: 'Shop · IRUKA · E-Dolphin', desc: 'Configure IRUKA or the Launch Edition, choose your livery and send your cart to our team.' }
+  fr: { title: 'Commander · IRUKA · E-Dolphin', desc: 'Configurez IRUKA ou la Launch Edition, choisissez votre livrée et envoyez votre sélection à notre équipe.' },
+  en: { title: 'Order · IRUKA · E-Dolphin', desc: 'Configure IRUKA or the Launch Edition, choose your livery and send your selection to our team.' }
 };
 export const scripts = ['shop.js'];
 
@@ -31,15 +31,15 @@ export const body = (L, R) => {
         <label for="liv-${id}" class="mt-6 text-sm text-brume">${t('Livrée', 'Livery')}</label>
         <select id="liv-${id}" class="field" data-preview="#img-${id}">${options}</select>
         <a href="configurateur.html?modele=${id}" class="btn-ghost mt-6 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold">${t('Personnaliser : options et 360°', 'Customise: options and 360°')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
-        <button type="button" data-add="${id}" data-livery-from="#liv-${id}" class="btn-primary mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter au panier', 'Add to cart')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
+        <button type="button" data-add="${id}" data-livery-from="#liv-${id}" class="btn-primary mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter à ma sélection', 'Add to my selection')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
       </div>
     </article>`;
   return `
   <section class="gutter pb-10 pt-32 sm:pt-40">
     <div class="mx-auto max-w-7xl">
-      <p class="eyebrow">${t('Boutique', 'Shop')}</p>
+      <p class="eyebrow">${t('Commander', 'Order')}</p>
       <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">${t('Configurez votre IRUKA.', 'Configure your IRUKA.')}</h1>
-      <p class="mt-5 max-w-2xl text-brume">${t('Choisissez votre modèle et votre livrée. Le paiement en ligne ouvre bientôt ; en attendant, envoyez votre panier à notre équipe, qui vous rappelle pour finaliser.', 'Choose your model and livery. Online payment opens soon; meanwhile, send your cart to our team, who will call you to finalise.')}</p>
+      <p class="mt-5 max-w-2xl text-brume">${t('Choisissez votre modèle et votre livrée. Le paiement en ligne ouvre bientôt ; en attendant, envoyez votre sélection à notre équipe, qui vous rappelle pour finaliser.', 'Choose your model and livery. Online payment opens soon; meanwhile, send your selection to our team, who will call you to finalise.')}</p>
     </div>
   </section>
 
@@ -62,11 +62,11 @@ export const body = (L, R) => {
     <p class="mx-auto mt-3 max-w-7xl tag text-brume/80">${t('Caractéristiques : objectifs de conception. Livrées : rendus non contractuels.', 'Specifications: design targets. Liveries: non-contractual renders.')}</p>
   </section>
 
-  <!-- Cart request: sends the cart to the team while online payment is closed -->
+  <!-- Cart request: sends the selection to the team while online payment is closed -->
   <section id="demande" class="gutter scroll-mt-24 pb-20 sm:pb-28">
     <div class="panel mx-auto grid max-w-7xl gap-10 rounded-[2rem] p-8 sm:p-14 lg:grid-cols-2">
       <div>
-        ${head({ eyebrow: t('Votre panier', 'Your cart'), title: t('Envoyez votre demande.', 'Send your request.'), lead: t('Notre équipe vous rappelle pour confirmer la configuration, le prix, la livraison et l\'acompte.', 'Our team calls you back to confirm configuration, price, delivery and deposit.') })}
+        ${head({ eyebrow: t('Votre sélection', 'Your selection'), title: t('Envoyez votre demande.', 'Send your request.'), lead: t('Notre équipe vous rappelle pour confirmer la configuration, le prix, la livraison et l\'acompte.', 'Our team calls you back to confirm configuration, price, delivery and deposit.') })}
         <div id="reqCart" class="mt-8 rounded-2xl border border-white/10 p-5 text-sm"></div>
       </div>
       <form id="cartForm" class="grid gap-4 self-start" novalidate>
@@ -78,7 +78,7 @@ export const body = (L, R) => {
         </div>
         <div><label for="cfMsg" class="text-sm text-brume">Message</label><textarea id="cfMsg" rows="3" class="field"></textarea></div>
         <label class="flex items-start gap-3 text-sm text-brume"><input id="cfConsent" type="checkbox" class="mt-1 accent-[#2EE6A8]">${t('J\'accepte d\'être recontacté et j\'ai lu les', 'I agree to be contacted and have read the')} <a class="underline" href="cgv.html">${t('conditions générales de vente', 'terms of sale')}</a>.</label>
-        <div class="flex flex-wrap items-center gap-4"><button type="submit" class="btn-primary inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold">${t('Envoyer mon panier', 'Send my cart')} <i data-lucide="send" class="h-4 w-4"></i></button><p id="cfOut" class="text-sm" role="status" aria-live="polite"></p></div>
+        <div class="flex flex-wrap items-center gap-4"><button type="submit" class="btn-primary inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold">${t('Envoyer ma sélection', 'Send my selection')} <i data-lucide="send" class="h-4 w-4"></i></button><p id="cfOut" class="text-sm" role="status" aria-live="polite"></p></div>
       </form>
     </div>
   </section>`;

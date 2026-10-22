@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="fr" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pour ma location · flottes IRUKA · E-Dolphin</title>
+<meta name="description" content="Loueurs, hôtels, clubs : une flotte de jet-skis électriques qui tourne toute la journée. Calculez votre rentabilité, demandez une offre flotte.">
+<meta name="robots" content="noindex, nofollow">
+<!-- The site ships its own French and English versions: stop browsers from auto-translating them -->
+<meta name="google" content="notranslate">
+<meta name="theme-color" content="#06131C">
+<link rel="alternate" hreflang="en" href="en/location.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="E-Dolphin">
+<meta property="og:title" content="Pour ma location · flottes IRUKA · E-Dolphin">
+<meta property="og:description" content="Loueurs, hôtels, clubs : une flotte de jet-skis électriques qui tourne toute la journée. Calculez votre rentabilité, demandez une offre flotte.">
+<meta property="og:url" content="https://nouarideba-bit.github.io/e-dolphin-site/location.html">
+<meta property="og:image" content="https://nouarideba-bit.github.io/e-dolphin-site/assets/img/og-e-dolphin.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script defer src="assets/js/icons.js"></script>
+<script defer src="assets/js/site.js"></script>
+<script defer src="assets/js/flotte.js"></script>
+<script defer src="assets/js/leadform.js"></script>
+<script defer src="assets/js/rail.js"></script>
+</head>
+<body class="page-location has-rail">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-foam focus:px-4 focus:py-2 focus:text-abyss">Aller au contenu</a>
+
+<aside id="rail" class="rail fixed inset-y-0 left-0 z-50 hidden w-[104px] flex-col lg:flex" aria-label="Navigation principale">
+  <a href="./" class="rail-logo flex h-[78px] shrink-0 flex-col items-center justify-center gap-1" aria-label="E-Dolphin, accueil"><svg width="44" height="33" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg><span class="font-display text-[9px] font-semibold tracking-[.28em]">E-DOLPHIN</span></a>
+  <nav class="rail-nav flex-1 overflow-y-auto">
+    <ul>
+      <li><button type="button" class="rail-item" data-fly="models" aria-expanded="false" aria-controls="railFly"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M12 10.189V14" /> <path d="M12 2v3" /> <path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6" /> <path d="M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76" /> <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg><span>Modèles</span></button></li>
+      <li><a class="rail-item" href="yachts-flottes.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M12 22V8" /> <path d="M5 12H2a10 10 0 0 0 20 0h-3" /> <circle cx="12" cy="5" r="3" /></svg><span>Pour mon yacht</span></a></li>
+      <li><a class="rail-item is-on" aria-current="page" href="location.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M22 18H2a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4Z" /> <path d="M21 14 10 2 3 14h18Z" /> <path d="M10 2v16" /></svg><span>Pour ma location</span></a></li>
+      <li><a class="rail-item rail-sand" href="launch-edition.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z" /> <path d="M11 3 8 9l4 13 4-13-3-6" /> <path d="M2 9h20" /></svg><span>Launch Edition</span></a></li>
+      <li><a class="rail-item" href="configurateur.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4" /> <line x1="10" x2="3" y1="4" y2="4" /> <line x1="21" x2="12" y1="12" y2="12" /> <line x1="8" x2="3" y1="12" y2="12" /> <line x1="21" x2="16" y1="20" y2="20" /> <line x1="12" x2="3" y1="20" y2="20" /> <line x1="14" x2="14" y1="2" y2="6" /> <line x1="8" x2="8" y1="10" y2="14" /> <line x1="16" x2="16" y1="18" y2="22" /></svg><span>Configurer</span></a></li>
+      <li><a class="rail-item rail-cta" href="reserver.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg><span>Essai en mer</span></a></li>
+      <li><button type="button" class="rail-item" data-fly="more" aria-expanded="false" aria-controls="railFly"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg><span>Plus</span></button></li>
+    </ul>
+  </nav>
+  <div class="rail-foot shrink-0">
+    <button type="button" data-cart-open class="rail-item relative" aria-label="Ouvrir ma sélection"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /> <path d="M3 6h18" /> <path d="M16 10a4 4 0 0 1-8 0" /></svg><span>Ma sélection</span><b data-cart-count class="num absolute right-6 top-3 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</b></button>
+    <a href="en/location.html" hreflang="en" class="rail-item !min-h-[58px]"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c31"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t31"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c31)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t31)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg><span>English</span></a>
+  </div>
+</aside>
+
+<div id="railFly" class="rail-fly fixed inset-y-0 left-0 z-40 w-full max-w-[420px] overflow-y-auto lg:left-[104px]" hidden>
+  <div class="flex items-center justify-between p-5 pb-2">
+    <p class="eyebrow" data-fly-title></p>
+    <button type="button" data-fly-close class="glass rounded-full p-2" aria-label="Fermer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+  </div>
+  <div data-panel="models" data-title="Nos modèles" class="grid gap-2 p-3">
+      
+      <a href="iruka.html" class="fly-model group flex items-center gap-4 rounded-2xl p-3">
+        <img src="assets/img/cfg-blanc-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <span class="min-w-0 flex-1"><span class="block font-display font-semibold">IRUKA</span><span class="block text-xs text-brume">Le modèle de série</span></span>
+        <span class="num shrink-0 text-right text-sm font-semibold">35 990 € HT</span>
+      </a>
+      
+      <a href="launch-edition.html" class="fly-model group flex items-center gap-4 rounded-2xl p-3">
+        <img src="assets/img/cfg-predator-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Launch Edition</span><span class="block text-xs text-brume">300 exemplaires numérotés</span></span>
+        <span class="num shrink-0 text-right text-sm font-semibold">90 000 $ HT</span>
+      </a>
+      
+      <a href="./#bientot" class="fly-model group flex items-center gap-4 rounded-2xl p-3 opacity-60">
+        <img src="assets/img/tridens.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Tridens</span><span class="block text-xs text-brume">Trois places · concept</span></span>
+        <span class="num shrink-0 text-right text-sm font-semibold">Bientôt</span>
+      </a>
+      
+      <a href="./#bientot" class="fly-model group flex items-center gap-4 rounded-2xl p-3 opacity-60">
+        <img src="assets/img/kids-mako.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Gamme enfants</span><span class="block text-xs text-brume">6 à 12 ans · concept</span></span>
+        <span class="num shrink-0 text-right text-sm font-semibold">Bientôt</span>
+      </a>
+    <a href="configurateur.html" class="btn-primary mx-2 mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold">Configurer le vôtre <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4" /> <line x1="10" x2="3" y1="4" y2="4" /> <line x1="21" x2="12" y1="12" y2="12" /> <line x1="8" x2="3" y1="12" y2="12" /> <line x1="21" x2="16" y1="20" y2="20" /> <line x1="12" x2="3" y1="20" y2="20" /> <line x1="14" x2="14" y1="2" y2="6" /> <line x1="8" x2="8" y1="10" y2="14" /> <line x1="16" x2="16" y1="18" y2="22" /></svg></a>
+  </div>
+  <div data-panel="more" data-title="Plus" class="grid gap-1 p-3" hidden><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="reserver.html">Essai en mer<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="configurateur.html">Configurer le vôtre<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="distributeurs.html">Devenir distributeur<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="decouvrir.html">Découvrir E-Dolphin<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="experience.html">L'expérience<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="maison.html">La maison<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="boutique.html">Commander<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="reserver.html#faq">Questions fréquentes<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="cgv.html">Conditions de vente<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a><a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="mentions-legales.html">Mentions légales<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4 text-brume" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></a>
+    <div class="mx-2 mt-4 flex gap-2 border-t border-white/10 pt-4 text-sm">
+      <a class="glass inline-flex items-center gap-2 rounded-full px-4 py-2" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>Instagram</a>
+      <a class="glass inline-flex items-center gap-2 rounded-full px-4 py-2" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><circle cx="8" cy="18" r="4" /> <path d="M12 18V2l7 4" /></svg>TikTok</a>
+    </div>
+  </div>
+</div>
+<div id="railShade" class="fixed inset-0 z-30 bg-abyss/60 backdrop-blur-[2px]" hidden></div>
+
+<header id="top" class="rail-top fixed inset-x-0 top-0 z-50 gutter lg:hidden">
+  <div class="flex items-center justify-between py-2.5">
+    <a href="./" class="flex items-center gap-2.5" aria-label="E-Dolphin, accueil"><svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg><span class="font-display text-xs font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
+    <div class="flex items-center gap-2">
+      <a href="en/location.html" hreflang="en" class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-mono text-[11px]"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c32"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t32"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c32)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t32)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>EN</a>
+      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="Ouvrir ma sélection"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /> <path d="M3 6h18" /> <path d="M16 10a4 4 0 0 1-8 0" /></svg><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="rail-tabs fixed inset-x-0 bottom-0 z-50 grid grid-cols-5 lg:hidden" aria-label="Navigation" style="padding-bottom:env(safe-area-inset-bottom)">
+  <button type="button" class="rail-tab" data-fly="models" aria-expanded="false" aria-controls="railFly"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M12 10.189V14" /> <path d="M12 2v3" /> <path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6" /> <path d="M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76" /> <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg><span>Modèles</span></button>
+  <a class="rail-tab" href="yachts-flottes.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M12 22V8" /> <path d="M5 12H2a10 10 0 0 0 20 0h-3" /> <circle cx="12" cy="5" r="3" /></svg><span>Yacht</span></a>
+  <a class="rail-tab is-on" aria-current="page" href="location.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M22 18H2a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4Z" /> <path d="M21 14 10 2 3 14h18Z" /> <path d="M10 2v16" /></svg><span>Location</span></a>
+  <a class="rail-tab rail-sand" href="launch-edition.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M6 3h12l4 6-10 13L2 9Z" /> <path d="M11 3 8 9l4 13 4-13-3-6" /> <path d="M2 9h20" /></svg><span>Launch</span></a>
+  <button type="button" id="menuBtn" class="rail-tab" data-fly="more" aria-expanded="false" aria-controls="railFly"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></svg><span>Plus</span></button>
+</nav>
+<div id="mobileMenu" hidden></div>
+
+<main id="main">
+
+  <section class="relative isolate overflow-hidden">
+    <img src="assets/img/charging-station.jpg" alt="Ponton de recharge flottant avec des IRUKA" class="absolute inset-0 -z-20 h-full w-full object-cover" fetchpriority="high">
+    <div class="hero-shade absolute inset-0 -z-10"></div>
+    <div class="gutter"><div class="mx-auto max-w-7xl pb-20 pt-40 sm:pb-28 sm:pt-52">
+      <p class="eyebrow">Pour ma location · loueurs, hôtels, clubs</p>
+      <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">Une flotte qui tourne toute la journée, sans une goutte d'essence.</h1>
+      <p class="mt-6 max-w-xl text-brume sm:text-lg">Environ 30 minutes de recharge entre deux locations, un coût d'énergie à l'heure bien plus bas qu'un thermique, et des clients qui reviennent pour le silence.</p>
+      <div class="mt-9 flex flex-wrap gap-3"><a href="#calcul"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Calculer ma rentabilité <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2" /> <line x1="8" x2="16" y1="6" y2="6" /> <line x1="16" x2="16" y1="14" y2="18" /> <path d="M16 10h.01" /> <path d="M12 10h.01" /> <path d="M8 10h.01" /> <path d="M12 14h.01" /> <path d="M8 14h.01" /> <path d="M12 18h.01" /> <path d="M8 18h.01" /></svg></a><a href="#offre"  class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Demander une offre flotte <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg></a><a href="https://wa.me/33648198282?text=Bonjour%2C%20je%20suis%20loueur%20et%20je%20souhaite%20une%20offre%20flotte%20IRUKA." target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">WhatsApp <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg></a></div>
+      <p class="mt-6 tag text-brume/80">Rendu</p>
+    </div></div>
+  </section>
+
+  <!-- Return calculator: every assumption is shown and can be changed -->
+  <section id="calcul" class="gutter scroll-mt-24 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl">
+      
+  <p class="eyebrow">Calculateur de rentabilité</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Ce que votre flotte rapporte, et ce qu'elle économise.</h2>
+  <p class="mt-5 max-w-2xl text-brume sm:text-lg">Remplacez nos hypothèses par les vôtres : le calcul se met à jour tout de suite.</p>
+      <div class="mt-10 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+        <div class="glass grid gap-4 rounded-3xl p-6 sm:grid-cols-2 sm:p-8">
+          <div><label for="fcN" class="text-sm text-brume">Nombre de machines</label><input id="fcN" type="number" value="6" min="1" max="200" step="1" inputmode="decimal" class="field num"></div>
+          <div><label for="fcPrice" class="text-sm text-brume">Prix de location (€ par heure)</label><input id="fcPrice" type="number" value="150" min="10" max="2000" step="1" inputmode="decimal" class="field num"></div>
+          <div><label for="fcHours" class="text-sm text-brume">Heures louées par jour et par machine</label><input id="fcHours" type="number" value="5" min="1" max="12" step="0.5" inputmode="decimal" class="field num"></div>
+          <div><label for="fcDays" class="text-sm text-brume">Jours de saison par an</label><input id="fcDays" type="number" value="120" min="10" max="365" step="1" inputmode="decimal" class="field num"></div>
+          <div><label for="fcKwh" class="text-sm text-brume">Prix de l'électricité (€ par kWh)</label><input id="fcKwh" type="number" value="0.25" min="0.05" max="2" step="0.01" inputmode="decimal" class="field num"></div>
+          <div><label for="fcFuel" class="text-sm text-brume">Prix de l'essence (€ par litre)</label><input id="fcFuel" type="number" value="1.9" min="0.5" max="5" step="0.01" inputmode="decimal" class="field num"></div>
+          <div><label for="fcCons" class="text-sm text-brume">Consommation d'un thermique (litres par heure)</label><input id="fcCons" type="number" value="25" min="5" max="80" step="1" inputmode="decimal" class="field num"></div>
+          <div><label for="fcThermal" class="text-sm text-brume">Prix d'un jet-ski thermique comparable (€ HT)</label><input id="fcThermal" type="number" value="22000" min="5000" max="80000" step="500" inputmode="decimal" class="field num"></div>
+        </div>
+        <div>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div class="rounded-2xl border border-white/10 p-4"><p class="text-xs text-brume">Chiffre d'affaires de la flotte par saison</p><p id="fcRevenue" class="num mt-1 font-display text-2xl font-semibold ">–</p></div>
+            <div class="rounded-2xl border border-white/10 p-4"><p class="text-xs text-brume">Par machine et par mois de saison</p><p id="fcMonth" class="num mt-1 font-display text-2xl font-semibold ">–</p></div>
+            <div class="rounded-2xl border border-white/10 p-4"><p class="text-xs text-brume">Énergie IRUKA, par heure</p><p id="fcEnergyE" class="num mt-1 font-display text-2xl font-semibold text-lime">–</p></div>
+            <div class="rounded-2xl border border-white/10 p-4"><p class="text-xs text-brume">Essence d'un thermique, par heure</p><p id="fcEnergyT" class="num mt-1 font-display text-2xl font-semibold ">–</p></div>
+            <div class="rounded-2xl border border-white/10 p-4"><p class="text-xs text-brume">Économie d'énergie de la flotte par saison</p><p id="fcSave" class="num mt-1 font-display text-2xl font-semibold text-lime">–</p></div>
+            <div class="rounded-2xl border border-white/10 p-4"><p class="text-xs text-brume">Pour amortir l'écart de prix d'achat</p><p id="fcPayback" class="num mt-1 font-display text-2xl font-semibold text-lime">–</p></div>
+          </div>
+          <p class="mt-4 text-sm text-brume">Calcul : IRUKA à 35 990 € HT, environ 14 kWh consommés par heure (35 kWh pour 2 h 30). Énergie seulement : vidanges, bougies et entretien moteur évités ne sont pas comptés, l'estimation est donc prudente.</p>
+          <p class="mt-2 tag text-brume/80">Estimations indicatives, à confirmer pour votre site.</p>
+          <div class="mt-6"><a href="#offre"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Recevoir une offre sur cette base <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Turnkey fleet paid monthly (audit idea 1) -->
+  <section class="gutter pb-16 sm:pb-24">
+    <div class="panel mx-auto grid max-w-7xl items-center gap-12 rounded-[2rem] p-8 sm:p-14 lg:grid-cols-[1fr_1.1fr]">
+      <div>
+        
+  <p class="eyebrow">Flotte clés en main</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Ne payez pas des machines. Payez des heures de location disponibles.</h2>
+  <p class="mt-5 max-w-2xl text-brume sm:text-lg">Un loyer mensuel par machine, à comparer à ce qu'elle rapporte chaque mois de saison. Tout est compris pour que votre flotte tourne.</p>
+        <p class="mt-6 text-sm text-brume">Loyer mensuel sur devis, selon le nombre de machines, la durée et votre saison.</p>
+      </div>
+      <ul class="grid gap-6">
+        <li class="flex gap-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mt-1 h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M22 18H2a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4Z" /> <path d="M21 14 10 2 3 14h18Z" /> <path d="M10 2v16" /></svg><div><h3 class="font-semibold">Des IRUKA en version Fleet</h3><p class="mt-1 text-sm text-brume">Boudin gonflable : stable à l'arrêt, plus facile pour les débutants, protège pontons et coques.</p></div></li>
+        <li class="flex gap-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mt-1 h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M15 7h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2" /> <path d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1" /> <path d="m11 7-3 5h4l-3 5" /> <line x1="22" x2="22" y1="11" y2="13" /></svg><div><h3 class="font-semibold">La recharge sur place</h3><p class="mt-1 text-sm text-brume">Borne rapide CCS2 ou station de recharge flottante à deux chargeurs (en concept).</p></div></li>
+        <li class="flex gap-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mt-1 h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9" /> <path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5" /> <circle cx="12" cy="9" r="2" /> <path d="M16.2 4.8c2 2 2.26 5.11.8 7.47" /> <path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1" /> <path d="M9.5 18h5" /> <path d="m8 22 4-11 4 11" /></svg><div><h3 class="font-semibold">Le tableau de bord de flotte</h3><p class="mt-1 text-sm text-brume">Position, batterie et état de chaque machine ; zones de navigation et caméras avant et arrière.</p></div></li>
+        <li class="flex gap-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mt-1 h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /> <path d="M14 2v4a2 2 0 0 0 2 2h4" /> <path d="m9 15 2 2 4-4" /></svg><div><h3 class="font-semibold">Le kit capitainerie</h3><p class="mt-1 text-sm text-brume">Un dossier pour défendre votre activité auprès des autorités locales, avec les mesures de bruit et de sillage de notre campagne en préparation.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Connected fleet -->
+  <section class="gutter pb-16 sm:pb-24">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
+      
+  <figure class="zoom relative overflow-hidden rounded-3xl max-h-[640px]">
+    <img src="assets/img/fleet-dashboard.jpg" alt="Maquette du tableau de bord de flotte : positions, caméras, batterie" class="aspect-[4/5] object-top h-full w-full object-cover" loading="lazy">
+    <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">Maquette d'interface</figcaption>
+  </figure>
+      <div>
+        
+  <p class="eyebrow">Flotte connectée</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Vous voyez chaque machine, en temps réel.</h2>
+  
+        <ul class="mt-10 grid gap-6">
+          <li class="flex gap-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mt-1 h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M18 8c0 3.613-3.869 7.429-5.393 8.795a1 1 0 0 1-1.214 0C9.87 15.429 6 11.613 6 8a6 6 0 0 1 12 0" /> <circle cx="12" cy="8" r="2" /> <path d="M8.714 14h-3.71a1 1 0 0 0-.948.683l-2.004 6A1 1 0 0 0 3 22h18a1 1 0 0 0 .948-1.316l-2-6a1 1 0 0 0-.949-.684h-3.712" /></svg><div><h3 class="font-semibold">Zones de navigation</h3><p class="mt-1 text-sm text-brume">Géolocalisation de chaque machine pour garder vos clients dans la zone autorisée.</p></div></li>
+          <li class="flex gap-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mt-1 h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" /> <rect x="2" y="6" width="14" height="12" rx="2" /></svg><div><h3 class="font-semibold">Caméras avant et arrière</h3><p class="mt-1 text-sm text-brume">Une preuve en cas d'incident au port ou en mer.</p></div></li>
+          <li class="flex gap-4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mt-1 h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M15 7h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2" /> <path d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1" /> <path d="m11 7-3 5h4l-3 5" /> <line x1="22" x2="22" y1="11" y2="13" /></svg><div><h3 class="font-semibold">Batterie suivie à distance</h3><p class="mt-1 text-sm text-brume">Charge, santé de la batterie et mises à jour, sans immobiliser la machine.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fleet FAQ: the questions of a foreign rental operator -->
+  <section id="faq-flottes" class="gutter scroll-mt-24 pb-16 sm:pb-24">
+    <div class="mx-auto max-w-4xl">
+      <p class="eyebrow">FAQ</p>
+      <h2 class="mt-4 font-display text-3xl font-semibold sm:text-4xl">Les questions des loueurs</h2>
+      <div class="mt-8">
+        <details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">Quand et où livrez-vous ?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide chev h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg></summary><p class="mt-3 max-w-3xl text-brume">Les premières livraisons sont visées au printemps 2028. Indiquez votre pays dans votre demande : nous vous donnons le calendrier et les démarches pour votre marché.</p></details>
+        <details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">Quelles homologations ?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide chev h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg></summary><p class="mt-3 max-w-3xl text-brume">IRUKA vise le marquage CE (directive 2013/53/UE) et les normes ISO 16315 et ISO 13297. Pour les autres marchés, la conception suit aussi les référentiels ABYC et DNV.</p></details>
+        <details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">Combien de temps entre deux locations ?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide chev h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg></summary><p class="mt-3 max-w-3xl text-brume">Environ 30 minutes de recharge sur une borne rapide DC (CCS2). L'autonomie est d'environ 2 h 30 en usage mixte.</p></details>
+        <details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">Quelle garantie sur la batterie ?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide chev h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg></summary><p class="mt-3 max-w-3xl text-brume">Les conditions de garantie de la batterie sont précisées dans votre offre flotte. La santé de chaque batterie est suivie à distance.</p></details>
+        <details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">Et l'entretien, les pièces, la formation ?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide chev h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg></summary><p class="mt-3 max-w-3xl text-brume">Un moteur électrique n'a ni vidange, ni bougies. La prise en main est faite à la livraison ; le programme de formation de vos équipes et l'organisation des pièces sont précisés dans l'offre.</p></details>
+        <details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">Puis-je louer là où le jet-ski est interdit ?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide chev h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg></summary><p class="mt-3 max-w-3xl text-brume">Non. Les interdictions de jet-ski s'appliquent quelle que soit l'énergie, par exemple sur le lac d'Annecy. Le silence et l'absence de carburant sont en revanche de vrais arguments auprès des autorités locales : c'est l'objet du kit capitainerie.</p></details>
+        <details class="border-b border-white/10 py-5"><summary class="flex items-center justify-between gap-4 font-display text-lg font-semibold">Quel tarif pour une flotte ?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide chev h-5 w-5 shrink-0 text-lagoon" aria-hidden="true"><path d="M5 12h14" /> <path d="M12 5v14" /></svg></summary><p class="mt-3 max-w-3xl text-brume">IRUKA est à 35 990 € HT à l'unité. Le prix d'une flotte, à l'achat ou en loyer mensuel, dépend du nombre de machines et du calendrier de livraison : il est précisé dans votre offre.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fleet offer request -->
+  <section id="offre" class="gutter scroll-mt-24 pb-20 sm:pb-28">
+    <div class="panel mx-auto grid max-w-7xl gap-10 rounded-[2rem] p-8 sm:p-14 lg:grid-cols-[1fr_1.3fr]">
+      <div>
+        
+  <p class="eyebrow">Offre flotte</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Recevez une offre chiffrée pour votre site.</h2>
+  <p class="mt-5 max-w-2xl text-brume sm:text-lg">Quelques informations suffisent. Les chiffres de votre simulation sont joints automatiquement.</p>
+        <div class="mt-8"><a href="https://wa.me/33648198282?text=Bonjour%2C%20je%20suis%20loueur%20et%20je%20souhaite%20une%20offre%20flotte%20IRUKA." target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">WhatsApp · +33 6 48 19 82 82 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg></a></div>
+      </div>
+      <form data-lead="Offre flotte · loueur" data-ok="Merci. Votre demande d'offre flotte est enregistrée : nous revenons vers vous personnellement." class="grid gap-4" novalidate>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div><label for="ofCompany" class="text-sm text-brume">Société</label><input id="ofCompany" name="societe" required autocomplete="organization" class="field"></div>
+          <div><label for="ofName" class="text-sm text-brume">Nom</label><input id="ofName" name="nom" required autocomplete="name" class="field"></div>
+          <div><label for="ofWa" class="text-sm text-brume">WhatsApp ou téléphone</label><input id="ofWa" name="whatsapp" type="tel" required autocomplete="tel" class="field"></div>
+          <div><label for="ofEmail" class="text-sm text-brume">E-mail</label><input id="ofEmail" name="email" type="email" required autocomplete="email" class="field"></div>
+          <div><label for="ofSite" class="text-sm text-brume">Pays et site</label><input id="ofSite" name="pays_site" required class="field"></div>
+          <div><label for="ofUnits" class="text-sm text-brume">Nombre de machines</label><input id="ofUnits" name="machines" type="number" min="1" max="200" value="6" class="field num"></div>
+          <div><label for="ofSeason" class="text-sm text-brume">Mois de saison</label><input id="ofSeason" name="saison" placeholder="ex. : avril à octobre" class="field"></div>
+          <div><label for="ofMode" class="text-sm text-brume">Formule</label><select id="ofMode" name="formule" class="field"><option>Loyer mensuel clés en main</option><option>Achat</option><option>À étudier ensemble</option></select></div>
+        </div>
+        <fieldset class="grid gap-2 sm:grid-cols-3"><legend class="mb-1 text-sm text-brume">À inclure</legend>
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="options" value="Station de recharge flottante" class="accent-[#2EE6A8]">Recharge flottante</label>
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="options" value="Tableau de bord de flotte" class="accent-[#2EE6A8]">Tableau de bord</label>
+          <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="options" value="Kit capitainerie" class="accent-[#2EE6A8]">Kit capitainerie</label>
+        </fieldset>
+        <input type="hidden" id="ofSim" name="simulation">
+        <div><label for="ofMsg" class="text-sm text-brume">Message</label><textarea id="ofMsg" name="message" rows="3" class="field"></textarea></div>
+        <label class="flex items-start gap-3 text-sm text-brume"><input data-consent type="checkbox" class="mt-1 accent-[#2EE6A8]">J'accepte d'être recontacté au sujet de ma demande. <a class="underline" href="confidentialite.html">Confidentialité</a></label>
+        <div class="flex flex-wrap items-center gap-4"><button type="submit" class="btn-primary inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-semibold">Demander mon offre <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg></button><p data-out class="text-sm" role="status" aria-live="polite"></p></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="gutter border-t border-white/10 pb-28 pt-14 sm:pb-14">
+  <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
+    <div>
+      <a href="./" class="inline-flex items-center gap-3"><svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg><span class="font-display font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
+      <p class="mt-4 max-w-xs text-sm text-brume">Jet-skis 100 % électriques de luxe, conçus et assemblés en France.</p>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Le modèle</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="iruka.html">IRUKA</a></li>
+        <li><a class="hover:text-foam" href="launch-edition.html">Launch Edition</a></li>
+        <li><a class="hover:text-foam" href="experience.html">L'expérience</a></li>
+        <li><a class="hover:text-foam" href="decouvrir.html">Découvrir E-Dolphin</a></li>
+        <li><a class="hover:text-foam" href="maison.html">La maison</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Vous êtes</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="yachts-flottes.html">Propriétaire ou capitaine de yacht</a></li>
+        <li><a class="hover:text-foam" href="location.html">Loueur, hôtel ou club</a></li>
+        <li><a class="hover:text-foam" href="distributeurs.html">Futur distributeur</a></li>
+        <li><a class="hover:text-foam" href="reserver.html">Réserver un essai</a></li>
+        <li><a class="hover:text-foam" href="reserver.html#faq">Questions fréquentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Nous parler</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://wa.me/33648198282?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20E-Dolphin." target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" /></svg>WhatsApp <span class="num">+33 6 48 19 82 82</span></a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><circle cx="8" cy="18" r="4" /> <path d="M12 18V2l7 4" /></svg>TikTok</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>Instagram</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="en/location.html" hreflang="en"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c33"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t33"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c33)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t33)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>English</a></li>
+      </ul>
+    </div>
+  </div>
+  <form id="newsletter" class="mx-auto mt-12 grid max-w-7xl gap-4 rounded-3xl border border-white/10 p-6 sm:p-8 md:grid-cols-[1fr_1.2fr] md:items-center" novalidate>
+    <div>
+      <p class="eyebrow-sand">Newsletter</p>
+      <p class="mt-3 font-display text-xl font-semibold">Les premiers essais, les dates de livraison, les nouveaux modèles.</p>
+      <p class="mt-1 text-sm text-brume">Quelques e-mails par an, désinscription en un clic.</p>
+    </div>
+    <div>
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <label for="nlEmail" class="sr-only">E-mail</label>
+        <input id="nlEmail" type="email" required autocomplete="email" placeholder="votre@e-mail.com" class="field !mt-0 flex-1">
+        <button type="submit" class="btn-primary rounded-full px-6 py-3 font-semibold">S'inscrire</button>
+      </div>
+      <label class="mt-3 flex items-start gap-2 text-xs text-brume"><input id="nlConsent" type="checkbox" class="mt-0.5 accent-[#2EE6A8]">J'accepte de recevoir la newsletter E-Dolphin. Mon e-mail ne sert qu'à cet envoi.</label>
+      <p id="nlMsg" class="mt-2 text-sm" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+  <ul class="mx-auto mt-10 flex max-w-7xl flex-wrap gap-x-6 gap-y-2 text-xs text-brume">
+    <li><a class="hover:text-foam" href="mentions-legales.html">Mentions légales</a></li>
+    <li><a class="hover:text-foam" href="confidentialite.html">Confidentialité et cookies</a></li>
+    <li><a class="hover:text-foam" href="cgv.html">Conditions générales de vente</a></li>
+    <li>© 2026 E-Dolphin</li>
+  </ul>
+  <p class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-6 font-mono text-[11px] leading-relaxed text-brume/80">Site privé partagé avec nos partenaires. Caractéristiques IRUKA : objectifs de conception, confirmés par les essais de validation. Visuels marqués « Rendu » : images de synthèse non contractuelles.</p>
+</footer>
+
+<div id="cartShade" class="fixed inset-0 z-[55] bg-abyss/70 backdrop-blur-sm" hidden></div>
+<aside id="cart" class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-md flex-col border-l border-white/10 bg-deep" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <div class="flex items-center justify-between border-b border-white/10 p-5">
+    <h2 id="cartTitle" class="font-display text-xl font-semibold">Votre sélection</h2>
+    <button type="button" id="cartClose" class="glass rounded-full p-2" aria-label="Fermer ma sélection"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+  </div>
+  <div id="cartItems" class="flex-1 overflow-y-auto p-5"></div>
+  <div class="border-t border-white/10 p-5">
+    <dl id="cartTotals" class="grid gap-1 text-sm"></dl>
+    <button type="button" class="btn-primary mt-4 w-full cursor-not-allowed rounded-full py-3.5 font-semibold opacity-45" disabled aria-describedby="payNote"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mr-1 inline h-4 w-4" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>Paiement en ligne</button>
+    <p id="payNote" class="mt-2 text-center text-xs text-brume">Paiement sécurisé bientôt disponible. En attendant, envoyez votre sélection à notre équipe.</p>
+    <a href="boutique.html#demande" id="cartSend" class="btn-ghost mt-3 flex w-full items-center justify-center gap-2 rounded-full py-3 font-semibold">Envoyer ma demande <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg></a>
+  </div>
+</aside>
+
+<a href="https://wa.me/33648198282?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20E-Dolphin." target="_blank" rel="noopener" class="wa-float" aria-label="Écrire sur WhatsApp"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.34-.5.05-.97.23-3.27-.68-2.77-1.09-4.52-3.93-4.66-4.11-.13-.18-1.11-1.48-1.11-2.83s.7-2 .96-2.28c.25-.27.55-.34.73-.34l.52.01c.17 0 .39-.06.61.47.24.55.79 1.9.86 2.04.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.56.16.27.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.2 1.36.27.14.43.11.59-.07.16-.18.68-.79.86-1.07.18-.27.36-.23.61-.14.25.09 1.59.75 1.86.89.27.14.45.2.52.32.07.11.07.66-.17 1.34z"/></svg><span class="wa-float-label">WhatsApp</span></a>
+
+</body>
+</html>

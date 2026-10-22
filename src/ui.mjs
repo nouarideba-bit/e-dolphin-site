@@ -58,3 +58,19 @@ export const filmDialog = (L, R) => {
     </div>
   </dialog>`;
 };
+
+// WhatsApp line given by the team (22 Oct 2026): captains, rental operators and dealers work on WhatsApp
+export const WA = { num: '33648198282', show: '+33 6 48 19 82 82' };
+export const waLink = (L, text) => `https://wa.me/${WA.num}?text=${encodeURIComponent(text || tr(L)('Bonjour, je vous contacte depuis le site E-Dolphin.', 'Hello, I am contacting you from the E-Dolphin website.'))}`;
+export const waBtn = (L, label, text, primary = false) =>
+  `<a href="${waLink(L, text)}" target="_blank" rel="noopener" class="${primary ? 'btn-primary' : 'btn-ghost'} inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${label || 'WhatsApp'} <i data-lucide="message-circle" class="h-4 w-4"></i></a>`;
+
+// Prices: IRUKA is set in euros, the Launch Edition in dollars (adam, 21-22 Oct). Each is shown with
+// its counter-value at the brochure rate of 1.16 $ per €, so no visitor has to convert.
+// French figures here; English pages get "€35,990 excl. VAT" from the build's price filter.
+export const PRICE = {
+  iruka: '35 990 € HT', irukaAlt: '≈ 41 750 $ HT',
+  launch: '90 000 $ HT', launchAlt: '≈ 77 600 € HT',
+  deposit: '27 000 $ HT', depositAlt: '≈ 23 300 € HT'
+};
+export const priceWithAlt = (main, alt, altCls = 'text-sm font-normal text-brume') => `<span class="num">${main}</span> <span class="num ${altCls}">${alt}</span>`;

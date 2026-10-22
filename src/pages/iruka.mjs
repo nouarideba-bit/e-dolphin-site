@@ -40,7 +40,7 @@ export const body = (L, R) => {
           <div class="glass rounded-2xl p-4"><dt class="tag text-brume">${t('Vitesse', 'Speed')}</dt><dd class="num mt-1 font-display text-2xl font-semibold" data-k="kn">60 <small class="font-mono text-xs text-brume">${t('nœuds', 'knots')}</small></dd></div>
           <div class="glass rounded-2xl p-4"><dt class="tag text-brume">${t('Batterie', 'Battery')}</dt><dd class="num mt-1 font-display text-2xl font-semibold text-lime" data-k="kwh">35 <small class="font-mono text-xs text-brume">kWh</small></dd></div>
           <div class="glass rounded-2xl p-4"><dt class="tag text-brume">${t('Recharge DC', 'DC charging')}</dt><dd class="num mt-1 font-display text-2xl font-semibold text-lime" data-k="dc">70 <small class="font-mono text-xs text-brume">kW</small></dd></div>
-          <div class="glass rounded-2xl p-4"><dt class="tag text-brume">${t('Masse', 'Weight')}</dt><dd class="num mt-1 font-display text-2xl font-semibold" data-k="kg">≈ 350 <small class="font-mono text-xs text-brume">kg</small></dd></div>
+          <div class="glass rounded-2xl p-4"><dt class="tag text-brume">${t('Masse', 'Weight')}</dt><dd class="num mt-1 font-display text-2xl font-semibold" data-k="kg">400 <small class="font-mono text-xs text-brume">kg</small></dd></div>
           <div class="glass rounded-2xl p-4"><dt class="tag text-brume">${t('Carène', 'Hull')}</dt><dd class="mt-1 font-display text-lg font-semibold" data-k="hull">${t('Carbone', 'Carbon')}</dd></div>
         </dl>
         <p class="mt-4 flex flex-wrap gap-2 tag text-brume">

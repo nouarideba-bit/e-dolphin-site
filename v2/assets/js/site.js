@@ -51,7 +51,7 @@ addEventListener('DOMContentLoaded', () => {
 
 /* ---------- Cart ----------
    Items live in localStorage. Checkout stays disabled until the company's Stripe account is open:
-   the cart is sent to the team as a request instead (shop page, #demande). */
+   the selection is sent to the team as a request instead (shop page, #demande). */
 const PRODUCTS = {
   iruka: { name: 'IRUKA', price: 35990, cur: '€ HT', img: 'iruka-side.jpg', note: { fr: 'Prix de lancement · acompte 30 %', en: 'Launch price · 30 % deposit' } },
   launch: { name: 'IRUKA Launch Edition', price: 90000, cur: '$ HT', img: 'signature-veil.jpg', note: { fr: 'Série de 300 exemplaires · acompte 30 %', en: '300-unit series · 30 % deposit' } }
@@ -104,7 +104,7 @@ const Cart = {
           </div>
         </div>
       </div>`;
-    }).join('') : `<p class="text-brume">${tt('Votre panier est vide.', 'Your cart is empty.')}</p>`;
+    }).join('') : `<p class="text-brume">${tt('Votre sélection est vide.', 'Your selection is empty.')}</p>`;
     const tot = this.totals(items);
     $('#cartTotals').innerHTML = Object.keys(tot).length ? Object.entries(tot).map(([cur, v]) => `<div class="flex justify-between"><dt class="text-brume">${tt('Total', 'Total')} ${this.curLabel(cur)}</dt><dd class="num font-semibold">${this.money(v, cur)}</dd></div><div class="flex justify-between text-sm"><dt class="text-brume">${tt('Acompte 30 %', '30 % deposit')}</dt><dd class="num text-lagoon">${this.money(Math.round(v * 30) / 100, cur)}</dd></div>`).join('') : '';
     $('#cartSend').hidden = !items.length;

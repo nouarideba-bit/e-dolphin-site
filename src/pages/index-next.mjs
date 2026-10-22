@@ -1,4 +1,4 @@
-import { tr, img, head, btn, ctaBand, heroLoop, filmBtn, filmDialog } from '../ui.mjs';
+import { tr, img, head, btn, ctaBand, heroLoop, filmBtn, filmDialog, PRICE } from '../ui.mjs';
 import { plaque } from '../plaque.mjs';
 export { meta } from './index.mjs';
 export const scripts = ['home.js', 'herofilm.js'];
@@ -34,36 +34,49 @@ export const body = (L, R) => {
   <div id="annonce" class="home-annonce gutter">
     <div class="flex items-center gap-3 py-3 text-sm">
       <i data-lucide="gem" class="h-5 w-5 shrink-0 text-sand"></i>
-      <p class="flex-1"><a href="launch-edition.html" class="hover:underline"><b class="home-grad font-display font-semibold uppercase tracking-wide">${t('Launch Edition : 300 exemplaires numérotés', 'Launch Edition: 300 numbered units')}</b> <span class="hidden text-foam/85 sm:inline">${t('· votre numéro gravé sur une plaque en relief · acompte de 30 % à l\'ouverture', '· your number engraved on a raised plate · 30 % deposit when bookings open')}</span> <span class="underline">${t('En savoir plus', 'Learn more')}</span></a></p>
+      <p class="flex-1"><a href="launch-edition.html#numero" class="hover:underline"><b class="home-grad font-display font-semibold uppercase tracking-wide">${t('Launch Edition : 300 exemplaires numérotés', 'Launch Edition: 300 numbered units')}</b> <span class="hidden text-foam/85 sm:inline">${t('· votre numéro et votre nom gravés en relief · premières livraisons visées au printemps 2028', '· your number and name engraved in relief · first deliveries targeted for spring 2028')}</span> <span class="underline">${t('Réserver mon numéro', 'Reserve my number')}</span></a></p>
       <button type="button" id="annonceClose" class="shrink-0 rounded-full border border-white/40 p-1.5 hover:border-foam" aria-label="${t('Fermer l\'annonce', 'Close announcement')}"><i data-lucide="x" class="h-4 w-4"></i></button>
     </div>
   </div>
 
-  <!-- 1. Hero: full-bleed real photo, colour band underneath -->
+  <!-- 1. Hero: the value proposition sits on the real footage, readable in 5 seconds on a phone
+       (audit 22 Oct): what it is, the proof, the price and the two commitments. -->
   <section class="home-hero relative">
-    <figure class="relative h-[62svh] min-h-[360px] overflow-hidden sm:h-[68svh]">
+    <figure class="relative h-[86svh] min-h-[600px] overflow-hidden sm:h-[80svh]">
       ${heroLoop(L, R, 'h-full w-full object-cover')}
-      <figcaption class="tag absolute left-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
-      <div class="absolute bottom-5 left-5 flex flex-wrap gap-2">${filmBtn(L, 'glass')}</div>
-      <a href="launch-edition.html" class="home-ticket glass absolute bottom-5 right-5 hidden items-center gap-4 rounded-2xl px-5 py-4 md:flex">
-        <span><span class="eyebrow-sand block">Launch Edition</span><span class="mt-1 block font-display text-lg font-semibold">N° <span id="heroNum" class="num">001</span> / 300</span></span>
-        <span class="num border-l border-white/15 pl-4 font-display font-semibold">90 000 $ HT</span>
-        <i data-lucide="arrow-right" class="h-5 w-5 text-lagoon"></i>
-      </a>
+      <div class="home-hero-shade absolute inset-0"></div>
+      <figcaption class="tag absolute right-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
+      <div class="absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
+        <p class="font-mono text-[11px] uppercase tracking-[.22em] text-lagoon">${t('Conçu et assemblé en France', 'Designed and assembled in France')}</p>
+        <h1 class="mt-3 max-w-4xl font-display text-[2.35rem] font-semibold leading-[1.02] sm:text-6xl xl:text-7xl">${t('Le jet-ski 100 % électrique de luxe.', 'The 100% electric luxury jet ski.')}</h1>
+        <p class="mt-4 max-w-2xl text-foam/90 sm:text-lg">${t('215 ch, 60 nœuds visés, zéro essence à bord. Silencieux au mouillage pour votre yacht, économique à l\'heure pour votre flotte.', '215 hp, 60 knots targeted, zero fuel on board. Silent at anchor for your yacht, low cost per hour for your fleet.')}</p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          ${btn('launch-edition.html#numero', t('Réserver mon numéro', 'Reserve my number'), 'gem')}
+          ${btn('location.html#offre', t('Demander une offre flotte', 'Request a fleet offer'), 'sailboat', false)}
+          ${filmBtn(L, 'glass')}
+        </div>
+        <p class="mt-5 text-sm text-foam/85">${t('À partir de', 'From')} <b class="num">${PRICE.iruka}</b> <span class="text-foam/60">·</span> Launch Edition <b class="num">${PRICE.launch}</b> <span class="num text-foam/60">${PRICE.launchAlt}</span></p>
+      </div>
     </figure>
+    <!-- Colour band: one door per visitor, and the proof of silence -->
     <div class="home-band gutter">
-      <div class="grid items-center gap-6 py-8 sm:py-10 xl:grid-cols-[1.4fr_1fr]">
-        <div>
-          <p class="font-mono text-[11px] uppercase tracking-[.22em] text-abyss/70">${t('Jet-ski 100 % électrique · conçu et assemblé en France', '100 % electric jet-ski · designed and assembled in France')}</p>
-          <h1 class="mt-3 font-display text-[2.4rem] font-semibold leading-[1.02] text-abyss sm:text-6xl">${t('Le silence a une vitesse.', 'Silence has a speed.')}</h1>
-          <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <a href="iruka.html" class="inline-flex items-center gap-2 rounded-full bg-abyss px-8 py-4 font-semibold text-foam transition hover:bg-black">${t('Découvrir IRUKA', 'Discover IRUKA')} <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
-            <a href="reserver.html" class="font-semibold text-abyss underline underline-offset-4">${t('Réserver un essai en mer', 'Book a sea trial')}</a>
-            <span class="text-abyss/80">${t('À partir de', 'From')} <b class="num">35 990 € HT</b></span>
+      <div class="grid grid-cols-1 items-center gap-6 py-8 sm:py-10 xl:grid-cols-[1.4fr_1fr]">
+        <div class="min-w-0">
+          <p class="font-display text-2xl font-semibold text-abyss sm:text-3xl">${t('Le silence a une vitesse.', 'Silence has a speed.')}</p>
+          <p class="mt-1 font-mono text-[11px] uppercase tracking-[.22em] text-abyss/70">${t('Vous êtes', 'You are')}</p>
+          <div class="mt-4 grid gap-3 sm:grid-cols-3">
+            ${[['yachts-flottes.html', 'anchor', t('Propriétaire de yacht', 'A yacht owner'), t('Pour mon yacht', 'For my yacht')],
+               ['location.html', 'sailboat', t('Loueur, hôtel, club', 'Rental, hotel, club'), t('Pour ma location', 'For my rental')],
+               ['distributeurs.html', 'handshake', t('Futur distributeur', 'A future dealer'), t('Devenir distributeur', 'Become a dealer')]].map(([h, ic, who, go]) => `
+            <a href="${h}" class="home-door group flex items-center gap-3 rounded-2xl bg-abyss px-4 py-3.5 text-foam transition hover:bg-black">
+              <i data-lucide="${ic}" class="h-5 w-5 shrink-0 text-lagoon"></i>
+              <span class="min-w-0 flex-1"><span class="block text-xs text-brume">${who}</span><span class="block font-semibold">${go}</span></span>
+              <i data-lucide="arrow-right" class="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1"></i>
+            </a>`).join('')}
           </div>
         </div>
         <!-- Two sound lines: combustion engine (jagged) and IRUKA (only the water) -->
-        <div class="home-sound hidden xl:block" aria-hidden="true">
+        <div class="home-sound min-w-0" aria-hidden="true">
           <div class="flex items-center gap-4"><span class="w-28 shrink-0 font-mono text-[11px] uppercase tracking-wider text-abyss/60">${t('Moteur thermique', 'Petrol engine')}</span><svg viewBox="0 0 300 40" class="h-10 flex-1"><path class="wave-loud" d="" fill="none" stroke="#06131C" stroke-opacity=".35" stroke-width="1.6"/></svg></div>
           <div class="mt-2 flex items-center gap-4"><span class="w-28 shrink-0 font-mono text-[11px] uppercase tracking-wider text-abyss">IRUKA</span><svg viewBox="0 0 300 40" class="h-10 flex-1"><path class="wave-calm" d="" fill="none" stroke="#06131C" stroke-width="2.2"/></svg></div>
           <p class="mt-2 text-right font-mono text-[10px] uppercase tracking-wider text-abyss/60">${t('Illustration : plus de moteur, il reste l\'eau', 'Illustration: no engine, only the water')}</p>
@@ -82,7 +95,7 @@ export const body = (L, R) => {
     </div>
     <div class="home-row -mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 xl:grid-cols-4">
       ${card('configurateur.html?modele=iruka', 'cfg-blanc-profil.jpg', t('Rendu', 'Render'), 'IRUKA', t('Le modèle de série', 'The series model'), `<span class="block text-xs font-normal text-brume">${t('à partir de', 'from')}</span>35 990 € HT`, t('Configurer', 'Configure'))}
-      ${card('launch-edition.html', 'cfg-predator-profil.jpg', t('Rendu', 'Render'), 'Launch Edition', t('300 exemplaires numérotés', '300 numbered units'), '90 000 $ HT', t('Découvrir', 'Discover'))}
+      ${card('launch-edition.html', 'cfg-predator-profil.jpg', t('Rendu', 'Render'), 'Launch Edition', t('300 exemplaires numérotés', '300 numbered units'), `${PRICE.launch}<span class="block text-xs font-normal text-brume">${PRICE.launchAlt}</span>`, t('Réserver mon numéro', 'Reserve my number'))}
       <div id="bientot" class="contents"></div>
       ${card('#bientot', 'tridens.jpg', t('Rendu · concept', 'Render · concept'), 'Tridens', t('Trois places, trois coques', 'Three seats, three hulls'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}
       ${card('#bientot', 'kids-mako.jpg', t('Rendu · concept', 'Render · concept'), t('Gamme enfants', 'Kids range'), t('6 à 12 ans, contrôle parental', 'Ages 6 to 12, parental control'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}
@@ -133,8 +146,8 @@ export const body = (L, R) => {
         <p class="eyebrow-sand">Launch Edition</p>
         <h2 class="mt-4 font-display text-3xl font-semibold sm:text-5xl">${t('Votre numéro, gravé en relief.', 'Your number, engraved in relief.')}</h2>
         <p class="mt-5 text-brume">${t('Chacun des 300 exemplaires porte sa plaque numérotée, en carbone ou en aluminium brossé. Une série, jamais rééditée.', 'Each of the 300 units carries its numbered plate, in carbon or brushed aluminium. One series, never reissued.')}</p>
-        <p class="mt-6 flex flex-wrap items-baseline gap-x-3"><span class="num font-display text-3xl font-semibold">90 000 $ HT</span><span class="text-sm text-brume">${t('acompte de 30 %, ouverture prochaine', '30 % deposit, opening soon')}</span></p>
-        <div class="mt-8 flex flex-wrap gap-3">${btn('launch-edition.html', t('Choisir mon numéro', 'Choose my number'), 'gem')}${btn('configurateur.html?modele=launch&livree=predator', t('La voir à 360°', 'See it in 360°'), 'rotate-cw', false)}</div>
+        <p class="mt-6 flex flex-wrap items-baseline gap-x-3"><span class="num font-display text-3xl font-semibold">${PRICE.launch}</span><span class="num text-brume">${PRICE.launchAlt}</span><span class="text-sm text-brume">${t('· acompte de 30 %, ouverture prochaine', '· 30 % deposit, opening soon')}</span></p>
+        <div class="mt-8 flex flex-wrap gap-3">${btn('launch-edition.html#numero', t('Réserver mon numéro', 'Reserve my number'), 'gem')}${btn('configurateur.html?modele=launch&livree=predator', t('La voir à 360°', 'See it in 360°'), 'rotate-cw', false)}</div>
         <p class="mt-4 tag text-brume/80">${t('Visuel d\'illustration de la plaque.', 'Illustration of the plate.')}</p>
       </div>
     </div>
@@ -146,7 +159,7 @@ export const body = (L, R) => {
     <div class="mt-10 grid gap-4 md:grid-cols-3">
       <a href="reserver.html?formule=essai" class="home-rdv lift rounded-3xl p-6"><span class="num font-mono text-xs text-brume">01</span><i data-lucide="waves" class="mt-6 h-7 w-7 text-lagoon"></i><h3 class="mt-4 font-display text-xl font-semibold">${t('Essai en mer', 'Sea trial')}</h3><p class="mt-1 text-sm text-brume">${t('45 minutes accompagné, briefing compris.', '45 minutes with a guide, briefing included.')}</p></a>
       <a href="reserver.html?formule=presentation" class="home-rdv lift rounded-3xl p-6"><span class="num font-mono text-xs text-brume">02</span><i data-lucide="anchor" class="mt-6 h-7 w-7 text-lagoon"></i><h3 class="mt-4 font-display text-xl font-semibold">${t('Présentation privée', 'Private presentation')}</h3><p class="mt-1 text-sm text-brume">${t('1 heure, à quai ou à bord de votre yacht.', 'One hour, at the quay or on board your yacht.')}</p></a>
-      <a href="yachts-flottes.html" class="home-rdv lift rounded-3xl p-6"><span class="num font-mono text-xs text-brume">03</span><i data-lucide="ship" class="mt-6 h-7 w-7 text-lagoon"></i><h3 class="mt-4 font-display text-xl font-semibold">${t('Yachts et flottes', 'Yachts and fleets')}</h3><p class="mt-1 text-sm text-brume">${t('Tender silencieux, flotte connectée pour hôtels et clubs.', 'Silent tender, connected fleet for hotels and clubs.')}</p></a>
+      <a href="${'https://wa.me/33648198282'}" target="_blank" rel="noopener" class="home-rdv lift rounded-3xl p-6"><span class="num font-mono text-xs text-brume">03</span><i data-lucide="message-circle" class="mt-6 h-7 w-7 text-lagoon"></i><h3 class="mt-4 font-display text-xl font-semibold">WhatsApp</h3><p class="mt-1 text-sm text-brume">${t('Une question, un yacht, une flotte : écrivez-nous au', 'A question, a yacht, a fleet: message us at')} <span class="num">+33 6 48 19 82 82</span>.</p></a>
     </div>
     <div class="mt-6 flex flex-wrap items-center gap-2 text-sm">
       <span class="mr-2 text-brume">${t('Lieux :', 'Locations:')}</span>

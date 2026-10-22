@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, ctaBand, heroLoop, filmBtn, filmDialog } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'E-Dolphin · IRUKA, le jet-ski électrique de luxe', desc: 'IRUKA, jet-ski 100 % électrique conçu et assemblé en France. Essais en mer à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.' },
-  en: { title: 'E-Dolphin · IRUKA, the luxury electric jet-ski', desc: 'IRUKA, a 100 % electric jet-ski designed and assembled in France. Sea trials in Monaco, Antibes, Saint-Tropez or on board your yacht.' }
+  fr: { title: 'E-Dolphin · Le jet-ski 100 % électrique de luxe', desc: 'IRUKA : 215 ch, 60 nœuds visés, zéro essence à bord. Pour votre yacht, votre flotte de location ou votre réseau de distribution. Conçu et assemblé en France.' },
+  en: { title: 'E-Dolphin · The 100% electric luxury jet ski', desc: 'IRUKA: 215 hp, 60 knots targeted, zero fuel on board. For your yacht, your rental fleet or your dealer network. Designed and assembled in France.' }
 };
 export const scripts = ['herofilm.js'];
 
