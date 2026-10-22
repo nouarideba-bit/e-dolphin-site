@@ -117,6 +117,24 @@ export const body = (L, R) => {
         <figcaption class="mt-3 flex justify-between tag text-brume"><span>← ${t('Pression', 'Pressure')}</span><span>${t('Surface mouillée', 'Wetted surface')} →</span></figcaption>
       </figure>
     </div>
+    <!-- Weight budget and buoyancy: the 3D study model floated with 1, 2 and 3 people aboard -->
+    <div class="mx-auto mt-16 max-w-7xl">
+      <h3 class="font-display text-2xl font-semibold">${t('Devis de poids et flottabilité', 'Weight budget and buoyancy')}</h3>
+      <p class="mt-2 max-w-3xl text-brume">${t('Sur un jet-ski électrique, la batterie pèse lourd : chaque kilo doit être placé au bon endroit. Le devis de poids additionne coque, batterie, moteur et équipage, puis la ligne de flottaison est vérifiée sur le modèle 3D, d\'une à trois personnes à bord, avant de lancer le moule.', 'On an electric jet ski the battery is heavy, so every kilo has to sit in the right place. The weight budget adds up hull, battery, motor and crew, then the waterline is checked on the 3D model with one to three people aboard, before the mould is made.')}</p>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        ${[
+          [1, t('Jet-ski + 1 passager', 'Jet ski + 1 rider'), t('Pilote seul : la coque flotte haut, avec un large franc-bord.', 'Rider alone: the hull floats high, with generous freeboard.')],
+          [2, t('Jet-ski + 2 passagers', 'Jet ski + 2 riders'), t('Avec un passager, la coque s\'enfonce un peu ; le pont reste nettement hors de l\'eau.', 'With a passenger the hull sits a little lower; the deck stays well clear of the water.')],
+          [3, t('Jet-ski + 3 passagers', 'Jet ski + 3 riders'), t('À pleine charge, le franc-bord diminue mais une réserve de flottabilité demeure.', 'At full load the freeboard shrinks but a buoyancy reserve remains.')]
+        ].map(([n, cap, txt]) => `
+        <figure class="glass overflow-hidden rounded-3xl">
+          <img src="${img(R, `flottabilite-${n}p.jpg`)}" alt="${t('Modèle 3D de la coque à flot', '3D hull model afloat')} : ${cap}" class="aspect-[2/1] w-full object-cover" loading="lazy">
+          <figcaption class="flex gap-3 p-4"><span class="num grid h-8 w-8 shrink-0 place-items-center rounded-full border border-lagoon/50 font-mono text-sm text-lagoon">${n}</span><div><p class="font-semibold">${cap}</p><p class="mt-1 text-sm text-brume">${txt}</p></div></figcaption>
+        </figure>`).join('')}
+      </div>
+      <p class="mt-6 max-w-3xl text-brume">${t('Pourquoi c\'est décisif : une coque qui porte juste son poids déjauge plus tôt, mouille moins de surface et consomme moins. C\'est ici que se gagnent les premiers kWh d\'autonomie.', 'Why it matters: a hull that carries its weight correctly gets on the plane sooner, wets less surface and uses less energy. This is where the first kWh of range are won.')}</p>
+      <p class="mt-3 tag text-brume/80">${t('Modèle 3D d\'étude, couleurs de travail.', '3D study model, working colours.')}</p>
+    </div>
   </section>
 
   <!-- Range -->
