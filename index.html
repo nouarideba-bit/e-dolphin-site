@@ -132,7 +132,7 @@
   <nav class="mx-auto flex max-w-7xl items-center justify-between py-4" aria-label="Navigation principale">
     <a href="#hero" class="flex items-center gap-3" aria-label="E-Dolphin, accueil">
       <!-- Brand mark: the E-Dolphin symbol drawn as a rounded capsule -->
-      <svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true"><rect x="1.5" y="1.5" width="31" height="19" rx="9.5" fill="none" stroke="#F6F8F7" stroke-width="3"/><path d="M9 11h12.5" stroke="#F6F8F7" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg width="80" height="32" viewBox="0 0 80 32" aria-hidden="true"><rect x="2" y="2" width="76" height="28" rx="14" fill="none" stroke="#F6F8F7" stroke-width="3"/><rect x="0" y="10" width="80" height="12" fill="#000"/><text x="40" y="19" text-anchor="middle" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1.6" fill="#F6F8F7">EDOLPHIN</text></svg>
       <span class="font-extrabold tracking-[.18em] text-sm">E-DOLPHIN</span>
     </a>
     <ul class="hidden items-center gap-8 text-sm text-mist md:flex">
@@ -599,6 +599,7 @@
           <p class="eyebrow">Launch Edition</p>
           <h2 id="launch-title" class="mt-4 text-3xl font-extrabold sm:text-5xl">300 exemplaires. <span class="grad-text">Hiver 2027.</span></h2>
           <p class="mt-5 max-w-md text-mist">La première série d'IRUKA, numérotée, pour les propriétaires et les yachts. Les 50 premières unités sont livrées dès l'été 2027.</p>
+          <p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1"><span class="num text-3xl font-extrabold">90 000 $ HT</span><span class="text-sm text-mist">Acompte de 30 % (27 000 $ HT) à l'ouverture des réservations</span></p>
           <ul class="mt-6 grid gap-2 text-sm">
             <li class="flex items-center gap-2"><i data-lucide="hash" class="h-4 w-4 text-lagoon"></i>Série limitée et numérotée</li>
             <li class="flex items-center gap-2"><i data-lucide="sparkles" class="h-4 w-4 text-lagoon"></i>Finitions signature</li>
@@ -630,7 +631,7 @@
 <footer class="gutter border-t border-white/10 py-12">
   <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6 text-sm text-mist">
     <div class="flex items-center gap-3 text-foam">
-      <svg width="30" height="20" viewBox="0 0 34 22" aria-hidden="true"><rect x="1.5" y="1.5" width="31" height="19" rx="9.5" fill="none" stroke="#F6F8F7" stroke-width="3"/><path d="M9 11h12.5" stroke="#F6F8F7" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg width="70" height="28" viewBox="0 0 80 32" aria-hidden="true"><rect x="2" y="2" width="76" height="28" rx="14" fill="none" stroke="#F6F8F7" stroke-width="3"/><rect x="0" y="10" width="80" height="12" fill="#000"/><text x="40" y="19" text-anchor="middle" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="8.5" font-weight="700" letter-spacing="1.6" fill="#F6F8F7">EDOLPHIN</text></svg>
       <span class="font-extrabold tracking-[.18em]">E-DOLPHIN</span>
     </div>
     <p>Jet-skis électriques premium · conçus en France</p>
@@ -814,7 +815,7 @@ $('#waitlist').addEventListener('submit', (e) => {
 // While it is empty, requests are kept in the visitor's browser and the confirmation says the team will be in touch once booking opens.
 // Launch Edition deposit: stays disabled until the company's own Stripe account is open.
 // To activate: enabled: true, amount (EUR), link = Stripe Payment Link (https://buy.stripe.com/...).
-const DEPOSIT = { enabled: false, percent: 30, amount: null, link: '' };
+const DEPOSIT = { enabled: false, percent: 30, price: 90000, amount: 27000, currency: '$ HT', link: '' };
 const BOOKING = { endpoint: '', slots: ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'], leadDays: 3, horizonDays: 120 };
 const TYPES = {
   essai: { label: 'Essai en mer', dur: 45, needsSlot: true },
@@ -871,7 +872,7 @@ function drawSlots() {
   });
 }
 const depositReady = () => DEPOSIT.enabled && /^https:\/\/buy\.stripe\.com\//.test(DEPOSIT.link);
-const depAmountTxt = () => DEPOSIT.amount ? DEPOSIT.amount.toLocaleString('fr-FR') + ' €' : DEPOSIT.percent + ' % du prix';
+const depAmountTxt = () => DEPOSIT.amount ? DEPOSIT.amount.toLocaleString('fr-FR') + ' ' + DEPOSIT.currency + ' (' + DEPOSIT.percent + ' %)' : DEPOSIT.percent + ' % du prix';
 function summary() {
   const t = TYPES[bk.type];
   $('#sumType').textContent = t.label;
