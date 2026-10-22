@@ -49,7 +49,7 @@ export const filmDialog = (L, R) => {
   return `
   <dialog id="filmDlg" class="film-dlg" aria-label="${t('Le film E-Dolphin', 'The E-Dolphin film')}">
     <div class="relative w-full max-w-6xl">
-      <video id="filmDlgVideo" class="aspect-video w-full rounded-2xl bg-black" src="${R}assets/video/edolphin-film-v3.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="metadata"></video>
+      <video id="filmDlgVideo" class="aspect-video w-full rounded-2xl bg-black" src="${R}assets/video/edolphin-film-v4.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="metadata"></video>
       <div class="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm">
         <p class="text-brume">${t('Images réelles du prototype S300 en Méditerranée · musique originale', 'Real footage of the S300 prototype in the Mediterranean · original music')}</p>
         <a href="decouvrir.html" class="font-semibold text-lagoon underline underline-offset-4">${t('Découvrir E-Dolphin', 'Discover E-Dolphin')}</a>

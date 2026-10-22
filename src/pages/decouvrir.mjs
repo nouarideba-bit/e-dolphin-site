@@ -45,7 +45,7 @@ export const body = (L, R) => {
   <section id="film" class="gutter scroll-mt-24 py-16 sm:py-24">
     <div class="mx-auto max-w-7xl">
       <div class="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-black">
-        <video id="filmPlayer" class="aspect-video w-full" src="${V}edolphin-film-v3.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="auto"></video>
+        <video id="filmPlayer" class="aspect-video w-full" src="${V}edolphin-film-v4.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="auto"></video>
         <button type="button" data-sound="#filmPlayer" aria-pressed="true" class="sound-btn absolute right-3 top-3 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-2 text-xs font-semibold text-white"><i data-lucide="volume-x" class="snd-off h-4 w-4"></i><i data-lucide="volume-2" class="snd-on h-4 w-4 text-lagoon"></i><span class="snd-off">${t('Activer le son', 'Sound on')}</span><span class="snd-on">${t('Couper le son', 'Mute')}</span></button>
       </div>
       <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
