@@ -102,6 +102,19 @@
   .wipe .bar { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 2px; background: var(--foam); transform: translateX(-1px); }
   .wipe .knob { position: absolute; top: 50%; left: var(--x, 50%); transform: translate(-50%, -50%); }
 
+
+  /* Booking */
+  [hidden] { display: none !important; }
+  .bk-opt.is-on, .bk-chip.is-on { border-color: var(--lagoon); background: rgba(46,230,168,.10); }
+  .bk-opt:has(input:focus-visible), .bk-chip:has(input:focus-visible) { outline: 2px solid var(--lagoon); outline-offset: 3px; }
+  .cal-on { color: var(--foam); background: rgba(46,230,168,.08); border: 1px solid rgba(46,230,168,.25); }
+  .cal-on:hover { border-color: var(--lagoon); }
+  .cal-off { color: rgba(159,179,188,.35); }
+  .cal-on[aria-pressed="true"], .slot-on[aria-pressed="true"] { background: var(--grad); color: var(--abyss); font-weight: 700; border-color: transparent; }
+  .slot-on { border: 1px solid var(--line); background: var(--glass); color: var(--foam); }
+  .slot-on:hover { border-color: var(--lagoon); }
+  .slot-off { border: 1px dashed rgba(159,179,188,.18); color: rgba(159,179,188,.35); text-decoration: line-through; }
+
   /* Range input */
   input[type=range] { accent-color: var(--lagoon); width: 100%; }
 
@@ -127,6 +140,7 @@
       <li><a class="hover:text-foam transition" href="#journee">Une journée</a></li>
       <li><a class="hover:text-foam transition" href="#gamme">Gamme</a></li>
       <li><a class="hover:text-foam transition" href="#carene">Carène</a></li>
+      <li><a class="hover:text-foam transition" href="#reserver">Réserver</a></li>
     </ul>
     <div class="flex items-center gap-3">
       <a href="#launch" class="btn-primary hidden rounded-full px-5 py-2.5 text-sm font-bold sm:inline-flex">Launch Edition</a>
@@ -140,6 +154,7 @@
     <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#journee">Une journée sur l'eau</a>
     <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#gamme">Gamme</a>
     <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#carene">Carène</a>
+    <a class="block rounded-xl px-4 py-3 hover:bg-white/5" href="#reserver">Réserver un essai</a>
     <a class="btn-primary mt-1 block rounded-xl px-4 py-3 text-center font-bold" href="#launch">Launch Edition</a>
   </div>
 </header>
@@ -162,6 +177,7 @@
         </p>
         <div class="rise mt-9 flex flex-wrap gap-3">
           <a href="#launch" class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-bold">Réserver ma Launch Edition <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
+          <a href="#reserver" data-book="essai" class="glass lift inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Réserver un essai <i data-lucide="calendar-check" class="h-4 w-4"></i></a>
           <a href="#journee" class="glass lift inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Planifier une journée <i data-lucide="sun" class="h-4 w-4"></i></a>
         </div>
 
@@ -452,6 +468,119 @@
   </section>
 
   <!-- ========== LAUNCH EDITION ========== -->
+  <!-- ========== BOOKING ========== -->
+  <!-- Booking request flow (no payment, no deposit). Requests are sent to BOOKING.endpoint once a form service is connected. -->
+  <section id="reserver" class="gutter py-20 sm:py-28" aria-labelledby="book-title">
+    <div class="mx-auto max-w-7xl">
+      <p class="eyebrow">Réservation</p>
+      <h2 id="book-title" class="mt-4 max-w-3xl text-3xl font-extrabold sm:text-5xl">Prenez la barre. <span class="grad-text">Réservez votre essai.</span></h2>
+      <p class="mt-5 max-w-2xl text-mist">Un essai en mer accompagné, une présentation privée ou une demande de réservation Launch Edition. Aucun paiement en ligne : l'équipe E-Dolphin confirme chaque demande personnellement.</p>
+
+      <div class="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <form id="booking" class="glass grid gap-8 rounded-3xl p-5 sm:p-8" novalidate>
+          <!-- Step 1: type -->
+          <fieldset class="grid gap-3">
+            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">1</span>Que souhaitez-vous réserver ?</legend>
+            <div class="grid gap-3 sm:grid-cols-3" id="bkTypes">
+              <label class="bk-opt glass lift cursor-pointer rounded-2xl p-4"><input type="radio" name="type" value="essai" class="sr-only" checked>
+                <i data-lucide="waves" class="h-5 w-5 text-lagoon"></i><span class="mt-3 block font-bold">Essai en mer</span><span class="mt-1 block text-sm text-mist">45 min accompagné, briefing compris</span></label>
+              <label class="bk-opt glass lift cursor-pointer rounded-2xl p-4"><input type="radio" name="type" value="presentation" class="sr-only">
+                <i data-lucide="anchor" class="h-5 w-5 text-lagoon"></i><span class="mt-3 block font-bold">Présentation privée</span><span class="mt-1 block text-sm text-mist">1 h, à quai ou à bord de votre yacht</span></label>
+              <label class="bk-opt glass lift cursor-pointer rounded-2xl p-4"><input type="radio" name="type" value="launch" class="sr-only">
+                <i data-lucide="gem" class="h-5 w-5 text-lagoon"></i><span class="mt-3 block font-bold">Launch Edition</span><span class="mt-1 block text-sm text-mist">Demande de réservation, sans acompte</span></label>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: place -->
+          <fieldset class="grid gap-3">
+            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">2</span>Où ?</legend>
+            <div class="flex flex-wrap gap-2" id="bkPlaces">
+              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Monaco · Port Hercule" class="sr-only" checked>Monaco · Port Hercule</label>
+              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Antibes · Port Vauban" class="sr-only">Antibes · Port Vauban</label>
+              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Saint-Tropez" class="sr-only">Saint-Tropez</label>
+              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="Lac d'Annecy" class="sr-only">Lac d'Annecy</label>
+              <label class="bk-chip glass cursor-pointer rounded-full px-4 py-2 text-sm"><input type="radio" name="place" value="À bord de mon yacht" class="sr-only">À bord de mon yacht</label>
+            </div>
+            <p class="font-mono text-[11px] text-mist/80">Lieux d'essai proposés, confirmés avec vous selon la saison et les autorisations locales.</p>
+          </fieldset>
+
+          <!-- Step 3: date and slot -->
+          <fieldset class="grid gap-3" id="bkWhen">
+            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">3</span>Quand ?</legend>
+            <div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+              <div class="glass rounded-2xl p-4">
+                <div class="flex items-center justify-between">
+                  <button type="button" id="calPrev" class="glass rounded-full p-2" aria-label="Mois précédent"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
+                  <p id="calTitle" class="font-bold capitalize"></p>
+                  <button type="button" id="calNext" class="glass rounded-full p-2" aria-label="Mois suivant"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
+                </div>
+                <div class="mt-4 grid grid-cols-7 gap-1 text-center font-mono text-[11px] text-mist" aria-hidden="true"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+                <div id="calGrid" class="mt-1 grid grid-cols-7 gap-1" role="grid" aria-label="Choisir une date"></div>
+                <p class="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[11px] text-mist"><span><i class="mr-1 inline-block h-2 w-2 rounded-full bg-lagoon"></i>disponible</span><span><i class="mr-1 inline-block h-2 w-2 rounded-full bg-white/20"></i>complet ou fermé</span></p>
+              </div>
+              <div>
+                <p class="text-sm text-mist" id="slotHint">Choisissez une date pour voir les créneaux.</p>
+                <div id="slots" class="mt-3 grid grid-cols-3 gap-2"></div>
+                <p class="mt-3 font-mono text-[11px] text-mist/80">Disponibilités indicatives, confirmées par l'équipe.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Step 4: contact -->
+          <fieldset class="grid gap-4">
+            <legend class="mb-3 flex items-center gap-3 text-sm font-semibold"><span class="num grid h-7 w-7 place-items-center rounded-full bg-lagoon font-mono text-xs text-abyss">4</span>Vos coordonnées</legend>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div><label for="bkName" class="text-sm text-mist">Nom</label><input id="bkName" name="name" required autocomplete="name" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
+              <div><label for="bkEmail" class="text-sm text-mist">E-mail</label><input id="bkEmail" name="email" type="email" required autocomplete="email" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
+              <div><label for="bkPhone" class="text-sm text-mist">Téléphone</label><input id="bkPhone" name="phone" type="tel" required autocomplete="tel" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
+              <div><label for="bkPeople" class="text-sm text-mist">Personnes</label>
+                <select id="bkPeople" name="people" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"><option value="1">1 pilote</option><option value="2">1 pilote + 1 passager</option><option value="3">Groupe (3 et plus)</option></select></div>
+            </div>
+            <div id="bkLaunchFields" class="grid gap-4 sm:grid-cols-2" hidden>
+              <div><label for="bkLivery" class="text-sm text-mist">Livrée souhaitée</label>
+                <select id="bkLivery" name="livery" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"><option>Blanc · noir · lime</option><option>Gris · rouge</option><option>Predator</option><option>Magma</option><option>Wasp</option><option>Je ne sais pas encore</option></select></div>
+              <div><label for="bkUnits" class="text-sm text-mist">Nombre d'unités</label><input id="bkUnits" name="units" type="number" min="1" max="20" value="1" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></div>
+            </div>
+            <label class="flex items-start gap-3 text-sm text-mist"><input id="bkLicence" type="checkbox" name="licence" class="mt-1 accent-[#2EE6A8]">J'ai un permis bateau (sinon, l'essai se fait avec un pilote E-Dolphin)</label>
+            <div><label for="bkMsg" class="text-sm text-mist">Message (facultatif)</label><textarea id="bkMsg" name="message" rows="3" class="mt-1 w-full rounded-xl border border-white/15 bg-abyss/60 px-4 py-3 outline-none focus:border-lagoon"></textarea></div>
+            <label class="flex items-start gap-3 text-sm text-mist"><input id="bkConsent" type="checkbox" required class="mt-1 accent-[#2EE6A8]">J'accepte d'être recontacté au sujet de ma demande. Mes données ne servent qu'à cette réservation.</label>
+          </fieldset>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 font-bold" type="submit">Envoyer ma demande <i data-lucide="calendar-check" class="h-4 w-4"></i></button>
+            <p id="bkErr" class="text-sm text-[#FFB4A8]" role="alert"></p>
+          </div>
+        </form>
+
+        <!-- Live summary / confirmation -->
+        <aside class="lg:sticky lg:top-24 lg:self-start" aria-live="polite">
+          <div id="bkSummary" class="glass rounded-3xl p-6">
+            <p class="eyebrow">Récapitulatif</p>
+            <dl class="mt-5 grid gap-4 text-sm">
+              <div><dt class="text-mist">Formule</dt><dd id="sumType" class="mt-1 font-bold">Essai en mer</dd></div>
+              <div><dt class="text-mist">Lieu</dt><dd id="sumPlace" class="mt-1 font-bold">Monaco · Port Hercule</dd></div>
+              <div><dt class="text-mist">Date et heure</dt><dd id="sumWhen" class="mt-1 font-bold">À choisir</dd></div>
+              <div><dt class="text-mist">Durée</dt><dd id="sumDur" class="mt-1 font-bold">45 min</dd></div>
+              <div><dt class="text-mist">Paiement</dt><dd class="mt-1 font-bold text-lagoon">Aucun · confirmation par l'équipe</dd></div>
+            </dl>
+            <p class="mt-6 border-t border-white/10 pt-4 text-xs text-mist">Gilet, briefing sécurité et bracelet de retour au pilote fournis. Annulation gratuite à tout moment.</p>
+          </div>
+          <div id="bkDone" class="glass rounded-3xl p-6" hidden>
+            <i data-lucide="circle-check" class="h-8 w-8 text-lagoon"></i>
+            <h3 id="doneTitle" class="mt-4 text-xl font-bold">Demande envoyée</h3>
+            <p class="mt-2 text-sm text-mist">Référence <span id="doneRef" class="font-mono text-foam"></span></p>
+            <p id="doneText" class="mt-4 text-sm"></p>
+            <p id="doneNote" class="mt-3 text-xs text-mist"></p>
+            <div class="mt-6 flex flex-wrap gap-2">
+              <button type="button" id="icsBtn" class="glass lift inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"><i data-lucide="calendar-plus" class="h-4 w-4"></i>Ajouter à mon agenda</button>
+              <button type="button" id="bkAgain" class="glass lift inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"><i data-lucide="rotate-ccw" class="h-4 w-4"></i>Nouvelle demande</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <section id="launch" class="gutter py-20 sm:py-28" aria-labelledby="launch-title">
     <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-white/10">
       <img src="assets/signature-veil.jpg" alt="Un jet-ski sous un voile dans un showroom, avant sa présentation" class="absolute inset-0 h-full w-full object-cover opacity-50" loading="lazy">
@@ -669,6 +798,142 @@ $('#waitlist').addEventListener('submit', (e) => {
   msg.style.color = '#2EE6A8';
   msg.textContent = `Merci ${name}. Votre demande est prête à être transmise à l'équipe E-Dolphin.`;
   e.target.reset();
+});
+
+/* ---------- Booking (request only: no payment, no deposit) ---------- */
+// To receive requests, set endpoint to a form service URL (Formspree, FormSubmit, Brevo...).
+// While it is empty, requests are kept in the visitor's browser and the confirmation says the team will be in touch once booking opens.
+const BOOKING = { endpoint: '', slots: ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'], leadDays: 3, horizonDays: 120 };
+const TYPES = {
+  essai: { label: 'Essai en mer', dur: 45, needsSlot: true },
+  presentation: { label: 'Présentation privée', dur: 60, needsSlot: true },
+  launch: { label: 'Launch Edition · demande de réservation', dur: 0, needsSlot: false }
+};
+const bk = { type: 'essai', place: 'Monaco · Port Hercule', date: null, slot: null, month: null };
+const fmtDate = (d) => d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+const iso = (d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+const today = new Date(); today.setHours(0, 0, 0, 0);
+const first = new Date(today); first.setDate(first.getDate() + BOOKING.leadDays);
+const last = new Date(today); last.setDate(last.getDate() + BOOKING.horizonDays);
+bk.month = new Date(first.getFullYear(), first.getMonth(), 1);
+
+// Indicative availability: closed on Mondays, some slots already taken (stable per date)
+function seed(s) { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function freeSlots(d) {
+  if (d < first || d > last || d.getDay() === 1) return [];
+  const h = seed(iso(d) + bk.place);
+  return BOOKING.slots.filter((_, i) => ((h >> (i * 3)) & 7) > 2);
+}
+
+function drawCal() {
+  const m = bk.month, grid = $('#calGrid');
+  $('#calTitle').textContent = m.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+  $('#calPrev').disabled = m <= new Date(first.getFullYear(), first.getMonth(), 1);
+  $('#calNext').disabled = m >= new Date(last.getFullYear(), last.getMonth(), 1);
+  ['#calPrev', '#calNext'].forEach(s => $(s).style.opacity = $(s).disabled ? .35 : 1);
+  grid.innerHTML = '';
+  const offset = (m.getDay() + 6) % 7, days = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
+  for (let i = 0; i < offset; i++) grid.append(document.createElement('span'));
+  for (let n = 1; n <= days; n++) {
+    const d = new Date(m.getFullYear(), m.getMonth(), n), free = freeSlots(d).length, b = document.createElement('button');
+    b.type = 'button'; b.textContent = n; b.dataset.date = iso(d);
+    b.className = 'num aspect-square rounded-xl font-mono text-sm transition ' + (free ? 'cal-on' : 'cal-off');
+    b.disabled = !free; b.setAttribute('aria-label', fmtDate(d) + (free ? ', ' + free + ' créneaux' : ', indisponible'));
+    if (bk.date && iso(bk.date) === iso(d)) b.setAttribute('aria-pressed', 'true');
+    b.addEventListener('click', () => { bk.date = d; bk.slot = null; drawCal(); drawSlots(); summary(); });
+    grid.append(b);
+  }
+}
+function drawSlots() {
+  const box = $('#slots'); box.innerHTML = '';
+  if (!bk.date) { $('#slotHint').textContent = 'Choisissez une date pour voir les créneaux.'; return; }
+  const free = freeSlots(bk.date);
+  $('#slotHint').textContent = fmtDate(bk.date) + ' · ' + bk.place;
+  BOOKING.slots.forEach(s => {
+    const b = document.createElement('button'), ok = free.includes(s);
+    b.type = 'button'; b.textContent = s.replace(':', 'h').replace(/^0/, ''); b.disabled = !ok;
+    b.className = 'num rounded-xl px-2 py-3 font-mono text-sm transition ' + (ok ? 'slot-on' : 'slot-off');
+    if (bk.slot === s) b.setAttribute('aria-pressed', 'true');
+    b.addEventListener('click', () => { bk.slot = s; drawSlots(); summary(); });
+    box.append(b);
+  });
+}
+function summary() {
+  const t = TYPES[bk.type];
+  $('#sumType').textContent = t.label;
+  $('#sumPlace').textContent = bk.place;
+  $('#sumWhen').textContent = !t.needsSlot ? 'Rendez-vous fixé avec l\'équipe' : bk.date ? fmtDate(bk.date) + (bk.slot ? ' · ' + bk.slot.replace(':', 'h').replace(/^0/, '') : ' · créneau à choisir') : 'À choisir';
+  $('#sumDur').textContent = t.dur ? t.dur + ' min' : 'Série limitée à 300 exemplaires';
+}
+function syncType() {
+  const t = TYPES[bk.type];
+  $('#bkWhen').hidden = !t.needsSlot;
+  $('#bkLaunchFields').hidden = bk.type !== 'launch';
+  document.querySelectorAll('.bk-opt, .bk-chip').forEach(l => l.classList.toggle('is-on', l.querySelector('input').checked));
+  summary();
+}
+document.querySelectorAll('#bkTypes input').forEach(i => i.addEventListener('change', () => { bk.type = i.value; syncType(); }));
+document.querySelectorAll('#bkPlaces input').forEach(i => i.addEventListener('change', () => { bk.place = i.value; bk.slot = null; syncType(); drawCal(); drawSlots(); }));
+$('#calPrev').addEventListener('click', () => { bk.month = new Date(bk.month.getFullYear(), bk.month.getMonth() - 1, 1); drawCal(); });
+$('#calNext').addEventListener('click', () => { bk.month = new Date(bk.month.getFullYear(), bk.month.getMonth() + 1, 1); drawCal(); });
+// Links such as "Réserver ma Launch Edition" can preselect a formula with data-book
+document.querySelectorAll('[data-book]').forEach(a => a.addEventListener('click', () => {
+  const inp = document.querySelector(`#bkTypes input[value="${a.dataset.book}"]`); if (inp) { inp.checked = true; bk.type = inp.value; syncType(); }
+}));
+drawCal(); drawSlots(); syncType();
+
+let lastReq = null;
+$('#booking').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = $('#bkErr'), t = TYPES[bk.type];
+  const name = $('#bkName').value.trim(), email = $('#bkEmail').value.trim(), phone = $('#bkPhone').value.trim();
+  if (t.needsSlot && (!bk.date || !bk.slot)) { err.textContent = 'Choisissez une date et un créneau.'; $('#bkWhen').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); return; }
+  if (!name || !/^\S+@\S+\.\S+$/.test(email) || phone.replace(/\D/g, '').length < 8) { err.textContent = 'Indiquez votre nom, un e-mail valide et un téléphone.'; return; }
+  if (!$('#bkConsent').checked) { err.textContent = 'Merci d\'accepter d\'être recontacté.'; return; }
+  err.textContent = '';
+  const ref = 'ED-' + Date.now().toString(36).slice(-5).toUpperCase();
+  const req = {
+    reference: ref, formule: t.label, lieu: bk.place,
+    date: t.needsSlot ? iso(bk.date) : '', heure: t.needsSlot ? bk.slot : '',
+    nom: name, email, telephone: phone, personnes: $('#bkPeople').selectedOptions[0].text,
+    permis: $('#bkLicence').checked ? 'oui' : 'non', message: $('#bkMsg').value.trim(),
+    livree: bk.type === 'launch' ? $('#bkLivery').value : '', unites: bk.type === 'launch' ? $('#bkUnits').value : '',
+    paiement: 'aucun', envoye_le: new Date().toISOString()
+  };
+  let sent = false;
+  if (BOOKING.endpoint) {
+    try {
+      const r = await fetch(BOOKING.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(req) });
+      sent = r.ok;
+    } catch (_) { sent = false; }
+  }
+  try { const k = 'edolphin-bookings'; const all = JSON.parse(localStorage.getItem(k) || '[]'); all.push(req); localStorage.setItem(k, JSON.stringify(all)); } catch (_) {}
+  lastReq = { ...req, d: bk.date, dur: t.dur };
+  $('#doneRef').textContent = ref;
+  $('#doneText').textContent = t.needsSlot
+    ? `${t.label}, ${fmtDate(bk.date)} à ${bk.slot.replace(':', 'h').replace(/^0/, '')}, ${bk.place}.`
+    : `Demande Launch Edition (${req.unites} unité${req.unites > 1 ? 's' : ''}, livrée ${req.livree}), ${bk.place}.`;
+  $('#doneNote').textContent = sent
+    ? `Un membre de l'équipe vous confirme ce rendez-vous par e-mail à ${email}. Aucun paiement ne vous sera demandé en ligne.`
+    : `La réservation en ligne est en cours d'activation : votre demande n'a pas encore été transmise à l'équipe. Envoyez-nous la référence ${ref} sur Instagram (@_e_dolphin_) pour bloquer ce créneau. Aucun paiement ne vous sera demandé.`;
+  $('#doneTitle').textContent = sent ? 'Demande envoyée' : 'Demande prête';
+  $('#icsBtn').hidden = !t.needsSlot;
+  $('#bkSummary').hidden = true; $('#bkDone').hidden = false;
+  $('#bkDone').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+});
+$('#bkAgain').addEventListener('click', () => {
+  $('#booking').reset(); Object.assign(bk, { type: 'essai', place: 'Monaco · Port Hercule', date: null, slot: null });
+  $('#bkDone').hidden = true; $('#bkSummary').hidden = false; drawCal(); drawSlots(); syncType();
+});
+// Calendar file for the requested slot (marked as pending confirmation)
+$('#icsBtn').addEventListener('click', () => {
+  if (!lastReq || !lastReq.d) return;
+  const [h, mi] = lastReq.heure.split(':').map(Number), s = new Date(lastReq.d); s.setHours(h, mi);
+  const e2 = new Date(s.getTime() + lastReq.dur * 60000), f = (d) => iso(d).replace(/-/g, '') + 'T' + String(d.getHours()).padStart(2, '0') + String(d.getMinutes()).padStart(2, '0') + '00';
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//E-Dolphin//Reservation//FR', 'BEGIN:VEVENT', 'UID:' + lastReq.reference + '@e-dolphin',
+    'DTSTAMP:' + f(new Date()), 'DTSTART:' + f(s), 'DTEND:' + f(e2), 'SUMMARY:E-Dolphin IRUKA · ' + lastReq.formule + ' (à confirmer)',
+    'LOCATION:' + lastReq.lieu, 'DESCRIPTION:Référence ' + lastReq.reference + '. Rendez-vous confirmé par e-mail par l\'équipe E-Dolphin.', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'e-dolphin-' + lastReq.reference + '.ics'; a.click();
 });
 </script>
 </body>
