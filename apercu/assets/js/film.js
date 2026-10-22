@@ -24,6 +24,14 @@ addEventListener('DOMContentLoaded', () => {
     film.readyState >= 1 ? go() : film.addEventListener('loadedmetadata', go, { once: true });
     if (film.readyState < 1) film.load();
   }));
+  // If the connection drops mid-film, reload the file once and resume where it stopped
+  [film, hero].forEach(v => v && v.addEventListener('error', () => {
+    if (v.dataset.retried) return;
+    v.dataset.retried = '1';
+    const t = v.currentTime, wasPlaying = !v.paused || v === hero;
+    v.load();
+    v.addEventListener('loadedmetadata', () => { v.currentTime = t; if (wasPlaying) v.play().catch(() => {}); }, { once: true });
+  }));
   // One soundtrack at a time: the hero goes quiet and pauses while the film plays
   film.addEventListener('play', () => { if (hero) { hero.muted = true; hero.pause(); sync(); } });
   film.addEventListener('pause', () => { if (hero && !reduce) hero.play().catch(() => {}); });
