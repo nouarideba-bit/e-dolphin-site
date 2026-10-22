@@ -1,4 +1,4 @@
-import { tr, img, head, btn, ctaBand, heroLoop, heroSound, filmBtn, filmDialog } from '../ui.mjs';
+import { tr, img, head, btn, ctaBand, heroLoop, filmBtn, filmDialog } from '../ui.mjs';
 import { plaque } from '../plaque.mjs';
 export { meta } from './index.mjs';
 export const scripts = ['home.js', 'herofilm.js'];
@@ -44,7 +44,7 @@ export const body = (L, R) => {
     <figure class="relative h-[62svh] min-h-[360px] overflow-hidden sm:h-[68svh]">
       ${heroLoop(L, R, 'h-full w-full object-cover')}
       <figcaption class="tag absolute left-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
-      <div class="absolute bottom-5 left-5 flex flex-wrap gap-2">${filmBtn(L, 'glass')}${heroSound(L, '')}</div>
+      <div class="absolute bottom-5 left-5 flex flex-wrap gap-2">${filmBtn(L, 'glass')}</div>
       <a href="launch-edition.html" class="home-ticket glass absolute bottom-5 right-5 hidden items-center gap-4 rounded-2xl px-5 py-4 md:flex">
         <span><span class="eyebrow-sand block">Launch Edition</span><span class="mt-1 block font-display text-lg font-semibold">N° <span id="heroNum" class="num">001</span> / 300</span></span>
         <span class="num border-l border-white/15 pl-4 font-display font-semibold">90 000 $ HT</span>

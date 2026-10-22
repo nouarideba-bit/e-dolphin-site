@@ -7,7 +7,7 @@ export const meta = {
 export const scripts = ['film.js'];
 
 // "Discover E-Dolphin": the brand film (real footage of the S300 prototype) and the house in four points.
-// Chapters jump the film to a moment; the hero plays the film muted, with a one-click sound switch.
+// The hero plays a short silent loop; the big player below holds the full film, with chapters and a sound switch.
 // Soundtrack: original upbeat track synthesised for the site (no third-party rights).
 const CHAPTERS = [
   [6, 'film-6.jpg', 'Les rochers', 'The rocks', 'Entre les îlots, au ras de l\'eau.', 'Between the islets, close to the water.'],
@@ -26,8 +26,7 @@ export const body = (L, R) => {
   return `
   <!-- Hero: muted loop from the film -->
   <section class="disc-hero relative isolate flex min-h-[88svh] items-end overflow-hidden">
-    <video id="heroFilm" class="absolute inset-0 -z-20 h-full w-full object-cover" src="${V}edolphin-film-v3.mp4" poster="${img(R, 'film-46.jpg')}" autoplay muted loop playsinline preload="metadata" aria-label="${t('Film E-Dolphin, en boucle', 'E-Dolphin film, looping')}"></video>
-    <button type="button" data-sound="#heroFilm" aria-pressed="false" class="sound-btn glass absolute bottom-5 right-5 z-10 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold"><i data-lucide="volume-x" class="snd-off h-5 w-5"></i><i data-lucide="volume-2" class="snd-on h-5 w-5 text-lagoon"></i><span class="snd-off">${t('Activer le son', 'Sound on')}</span><span class="snd-on">${t('Couper le son', 'Mute')}</span></button>
+    <video id="heroFilm" class="absolute inset-0 -z-20 h-full w-full object-cover" src="${V}edolphin-boucle-v2.mp4" poster="${img(R, 'film-46.jpg')}" autoplay muted loop playsinline preload="auto" aria-label="${t('Images du film E-Dolphin, en boucle', 'E-Dolphin film footage, looping')}"></video>
     <div class="absolute inset-0 -z-10 bg-gradient-to-t from-abyss via-abyss/40 to-abyss/10"></div>
     <div class="gutter w-full">
       <div class="mx-auto max-w-7xl pb-16 pt-32">
@@ -46,7 +45,7 @@ export const body = (L, R) => {
   <section id="film" class="gutter scroll-mt-24 py-16 sm:py-24">
     <div class="mx-auto max-w-7xl">
       <div class="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-black">
-        <video id="filmPlayer" class="aspect-video w-full" src="${V}edolphin-film-v3.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="metadata"></video>
+        <video id="filmPlayer" class="aspect-video w-full" src="${V}edolphin-film-v3.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="auto"></video>
         <button type="button" data-sound="#filmPlayer" aria-pressed="true" class="sound-btn absolute right-3 top-3 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-2 text-xs font-semibold text-white"><i data-lucide="volume-x" class="snd-off h-4 w-4"></i><i data-lucide="volume-2" class="snd-on h-4 w-4 text-lagoon"></i><span class="snd-off">${t('Activer le son', 'Sound on')}</span><span class="snd-on">${t('Couper le son', 'Mute')}</span></button>
       </div>
       <div class="mt-4 flex flex-wrap items-center justify-between gap-3">

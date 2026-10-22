@@ -39,13 +39,15 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false })
   const book = t('Réserver un essai', 'Book a sea trial');
 
   return `<!doctype html>
-<html lang="${L}">
+<html lang="${L}" translate="no">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${title}</title>
 <meta name="description" content="${desc}">
 <meta name="robots" content="noindex, nofollow">
+<!-- The site ships its own French and English versions: stop browsers from auto-translating them -->
+<meta name="google" content="notranslate">
 <meta name="theme-color" content="#06131C">
 <link rel="alternate" hreflang="${L === 'fr' ? 'en' : 'fr'}" href="${other}">
 <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -35,15 +35,11 @@ export const ctaBand = (L) => {
   </section>`;
 };
 
-// Home hero film: the full film (1:28) plays muted behind the hero, with a one-click sound switch,
-// and a button that opens it from the start, with sound and controls.
+// Home hero film: a short silent loop of the real footage plays behind the hero;
+// the button opens the full film (1:28) with sound and controls.
 export const heroLoop = (L, R, cls = 'absolute inset-0 -z-20 h-full w-full object-cover') =>
-  `<video id="heroLoop" class="hero-img ${cls}" src="${R}assets/video/edolphin-film-v3.mp4" poster="${img(R, 'hero-s300.jpg')}" autoplay muted loop playsinline preload="auto" aria-label="${tr(L)('Le film E-Dolphin : le prototype S300 en mer', 'The E-Dolphin film: the S300 prototype at sea')}"></video>`;
+  `<video id="heroLoop" class="hero-img ${cls}" src="${R}assets/video/edolphin-boucle-v2.mp4" poster="${img(R, 'hero-s300.jpg')}" autoplay muted loop playsinline preload="auto" aria-label="${tr(L)('Images réelles du prototype S300 en mer, en boucle', 'Real footage of the S300 prototype at sea, looping')}"></video>`;
 
-export const heroSound = (L, cls = 'absolute bottom-5 right-5 z-10') => {
-  const t = tr(L);
-  return `<button type="button" data-sound="#heroLoop" aria-pressed="false" class="sound-btn glass ${cls} inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold"><i data-lucide="volume-x" class="snd-off h-5 w-5"></i><i data-lucide="volume-2" class="snd-on h-5 w-5 text-lagoon"></i><span class="snd-off">${t('Activer le son', 'Sound on')}</span><span class="snd-on">${t('Couper le son', 'Mute')}</span></button>`;
-};
 
 export const filmBtn = (L, cls = 'glass') =>
   `<button type="button" data-film-open class="${cls} inline-flex items-center gap-3 rounded-full py-2 pl-2 pr-5 font-semibold"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><i data-lucide="play" class="h-4 w-4"></i></span>${tr(L)('Regarder le film', 'Watch the film')} <span class="num font-mono text-xs opacity-70">1:28</span></button>`;
@@ -53,7 +49,7 @@ export const filmDialog = (L, R) => {
   return `
   <dialog id="filmDlg" class="film-dlg" aria-label="${t('Le film E-Dolphin', 'The E-Dolphin film')}">
     <div class="relative w-full max-w-6xl">
-      <video id="filmDlgVideo" class="aspect-video w-full rounded-2xl bg-black" src="${R}assets/video/edolphin-film-v3.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="none"></video>
+      <video id="filmDlgVideo" class="aspect-video w-full rounded-2xl bg-black" src="${R}assets/video/edolphin-film-v3.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="metadata"></video>
       <div class="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm">
         <p class="text-brume">${t('Images réelles du prototype S300 en Méditerranée · musique originale', 'Real footage of the S300 prototype in the Mediterranean · original music')}</p>
         <a href="decouvrir.html" class="font-semibold text-lagoon underline underline-offset-4">${t('Découvrir E-Dolphin', 'Discover E-Dolphin')}</a>
