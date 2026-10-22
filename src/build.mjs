@@ -10,6 +10,7 @@ import * as launch from './pages/launch-edition.mjs';
 import * as boutique from './pages/boutique.mjs';
 import * as configurateur from './pages/configurateur.mjs';
 import * as maison from './pages/maison.mjs';
+import * as decouvrir from './pages/decouvrir.mjs';
 import * as reserver from './pages/reserver.mjs';
 import { mentions, privacy, terms } from './pages/legal.mjs';
 
@@ -31,7 +32,7 @@ const inlineIcons = (html) => html.replace(/<i data-lucide="([a-z0-9-]+)"(?: cla
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide ${cls}" aria-hidden="true">${svgInner(name)}</svg>`);
 const SOURCES = {
   index, iruka, experience, 'yachts-flottes': yachts, 'launch-edition': launch,
-  configurateur, boutique, maison, reserver, 'mentions-legales': mentions, confidentialite: privacy, cgv: terms
+  configurateur, boutique, maison, decouvrir, reserver, 'mentions-legales': mentions, confidentialite: privacy, cgv: terms
 };
 
 for (const L of ['fr', 'en']) {

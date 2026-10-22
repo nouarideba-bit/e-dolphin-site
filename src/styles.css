@@ -190,3 +190,13 @@ details[open] .chev { transform: rotate(45deg); }
 .liv-btn[aria-checked="true"] > span:first-child { box-shadow: 0 0 0 2px var(--deep), 0 0 0 4px var(--lagoon); }
 .home-stats .stat { border-top: 1px solid var(--line); padding-top: 1.25rem; }
 .home-rdv { background: var(--deep); border: 1px solid var(--line); }
+
+/* Discover E-Dolphin: the road */
+.disc-road { position: relative; }
+.disc-road li { position: relative; }
+.disc-road .dot { display: block; width: 14px; height: 14px; border-radius: 999px; border: 2px solid var(--brume); background: var(--abyss); position: relative; z-index: 1; }
+.disc-road .dot.is-on { border-color: var(--lagoon); background: var(--lagoon); box-shadow: 0 0 0 6px rgba(46,230,168,.15); }
+.disc-road .dot.sand { border-color: var(--sand); }
+@media (min-width: 768px) { .disc-road::before { content: ""; position: absolute; left: 7px; right: 0; top: 6px; height: 2px; background: linear-gradient(90deg, var(--lagoon), var(--line) 30%, var(--line)); } }
+.disc-chapters { scrollbar-width: none; }
+.disc-chapters::-webkit-scrollbar { display: none; }

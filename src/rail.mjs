@@ -17,7 +17,7 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
         <span class="num shrink-0 text-right text-sm font-semibold">${price}</span>
       </a>`;
   const more = [
-    ['maison', t('La maison', 'The house')], ['boutique', t('Boutique', 'Shop')], ['experience', t("L'expérience", 'Experience')],
+    ['decouvrir', t('Découvrir E-Dolphin', 'Discover E-Dolphin')], ['maison', t('La maison', 'The house')], ['boutique', t('Boutique', 'Shop')], ['experience', t("L'expérience", 'Experience')],
     ['reserver', t('Questions fréquentes', 'FAQ'), '#faq'], ['cgv', t('Conditions de vente', 'Terms of sale')], ['mentions-legales', t('Mentions légales', 'Legal notice')]
   ].map(([s, label, hash = '']) => `<a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="${href(s)}${hash}">${label}<i data-lucide="chevron-right" class="h-4 w-4 text-brume"></i></a>`).join('');
 
@@ -33,6 +33,7 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
   <nav class="rail-nav flex-1 overflow-y-auto">
     <ul>
       ${panelBtn('models', 'ship', t('Modèles', 'Models'))}
+      ${item('decouvrir', 'circle-play', t('Découvrir E-Dolphin', 'Discover E-Dolphin'))}
       ${item('configurateur', 'sliders-horizontal', t('Configurer le vôtre', 'Build yours'))}
       ${item('launch-edition', 'gem', 'Launch Edition', ' rail-sand')}
       ${item('experience', 'waves', t("L'expérience", 'Experience'))}

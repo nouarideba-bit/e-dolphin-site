@@ -5,6 +5,7 @@ import { rail as railNav } from './rail.mjs';
 
 export const PAGES = [
   { slug: 'index', nav: false, fr: 'Accueil', en: 'Home' },
+  { slug: 'decouvrir', nav: true, fr: 'Découvrir', en: 'Discover' },
   { slug: 'iruka', nav: true, fr: 'IRUKA', en: 'IRUKA' },
   { slug: 'experience', nav: true, fr: "L'expérience", en: 'Experience' },
   { slug: 'yachts-flottes', nav: true, fr: 'Yachts et flottes', en: 'Yachts & fleets' },
@@ -64,7 +65,7 @@ ${rail ? railNav({ L, slug, href, other, flagFr: FLAG_FR, flagEn }) : `<header i
       ${logo(48, 36)}
       <span class="font-display text-sm font-semibold tracking-[.22em]">E-DOLPHIN</span>
     </a>
-    <ul class="hidden items-center gap-6 text-sm xl:gap-7 lg:flex">${navLinks}</ul>
+    <ul class="hidden items-center gap-4 text-sm xl:gap-7 lg:flex">${navLinks}</ul>
     <div class="flex items-center gap-2">
       <div class="lang hidden items-center gap-1 rounded-full p-1 sm:flex" role="group" aria-label="${t('Langue', 'Language')}">
         <a href="${L === 'fr' ? '#' : other}" hreflang="fr" lang="fr" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px]${L === 'fr' ? ' is-on' : ''}"${L === 'fr' ? ' aria-current="true"' : ''} aria-label="Français">${FLAG_FR}FR</a>
@@ -101,6 +102,7 @@ ${body}
         <li><a class="hover:text-foam" href="${href('iruka')}">IRUKA</a></li>
         <li><a class="hover:text-foam" href="${href('launch-edition')}">Launch Edition</a></li>
         <li><a class="hover:text-foam" href="${href('experience')}">${t("L'expérience", 'Experience')}</a></li>
+        <li><a class="hover:text-foam" href="${href('decouvrir')}">${t('Découvrir E-Dolphin', 'Discover E-Dolphin')}</a></li>
         <li><a class="hover:text-foam" href="${href('maison')}">${t('La maison', 'The house')}</a></li>
       </ul>
     </div>

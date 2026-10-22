@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Découvrir E-Dolphin · le film</title>
+<meta name="description" content="Le prototype S300 en mer, des criques au coucher du soleil : le film E-Dolphin, et ce qui fait la maison.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#06131C">
+<link rel="alternate" hreflang="en" href="en/decouvrir.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script defer src="assets/js/icons.js"></script>
+<script defer src="assets/js/site.js"></script>
+<script defer src="assets/js/film.js"></script>
+
+</head>
+<body class="page-decouvrir">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-foam focus:px-4 focus:py-2 focus:text-abyss">Aller au contenu</a>
+<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 py-3" aria-label="Navigation principale">
+    <a href="./" class="flex shrink-0 items-center gap-3" aria-label="E-Dolphin, accueil">
+      <svg width="48" height="36" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg>
+      <span class="font-display text-sm font-semibold tracking-[.22em]">E-DOLPHIN</span>
+    </a>
+    <ul class="hidden items-center gap-4 text-sm xl:gap-7 lg:flex"><li><a class="nav-link is-on" href="decouvrir.html" aria-current="page">Découvrir</a></li><li><a class="nav-link" href="iruka.html">IRUKA</a></li><li><a class="nav-link" href="experience.html">L'expérience</a></li><li><a class="nav-link" href="yachts-flottes.html">Yachts et flottes</a></li><li><a class="nav-link" href="launch-edition.html">Launch Edition</a></li><li><a class="nav-link" href="configurateur.html">Configurer</a></li><li><a class="nav-link" href="boutique.html">Boutique</a></li><li><a class="nav-link" href="maison.html">La maison</a></li></ul>
+    <div class="flex items-center gap-2">
+      <div class="lang hidden items-center gap-1 rounded-full p-1 sm:flex" role="group" aria-label="Langue">
+        <a href="#" hreflang="fr" lang="fr" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px] is-on" aria-current="true" aria-label="Français"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>FR</a>
+        <a href="en/decouvrir.html" hreflang="en" lang="en" class="flag inline-flex items-center gap-1.5 rounded-full px-2 py-1 font-mono text-[11px]" aria-label="English"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c25"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t25"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c25)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t25)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>EN</a>
+      </div>
+      <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="Ouvrir le panier"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /> <path d="M3 6h18" /> <path d="M16 10a4 4 0 0 1-8 0" /></svg><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
+      <a href="reserver.html" class="btn-primary hidden rounded-full px-5 py-2.5 text-sm font-semibold sm:inline-flex">Réserver un essai</a>
+      <button id="menuBtn" class="glass rounded-full p-2.5 lg:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Ouvrir le menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12" /> <line x1="4" x2="20" y1="6" y2="6" /> <line x1="4" x2="20" y1="18" y2="18" /></svg></button>
+    </div>
+  </nav>
+  <div id="mobileMenu" class="glass mx-auto mb-3 max-w-7xl rounded-2xl p-2 lg:hidden" hidden>
+    <a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5 text-lagoon" href="decouvrir.html">Découvrir</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="iruka.html">IRUKA</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="experience.html">L'expérience</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="yachts-flottes.html">Yachts et flottes</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="launch-edition.html">Launch Edition</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="configurateur.html">Configurer</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="boutique.html">Boutique</a><a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5" href="maison.html">La maison</a>
+    <div class="mt-1 flex gap-2 border-t border-white/10 px-2 pt-3">
+      <a href="#" hreflang="fr" class="flag inline-flex items-center gap-2 rounded-full px-3 py-2 font-mono text-xs is-on"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>Français</a>
+      <a href="en/decouvrir.html" hreflang="en" class="flag inline-flex items-center gap-2 rounded-full px-3 py-2 font-mono text-xs"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c26"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t26"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c26)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t26)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>English</a>
+    </div>
+  </div>
+</header>
+
+
+<main id="main">
+
+  <!-- Hero: muted loop from the film -->
+  <section class="disc-hero relative isolate flex min-h-[88svh] items-end overflow-hidden">
+    <video class="absolute inset-0 -z-20 h-full w-full object-cover" src="assets/video/edolphin-boucle.mp4" poster="assets/img/film-46.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-abyss via-abyss/40 to-abyss/10"></div>
+    <div class="gutter w-full">
+      <div class="mx-auto max-w-7xl pb-16 pt-32">
+        <p class="eyebrow">Découvrir E-Dolphin</p>
+        <h1 class="mt-4 max-w-4xl font-display text-[2.6rem] font-semibold leading-[1.02] sm:text-7xl">La Méditerranée, sans le bruit.</h1>
+        <p class="mt-5 max-w-xl text-brume sm:text-lg">Une minute et demie en mer avec le prototype S300 : les rochers, les criques, le large, puis le coucher du soleil.</p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="#film" data-play="0" class="btn-primary inline-flex items-center gap-3 rounded-full py-2 pl-2 pr-6 font-semibold"><span class="grid h-11 w-11 place-items-center rounded-full bg-abyss text-lagoon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span>Regarder le film <span class="num font-mono text-xs opacity-70">1:28</span></a>
+          <span class="tag text-brume">Images réelles · prototype S300</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The film, with chapters -->
+  <section id="film" class="gutter scroll-mt-24 py-16 sm:py-24">
+    <div class="mx-auto max-w-7xl">
+      <div class="overflow-hidden rounded-[1.75rem] border border-white/10 bg-black">
+        <video id="filmPlayer" class="aspect-video w-full" src="assets/video/edolphin-film.mp4" poster="assets/img/film-6.jpg" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <p class="font-display text-lg font-semibold">Le film E-Dolphin <span class="num ml-2 font-mono text-xs text-brume">1:28</span></p>
+        <p class="tag text-brume">Images réelles du prototype S300 en Méditerranée.</p>
+      </div>
+      <h2 class="mt-12 font-display text-2xl font-semibold">Chapitres</h2>
+      <ol class="disc-chapters -mx-4 mt-5 flex snap-x gap-4 overflow-x-auto scroll-px-4 px-4 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-6">
+        <li class="w-[70%] shrink-0 snap-start sm:w-auto">
+          <a href="#film" data-play="6" class="disc-chap group block">
+            <span class="relative block overflow-hidden rounded-2xl"><img src="assets/img/film-6.jpg" alt="" class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"><span class="num absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[11px] text-white">0:06</span><span class="absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span></span></span>
+            <span class="mt-3 block text-sm font-semibold"><span class="num mr-1 font-mono text-xs text-lagoon">01</span>Les rochers</span>
+            <span class="mt-0.5 block text-xs text-brume">Entre les îlots, au ras de l'eau.</span>
+          </a></li><li class="w-[70%] shrink-0 snap-start sm:w-auto">
+          <a href="#film" data-play="40" class="disc-chap group block">
+            <span class="relative block overflow-hidden rounded-2xl"><img src="assets/img/film-40.jpg" alt="" class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"><span class="num absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[11px] text-white">0:40</span><span class="absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span></span></span>
+            <span class="mt-3 block text-sm font-semibold"><span class="num mr-1 font-mono text-xs text-lagoon">02</span>Les eaux turquoise</span>
+            <span class="mt-0.5 block text-xs text-brume">Les criques, vues du ciel.</span>
+          </a></li><li class="w-[70%] shrink-0 snap-start sm:w-auto">
+          <a href="#film" data-play="46" class="disc-chap group block">
+            <span class="relative block overflow-hidden rounded-2xl"><img src="assets/img/film-46.jpg" alt="" class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"><span class="num absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[11px] text-white">0:46</span><span class="absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span></span></span>
+            <span class="mt-3 block text-sm font-semibold"><span class="num mr-1 font-mono text-xs text-lagoon">03</span>Le large</span>
+            <span class="mt-0.5 block text-xs text-brume">Pleine vitesse, sans un bruit de moteur.</span>
+          </a></li><li class="w-[70%] shrink-0 snap-start sm:w-auto">
+          <a href="#film" data-play="66" class="disc-chap group block">
+            <span class="relative block overflow-hidden rounded-2xl"><img src="assets/img/film-66.jpg" alt="" class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"><span class="num absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[11px] text-white">1:06</span><span class="absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span></span></span>
+            <span class="mt-3 block text-sm font-semibold"><span class="num mr-1 font-mono text-xs text-lagoon">04</span>Le virage</span>
+            <span class="mt-0.5 block text-xs text-brume">Le sillage dessine la trajectoire.</span>
+          </a></li><li class="w-[70%] shrink-0 snap-start sm:w-auto">
+          <a href="#film" data-play="80" class="disc-chap group block">
+            <span class="relative block overflow-hidden rounded-2xl"><img src="assets/img/film-80.jpg" alt="" class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"><span class="num absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[11px] text-white">1:20</span><span class="absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span></span></span>
+            <span class="mt-3 block text-sm font-semibold"><span class="num mr-1 font-mono text-xs text-lagoon">05</span>Au mouillage</span>
+            <span class="mt-0.5 block text-xs text-brume">Le pilote, le jet-ski, la falaise.</span>
+          </a></li><li class="w-[70%] shrink-0 snap-start sm:w-auto">
+          <a href="#film" data-play="86" class="disc-chap group block">
+            <span class="relative block overflow-hidden rounded-2xl"><img src="assets/img/film-86.jpg" alt="" class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy"><span class="num absolute bottom-2 left-2 rounded-full bg-black/60 px-2 py-0.5 font-mono text-[11px] text-white">1:26</span><span class="absolute inset-0 grid place-items-center opacity-0 transition-opacity group-hover:opacity-100"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span></span></span>
+            <span class="mt-3 block text-sm font-semibold"><span class="num mr-1 font-mono text-xs text-lagoon">06</span>Le coucher du soleil</span>
+            <span class="mt-0.5 block text-xs text-brume">Retour au bateau, à la dernière lumière.</span>
+          </a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- The house in four points -->
+  <section class="gutter pb-16 sm:pb-24">
+    <div class="mx-auto max-w-7xl">
+      
+  <p class="eyebrow">La maison</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Ce qui fait E-Dolphin.</h2>
+  
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <article class="rounded-3xl border border-white/10 bg-deep p-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-6 w-6 text-lagoon" aria-hidden="true"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /> <line x1="22" x2="16" y1="9" y2="15" /> <line x1="16" x2="22" y1="9" y2="15" /></svg><h3 class="mt-4 font-display text-xl font-semibold">Le silence</h3><p class="mt-2 text-sm text-brume">Un moteur électrique, pas de pot d'échappement : on entend l'eau et le vent.</p></article>
+        <article class="rounded-3xl border border-white/10 bg-deep p-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-6 w-6 text-lagoon" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /> <line x1="4" x2="4" y1="22" y2="15" /></svg><h3 class="mt-4 font-display text-xl font-semibold">Conçu en France</h3><p class="mt-2 text-sm text-brume">Design, ingénierie et assemblage du pack batterie en France.</p></article>
+        <article class="rounded-3xl border border-white/10 bg-deep p-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-6 w-6 text-lagoon" aria-hidden="true"><path d="M15 7h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2" /> <path d="M6 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h1" /> <path d="m11 7-3 5h4l-3 5" /> <line x1="22" x2="22" y1="11" y2="13" /></svg><h3 class="mt-4 font-display text-xl font-semibold">La batterie maîtrisée</h3><p class="mt-2 text-sm text-brume">Boîtier et système de gestion de la batterie conçus par nos équipes. Recharge rapide CCS2.</p></article>
+        <article class="rounded-3xl border border-white/10 bg-deep p-6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-6 w-6 text-lagoon" aria-hidden="true"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /> <path d="M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /> <path d="M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg><h3 class="mt-4 font-display text-xl font-semibold">Éprouvé en mer</h3><p class="mt-2 text-sm text-brume">Plus de 200 heures de navigation sur le prototype S300.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- The road -->
+  <section class="gutter pb-16 sm:pb-24">
+    <div class="mx-auto max-w-7xl">
+      
+  <p class="eyebrow">La route</p>
+  <h2 class="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight sm:text-5xl">Du prototype à la famille.</h2>
+  
+      <ol class="disc-road mt-10 grid gap-6 md:grid-cols-4">
+        <li><span class="dot is-on"></span><p class="eyebrow mt-4">Aujourd'hui</p><h3 class="mt-2 font-display text-xl font-semibold">Prototype S300</h3><p class="mt-1 text-sm text-brume">Celui du film, en essais en mer.</p></li>
+        <li><span class="dot"></span><p class="eyebrow mt-4">Le modèle</p><h3 class="mt-2 font-display text-xl font-semibold">IRUKA</h3><p class="mt-1 text-sm text-brume">Le modèle de série, à partir de 35 990 € HT.</p></li>
+        <li><span class="dot sand"></span><p class="eyebrow-sand mt-4">Série limitée</p><h3 class="mt-2 font-display text-xl font-semibold">Launch Edition</h3><p class="mt-1 text-sm text-brume">300 exemplaires numérotés, 90 000 $ HT.</p></li>
+        <li><span class="dot"></span><p class="eyebrow mt-4">Ensuite</p><h3 class="mt-2 font-display text-xl font-semibold">Tridens et gamme enfants</h3><p class="mt-1 text-sm text-brume">Trois places, et des modèles pour les 6-12 ans.</p></li>
+      </ol>
+      <div class="mt-10 flex flex-wrap gap-3"><a href="iruka.html"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Découvrir IRUKA <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></svg></a><a href="configurateur.html"  class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Configurer le vôtre <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4" /> <line x1="10" x2="3" y1="4" y2="4" /> <line x1="21" x2="12" y1="12" y2="12" /> <line x1="8" x2="3" y1="12" y2="12" /> <line x1="21" x2="16" y1="20" y2="20" /> <line x1="12" x2="3" y1="20" y2="20" /> <line x1="14" x2="14" y1="2" y2="6" /> <line x1="8" x2="8" y1="10" y2="14" /> <line x1="16" x2="16" y1="18" y2="22" /></svg></a></div>
+    </div>
+  </section>
+  
+  <section class="gutter py-20 sm:py-28">
+    <div class="panel relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] p-8 sm:p-14">
+      <div class="rule-sand mb-8 w-40"></div>
+      <h2 class="max-w-2xl font-display text-3xl font-semibold sm:text-5xl">Le plus simple, c'est de prendre la barre.</h2>
+      <p class="mt-5 max-w-xl text-brume">Essai en mer de 45 minutes ou présentation privée d'une heure, à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht. Sans engagement, confirmé personnellement par notre équipe.</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="reserver.html"  class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Réserver un essai en mer <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg></a>
+        <a href="reserver.html?formule=presentation"  class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">Demander une présentation privée <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M12 22V8" /> <path d="M5 12H2a10 10 0 0 0 20 0h-3" /> <circle cx="12" cy="5" r="3" /></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="gutter border-t border-white/10 pb-28 pt-14 sm:pb-14">
+  <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
+    <div>
+      <a href="./" class="inline-flex items-center gap-3"><svg width="40" height="30" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg><span class="font-display font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
+      <p class="mt-4 max-w-xs text-sm text-brume">Jet-skis 100 % électriques de luxe, conçus et assemblés en France.</p>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Le modèle</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="iruka.html">IRUKA</a></li>
+        <li><a class="hover:text-foam" href="launch-edition.html">Launch Edition</a></li>
+        <li><a class="hover:text-foam" href="experience.html">L'expérience</a></li>
+        <li><a class="hover:text-foam" href="decouvrir.html">Découvrir E-Dolphin</a></li>
+        <li><a class="hover:text-foam" href="maison.html">La maison</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Partenaires</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="hover:text-foam" href="yachts-flottes.html">Yachts et flottes</a></li>
+        <li><a class="hover:text-foam" href="reserver.html">Réserver un essai</a></li>
+        <li><a class="hover:text-foam" href="reserver.html#faq">Questions fréquentes</a></li>
+
+      </ul>
+    </div>
+    <div>
+      <p class="eyebrow-sand">Suivre</p>
+      <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><circle cx="8" cy="18" r="4" /> <path d="M12 18V2l7 4" /></svg>TikTok</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /> <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /> <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>Instagram</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="en/decouvrir.html" hreflang="en"><svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c27"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t27"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c27)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t27)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>English</a></li>
+      </ul>
+    </div>
+  </div>
+  <form id="newsletter" class="mx-auto mt-12 grid max-w-7xl gap-4 rounded-3xl border border-white/10 p-6 sm:p-8 md:grid-cols-[1fr_1.2fr] md:items-center" novalidate>
+    <div>
+      <p class="eyebrow-sand">Newsletter</p>
+      <p class="mt-3 font-display text-xl font-semibold">Les premiers essais, les dates de livraison, les nouveaux modèles.</p>
+      <p class="mt-1 text-sm text-brume">Quelques e-mails par an, désinscription en un clic.</p>
+    </div>
+    <div>
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <label for="nlEmail" class="sr-only">E-mail</label>
+        <input id="nlEmail" type="email" required autocomplete="email" placeholder="votre@e-mail.com" class="field !mt-0 flex-1">
+        <button type="submit" class="btn-primary rounded-full px-6 py-3 font-semibold">S'inscrire</button>
+      </div>
+      <label class="mt-3 flex items-start gap-2 text-xs text-brume"><input id="nlConsent" type="checkbox" class="mt-0.5 accent-[#2EE6A8]">J'accepte de recevoir la newsletter E-Dolphin. Mon e-mail ne sert qu'à cet envoi.</label>
+      <p id="nlMsg" class="mt-2 text-sm" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+  <ul class="mx-auto mt-10 flex max-w-7xl flex-wrap gap-x-6 gap-y-2 text-xs text-brume">
+    <li><a class="hover:text-foam" href="mentions-legales.html">Mentions légales</a></li>
+    <li><a class="hover:text-foam" href="confidentialite.html">Confidentialité et cookies</a></li>
+    <li><a class="hover:text-foam" href="cgv.html">Conditions générales de vente</a></li>
+    <li>© 2026 E-Dolphin</li>
+  </ul>
+  <p class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-6 font-mono text-[11px] leading-relaxed text-brume/80">Site privé partagé avec nos partenaires. Caractéristiques IRUKA : objectifs de conception, confirmés par les essais de validation. Visuels marqués « Rendu » : images de synthèse non contractuelles.</p>
+</footer>
+
+<div id="cartShade" class="fixed inset-0 z-[55] bg-abyss/70 backdrop-blur-sm" hidden></div>
+<aside id="cart" class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-md flex-col border-l border-white/10 bg-deep" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <div class="flex items-center justify-between border-b border-white/10 p-5">
+    <h2 id="cartTitle" class="font-display text-xl font-semibold">Votre panier</h2>
+    <button type="button" id="cartClose" class="glass rounded-full p-2" aria-label="Fermer le panier"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+  </div>
+  <div id="cartItems" class="flex-1 overflow-y-auto p-5"></div>
+  <div class="border-t border-white/10 p-5">
+    <dl id="cartTotals" class="grid gap-1 text-sm"></dl>
+    <button type="button" class="btn-primary mt-4 w-full cursor-not-allowed rounded-full py-3.5 font-semibold opacity-45" disabled aria-describedby="payNote"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide mr-1 inline h-4 w-4" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>Paiement en ligne</button>
+    <p id="payNote" class="mt-2 text-center text-xs text-brume">Paiement sécurisé bientôt disponible. En attendant, envoyez votre panier à notre équipe.</p>
+    <a href="boutique.html#demande" id="cartSend" class="btn-ghost mt-3 flex w-full items-center justify-center gap-2 rounded-full py-3 font-semibold">Envoyer ma demande <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" /> <path d="m21.854 2.147-10.94 10.939" /></svg></a>
+  </div>
+</aside>
+
+<a href="reserver.html" class="btn-primary fixed inset-x-4 bottom-4 z-40 flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold shadow-2xl sm:hidden" style="bottom:max(16px, env(safe-area-inset-bottom))"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /> <path d="m9 16 2 2 4-4" /></svg>Réserver un essai</a>
+</body>
+</html>
