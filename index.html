@@ -470,10 +470,10 @@
 
   <!-- ========== LAUNCH EDITION ========== -->
   <!-- ========== BOOKING ========== -->
-  <!-- Booking request flow (no payment, no deposit). Requests are sent to BOOKING.endpoint once a form service is connected. -->
+  <!-- Booking request flow (no payment, no deposit). Requests are sent to BOOKING.endpoint. -->
   <section id="reserver" class="gutter py-20 sm:py-28" aria-labelledby="book-title">
     <div class="mx-auto max-w-7xl">
-      <p class="eyebrow">Réservation <span class="ml-2 rounded-full border border-white/20 px-2 py-0.5 text-[10px] tracking-[.18em] text-mist">Version bêta</span></p>
+      <p class="eyebrow">Réservation </p>
       <h2 id="book-title" class="mt-4 max-w-3xl text-3xl font-extrabold sm:text-5xl">Prenez la barre. <span class="grad-text">Réservez votre essai.</span></h2>
       <p class="mt-5 max-w-2xl text-mist">Un essai en mer accompagné, une présentation privée ou une demande de réservation Launch Edition. Essais et présentations sans paiement : l'équipe E-Dolphin confirme chaque demande personnellement. La Launch Edition se réserve avec un acompte sécurisé.</p>
 
@@ -607,7 +607,7 @@
           </ul>
         </div>
 
-        <!-- Waitlist form: handled in script, connect it to a form service (Formspree, Brevo...) before going live -->
+        <!-- Waitlist form: sent to BOOKING.endpoint in script -->
         <form id="waitlist" class="glass grid gap-4 self-start rounded-3xl p-6" novalidate>
           <h3 class="text-lg font-bold">Rejoindre la liste prioritaire</h3>
           <div class="grid gap-4 sm:grid-cols-2">
@@ -800,23 +800,29 @@ drawDay();
 const wipe = $('#wipe');
 $('#wipeRange').addEventListener('input', e => wipe.style.setProperty('--x', e.target.value + '%'));
 
-/* ---------- Waitlist form (front-end only until a form service is plugged in) ---------- */
-$('#waitlist').addEventListener('submit', (e) => {
+/* ---------- Waitlist form (sent with the booking endpoint) ---------- */
+$('#waitlist').addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = $('#wlName').value.trim(), email = $('#wlEmail').value.trim(), msg = $('#wlMsg');
   if (!name || !/^\S+@\S+\.\S+$/.test(email)) { msg.textContent = 'Indiquez votre nom et une adresse e-mail valide.'; msg.style.color = '#FFB4A8'; return; }
-  msg.style.color = '#2EE6A8';
-  msg.textContent = `Merci ${name}. Votre demande est prête à être transmise à l'équipe E-Dolphin.`;
-  e.target.reset();
+  let sent = false;
+  try {
+    const r = await fetch(BOOKING.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ liste: 'Launch Edition · liste prioritaire', nom: name, email, profil: $('#wlProfile').value, _subject: 'IRUKA · Liste prioritaire Launch Edition', _template: 'table', _captcha: 'false' }) });
+    const j = await r.json().catch(() => ({}));
+    sent = r.ok && String(j.success) !== 'false';
+  } catch (_) { sent = false; }
+  msg.style.color = sent ? '#2EE6A8' : '#FFB4A8';
+  msg.textContent = sent ? `Merci ${name}. L'équipe E-Dolphin vous recontacte à ${email}.` : 'L\'envoi n\'a pas abouti. Réessayez dans quelques minutes.';
+  if (sent) e.target.reset();
 });
 
 /* ---------- Booking (request only: no payment, no deposit) ---------- */
-// To receive requests, set endpoint to a form service URL (Formspree, FormSubmit, Brevo...).
+// Requests go to a provisional mailbox through FormSubmit (first submission triggers an activation e-mail).
 // While it is empty, requests are kept in the visitor's browser and the confirmation says the team will be in touch once booking opens.
 // Launch Edition deposit: stays disabled until the company's own Stripe account is open.
 // To activate: enabled: true, amount (EUR), link = Stripe Payment Link (https://buy.stripe.com/...).
 const DEPOSIT = { enabled: false, percent: 30, price: 90000, amount: 27000, currency: '$ HT', link: '' };
-const BOOKING = { endpoint: '', slots: ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'], leadDays: 3, horizonDays: 120 };
+const BOOKING = { endpoint: 'https://formsubmit.co/ajax/nouarideba@gmail.com', slots: ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'], leadDays: 3, horizonDays: 120 };
 const TYPES = {
   essai: { label: 'Essai en mer', dur: 45, needsSlot: true },
   presentation: { label: 'Présentation privée', dur: 60, needsSlot: true },
@@ -927,8 +933,9 @@ $('#booking').addEventListener('submit', async (e) => {
   let sent = false;
   if (BOOKING.endpoint) {
     try {
-      const r = await fetch(BOOKING.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(req) });
-      sent = r.ok;
+      const r = await fetch(BOOKING.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify({ ...req, _subject: 'IRUKA · ' + t.label + ' · ' + ref, _template: 'table', _captcha: 'false' }) });
+      const j = await r.json().catch(() => ({}));
+      sent = r.ok && String(j.success) !== 'false';
     } catch (_) { sent = false; }
   }
   try { const k = 'edolphin-bookings'; const all = JSON.parse(localStorage.getItem(k) || '[]'); all.push(req); localStorage.setItem(k, JSON.stringify(all)); } catch (_) {}
@@ -939,8 +946,8 @@ $('#booking').addEventListener('submit', async (e) => {
     : `Demande Launch Edition (${req.unites} unité${req.unites > 1 ? 's' : ''}, livrée ${req.livree}), ${bk.place}.`;
   $('#doneNote').textContent = sent
     ? `Un membre de l'équipe vous confirme ce rendez-vous par e-mail à ${email}. Aucun paiement ne vous sera demandé en ligne.`
-    : `Version bêta : cette demande n'est pas encore transmise à l'équipe. Elle sert à présenter le parcours de réservation. Aucun paiement n'est demandé.`;
-  $('#doneTitle').textContent = sent ? 'Demande envoyée' : 'Demande prête';
+    : `L'envoi n'a pas abouti. Réessayez dans quelques minutes ; aucun paiement n'est demandé.`;
+  $('#doneTitle').textContent = sent ? 'Demande envoyée' : 'Demande non envoyée';
   $('#icsBtn').hidden = !t.needsSlot;
   const db = $('#depBtn'); db.hidden = bk.type !== 'launch';
   if (bk.type === 'launch') {
