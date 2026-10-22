@@ -15,7 +15,12 @@ addEventListener('DOMContentLoaded', () => {
   ];
   // Rotation order for the drag viewer; extra in-between angles are added per livery when they exist
   const VIEWS = { fr: { profil: 'Profil', face: 'Face', arriere: 'Arrière', dessus: 'Dessus' }, en: { profil: 'Side', face: 'Front', arriere: 'Rear', dessus: 'Top' } };
-  const FRAMES = { default: ['face', 'profil', 'arriere', 'dessus'] };
+  // Predator (Launch Edition livery) has a 15-frame turn: AI renders in between, the far side mirrored
+  const FRAMES = {
+    default: ['face', 'profil', 'arriere', 'dessus'],
+    predator: ['face', 'a022', 'a045', 'a067', 'profil', 'a112', 'a135', 'a157', 'a202', 'arriere', 'a247', 'a270', 'a292', 'a315', 'a337']
+  };
+  const viewName = (v) => VIEWS[LANG][v] || (v.startsWith('a') ? `${+v.slice(1)}°` : '');
   const frames = (liv) => FRAMES[liv] || FRAMES.default;
 
   const MODELS = {
@@ -47,23 +52,27 @@ addEventListener('DOMContentLoaded', () => {
   const r2 = (n) => Math.round(n * 100) / 100;
 
   /* ---- Stage: image, angle thumbnails, drag to turn ---- */
-  const img = $('#cfgImg');
+  const img = $('#cfgImg'), CACHE = {};
   const showImage = () => {
     const f = frames(S.livery);
-    if (!f.includes(S.view)) S.view = f[0];
+    if (!f.includes(S.view) && S.view !== 'dessus') S.view = f[0];
     const src = IMG(`cfg-${S.livery}-${S.view}.jpg`);
     if (!img.src.endsWith(src.replace(/^\.\.\//, ''))) {
-      img.style.opacity = .35;
-      const pre = new Image(); pre.onload = () => { img.src = src; img.style.opacity = 1; }; pre.src = src;
+      const c = CACHE[src];
+      if (c && c.complete) img.src = src; // already loaded: swap instantly so dragging feels like a turn
+      else {
+        img.style.opacity = .35;
+        const pre = new Image(); pre.onload = () => { img.src = src; img.style.opacity = 1; }; pre.src = src;
+      }
     }
-    img.alt = `${M().name}, ${L()[LANG]}, ${VIEWS[LANG][S.view] || ''}`;
-    $('#cfgImgLabel').textContent = `${L()[LANG]} · ${VIEWS[LANG][S.view] || ''}`;
+    img.alt = `${M().name}, ${L()[LANG]}, ${viewName(S.view)}`;
+    $('#cfgImgLabel').textContent = `${L()[LANG]} · ${viewName(S.view)}${f.length > 4 ? ' · 360°' : ''}`;
     $$('.cfg-view').forEach(b => {
       b.setAttribute('aria-pressed', String(b.dataset.view === S.view));
       b.querySelector('img').src = IMG(`cfg-${S.livery}-${b.dataset.view}-s.jpg`);
     });
   };
-  const turn = (d) => { if (S.mode === '3d') return Jet3D.turn(d); const f = frames(S.livery), i = f.indexOf(S.view); S.view = f[(i + d + f.length) % f.length]; sync(); };
+  const turn = (d) => { if (S.mode === '3d') return Jet3D.turn(d); const f = frames(S.livery), i = Math.max(0, f.indexOf(S.view)); S.view = f[(i + d + f.length) % f.length]; sync(); };
   $('#cfgPrev').addEventListener('click', () => turn(-1));
   $('#cfgNext').addEventListener('click', () => turn(1));
   $$('.cfg-view').forEach(b => b.addEventListener('click', () => { S.view = b.dataset.view; sync(); }));
@@ -72,12 +81,12 @@ addEventListener('DOMContentLoaded', () => {
   const stage = img.parentElement;
   stage.style.touchAction = 'pan-y';
   stage.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; dragX = e.clientX; stage.setPointerCapture(e.pointerId); stage.style.cursor = 'grabbing'; });
-  stage.addEventListener('pointermove', e => { if (dragX === null) return; const dx = e.clientX - dragX; if (Math.abs(dx) > 70) { turn(dx < 0 ? 1 : -1); dragX = e.clientX; } });
+  stage.addEventListener('pointermove', e => { if (dragX === null) return; const dx = e.clientX - dragX; if (Math.abs(dx) > (frames(S.livery).length > 4 ? 28 : 70)) { turn(dx < 0 ? 1 : -1); dragX = e.clientX; } });
   const end = () => { dragX = null; stage.style.cursor = 'grab'; };
   stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
   stage.style.cursor = 'grab';
   // Preload every angle of the current livery so turning is instant
-  const preload = () => frames(S.livery).forEach(v => { const p = new Image(); p.src = IMG(`cfg-${S.livery}-${v}.jpg`); });
+  const preload = () => frames(S.livery).forEach(v => { const u = IMG(`cfg-${S.livery}-${v}.jpg`); if (!CACHE[u]) { CACHE[u] = new Image(); CACHE[u].src = u; } });
 
   /* ---- Step 1: model ---- */
   $$('[data-model]').forEach(b => b.addEventListener('click', () => {
