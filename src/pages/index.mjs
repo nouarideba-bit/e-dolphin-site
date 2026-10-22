@@ -1,16 +1,17 @@
-import { tr, img, head, fig, btn, ctaBand } from '../ui.mjs';
+import { tr, img, head, fig, btn, ctaBand, heroLoop, filmBtn, filmDialog } from '../ui.mjs';
 
 export const meta = {
   fr: { title: 'E-Dolphin · IRUKA, le jet-ski électrique de luxe', desc: 'IRUKA, jet-ski 100 % électrique conçu et assemblé en France. Essais en mer à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.' },
   en: { title: 'E-Dolphin · IRUKA, the luxury electric jet-ski', desc: 'IRUKA, a 100 % electric jet-ski designed and assembled in France. Sea trials in Monaco, Antibes, Saint-Tropez or on board your yacht.' }
 };
+export const scripts = ['herofilm.js'];
 
 export const body = (L, R) => {
   const t = tr(L);
   return `
   <!-- 1. Hero -->
   <section class="relative isolate flex min-h-[100svh] items-end overflow-hidden">
-    <img src="${img(R, 'hero-s300.jpg')}" alt="${t('Le prototype S300 en pleine accélération, gerbe d\'écume', 'The S300 prototype at full throttle, spray flying')}" class="hero-img absolute inset-0 -z-20 h-full w-full object-cover" fetchpriority="high">
+    ${heroLoop(L, R)}
     <div class="hero-shade absolute inset-0 -z-10"></div>
     <div class="gutter w-full">
       <div class="mx-auto max-w-7xl pb-28 pt-36 sm:pb-24">
@@ -20,12 +21,14 @@ export const body = (L, R) => {
         <div class="rise mt-9 flex flex-wrap gap-3">
           ${btn('reserver.html', t('Réserver un essai en mer', 'Book a sea trial'), 'calendar-check')}
           ${btn('iruka.html', t('Découvrir IRUKA', 'Discover IRUKA'), 'arrow-right', false)}
+          ${filmBtn(L)}
         </div>
         <p class="rise mt-8 font-display text-lg">${t('À partir de', 'From')} <span class="num font-semibold">35 990 € HT</span></p>
-        <p class="mt-2 tag text-brume/80">${t('Photo réelle du prototype S300', 'Real photo of the S300 prototype')}</p>
+        <p class="mt-2 tag text-brume/80">${t('Images réelles du prototype S300 en mer', 'Real footage of the S300 prototype at sea')}</p>
       </div>
     </div>
   </section>
+  ${filmDialog(L, R)}
 
   <!-- 2. Proof strip -->
   <section class="gutter">

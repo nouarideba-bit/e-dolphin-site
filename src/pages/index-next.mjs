@@ -1,7 +1,7 @@
-import { tr, img, head, btn, ctaBand } from '../ui.mjs';
+import { tr, img, head, btn, ctaBand, heroLoop, filmBtn, filmDialog } from '../ui.mjs';
 import { plaque } from '../plaque.mjs';
 export { meta } from './index.mjs';
-export const scripts = ['home.js'];
+export const scripts = ['home.js', 'herofilm.js'];
 
 // Home page of the next version (left rail). Built like a manufacturer's home: announcement band,
 // full-bleed photo with a colour band under it, then the range, the liveries, the numbers and the plate.
@@ -42,8 +42,9 @@ export const body = (L, R) => {
   <!-- 1. Hero: full-bleed real photo, colour band underneath -->
   <section class="home-hero relative">
     <figure class="relative h-[62svh] min-h-[360px] overflow-hidden sm:h-[68svh]">
-      <img src="${img(R, 'hero-s300.jpg')}" alt="${t('Le prototype S300 en pleine accélération, gerbe d\'écume', 'The S300 prototype at full throttle, spray flying')}" class="hero-img h-full w-full object-cover" fetchpriority="high">
-      <figcaption class="tag absolute left-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Photo réelle · prototype S300', 'Real photo · S300 prototype')}</figcaption>
+      ${heroLoop(L, R, 'h-full w-full object-cover')}
+      <figcaption class="tag absolute left-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
+      <div class="absolute bottom-5 left-5">${filmBtn(L, 'glass')}</div>
       <a href="launch-edition.html" class="home-ticket glass absolute bottom-5 right-5 hidden items-center gap-4 rounded-2xl px-5 py-4 md:flex">
         <span><span class="eyebrow-sand block">Launch Edition</span><span class="mt-1 block font-display text-lg font-semibold">N° <span id="heroNum" class="num">001</span> / 300</span></span>
         <span class="num border-l border-white/15 pl-4 font-display font-semibold">90 000 $ HT</span>
@@ -70,6 +71,8 @@ export const body = (L, R) => {
       </div>
     </div>
   </section>
+
+  ${filmDialog(L, R)}
 
   <!-- 2. The range -->
   <section class="home-wrap gutter py-16 sm:py-24">

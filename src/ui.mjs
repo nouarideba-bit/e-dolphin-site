@@ -34,3 +34,25 @@ export const ctaBand = (L) => {
     </div>
   </section>`;
 };
+
+// Home hero film: a silent loop of real sea footage behind the hero, and a button that opens the full film with sound.
+export const heroLoop = (L, R, cls = 'absolute inset-0 -z-20 h-full w-full object-cover') =>
+  `<video id="heroLoop" class="hero-img ${cls}" src="${R}assets/video/edolphin-boucle-v1.mp4" poster="${img(R, 'hero-s300.jpg')}" autoplay muted loop playsinline preload="auto" aria-label="${tr(L)('Images réelles du prototype S300 en mer, en boucle', 'Real footage of the S300 prototype at sea, looping')}"></video>`;
+
+export const filmBtn = (L, cls = 'glass') =>
+  `<button type="button" data-film-open class="${cls} inline-flex items-center gap-3 rounded-full py-2 pl-2 pr-5 font-semibold"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><i data-lucide="play" class="h-4 w-4"></i></span>${tr(L)('Regarder le film', 'Watch the film')} <span class="num font-mono text-xs opacity-70">1:28</span></button>`;
+
+export const filmDialog = (L, R) => {
+  const t = tr(L);
+  return `
+  <dialog id="filmDlg" class="film-dlg" aria-label="${t('Le film E-Dolphin', 'The E-Dolphin film')}">
+    <div class="relative w-full max-w-6xl">
+      <video id="filmDlgVideo" class="aspect-video w-full rounded-2xl bg-black" src="${R}assets/video/edolphin-film-v3.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="none"></video>
+      <div class="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm">
+        <p class="text-brume">${t('Images réelles du prototype S300 en Méditerranée · musique originale', 'Real footage of the S300 prototype in the Mediterranean · original music')}</p>
+        <a href="decouvrir.html" class="font-semibold text-lagoon underline underline-offset-4">${t('Découvrir E-Dolphin', 'Discover E-Dolphin')}</a>
+      </div>
+      <button type="button" data-film-close class="glass absolute -top-12 right-0 rounded-full p-2.5" aria-label="${t('Fermer le film', 'Close the film')}"><i data-lucide="x" class="h-5 w-5"></i></button>
+    </div>
+  </dialog>`;
+};

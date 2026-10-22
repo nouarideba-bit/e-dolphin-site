@@ -15,6 +15,7 @@
 <script defer src="assets/js/icons.js"></script>
 <script defer src="assets/js/site.js"></script>
 <script defer src="assets/js/home.js"></script>
+<script defer src="assets/js/herofilm.js"></script>
 <script defer src="assets/js/rail.js"></script>
 </head>
 <body class="page-index has-rail">
@@ -114,8 +115,9 @@
   <!-- 1. Hero: full-bleed real photo, colour band underneath -->
   <section class="home-hero relative">
     <figure class="relative h-[62svh] min-h-[360px] overflow-hidden sm:h-[68svh]">
-      <img src="assets/img/hero-s300.jpg" alt="Le prototype S300 en pleine accélération, gerbe d'écume" class="hero-img h-full w-full object-cover" fetchpriority="high">
-      <figcaption class="tag absolute left-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">Photo réelle · prototype S300</figcaption>
+      <video id="heroLoop" class="hero-img h-full w-full object-cover" src="assets/video/edolphin-boucle-v1.mp4" poster="assets/img/hero-s300.jpg" autoplay muted loop playsinline preload="auto" aria-label="Images réelles du prototype S300 en mer, en boucle"></video>
+      <figcaption class="tag absolute left-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">Images réelles · prototype S300</figcaption>
+      <div class="absolute bottom-5 left-5"><button type="button" data-film-open class="glass inline-flex items-center gap-3 rounded-full py-2 pl-2 pr-5 font-semibold"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-4 w-4" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3" /></svg></span>Regarder le film <span class="num font-mono text-xs opacity-70">1:28</span></button></div>
       <a href="launch-edition.html" class="home-ticket glass absolute bottom-5 right-5 hidden items-center gap-4 rounded-2xl px-5 py-4 md:flex">
         <span><span class="eyebrow-sand block">Launch Edition</span><span class="mt-1 block font-display text-lg font-semibold">N° <span id="heroNum" class="num">001</span> / 300</span></span>
         <span class="num border-l border-white/15 pl-4 font-display font-semibold">90 000 $ HT</span>
@@ -142,6 +144,18 @@
       </div>
     </div>
   </section>
+
+  
+  <dialog id="filmDlg" class="film-dlg" aria-label="Le film E-Dolphin">
+    <div class="relative w-full max-w-6xl">
+      <video id="filmDlgVideo" class="aspect-video w-full rounded-2xl bg-black" src="assets/video/edolphin-film-v3.mp4" poster="assets/img/film-6.jpg" controls playsinline preload="none"></video>
+      <div class="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm">
+        <p class="text-brume">Images réelles du prototype S300 en Méditerranée · musique originale</p>
+        <a href="decouvrir.html" class="font-semibold text-lagoon underline underline-offset-4">Découvrir E-Dolphin</a>
+      </div>
+      <button type="button" data-film-close class="glass absolute -top-12 right-0 rounded-full p-2.5" aria-label="Fermer le film"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-5 w-5" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg></button>
+    </div>
+  </dialog>
 
   <!-- 2. The range -->
   <section class="home-wrap gutter py-16 sm:py-24">

@@ -201,3 +201,8 @@ details[open] .chev { transform: rotate(45deg); }
 .disc-chapters { scrollbar-width: none; }
 .disc-chapters::-webkit-scrollbar { display: none; }
 .sound-btn[aria-pressed="true"] .snd-off, .sound-btn[aria-pressed="false"] .snd-on { display: none; }
+
+/* Home film dialog */
+.film-dlg { max-width: none; max-height: none; width: 100%; height: 100%; margin: 0; padding: 4rem 1rem 1rem; background: transparent; color: var(--foam, #F6F8F7); border: 0; display: none; place-items: center; }
+.film-dlg[open] { display: grid; }
+.film-dlg::backdrop { background: rgba(3, 10, 15, .92); backdrop-filter: blur(4px); }
