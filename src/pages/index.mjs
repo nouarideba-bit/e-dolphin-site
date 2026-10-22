@@ -1,4 +1,4 @@
-import { tr, img, head, fig, btn, ctaBand, heroLoop, filmBtn, filmDialog } from '../ui.mjs';
+import { tr, img, head, fig, btn, ctaBand, heroLoop, heroSound, filmBtn, filmDialog } from '../ui.mjs';
 
 export const meta = {
   fr: { title: 'E-Dolphin · IRUKA, le jet-ski électrique de luxe', desc: 'IRUKA, jet-ski 100 % électrique conçu et assemblé en France. Essais en mer à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.' },
@@ -12,6 +12,7 @@ export const body = (L, R) => {
   <!-- 1. Hero -->
   <section class="relative isolate flex min-h-[100svh] items-end overflow-hidden">
     ${heroLoop(L, R)}
+    ${heroSound(L, 'absolute right-4 top-20 z-10 sm:bottom-8 sm:right-5 sm:top-auto')}
     <div class="hero-shade absolute inset-0 -z-10"></div>
     <div class="gutter w-full">
       <div class="mx-auto max-w-7xl pb-28 pt-36 sm:pb-24">
