@@ -197,7 +197,7 @@ addEventListener('DOMContentLoaded', () => {
 
   /* ---- Enlarged view of a model (click on its picture): HD photos, 360° turn ---- */
   // AI-upscaled views (3840 px) are listed in UHD, the others show the 1680 px render; the 360° turn reuses the configurator frames
-  const UHD = new Set(['iruka-face', 'iruka-profil', 'iruka-arriere', 'iruka-dessus', 'launch-face', 'launch-profil', 'launch-arriere', 'launch-dessus', 'tridens']);
+  const UHD = new Set(['iruka-face', 'iruka-profil', 'iruka-arriere', 'iruka-dessus', 'launch-face', 'launch-profil', 'launch-arriere', 'launch-dessus', 'tridens', 'tridens-face', 'tridens-profil', 'tridens-arriere', 'mako2-3-4-avant', 'mako2-profil', 'mako2-3-4-arriere', 'mako2-dessus']);
   const zFile = (n) => `zoom-${n}-${UHD.has(n) ? 'uhd' : 'hd'}.jpg`;
   const KEY_VIEWS = ['face', 'profil', 'arriere', 'dessus'];
   const MAKO = { fr: { '3-4-avant': 'Trois-quarts avant', profil: 'Profil', '3-4-arriere': 'Trois-quarts arrière', dessus: 'Dessus' }, en: { '3-4-avant': 'Front three-quarter', profil: 'Side', '3-4-arriere': 'Rear three-quarter', dessus: 'Top' } };
