@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: "L'expérience IRUKA · E-Dolphin", desc: 'Une journée sur l\'eau avec IRUKA, recharge comprise. Essais à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.' },
-  en: { title: 'The IRUKA experience · E-Dolphin', desc: 'A day on the water with IRUKA, charging included. Trials in Monaco, Antibes, Saint-Tropez or on board your yacht.' }
+  fr: { title: 'Journée en jet-ski électrique, recharge comprise · E-Dolphin', desc: 'Une journée sur l\'eau avec IRUKA, recharge comprise. Essais à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.' },
+  en: { title: 'A day on an electric jet ski, charging included · E-Dolphin', desc: 'A day on the water with IRUKA, charging included. Trials in Monaco, Antibes, Saint-Tropez or on board your yacht.' }
 };
 export const scripts = ['day.js'];
 

@@ -2,6 +2,9 @@
 document.documentElement.classList.add('js');
 const LANG = document.documentElement.lang === 'en' ? 'en' : 'fr';
 const tt = (fr, en) => (LANG === 'fr' ? fr : en);
+// Page addresses for links built by scripts: English pages have English file names (same map as EN_SLUG in src/layout.mjs)
+const EN_FILES = { decouvrir: 'discover', maison: 'about', 'yachts-flottes': 'yachts', configurateur: 'configurator', boutique: 'order', location: 'rental-fleets', distributeurs: 'dealers', 'dossier-distributeur': 'dealer-application', reserver: 'book', 'mentions-legales': 'legal-notice', confidentialite: 'privacy', cgv: 'terms-of-sale' };
+const pageHref = (slug) => `${LANG === 'en' ? EN_FILES[slug] || slug : slug}.html`;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

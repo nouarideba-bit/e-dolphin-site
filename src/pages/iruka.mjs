@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'IRUKA · fiche technique · E-Dolphin', desc: 'IRUKA, jet-ski 100 % électrique : 160 kW, 60 nœuds, batterie 35 kWh, recharge rapide CCS2, carène carbone.' },
-  en: { title: 'IRUKA · specifications · E-Dolphin', desc: 'IRUKA, a 100 % electric jet-ski: 160 kW, 60 knots, 35 kWh battery, CCS2 fast charging, carbon hull.' }
+  fr: { title: 'IRUKA, jet-ski électrique : fiche technique · E-Dolphin', desc: 'IRUKA, jet-ski 100 % électrique : 160 kW, 60 nœuds, batterie 35 kWh, recharge rapide CCS2, carène carbone.' },
+  en: { title: 'IRUKA electric jet ski: specifications · E-Dolphin', desc: 'IRUKA, a 100% electric jet ski: 160 kW, 60 knots, 35 kWh battery, CCS2 fast charging, carbon hull.' }
 };
 export const scripts = ['iruka.js'];
 
@@ -14,7 +14,7 @@ export const body = (L, R) => {
     <div class="mx-auto grid max-w-7xl items-end gap-10 lg:grid-cols-[1.1fr_1fr]">
       <div>
         <p class="eyebrow">${t('Le modèle', 'The model')}</p>
-        <h1 class="mt-4 font-display text-5xl font-semibold leading-none sm:text-7xl">IRUKA</h1>
+        <h1 class="mt-4 font-display text-5xl font-semibold leading-none sm:text-7xl">IRUKA<span class="mt-3 block text-2xl font-medium leading-snug text-brume sm:text-3xl">${t('Le jet-ski 100 % électrique', 'The 100% electric jet ski')}</span></h1>
         <p class="mt-6 max-w-xl text-brume sm:text-lg">${t('Le S300 navigue déjà : plus de 200 heures en mer. IRUKA reprend sa propulsion avec une carène carbone, une batterie 800 V refroidie par liquide et un équipement premium de série.', 'The S300 is already sailing: over 200 hours at sea. IRUKA takes its propulsion further with a carbon hull, a liquid-cooled 800 V battery and premium equipment as standard.')}</p>
         <p class="mt-6 font-display text-xl">${t('À partir de', 'From')} <span class="num font-semibold">35 990 € HT</span></p>
         <div class="mt-8 flex flex-wrap gap-3">
@@ -22,7 +22,7 @@ export const body = (L, R) => {
           ${btn('configurateur.html', t('Configurer et commander', 'Configure and order'), 'sliders-horizontal', false)}
         </div>
       </div>
-      ${fig(img(R, 's300-prototype.jpg'), t('Le prototype S300 sur l\'eau', 'The S300 prototype on the water'), t('Photo réelle · S300', 'Real photo · S300'), 'aspect-[4/3]')}
+      ${fig(img(R, 's300-prototype.jpg'), t('Le prototype S300 sur l\'eau', 'The S300 prototype on the water'), t('Photo réelle · S300', 'Real photo · S300'), 'aspect-[4/3]', '', true)}
     </div>
   </section>
 

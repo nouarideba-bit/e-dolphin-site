@@ -9,7 +9,14 @@
 <!-- The site ships its own French and English versions: stop browsers from auto-translating them -->
 <meta name="google" content="notranslate">
 <meta name="theme-color" content="#06131C">
-<link rel="alternate" hreflang="en" href="en/">
+<!-- One address per page for search engines, and its French, English and default versions (absolute addresses, as Google requires) -->
+<link rel="canonical" href="https://nouarideba-bit.github.io/e-dolphin-site/">
+<link rel="alternate" hreflang="fr" href="https://nouarideba-bit.github.io/e-dolphin-site/">
+<link rel="alternate" hreflang="en" href="https://nouarideba-bit.github.io/e-dolphin-site/en/">
+<link rel="alternate" hreflang="x-default" href="https://nouarideba-bit.github.io/e-dolphin-site/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="E-Dolphin">
 <meta property="og:title" content="E-Dolphin · Le jet-ski 100 % électrique de luxe">
@@ -19,11 +26,13 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Fonts are served by the site (no Google Fonts request). No font preload: on slow 4G it delayed the first paint by 0.3-0.4 s (measured 23 Oct) -->
 <link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://nouarideba-bit.github.io/e-dolphin-site/#organization","name":"E-Dolphin","url":"https://nouarideba-bit.github.io/e-dolphin-site/","logo":"https://nouarideba-bit.github.io/e-dolphin-site/logo-e-dolphin.png","description":"Jet-skis 100 % électriques de luxe, conçus et assemblés en France.","sameAs":["https://www.instagram.com/_e_dolphin_/","https://www.tiktok.com/@edolphinnextgenpwc"]},{"@type":"WebSite","@id":"https://nouarideba-bit.github.io/e-dolphin-site/#website","name":"E-Dolphin","url":"https://nouarideba-bit.github.io/e-dolphin-site/","inLanguage":["fr","en"],"publisher":{"@id":"https://nouarideba-bit.github.io/e-dolphin-site/#organization"}}]}</script>
+<link rel="preload" as="image" href="assets/img/hero-s300-1280.webp" fetchpriority="high">
+
 <script defer src="assets/js/icons.js"></script>
 <script defer src="assets/js/site.js"></script>
 <script defer src="assets/js/home.js"></script>
@@ -60,25 +69,25 @@
   <div data-panel="models" data-title="Nos modèles" class="grid gap-2 p-3">
       
       <a href="iruka.html" class="fly-model group flex items-center gap-4 rounded-2xl p-3">
-        <img src="assets/img/cfg-blanc-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/cfg-blanc-face-s.jpg" width="240" height="135" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">IRUKA</span><span class="block text-xs text-brume">Le modèle de série</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">35 990 € HT</span>
       </a>
       
       <a href="launch-edition.html" class="fly-model group flex items-center gap-4 rounded-2xl p-3">
-        <img src="assets/img/cfg-predator-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/cfg-predator-face-s.jpg" width="240" height="135" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Launch Edition</span><span class="block text-xs text-brume">300 exemplaires numérotés</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">90 000 $ HT</span>
       </a>
       
       <a href="./#bientot" class="fly-model group flex items-center gap-4 rounded-2xl p-3 opacity-60">
-        <img src="assets/img/tridens.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/tridens-s.jpg" width="240" height="135" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Tridens</span><span class="block text-xs text-brume">Trois places · concept</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">Bientôt</span>
       </a>
       
       <a href="./#bientot" class="fly-model group flex items-center gap-4 rounded-2xl p-3 opacity-60">
-        <img src="assets/img/kids-mako.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/kids-mako-s.jpg" width="480" height="270" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Gamme enfants</span><span class="block text-xs text-brume">6 à 12 ans · concept</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">Bientôt</span>
       </a>
@@ -127,7 +136,7 @@
        (audit 22 Oct): what it is, the proof, the price and the two commitments. -->
   <section class="home-hero relative">
     <figure class="relative h-[86svh] min-h-[600px] overflow-hidden sm:h-[80svh]">
-      <video id="heroLoop" class="hero-img h-full w-full object-cover" src="assets/video/edolphin-boucle-v2.mp4" poster="assets/img/hero-s300.jpg" autoplay muted loop playsinline preload="auto" aria-label="Images réelles du prototype S300 en mer, en boucle"></video>
+      <video id="heroLoop" class="hero-img h-full w-full object-cover" data-src="assets/video/edolphin-boucle-v2.mp4" poster="assets/img/hero-s300-1280.webp" autoplay muted loop playsinline preload="none" aria-label="Images réelles du prototype S300 en mer, en boucle"></video>
       <div class="home-hero-shade absolute inset-0"></div>
       <figcaption class="tag absolute right-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">Images réelles · prototype S300</figcaption>
       <div class="absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
@@ -202,7 +211,7 @@
       
         <a href="configurateur.html?modele=iruka" class="home-model group snap-start ">
           <div class="relative overflow-hidden rounded-[1.5rem] bg-[#0b0d0f]">
-            <img src="assets/img/cfg-blanc-profil.jpg" alt="IRUKA" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
+            <img src="assets/img/cfg-blanc-profil.jpg" width="1400" height="787" alt="IRUKA" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
             <span class="tag absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-white">Rendu</span>
           </div>
           <div class="flex items-start justify-between gap-3 px-1 pt-4">
@@ -214,7 +223,7 @@
       
         <a href="launch-edition.html" class="home-model group snap-start ">
           <div class="relative overflow-hidden rounded-[1.5rem] bg-[#0b0d0f]">
-            <img src="assets/img/cfg-predator-profil.jpg" alt="Launch Edition" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
+            <img src="assets/img/cfg-predator-profil.jpg" width="1400" height="787" alt="Launch Edition" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
             <span class="tag absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-white">Rendu</span>
           </div>
           <div class="flex items-start justify-between gap-3 px-1 pt-4">
@@ -227,7 +236,7 @@
       
         <a href="#bientot" class="home-model group snap-start is-soon">
           <div class="relative overflow-hidden rounded-[1.5rem] bg-[#0b0d0f]">
-            <img src="assets/img/tridens.jpg" alt="Tridens" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
+            <img src="assets/img/tridens.jpg" width="1280" height="716" alt="Tridens" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
             <span class="tag absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-white">Rendu · concept</span>
           </div>
           <div class="flex items-start justify-between gap-3 px-1 pt-4">
@@ -239,7 +248,7 @@
       
         <a href="#bientot" class="home-model group snap-start is-soon">
           <div class="relative overflow-hidden rounded-[1.5rem] bg-[#0b0d0f]">
-            <img src="assets/img/kids-mako.jpg" alt="Gamme enfants" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
+            <img src="assets/img/kids-mako.jpg" width="1600" height="899" alt="Gamme enfants" class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" loading="lazy">
             <span class="tag absolute left-3 top-3 rounded-full bg-black/55 px-3 py-1 text-white">Rendu · concept</span>
           </div>
           <div class="flex items-start justify-between gap-3 px-1 pt-4">
@@ -255,7 +264,7 @@
   <section class="home-wrap gutter pb-16 sm:pb-24">
     <div class="home-liv panel grid overflow-hidden rounded-[2rem] lg:grid-cols-[1.5fr_1fr]">
       <figure class="relative bg-[#0b0d0f]">
-        <img id="livImg" src="assets/img/cfg-blanc-profil.jpg" alt="IRUKA" class="aspect-[16/9] h-full w-full object-cover transition-opacity duration-300">
+        <img id="livImg" src="assets/img/cfg-blanc-profil.jpg" width="1400" height="787" alt="IRUKA" class="aspect-[16/9] h-full w-full object-cover transition-opacity duration-300">
         <figcaption class="tag absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-white">Rendu · <span id="livCap">Blanc · noir · lime</span></figcaption>
       </figure>
       <div class="flex flex-col p-6 sm:p-10">

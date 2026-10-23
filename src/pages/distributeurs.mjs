@@ -1,8 +1,8 @@
 import { tr, img, head, btn, waBtn } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Devenir distributeur · E-Dolphin', desc: 'Rejoignez le réseau de distributeurs E-Dolphin : représentez IRUKA, le jet-ski 100 % électrique de luxe, dans votre pays.' },
-  en: { title: 'Become a dealer · E-Dolphin', desc: 'Join the E-Dolphin dealer network: represent IRUKA, the 100% electric luxury jet ski, in your country.' }
+  fr: { title: 'Devenir distributeur de jet-skis électriques · E-Dolphin', desc: 'Rejoignez le réseau de distributeurs E-Dolphin : représentez IRUKA, le jet-ski 100 % électrique de luxe, dans votre pays.' },
+  en: { title: 'Become an electric jet ski dealer · E-Dolphin', desc: 'Join the E-Dolphin dealer network: represent IRUKA, the 100% electric luxury jet ski, in your country.' }
 };
 export const scripts = ['distrib.js'];
 

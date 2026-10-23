@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, waBtn, PRICE } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Pour ma location · flottes IRUKA · E-Dolphin', desc: 'Loueurs, hôtels, clubs : une flotte de jet-skis électriques qui tourne toute la journée. Calculez votre rentabilité, demandez une offre flotte.' },
-  en: { title: 'For rental operators · IRUKA fleets · E-Dolphin', desc: 'Rental operators, hotels, clubs: an electric jet-ski fleet that runs all day. Work out your return, request a fleet offer.' }
+  fr: { title: 'Jet-skis électriques pour loueurs et hôtels · E-Dolphin', desc: 'Loueurs, hôtels, clubs : une flotte de jet-skis électriques qui tourne toute la journée. Calculez votre rentabilité, demandez une offre flotte.' },
+  en: { title: 'Electric jet skis for rental fleets and hotels · E-Dolphin', desc: 'Rental operators, hotels, clubs: an electric jet ski fleet that runs all day. Work out your return, request a fleet offer.' }
 };
 export const scripts = ['flotte.js', 'leadform.js'];
 

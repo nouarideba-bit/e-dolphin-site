@@ -1,8 +1,8 @@
 import { tr } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Réserver un essai · E-Dolphin', desc: 'Essai en mer de 45 minutes, présentation privée d\'une heure ou réservation Launch Edition avec acompte de 30 %.' },
-  en: { title: 'Book a trial · E-Dolphin', desc: '45-minute sea trial, one-hour private presentation or Launch Edition reservation with a 30 % deposit.' }
+  fr: { title: 'Réserver un essai de jet-ski électrique · E-Dolphin', desc: 'Essai en mer de 45 minutes, présentation privée d\'une heure ou réservation Launch Edition avec acompte de 30 %.' },
+  en: { title: 'Book an electric jet ski sea trial · E-Dolphin', desc: '45-minute sea trial, one-hour private presentation or Launch Edition reservation with a 30% deposit.' }
 };
 export const scripts = ['booking.js'];
 

@@ -1,8 +1,9 @@
 import { tr, img, head, fig, btn, waBtn } from '../ui.mjs';
+import { pageUrl } from '../layout.mjs';
 
 export const meta = {
-  fr: { title: 'Pour mon yacht · IRUKA · E-Dolphin', desc: 'IRUKA, le tender électrique qui ne réveille personne au mouillage : fiche capitaine, test du garage, zéro essence à bord.' },
-  en: { title: 'For my yacht · IRUKA · E-Dolphin', desc: 'IRUKA, the electric tender that wakes no one at anchor: captain\'s sheet, garage check, zero fuel aboard.' }
+  fr: { title: 'Jet-ski électrique pour yacht, tender silencieux · E-Dolphin', desc: 'IRUKA, le tender électrique qui ne réveille personne au mouillage : fiche capitaine, test du garage, zéro essence à bord.' },
+  en: { title: 'Electric jet ski for yachts, the silent tender · E-Dolphin', desc: 'IRUKA, the electric tender that wakes no one at anchor: captain\'s sheet, garage check, zero fuel aboard.' }
 };
 export const scripts = ['contact.js', 'leadform.js', 'yachtfit.js'];
 
@@ -53,7 +54,7 @@ export const body = (L, R) => {
         ${head({ eyebrow: t('Fiche capitaine', 'Captain\'s sheet'), title: t('Tout ce que votre capitaine va demander.', 'Everything your captain will ask.'), lead: t('Dimensions, levage, recharge sur le bord : une page à imprimer ou à lui envoyer.', 'Dimensions, lifting, charging from the yacht: one page to print or send.') })}
         <div class="fiche-actions mt-8 flex flex-wrap gap-3">
           <button type="button" data-print-fiche class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Imprimer ou PDF', 'Print or PDF')} <i data-lucide="printer" class="h-4 w-4"></i></button>
-          <a href="https://wa.me/?text=${encodeURIComponent(t('Fiche capitaine IRUKA (E-Dolphin) : ', 'IRUKA captain\'s sheet (E-Dolphin): ') + 'https://nouarideba-bit.github.io/e-dolphin-site/' + (L === 'en' ? 'en/' : '') + 'yachts-flottes.html#fiche')}" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Envoyer à mon capitaine', 'Send to my captain')} <i data-lucide="share-2" class="h-4 w-4"></i></a>
+          <a href="https://wa.me/?text=${encodeURIComponent(t('Fiche capitaine IRUKA (E-Dolphin) : ', 'IRUKA captain\'s sheet (E-Dolphin): ') + pageUrl(L, 'yachts-flottes') + '#fiche')}" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Envoyer à mon capitaine', 'Send to my captain')} <i data-lucide="share-2" class="h-4 w-4"></i></a>
         </div>
       </div>
       <div>

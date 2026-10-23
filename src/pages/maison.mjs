@@ -1,8 +1,8 @@
 import { tr, img, head, fig, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'La maison · E-Dolphin', desc: 'E-Dolphin conçoit et assemble en France des jet-skis 100 % électriques de luxe. Plus de huit ans de recherche et développement.' },
-  en: { title: 'The house · E-Dolphin', desc: 'E-Dolphin designs and assembles luxury 100 % electric jet-skis in France. Over eight years of research and development.' }
+  fr: { title: 'E-Dolphin, fabricant français de jet-skis électriques', desc: 'E-Dolphin conçoit et assemble en France des jet-skis 100 % électriques de luxe. Plus de huit ans de recherche et développement.' },
+  en: { title: 'E-Dolphin, French maker of electric jet skis', desc: 'E-Dolphin designs and assembles luxury 100% electric jet skis in France. Over eight years of research and development.' }
 };
 
 export const body = (L, R) => {
@@ -19,7 +19,7 @@ export const body = (L, R) => {
 
   <section class="gutter pb-20">
     <div class="mx-auto grid max-w-7xl gap-4 md:grid-cols-3">
-      ${fig(img(R, 's300-real-bow.jpg'), t('L\'étrave du S300 en mer', 'The S300 bow at sea'), t('Photo réelle', 'Real photo'), 'aspect-[3/4]', 'md:col-span-1')}
+      ${fig(img(R, 's300-real-bow.jpg'), t('L\'étrave du S300 en mer', 'The S300 bow at sea'), t('Photo réelle', 'Real photo'), 'aspect-[3/4]', 'md:col-span-1', true)}
       ${fig(img(R, 's300-real-side.jpg'), t('Le S300 de profil', 'The S300 in profile'), t('Photo réelle', 'Real photo'), 'aspect-[3/4] md:aspect-auto', 'md:col-span-2')}
     </div>
   </section>

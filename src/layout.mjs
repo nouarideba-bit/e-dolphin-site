@@ -4,8 +4,28 @@
 import { rail as railNav } from './rail.mjs';
 import { WA, waLink } from './ui.mjs';
 
-// Public address, used for link previews (WhatsApp, LinkedIn, iMessage)
-const BASE = 'https://nouarideba-bit.github.io/e-dolphin-site/';
+import { structuredData } from './seo.mjs';
+
+// Public address of the site. Switch to 'https://e-dolphin.fr/' once e-dolphin.fr points to GitHub Pages:
+// canonical links, hreflang, link previews, structured data and the sitemap all follow.
+export const BASE = 'https://nouarideba-bit.github.io/e-dolphin-site/';
+// Search engines stay out until the public opening (day J, on written approval): set to true that day.
+// The dealer application is a form step reached after the six questions, so it never goes into search results.
+export const INDEXABLE = false;
+const NEVER_INDEX = new Set(['dossier-distributeur']);
+export const inSearch = (slug) => !NEVER_INDEX.has(slug);
+export const indexable = (slug) => INDEXABLE && inSearch(slug);
+
+// English pages carry English addresses (SEO audit, 23 Oct 2026). French slugs stay the keys used everywhere in the code.
+export const EN_SLUG = {
+  decouvrir: 'discover', maison: 'about', 'yachts-flottes': 'yachts', configurateur: 'configurator', boutique: 'order',
+  location: 'rental-fleets', distributeurs: 'dealers', 'dossier-distributeur': 'dealer-application', reserver: 'book',
+  'mentions-legales': 'legal-notice', confidentialite: 'privacy', cgv: 'terms-of-sale'
+};
+export const fileName = (L, slug) => `${L === 'en' ? EN_SLUG[slug] || slug : slug}.html`;
+// Path from the site root: '' for the French home page, 'en/' for the English one
+export const pagePath = (L, slug) => (L === 'en' ? 'en/' : '') + (slug === 'index' ? '' : fileName(L, slug));
+export const pageUrl = (L, slug) => BASE + pagePath(L, slug);
 
 export const PAGES = [
   { slug: 'index', nav: false, fr: 'Accueil', en: 'Home' },
@@ -34,11 +54,11 @@ const FLAG_FR = `<svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true
 let flagN = 0;
 const flagEn = () => { const n = ++flagN; return `<svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>`.replace(/uk-c/g, 'uk-c' + n).replace(/uk-t/g, 'uk-t' + n); };
 
-export function page({ L, slug, title, desc, body, scripts = [], rail = false }) {
+export function page({ L, slug, title, desc, body, scripts = [], rail = false, head = '' }) {
   const t = (fr, en) => (L === 'fr' ? fr : en);
   const root = L === 'fr' ? '' : '../';
-  const href = (s) => (s === 'index' ? './' : `${s}.html`);
-  const other = L === 'fr' ? `en/${slug === 'index' ? '' : slug + '.html'}` : `../${slug === 'index' ? '' : slug + '.html'}`;
+  const href = (s) => (s === 'index' ? './' : fileName(L, s));
+  const other = L === 'fr' ? pagePath('en', slug) : '../' + pagePath('fr', slug);
   const navLinks = PAGES.filter(p => p.nav).map(p =>
     `<li><a class="nav-link${p.slug === slug ? ' is-on' : ''}" href="${href(p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${p[L]}</a></li>`).join('');
   const mobileLinks = PAGES.filter(p => p.nav).map(p =>
@@ -52,25 +72,32 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false })
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${title}</title>
 <meta name="description" content="${desc}">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="${indexable(slug) ? 'index, follow' : INDEXABLE ? 'noindex, follow' : 'noindex, nofollow'}">
 <!-- The site ships its own French and English versions: stop browsers from auto-translating them -->
 <meta name="google" content="notranslate">
 <meta name="theme-color" content="#06131C">
-<link rel="alternate" hreflang="${L === 'fr' ? 'en' : 'fr'}" href="${other}">
+<!-- One address per page for search engines, and its French, English and default versions (absolute addresses, as Google requires) -->
+<link rel="canonical" href="${pageUrl(L, slug)}">
+<link rel="alternate" hreflang="fr" href="${pageUrl('fr', slug)}">
+<link rel="alternate" hreflang="en" href="${pageUrl('en', slug)}">
+<link rel="alternate" hreflang="x-default" href="${pageUrl('fr', slug)}">
+<link rel="icon" href="${root}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="${root}favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="${root}apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="E-Dolphin">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
-<meta property="og:url" content="${BASE}${L === 'en' ? 'en/' : ''}${slug === 'index' ? '' : slug + '.html'}">
+<meta property="og:url" content="${pageUrl(L, slug)}">
 <meta property="og:image" content="${BASE}assets/img/og-e-dolphin.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="${L === 'fr' ? 'fr_FR' : 'en_GB'}">
+<meta property="og:locale:alternate" content="${L === 'fr' ? 'en_GB' : 'fr_FR'}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Fonts are served by the site (no Google Fonts request). No font preload: on slow 4G it delayed the first paint by 0.3-0.4 s (measured 23 Oct) -->
 <link rel="stylesheet" href="${root}assets/site.css">
+${structuredData({ L, slug, desc, base: BASE, url: pageUrl })}${head}
 <script defer src="${root}assets/js/icons.js"></script>
 <script defer src="${root}assets/js/site.js"></script>
 ${scripts.map(s => `<script defer src="${root}assets/js/${s}"></script>`).join('\n')}

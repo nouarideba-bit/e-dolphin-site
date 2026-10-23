@@ -9,9 +9,10 @@ export const head = ({ eyebrow, title, lead = '', id = '', center = false }) => 
   ${lead ? `<p class="mt-5 max-w-2xl text-brume sm:text-lg${center ? ' mx-auto text-center' : ''}">${lead}</p>` : ''}`;
 
 // A photo with a small label saying what it is (real photo, render, interface mock-up)
-export const fig = (src, alt, tag, cls = 'aspect-[4/3]', extra = '') => `
+// eager = the page's first photo, at the top of the screen: fetched first instead of deferred (faster main paint)
+export const fig = (src, alt, tag, cls = 'aspect-[4/3]', extra = '', eager = false) => `
   <figure class="zoom relative overflow-hidden rounded-3xl ${extra}">
-    <img src="${src}" alt="${alt}" class="${cls} h-full w-full object-cover" loading="lazy">
+    <img src="${src}" alt="${alt}" class="${cls} h-full w-full object-cover" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'}>
     ${tag ? `<figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">${tag}</figcaption>` : ''}
   </figure>`;
 
@@ -38,7 +39,8 @@ export const ctaBand = (L) => {
 // Home hero film: a short silent loop of the real footage plays behind the hero;
 // the button opens the full film (1:28) with sound and controls.
 export const heroLoop = (L, R, cls = 'absolute inset-0 -z-20 h-full w-full object-cover') =>
-  `<video id="heroLoop" class="hero-img ${cls}" src="${R}assets/video/edolphin-boucle-v2.mp4" poster="${img(R, 'hero-s300.jpg')}" autoplay muted loop playsinline preload="auto" aria-label="${tr(L)('Images réelles du prototype S300 en mer, en boucle', 'Real footage of the S300 prototype at sea, looping')}"></video>`;
+  // The loop (2.2 MB) starts once the page has loaded (herofilm.js), so the poster paints first on mobile
+  `<video id="heroLoop" class="hero-img ${cls}" data-src="${R}assets/video/edolphin-boucle-v2.mp4" poster="${img(R, 'hero-s300-1280.webp')}" autoplay muted loop playsinline preload="none" aria-label="${tr(L)('Images réelles du prototype S300 en mer, en boucle', 'Real footage of the S300 prototype at sea, looping')}"></video>`;
 
 
 export const filmBtn = (L, cls = 'glass') =>

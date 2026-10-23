@@ -2,6 +2,8 @@ import { tr, img, head, btn, ctaBand, heroLoop, filmBtn, filmDialog, PRICE } fro
 import { plaque } from '../plaque.mjs';
 export { meta } from './index.mjs';
 export const scripts = ['home.js', 'herofilm.js'];
+// The hero poster is the largest element on a phone screen: fetch it before anything else
+export const preload = (R) => `<link rel="preload" as="image" href="${img(R, 'hero-s300-1280.webp')}" fetchpriority="high">`;
 
 // Home page of the next version (left rail). Built like a manufacturer's home: announcement band,
 // full-bleed photo with a colour band under it, then the range, the liveries, the numbers and the plate.

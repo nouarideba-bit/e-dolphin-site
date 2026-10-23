@@ -1,8 +1,8 @@
 import { tr, img, head } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Commander · IRUKA · E-Dolphin', desc: 'Configurez IRUKA ou la Launch Edition, choisissez votre livrée et envoyez votre sélection à notre équipe.' },
-  en: { title: 'Order · IRUKA · E-Dolphin', desc: 'Configure IRUKA or the Launch Edition, choose your livery and send your selection to our team.' }
+  fr: { title: 'Commander IRUKA, jet-ski électrique de luxe · E-Dolphin', desc: 'Configurez IRUKA ou la Launch Edition, choisissez votre livrée et envoyez votre sélection à notre équipe.' },
+  en: { title: 'Order IRUKA, the luxury electric jet ski · E-Dolphin', desc: 'Configure IRUKA or the Launch Edition, choose your livery and send your selection to our team.' }
 };
 export const scripts = ['shop.js'];
 
@@ -20,7 +20,7 @@ export const body = (L, R) => {
   const product = (id, name, price, sub, lines, primaryImg) => `
     <article class="glass grid overflow-hidden rounded-[2rem] lg:grid-cols-[1.2fr_1fr]">
       <figure class="relative">
-        <img id="img-${id}" src="${primaryImg}" alt="${name}" class="aspect-[16/10] h-full w-full object-cover transition-opacity duration-300" loading="lazy">
+        <img id="img-${id}" src="${primaryImg}" alt="${name}" class="aspect-[16/10] h-full w-full object-cover transition-opacity duration-300" ${id === 'iruka' ? 'fetchpriority="high"' : 'loading="lazy"'}>
         <figcaption class="glass tag absolute bottom-3 left-3 rounded-full px-3 py-1">${t('Rendu', 'Render')}</figcaption>
       </figure>
       <div class="flex flex-col p-6 sm:p-8">
@@ -38,7 +38,7 @@ export const body = (L, R) => {
   <section class="gutter pb-10 pt-32 sm:pt-40">
     <div class="mx-auto max-w-7xl">
       <p class="eyebrow">${t('Commander', 'Order')}</p>
-      <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">${t('Configurez votre IRUKA.', 'Configure your IRUKA.')}</h1>
+      <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">${t('Commandez votre IRUKA.', 'Order your IRUKA.')}</h1>
       <p class="mt-5 max-w-2xl text-brume">${t('Choisissez votre modèle et votre livrée. Le paiement en ligne ouvre bientôt ; en attendant, envoyez votre sélection à notre équipe, qui vous rappelle pour finaliser.', 'Choose your model and livery. Online payment opens soon; meanwhile, send your selection to our team, who will call you to finalise.')}</p>
     </div>
   </section>

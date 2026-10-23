@@ -1,8 +1,8 @@
 import { tr, img } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Configurateur · IRUKA · E-Dolphin', desc: 'Personnalisez votre IRUKA : modèle, livrée, vue 360°, équipements, total et acompte calculés en direct.' },
-  en: { title: 'Configurator · IRUKA · E-Dolphin', desc: 'Build your IRUKA: model, livery, 360° view, equipment, live total and deposit.' }
+  fr: { title: 'Configurer son jet-ski électrique IRUKA · E-Dolphin', desc: 'Personnalisez votre IRUKA : modèle, livrée, vue 360°, équipements, total et acompte calculés en direct.' },
+  en: { title: 'Build your IRUKA electric jet ski · E-Dolphin', desc: 'Build your IRUKA: model, livery, 360° view, equipment, live total and deposit.' }
 };
 export const scripts = ['cfg-options.js', 'jet3d.js', 'config.js'];
 

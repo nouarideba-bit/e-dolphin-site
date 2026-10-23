@@ -72,7 +72,7 @@ addEventListener('DOMContentLoaded', () => {
       b.querySelector('img').src = IMG(`cfg-${S.livery}-${b.dataset.view}-s.jpg`);
     });
   };
-  const turn = (d) => { if (S.mode === '3d') return Jet3D.turn(d); const f = frames(S.livery), i = Math.max(0, f.indexOf(S.view)); S.view = f[(i + d + f.length) % f.length]; sync(); };
+  const turn = (d) => { if (S.mode === '3d') return Jet3D.turn(d); startTurning(); const f = frames(S.livery), i = Math.max(0, f.indexOf(S.view)); S.view = f[(i + d + f.length) % f.length]; sync(); };
   $('#cfgPrev').addEventListener('click', () => turn(-1));
   $('#cfgNext').addEventListener('click', () => turn(1));
   $$('.cfg-view').forEach(b => b.addEventListener('click', () => { S.view = b.dataset.view; sync(); }));
@@ -80,13 +80,16 @@ addEventListener('DOMContentLoaded', () => {
   let dragX = null;
   const stage = img.parentElement;
   stage.style.touchAction = 'pan-y';
-  stage.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; dragX = e.clientX; stage.setPointerCapture(e.pointerId); stage.style.cursor = 'grabbing'; });
+  stage.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; startTurning(); dragX = e.clientX; stage.setPointerCapture(e.pointerId); stage.style.cursor = 'grabbing'; });
   stage.addEventListener('pointermove', e => { if (dragX === null) return; const dx = e.clientX - dragX; if (Math.abs(dx) > (frames(S.livery).length > 4 ? 28 : 70)) { turn(dx < 0 ? 1 : -1); dragX = e.clientX; } });
   const end = () => { dragX = null; stage.style.cursor = 'grab'; };
   stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', end);
   stage.style.cursor = 'grab';
-  // Preload every angle of the current livery so turning is instant
-  const preload = () => frames(S.livery).forEach(v => { const u = IMG(`cfg-${S.livery}-${v}.jpg`); if (!CACHE[u]) { CACHE[u] = new Image(); CACHE[u].src = u; } });
+  // Preload every angle of the current livery so turning is instant. It starts with the first turn, not on page load:
+  // the 24 angles weigh about 2.5 MB, which a visitor who never turns the jet-ski would download for nothing.
+  let turning = false;
+  const preload = () => turning && frames(S.livery).forEach(v => { const u = IMG(`cfg-${S.livery}-${v}.jpg`); if (!CACHE[u]) { CACHE[u] = new Image(); CACHE[u].src = u; } });
+  const startTurning = () => { if (!turning) { turning = true; preload(); } };
 
   /* ---- Step 1: model ---- */
   $$('[data-model]').forEach(b => b.addEventListener('click', () => {
@@ -165,7 +168,7 @@ addEventListener('DOMContentLoaded', () => {
     $$('.cfg-swatch').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.liv === S.livery)));
     $$('.cfg-total').forEach(e => e.textContent = fmt(total()));
     $$('.cfg-deposit').forEach(e => e.textContent = fmt(deposit()));
-    $('#cfgBook').href = `reserver.html?formule=${S.model === 'launch' ? 'launch' : 'essai'}`;
+    $('#cfgBook').href = `${pageHref('reserver')}?formule=${S.model === 'launch' ? 'launch' : 'essai'}`;
     showImage(); renderSummary();
     if (renderedFor !== S.model) { renderOptions(); renderedFor = S.model; }
     else $$('[data-opt]').forEach(c => { c.closest('.cfg-opt').classList.toggle('is-on', c.checked); });

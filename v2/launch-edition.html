@@ -9,7 +9,14 @@
 <!-- The site ships its own French and English versions: stop browsers from auto-translating them -->
 <meta name="google" content="notranslate">
 <meta name="theme-color" content="#06131C">
-<link rel="alternate" hreflang="en" href="en/launch-edition.html">
+<!-- One address per page for search engines, and its French, English and default versions (absolute addresses, as Google requires) -->
+<link rel="canonical" href="https://nouarideba-bit.github.io/e-dolphin-site/launch-edition.html">
+<link rel="alternate" hreflang="fr" href="https://nouarideba-bit.github.io/e-dolphin-site/launch-edition.html">
+<link rel="alternate" hreflang="en" href="https://nouarideba-bit.github.io/e-dolphin-site/en/launch-edition.html">
+<link rel="alternate" hreflang="x-default" href="https://nouarideba-bit.github.io/e-dolphin-site/launch-edition.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="E-Dolphin">
 <meta property="og:title" content="IRUKA Launch Edition · 300 exemplaires · E-Dolphin">
@@ -19,11 +26,12 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<!-- Fonts are served by the site (no Google Fonts request). No font preload: on slow 4G it delayed the first paint by 0.3-0.4 s (measured 23 Oct) -->
 <link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"IRUKA Launch Edition","url":"https://nouarideba-bit.github.io/e-dolphin-site/launch-edition.html","description":"La première série d'IRUKA : 300 exemplaires numérotés, 90 000 $ HT, votre numéro et votre nom gravés. Premières livraisons visées au printemps 2028.","image":"https://nouarideba-bit.github.io/e-dolphin-site/assets/img/cfg-predator-profil.jpg","brand":{"@type":"Brand","name":"E-Dolphin"},"manufacturer":{"@id":"https://nouarideba-bit.github.io/e-dolphin-site/#organization"},"category":"Jet-ski électrique"}</script>
+
 <script defer src="assets/js/icons.js"></script>
 <script defer src="assets/js/site.js"></script>
 <script defer src="assets/js/leadform.js"></script>
@@ -60,25 +68,25 @@
   <div data-panel="models" data-title="Nos modèles" class="grid gap-2 p-3">
       
       <a href="iruka.html" class="fly-model group flex items-center gap-4 rounded-2xl p-3">
-        <img src="assets/img/cfg-blanc-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/cfg-blanc-face-s.jpg" width="240" height="135" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">IRUKA</span><span class="block text-xs text-brume">Le modèle de série</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">35 990 € HT</span>
       </a>
       
       <a href="launch-edition.html" class="fly-model group flex items-center gap-4 rounded-2xl p-3">
-        <img src="assets/img/cfg-predator-face-s.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/cfg-predator-face-s.jpg" width="240" height="135" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Launch Edition</span><span class="block text-xs text-brume">300 exemplaires numérotés</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">90 000 $ HT</span>
       </a>
       
       <a href="./#bientot" class="fly-model group flex items-center gap-4 rounded-2xl p-3 opacity-60">
-        <img src="assets/img/tridens.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/tridens-s.jpg" width="240" height="135" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Tridens</span><span class="block text-xs text-brume">Trois places · concept</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">Bientôt</span>
       </a>
       
       <a href="./#bientot" class="fly-model group flex items-center gap-4 rounded-2xl p-3 opacity-60">
-        <img src="assets/img/kids-mako.jpg" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
+        <img src="assets/img/kids-mako-s.jpg" width="480" height="270" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">Gamme enfants</span><span class="block text-xs text-brume">6 à 12 ans · concept</span></span>
         <span class="num shrink-0 text-right text-sm font-semibold">Bientôt</span>
       </a>
@@ -115,7 +123,7 @@
 <main id="main">
 
   <section class="relative isolate overflow-hidden">
-    <img src="assets/img/signature-veil.jpg" alt="Un jet-ski sous un voile dans un showroom" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-60" fetchpriority="high">
+    <img src="assets/img/signature-veil.jpg" width="1920" height="1077" alt="Un jet-ski sous un voile dans un showroom" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-60" fetchpriority="high">
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-abyss via-abyss/85 to-abyss/20"></div>
     <div class="gutter"><div class="mx-auto max-w-7xl pb-20 pt-40 sm:pb-28 sm:pt-52">
       <p class="eyebrow-sand">Launch Edition</p>
