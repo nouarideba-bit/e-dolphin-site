@@ -72,7 +72,7 @@ addEventListener('DOMContentLoaded', () => {
       b.querySelector('img').src = IMG(`cfg-${S.livery}-${b.dataset.view}-s.jpg`);
     });
   };
-  const turn = (d) => { if (S.mode === '3d') return Jet3D.turn(d); startTurning(); const f = frames(S.livery), i = Math.max(0, f.indexOf(S.view)); S.view = f[(i + d + f.length) % f.length]; sync(); };
+  const turn = (d) => { startTurning(); const f = frames(S.livery), i = Math.max(0, f.indexOf(S.view)); S.view = f[(i + d + f.length) % f.length]; sync(); };
   $('#cfgPrev').addEventListener('click', () => turn(-1));
   $('#cfgNext').addEventListener('click', () => turn(1));
   $$('.cfg-view').forEach(b => b.addEventListener('click', () => { S.view = b.dataset.view; sync(); }));
@@ -173,7 +173,6 @@ addEventListener('DOMContentLoaded', () => {
     if (renderedFor !== S.model) { renderOptions(); renderedFor = S.model; }
     else $$('[data-opt]').forEach(c => { c.closest('.cfg-opt').classList.toggle('is-on', c.checked); });
     $$('.cfg-cat').forEach((d, i) => { const n = d.querySelector('summary .num'); n.textContent = `${OPTIONS.filter(o => o.cat[LANG] === cats[i] && (S.opts.has(o.id) || included(o))).length}/${OPTIONS.filter(o => o.cat[LANG] === cats[i]).length}`; });
-    if (window.Jet3D) Jet3D.paint(L().c);
     const p = new URLSearchParams({ modele: S.model, livree: S.livery, vue: S.view });
     if (S.opts.size) p.set('opts', [...S.opts].join(','));
     history.replaceState(null, '', '?' + p);
@@ -193,18 +192,7 @@ addEventListener('DOMContentLoaded', () => {
     } catch (_) { out.textContent = url; }
   });
 
-  /* ---- Photos / 3D toggle (3D viewer loads on demand) ---- */
-  $$('[data-mode]').forEach(b => b.addEventListener('click', () => {
-    const is3d = b.dataset.mode === '3d';
-    $$('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    $('#cfg3d').hidden = !is3d; img.style.visibility = is3d ? 'hidden' : '';
-    $('#cfgThumbs').style.visibility = is3d ? 'hidden' : '';
-    S.mode = is3d ? '3d' : 'photo';
-    $('#cfgImgKind').textContent = is3d ? tt('Modèle 3D simplifié', 'Simplified 3D model') : tt('Rendu', 'Render');
-    if (is3d) Jet3D.mount($('#cfg3d'), L().c); else Jet3D.stop();
-  }));
-
-  /* ---- Enlarged view of a model (click on its picture): HD photos, 360° turn, 3D ---- */
+  /* ---- Enlarged view of a model (click on its picture): HD photos, 360° turn ---- */
   // AI-upscaled views (3840 px) are listed in UHD, the others show the 1680 px render; the 360° turn reuses the configurator frames; Tridens and the kids range have photos only for now
   const UHD = new Set(['iruka-face', 'iruka-profil', 'launch-face', 'launch-profil', 'mako-3-4-avant', 'tridens']);
   const zFile = (n) => `zoom-${n}-${UHD.has(n) ? 'uhd' : 'hd'}.jpg`;
@@ -216,17 +204,16 @@ addEventListener('DOMContentLoaded', () => {
     tridens: { name: 'Tridens', photos: [['tridens', tt('Trois-quarts avant', 'Front three-quarter')]] },
     kids: { name: tt('Gamme enfants · MAKO', 'Kids range · MAKO'), photos: Object.keys(MAKO.fr).map(v => [`mako-${v}`, MAKO[LANG][v]]) }
   };
-  const dlg = $('#zoomDlg'), zImg = $('#zoomImg'), z3d = $('#zoom3d');
+  const dlg = $('#zoomDlg'), zImg = $('#zoomImg');
   const Z = { key: 'iruka', mode: 'photo', i: 0, frame: 0 };
   const zm = () => ZOOM[Z.key];
   const zLiv = () => LIVERIES.find(l => l.id === zm().liv);
   const zFrames = () => frames(zm().liv);
   const zoomOut = () => zImg.classList.remove('is-zoomed');
   const zShow = () => {
-    const m = zm(), photo = Z.mode === 'photo', spin = Z.mode === 'spin', d3 = Z.mode === '3d';
+    const m = zm(), photo = Z.mode === 'photo', spin = Z.mode === 'spin';
     $('#zoomTitle').textContent = m.name;
     $$('[data-zmode]', dlg).forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.zmode === Z.mode)); b.disabled = b.dataset.zmode !== 'photo' && !m.liv; });
-    z3d.hidden = !d3; zImg.style.visibility = d3 ? 'hidden' : '';
     zImg.classList.toggle('is-spin', spin); zoomOut();
     const several = photo ? m.photos.length > 1 : spin;
     $('#zoomPrev').hidden = $('#zoomNext').hidden = !several;
@@ -234,26 +221,21 @@ addEventListener('DOMContentLoaded', () => {
       const [n, label] = m.photos[Z.i];
       zImg.src = IMG(zFile(n)); zImg.alt = `${m.name} · ${label}`;
       $('#zoomCap').textContent = `${tt('Rendu', 'Render')} · ${label} · ${UHD.has(n) ? 'Ultra HD' : 'HD'}`;
-      $('#zoomHint').textContent = m.liv ? tt('Cliquez sur la photo pour zoomer.', 'Click the photo to zoom in.') : tt('Cliquez sur la photo pour zoomer. 360° et 3D à venir pour ce modèle.', 'Click the photo to zoom in. 360° and 3D coming for this model.');
-    } else if (spin) {
+      $('#zoomHint').textContent = m.liv ? tt('Cliquez sur la photo pour zoomer.', 'Click the photo to zoom in.') : tt('Cliquez sur la photo pour zoomer. 360° à venir pour ce modèle.', 'Click the photo to zoom in. 360° coming for this model.');
+    } else {
       const v = zFrames()[Z.frame];
       zImg.src = IMG(`cfg-${m.liv}-${v}.jpg`); zImg.alt = `${m.name} · ${viewName(v)}`;
       $('#zoomCap').textContent = `${tt('Rendu', 'Render')} · ${zLiv()[LANG]} · ${viewName(v)} · 360°`;
-      $('#zoomHint').textContent = tt('Faites glisser pour tourner.', 'Drag to turn.');
-    } else {
-      $('#zoomCap').textContent = `${tt('Modèle 3D simplifié', 'Simplified 3D model')} · ${zLiv()[LANG]}`;
       $('#zoomHint').textContent = tt('Faites glisser pour tourner.', 'Drag to turn.');
     }
     const th = $('#zoomThumbs');
     th.hidden = !photo || m.photos.length < 2;
     th.innerHTML = photo ? m.photos.map(([n, label], k) => `<button type="button" class="zoom-thumb" data-zi="${k}" aria-pressed="${k === Z.i}" aria-label="${label}"><img src="${IMG(`zoom-${n}-s.jpg`)}" alt="" class="aspect-[16/9] w-full object-cover"></button>`).join('') : '';
     $$('[data-zi]', th).forEach(b => b.addEventListener('click', () => { Z.i = +b.dataset.zi; zShow(); }));
-    if (d3) Jet3D.mount(z3d, zLiv().c); else if (dlg.open) Jet3D.stop();
   };
   const zStep = (d) => {
     if (Z.mode === 'photo') Z.i = (Z.i + d + zm().photos.length) % zm().photos.length;
-    else if (Z.mode === 'spin') Z.frame = (Z.frame + d + zFrames().length) % zFrames().length;
-    else return Jet3D.turn(d);
+    else Z.frame = (Z.frame + d + zFrames().length) % zFrames().length;
     zShow();
   };
   const zPreloadSpin = () => zFrames().forEach(v => { const u = IMG(`cfg-${zm().liv}-${v}.jpg`); if (!CACHE[u]) { CACHE[u] = new Image(); CACHE[u].src = u; } });
@@ -271,7 +253,6 @@ addEventListener('DOMContentLoaded', () => {
   dlg.addEventListener('close', () => {
     document.documentElement.style.overflow = '';
     zImg.removeAttribute('src');
-    if (S.mode === '3d') Jet3D.mount($('#cfg3d'), L().c); else Jet3D.stop();
   });
   // Photo: click to zoom where you point; 360°: drag to turn
   let zx = null;

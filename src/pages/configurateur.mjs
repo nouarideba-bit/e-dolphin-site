@@ -4,7 +4,7 @@ export const meta = {
   fr: { title: 'Configurer son jet-ski électrique IRUKA · E-Dolphin', desc: 'Personnalisez votre IRUKA : modèle, livrée, vue 360°, équipements, total et acompte calculés en direct.' },
   en: { title: 'Build your IRUKA electric jet ski · E-Dolphin', desc: 'Build your IRUKA: model, livery, 360° view, equipment, live total and deposit.' }
 };
-export const scripts = ['cfg-options.js', 'jet3d.js', 'config.js'];
+export const scripts = ['cfg-options.js', 'config.js'];
 
 // Ergonomics modelled on manufacturer configurators: numbered steps on top, the craft in the
 // centre, choices on the right, and a running total with the deposit pinned at the bottom.
@@ -13,7 +13,7 @@ export const body = (L, R) => {
   const t = tr(L);
   const steps = [['model', 'Modèle', 'Model'], ['color', 'Couleur', 'Colour'], ['equip', 'Équipements', 'Equipment'], ['sum', 'Résumé', 'Summary']];
   const views = [['face', 'Face', 'Front'], ['profil', 'Profil', 'Side'], ['arriere', 'Arrière', 'Rear'], ['dessus', 'Dessus', 'Top']];
-  // The thumbnail is its own button: it opens the enlarged view (HD photos, 360°, 3D), the rest of the card picks the model
+  // The thumbnail is its own button: it opens the enlarged view (HD photos, 360° turn), the rest of the card picks the model
   const model = (id, name, price, sub, file, soon, zoom) => `
     <div class="relative">
       <button type="button" ${soon ? 'disabled' : `data-model="${id}"`} aria-pressed="${id === 'iruka'}" class="cfg-model card flex w-full items-center gap-4 rounded-2xl p-3 pl-[7.75rem] text-left ${soon ? 'opacity-50' : ''}">
@@ -46,15 +46,10 @@ export const body = (L, R) => {
       <!-- Stage -->
       <div class="lg:sticky lg:top-24">
         <div class="mb-3 flex items-center justify-between gap-3">
-          <div class="cfg-seg inline-flex rounded-full p-1" role="group" aria-label="${t('Affichage', 'Display')}">
-            <button type="button" data-mode="photo" aria-pressed="true" class="rounded-full px-4 py-1.5 text-sm font-medium">${t('Photos', 'Photos')}</button>
-            <button type="button" data-mode="3d" aria-pressed="false" class="rounded-full px-4 py-1.5 text-sm font-medium">3D 360°</button>
-          </div>
-          <p class="hidden text-xs text-ink2 sm:block"><i data-lucide="move-horizontal" class="mr-1 inline h-4 w-4"></i>${t('Faites glisser pour tourner', 'Drag to turn')}</p>
+          <p class="text-xs text-ink2"><i data-lucide="move-horizontal" class="mr-1 inline h-4 w-4"></i>${t('Faites glisser pour tourner', 'Drag to turn')}</p>
         </div>
         <figure id="cfgStage" class="relative overflow-hidden rounded-[1.75rem] bg-[#0b0d0f] select-none">
           <img id="cfgImg" src="${img(R, 'cfg-blanc-face.jpg')}" alt="IRUKA" width="1400" height="787" draggable="false" class="aspect-[16/9] w-full object-cover transition-opacity duration-200">
-          <div id="cfg3d" class="absolute inset-0" hidden></div>
           <figcaption class="absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 font-mono text-[11px] text-white"><span id="cfgImgKind">${t('Rendu', 'Render')}</span> · <span id="cfgImgLabel">${t('Blanc · noir · lime', 'White · black · lime')}</span></figcaption>
           <button type="button" id="cfgPrev" class="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="${t('Tourner à gauche', 'Turn left')}"><i data-lucide="rotate-ccw" class="h-5 w-5"></i></button>
           <button type="button" id="cfgNext" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="${t('Tourner à droite', 'Turn right')}"><i data-lucide="rotate-cw" class="h-5 w-5"></i></button>
@@ -117,7 +112,7 @@ export const body = (L, R) => {
       <button type="button" id="cfgNextStep" class="btn-primary inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold sm:px-7">${t('Suivant', 'Next')} <i data-lucide="arrow-right" class="h-4 w-4"></i></button>
     </div>
   </div>
-  <!-- Enlarged view of a model: HD photos, 360° turn, 3D (filled by config.js) -->
+  <!-- Enlarged view of a model: HD photos, 360° turn (filled by config.js) -->
   <dialog id="zoomDlg" class="zoom-dlg" aria-labelledby="zoomTitle">
     <div class="zoom-box">
       <div class="flex flex-wrap items-center justify-between gap-3">
@@ -126,7 +121,6 @@ export const body = (L, R) => {
           <div class="zoom-seg inline-flex rounded-full p-1" role="group" aria-label="${t('Affichage', 'Display')}">
             <button type="button" data-zmode="photo" aria-pressed="true" class="rounded-full px-3 py-1.5 text-sm font-medium sm:px-4">${t('Photos HD', 'HD photos')}</button>
             <button type="button" data-zmode="spin" aria-pressed="false" class="rounded-full px-3 py-1.5 text-sm font-medium sm:px-4">360°</button>
-            <button type="button" data-zmode="3d" aria-pressed="false" class="rounded-full px-3 py-1.5 text-sm font-medium sm:px-4">3D</button>
           </div>
           <button type="button" id="zoomClose" class="grid h-10 w-10 place-items-center rounded-full bg-white/10 hover:bg-white/20" aria-label="${t('Fermer', 'Close')}"><i data-lucide="x" class="h-5 w-5"></i></button>
         </div>
@@ -134,7 +128,6 @@ export const body = (L, R) => {
       <!-- not a <figure>: the page reveal-on-scroll animates every figure in main -->
       <div id="zoomStage" class="relative overflow-hidden rounded-3xl bg-[#05080b] select-none">
         <img id="zoomImg" alt="" draggable="false" class="zoom-img h-full w-full object-contain">
-        <div id="zoom3d" class="absolute inset-0" hidden></div>
         <button type="button" id="zoomPrev" class="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="${t('Précédent', 'Previous')}"><i data-lucide="chevron-left" class="h-5 w-5"></i></button>
         <button type="button" id="zoomNext" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="${t('Suivant', 'Next')}"><i data-lucide="chevron-right" class="h-5 w-5"></i></button>
         <p id="zoomCap" class="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 font-mono text-[11px] text-white"></p>
