@@ -34,7 +34,7 @@ export const body = (L, R) => {
 
   <section class="gutter py-16 sm:py-24">
     <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-      ${fig(img(R, 'charging-station.jpg'), t('Ponton de recharge flottant', 'Floating charging pontoon'), t('Rendu · concept', 'Render · concept'), 'aspect-[4/3]')}
+      ${fig(img(R, 'charging-station-uhd-1600.jpg'), t('Ponton de recharge flottant', 'Floating charging pontoon'), t('Rendu · concept', 'Render · concept'), 'aspect-[4/3]')}
       <div>
         ${head({ eyebrow: t('Énergie', 'Energy'), title: t('Une batterie qui a un avenir après la mer.', 'A battery with a future after the sea.'), lead: t('Batterie traçable, étanche IP67, recharge CCS2 comme une voiture électrique. En fin de vie nautique, ses modules sont prévus pour une seconde vie en stockage d\'énergie à la marina.', 'Traceable battery, IP67 sealed, CCS2 charging like an electric car. At the end of its life at sea, its modules are planned for a second life as marina energy storage.') })}
       </div>

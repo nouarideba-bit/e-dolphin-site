@@ -16,7 +16,7 @@ export const body = (L, R) => {
   const pillar = (icon, title, text) => `<li class="glass rounded-3xl p-6"><i data-lucide="${icon}" class="h-6 w-6 text-lagoon"></i><h3 class="mt-4 font-display text-xl font-semibold">${title}</h3><p class="mt-2 text-sm text-brume">${text}</p></li>`;
   // IRUKA Fleet feature tabs (modelled on the Sea-Doo rental page, adam 22 Oct)
   const TABS = [
-    ['zap', t('Économie', 'Savings'), 'charging-station.jpg', t('Rendu', 'Render'), t('Quelques euros d\'énergie par heure.', 'A few euros of energy per hour.'), t('Environ 14 kWh par heure de location : avec les hypothèses du calculateur, près de 3,50 € d\'électricité contre près de 48 € d\'essence pour un thermique.', 'About 14 kWh per rental hour: with the calculator\'s assumptions, about €3.50 of electricity against about €48 of fuel for a combustion craft.')],
+    ['zap', t('Économie', 'Savings'), 'charging-station-uhd-2560.jpg', t('Rendu', 'Render'), t('Quelques euros d\'énergie par heure.', 'A few euros of energy per hour.'), t('Environ 14 kWh par heure de location : avec les hypothèses du calculateur, près de 3,50 € d\'électricité contre près de 48 € d\'essence pour un thermique.', 'About 14 kWh per rental hour: with the calculator\'s assumptions, about €3.50 of electricity against about €48 of fuel for a combustion craft.')],
     ['wrench', t('Entretien', 'Servicing'), 'detail-jet-hd.jpg', t('Rendu', 'Render'), t('Ni vidange, ni bougies.', 'No oil change, no spark plugs.'), t('Un moteur électrique a peu de pièces d\'usure : moins d\'immobilisation en pleine saison, et une batterie suivie à distance.', 'An electric motor has few wearing parts: less downtime in peak season, and a battery monitored remotely.')],
     ['life-buoy', t('Stabilité', 'Stability'), 'iruka-floats.jpg', t('Rendu', 'Render'), t('Le boudin qui rassure les débutants.', 'The collar that reassures beginners.'), t('La version Fleet a un boudin gonflable : stable à l\'arrêt, plus facile pour monter à bord, et elle protège pontons et coques.', 'The Fleet version has an inflatable collar: stable at rest, easier to board, and it protects pontoons and hulls.')],
     ['shield-check', t('Sécurité', 'Safety'), 'use-safety.jpg', t('Rendu', 'Render'), t('Vos clients restent dans la zone.', 'Your customers stay in the zone.'), t('Chaque machine est géolocalisée sur le tableau de bord de flotte, avec des zones de navigation et des caméras avant et arrière.', 'Each craft is geolocated on the fleet dashboard, with riding zones and front and rear cameras.')],
@@ -26,7 +26,7 @@ export const body = (L, R) => {
   const opt = (v, label) => `<label class="flex items-center gap-2 text-sm"><input type="checkbox" name="options" value="${v}" class="accent-[#2EE6A8]">${label}</label>`;
   return `
   <section class="relative isolate overflow-hidden">
-    <img src="${img(R, 'charging-station.jpg')}" alt="${t('Ponton de recharge flottant avec des IRUKA', 'Floating charging pontoon with IRUKA craft')}" class="absolute inset-0 -z-20 h-full w-full object-cover" fetchpriority="high">
+    <img src="${img(R, 'charging-station-uhd-2560.jpg')}" srcset="${img(R, 'charging-station-uhd-1600.jpg')} 1600w, ${img(R, 'charging-station-uhd-2560.jpg')} 2560w, ${img(R, 'charging-station-uhd-3840.jpg')} 3840w" sizes="100vw" alt="${t('Ponton de recharge flottant avec des IRUKA', 'Floating charging pontoon with IRUKA craft')}" class="absolute inset-0 -z-20 h-full w-full object-cover" fetchpriority="high">
     <div class="hero-shade absolute inset-0 -z-10"></div>
     <div class="gutter"><div class="mx-auto max-w-7xl pb-20 pt-40 sm:pb-28 sm:pt-52">
       <p class="eyebrow">${t('Pour ma location · loueurs, hôtels, clubs', 'For my rental · operators, hotels, clubs')}</p>
@@ -115,7 +115,7 @@ export const body = (L, R) => {
   <!-- Connected fleet -->
   <section class="gutter pb-16 sm:pb-24">
     <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
-      ${fig(img(R, 'fleet-dashboard.jpg'), t('Maquette du tableau de bord de flotte : positions, caméras, batterie', 'Fleet dashboard mock-up: positions, cameras, battery'), t('Maquette d\'interface', 'Interface mock-up'), 'aspect-[4/5] object-top', 'max-h-[640px]')}
+      ${fig(img(R, 'fleet-dashboard-cams-uhd.jpg'), t('Maquette du tableau de bord de flotte : vues des caméras avant et arrière, positions des jet-skis', 'Fleet dashboard mock-up: front and rear camera views, craft positions'), t('Maquette d\'interface', 'Interface mock-up'), 'aspect-[2152/2132]')}
       <div>
         ${head({ eyebrow: t('Flotte connectée', 'Connected fleet'), title: t('Vous voyez chaque machine, en temps réel.', 'You see every craft, in real time.') })}
         <ul class="mt-10 grid gap-6">
