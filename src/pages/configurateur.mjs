@@ -13,12 +13,18 @@ export const body = (L, R) => {
   const t = tr(L);
   const steps = [['model', 'Modèle', 'Model'], ['color', 'Couleur', 'Colour'], ['equip', 'Équipements', 'Equipment'], ['sum', 'Résumé', 'Summary']];
   const views = [['face', 'Face', 'Front'], ['profil', 'Profil', 'Side'], ['arriere', 'Arrière', 'Rear'], ['dessus', 'Dessus', 'Top']];
-  const model = (id, name, price, sub, file, soon) => `
-    <button type="button" ${soon ? 'disabled' : `data-model="${id}"`} aria-pressed="${id === 'iruka'}" class="cfg-model card flex items-center gap-4 rounded-2xl p-3 text-left ${soon ? 'opacity-50' : ''}">
-      <img src="${img(R, file)}" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" loading="lazy">
-      <span class="min-w-0 flex-1"><span class="block font-display font-semibold">${name}</span><span class="block text-xs text-ink2">${sub}</span></span>
-      <span class="num shrink-0 text-sm font-semibold">${price}</span>
-    </button>`;
+  // The thumbnail is its own button: it opens the enlarged view (HD photos, 360°, 3D), the rest of the card picks the model
+  const model = (id, name, price, sub, file, soon, zoom) => `
+    <div class="relative">
+      <button type="button" ${soon ? 'disabled' : `data-model="${id}"`} aria-pressed="${id === 'iruka'}" class="cfg-model card flex w-full items-center gap-4 rounded-2xl p-3 pl-[7.75rem] text-left ${soon ? 'opacity-50' : ''}">
+        <span class="min-w-0 flex-1"><span class="block font-display font-semibold">${name}</span><span class="block text-xs text-ink2">${sub}</span></span>
+        <span class="num shrink-0 text-sm font-semibold">${price}</span>
+      </button>
+      <button type="button" data-zoom="${zoom}" class="cfg-zoom group absolute left-3 top-1/2 h-16 w-24 -translate-y-1/2 overflow-hidden rounded-xl" aria-label="${t('Agrandir', 'Enlarge')} ${name}" aria-haspopup="dialog">
+        <img src="${img(R, file)}" alt="" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+        <span class="absolute bottom-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-black/60 text-white"><i data-lucide="maximize-2" class="h-3.5 w-3.5"></i></span>
+      </button>
+    </div>`;
   return `
   <div class="cfg-light">
   <section class="gutter pb-4 pt-24 sm:pt-28">
@@ -63,10 +69,10 @@ export const body = (L, R) => {
         <div id="pane-model" role="tabpanel" aria-labelledby="tab-model">
           <h2 class="font-display text-xl font-semibold">${t('Choisissez votre modèle', 'Choose your model')}</h2>
           <div class="mt-4 grid gap-3">
-            ${model('iruka', 'IRUKA', '35 990 € HT', t('Le modèle de série', 'The series model'), 'cfg-blanc-face-s.jpg')}
-            ${model('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), 'cfg-predator-face-s.jpg')}
-            ${model('', 'Tridens', t('Bientôt', 'Soon'), t('Prochain modèle', 'Next model'), 'tridens.jpg', true)}
-            ${model('', t('Gamme enfants', 'Kids range'), t('Bientôt', 'Soon'), t('6 à 12 ans', 'Ages 6 to 12'), 'kids-mako.jpg', true)}
+            ${model('iruka', 'IRUKA', '35 990 € HT', t('Le modèle de série', 'The series model'), 'cfg-blanc-face-s.jpg', false, 'iruka')}
+            ${model('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), 'cfg-predator-face-s.jpg', false, 'launch')}
+            ${model('', 'Tridens', t('Bientôt', 'Soon'), t('Prochain modèle', 'Next model'), 'tridens-s.jpg', true, 'tridens')}
+            ${model('', t('Gamme enfants', 'Kids range'), t('Bientôt', 'Soon'), t('6 à 12 ans', 'Ages 6 to 12'), 'kids-mako-s.jpg', true, 'kids')}
           </div>
         </div>
 
@@ -111,6 +117,34 @@ export const body = (L, R) => {
       <button type="button" id="cfgNextStep" class="btn-primary inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold sm:px-7">${t('Suivant', 'Next')} <i data-lucide="arrow-right" class="h-4 w-4"></i></button>
     </div>
   </div>
+  <!-- Enlarged view of a model: HD photos, 360° turn, 3D (filled by config.js) -->
+  <dialog id="zoomDlg" class="zoom-dlg" aria-labelledby="zoomTitle">
+    <div class="zoom-box">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h2 id="zoomTitle" class="font-display text-xl font-semibold sm:text-2xl"></h2>
+        <div class="flex items-center gap-2">
+          <div class="zoom-seg inline-flex rounded-full p-1" role="group" aria-label="${t('Affichage', 'Display')}">
+            <button type="button" data-zmode="photo" aria-pressed="true" class="rounded-full px-3 py-1.5 text-sm font-medium sm:px-4">${t('Photos HD', 'HD photos')}</button>
+            <button type="button" data-zmode="spin" aria-pressed="false" class="rounded-full px-3 py-1.5 text-sm font-medium sm:px-4">360°</button>
+            <button type="button" data-zmode="3d" aria-pressed="false" class="rounded-full px-3 py-1.5 text-sm font-medium sm:px-4">3D</button>
+          </div>
+          <button type="button" id="zoomClose" class="grid h-10 w-10 place-items-center rounded-full bg-white/10 hover:bg-white/20" aria-label="${t('Fermer', 'Close')}"><i data-lucide="x" class="h-5 w-5"></i></button>
+        </div>
+      </div>
+      <!-- not a <figure>: the page reveal-on-scroll animates every figure in main -->
+      <div id="zoomStage" class="relative overflow-hidden rounded-3xl bg-[#05080b] select-none">
+        <img id="zoomImg" alt="" draggable="false" class="zoom-img h-full w-full object-contain">
+        <div id="zoom3d" class="absolute inset-0" hidden></div>
+        <button type="button" id="zoomPrev" class="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="${t('Précédent', 'Previous')}"><i data-lucide="chevron-left" class="h-5 w-5"></i></button>
+        <button type="button" id="zoomNext" class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/85 p-2.5 text-abyss shadow" aria-label="${t('Suivant', 'Next')}"><i data-lucide="chevron-right" class="h-5 w-5"></i></button>
+        <p id="zoomCap" class="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 font-mono text-[11px] text-white"></p>
+      </div>
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div id="zoomThumbs" class="flex gap-2 overflow-x-auto" role="group" aria-label="${t('Vues', 'Views')}"></div>
+        <p id="zoomHint" class="text-xs text-white/60"></p>
+      </div>
+    </div>
+  </dialog>
   <p id="cfgPriceNote" hidden></p>
   </div>`;
 };

@@ -204,5 +204,91 @@ addEventListener('DOMContentLoaded', () => {
     if (is3d) Jet3D.mount($('#cfg3d'), L().c); else Jet3D.stop();
   }));
 
+  /* ---- Enlarged view of a model (click on its picture): HD photos, 360° turn, 3D ---- */
+  // AI-upscaled views (3840 px) are listed in UHD, the others show the 1680 px render; the 360° turn reuses the configurator frames; Tridens and the kids range have photos only for now
+  const UHD = new Set(['iruka-face', 'launch-face']);
+  const zFile = (n) => `zoom-${n}-${UHD.has(n) ? 'uhd' : 'hd'}.jpg`;
+  const KEY_VIEWS = ['face', 'profil', 'arriere', 'dessus'];
+  const MAKO = { fr: { '3-4-avant': 'Trois-quarts avant', profil: 'Profil', '3-4-arriere': 'Trois-quarts arrière', dessus: 'Dessus' }, en: { '3-4-avant': 'Front three-quarter', profil: 'Side', '3-4-arriere': 'Rear three-quarter', dessus: 'Top' } };
+  const ZOOM = {
+    iruka: { name: 'IRUKA', liv: 'blanc', photos: KEY_VIEWS.map(v => [`iruka-${v}`, VIEWS[LANG][v]]) },
+    launch: { name: 'IRUKA Launch Edition', liv: 'predator', photos: KEY_VIEWS.map(v => [`launch-${v}`, VIEWS[LANG][v]]) },
+    tridens: { name: 'Tridens', photos: [['tridens', tt('Trois-quarts avant', 'Front three-quarter')]] },
+    kids: { name: tt('Gamme enfants · MAKO', 'Kids range · MAKO'), photos: Object.keys(MAKO.fr).map(v => [`mako-${v}`, MAKO[LANG][v]]) }
+  };
+  const dlg = $('#zoomDlg'), zImg = $('#zoomImg'), z3d = $('#zoom3d');
+  const Z = { key: 'iruka', mode: 'photo', i: 0, frame: 0 };
+  const zm = () => ZOOM[Z.key];
+  const zLiv = () => LIVERIES.find(l => l.id === zm().liv);
+  const zFrames = () => frames(zm().liv);
+  const zoomOut = () => zImg.classList.remove('is-zoomed');
+  const zShow = () => {
+    const m = zm(), photo = Z.mode === 'photo', spin = Z.mode === 'spin', d3 = Z.mode === '3d';
+    $('#zoomTitle').textContent = m.name;
+    $$('[data-zmode]', dlg).forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.zmode === Z.mode)); b.disabled = b.dataset.zmode !== 'photo' && !m.liv; });
+    z3d.hidden = !d3; zImg.style.visibility = d3 ? 'hidden' : '';
+    zImg.classList.toggle('is-spin', spin); zoomOut();
+    const several = photo ? m.photos.length > 1 : spin;
+    $('#zoomPrev').hidden = $('#zoomNext').hidden = !several;
+    if (photo) {
+      const [n, label] = m.photos[Z.i];
+      zImg.src = IMG(zFile(n)); zImg.alt = `${m.name} · ${label}`;
+      $('#zoomCap').textContent = `${tt('Rendu', 'Render')} · ${label} · ${UHD.has(n) ? 'Ultra HD' : 'HD'}`;
+      $('#zoomHint').textContent = m.liv ? tt('Cliquez sur la photo pour zoomer.', 'Click the photo to zoom in.') : tt('Cliquez sur la photo pour zoomer. 360° et 3D à venir pour ce modèle.', 'Click the photo to zoom in. 360° and 3D coming for this model.');
+    } else if (spin) {
+      const v = zFrames()[Z.frame];
+      zImg.src = IMG(`cfg-${m.liv}-${v}.jpg`); zImg.alt = `${m.name} · ${viewName(v)}`;
+      $('#zoomCap').textContent = `${tt('Rendu', 'Render')} · ${zLiv()[LANG]} · ${viewName(v)} · 360°`;
+      $('#zoomHint').textContent = tt('Faites glisser pour tourner.', 'Drag to turn.');
+    } else {
+      $('#zoomCap').textContent = `${tt('Modèle 3D simplifié', 'Simplified 3D model')} · ${zLiv()[LANG]}`;
+      $('#zoomHint').textContent = tt('Faites glisser pour tourner.', 'Drag to turn.');
+    }
+    const th = $('#zoomThumbs');
+    th.hidden = !photo || m.photos.length < 2;
+    th.innerHTML = photo ? m.photos.map(([n, label], k) => `<button type="button" class="zoom-thumb" data-zi="${k}" aria-pressed="${k === Z.i}" aria-label="${label}"><img src="${IMG(`zoom-${n}-s.jpg`)}" alt="" class="aspect-[16/9] w-full object-cover"></button>`).join('') : '';
+    $$('[data-zi]', th).forEach(b => b.addEventListener('click', () => { Z.i = +b.dataset.zi; zShow(); }));
+    if (d3) Jet3D.mount(z3d, zLiv().c); else if (dlg.open) Jet3D.stop();
+  };
+  const zStep = (d) => {
+    if (Z.mode === 'photo') Z.i = (Z.i + d + zm().photos.length) % zm().photos.length;
+    else if (Z.mode === 'spin') Z.frame = (Z.frame + d + zFrames().length) % zFrames().length;
+    else return Jet3D.turn(d);
+    zShow();
+  };
+  const zPreloadSpin = () => zFrames().forEach(v => { const u = IMG(`cfg-${zm().liv}-${v}.jpg`); if (!CACHE[u]) { CACHE[u] = new Image(); CACHE[u].src = u; } });
+  $$('[data-zoom]').forEach(b => b.addEventListener('click', () => {
+    Z.key = b.dataset.zoom; Z.mode = 'photo'; Z.i = 0; Z.frame = 0;
+    document.documentElement.style.overflow = 'hidden';
+    dlg.showModal(); zShow();
+  }));
+  $$('[data-zmode]', dlg).forEach(b => b.addEventListener('click', () => { Z.mode = b.dataset.zmode; if (Z.mode === 'spin') zPreloadSpin(); zShow(); }));
+  $('#zoomPrev').addEventListener('click', () => zStep(-1));
+  $('#zoomNext').addEventListener('click', () => zStep(1));
+  $('#zoomClose').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') zStep(-1); if (e.key === 'ArrowRight') zStep(1); });
+  dlg.addEventListener('close', () => {
+    document.documentElement.style.overflow = '';
+    zImg.removeAttribute('src');
+    if (S.mode === '3d') Jet3D.mount($('#cfg3d'), L().c); else Jet3D.stop();
+  });
+  // Photo: click to zoom where you point; 360°: drag to turn
+  let zx = null;
+  zImg.addEventListener('pointerdown', e => { if (Z.mode !== 'spin') return; zx = e.clientX; zImg.setPointerCapture(e.pointerId); });
+  zImg.addEventListener('pointermove', e => {
+    if (Z.mode === 'photo' && zImg.classList.contains('is-zoomed')) { const r = zImg.getBoundingClientRect(); zImg.style.transformOrigin = `${(e.clientX - r.left) / r.width * 100}% ${(e.clientY - r.top) / r.height * 100}%`; }
+    if (zx === null) return;
+    const dx = e.clientX - zx;
+    if (Math.abs(dx) > 24) { zStep(dx < 0 ? 1 : -1); zx = e.clientX; }
+  });
+  zImg.addEventListener('pointerup', () => { zx = null; });
+  zImg.addEventListener('click', e => {
+    if (Z.mode !== 'photo') return;
+    const r = zImg.getBoundingClientRect();
+    zImg.style.transformOrigin = `${(e.clientX - r.left) / r.width * 100}% ${(e.clientY - r.top) / r.height * 100}%`;
+    zImg.classList.toggle('is-zoomed');
+  });
+
   preload(); showStep(q.get('modele') ? 'color' : 'model'); sync();
 });

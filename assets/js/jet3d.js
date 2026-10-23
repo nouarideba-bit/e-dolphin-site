@@ -131,22 +131,25 @@ window.Jet3D = (() => {
     scene.userData.rim.color.set(c[1]);
   }
 
+  // One renderer, moved between hosts (configurator stage, enlarged view); drag handlers are set once
   async function mount(el, c) {
     host = el; colors = c;
-    if (!el.dataset.ready) {
+    if (!renderer) {
       el.innerHTML = `<p class="grid h-full place-items-center text-sm text-white/70">${LANG === 'fr' ? 'Chargement de la 3D…' : 'Loading 3D…'}</p>`;
       try { await load(); } catch (_) { el.innerHTML = `<p class="grid h-full place-items-center text-sm text-white/70">${LANG === 'fr' ? '3D indisponible sur ce navigateur.' : '3D unavailable in this browser.'}</p>`; return; }
-      if (!renderer) build();
-      el.innerHTML = ''; el.appendChild(renderer.domElement);
-      Object.assign(renderer.domElement.style, { width: '100%', height: '100%', display: 'block', cursor: 'grab', touchAction: 'pan-y' });
-      let x0 = null;
-      renderer.domElement.addEventListener('pointerdown', e => { x0 = e.clientX; auto = false; renderer.domElement.setPointerCapture(e.pointerId); renderer.domElement.style.cursor = 'grabbing'; });
-      renderer.domElement.addEventListener('pointermove', e => { if (x0 === null) return; group.rotation.y += (e.clientX - x0) * .012; x0 = e.clientX; });
-      const up = () => { x0 = null; renderer.domElement.style.cursor = 'grab'; };
-      renderer.domElement.addEventListener('pointerup', up); renderer.domElement.addEventListener('pointercancel', up);
-      addEventListener('resize', resize);
-      el.dataset.ready = '1';
+      if (!renderer) {
+        build();
+        Object.assign(renderer.domElement.style, { width: '100%', height: '100%', display: 'block', cursor: 'grab', touchAction: 'pan-y' });
+        let x0 = null;
+        renderer.domElement.addEventListener('pointerdown', e => { x0 = e.clientX; auto = false; renderer.domElement.setPointerCapture(e.pointerId); renderer.domElement.style.cursor = 'grabbing'; });
+        renderer.domElement.addEventListener('pointermove', e => { if (x0 === null) return; group.rotation.y += (e.clientX - x0) * .012; x0 = e.clientX; });
+        const up = () => { x0 = null; renderer.domElement.style.cursor = 'grab'; };
+        renderer.domElement.addEventListener('pointerup', up); renderer.domElement.addEventListener('pointercancel', up);
+        addEventListener('resize', resize);
+      }
     }
+    if (host !== el) return; // another mount was asked while three.js was loading
+    if (renderer.domElement.parentNode !== el) { el.innerHTML = ''; el.appendChild(renderer.domElement); }
     paint(colors); resize();
     cancelAnimationFrame(raf); tick();
   }
