@@ -67,7 +67,7 @@ export const body = (L, R) => {
             ${model('iruka', 'IRUKA', '35 990 € HT', t('Le modèle de série', 'The series model'), 'cfg-blanc-face-s.jpg', false, 'iruka')}
             ${model('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), 'cfg-predator-face-s.jpg', false, 'launch')}
             ${model('', 'Tridens', t('Bientôt', 'Soon'), t('Prochain modèle', 'Next model'), 'tridens-s.jpg', true, 'tridens')}
-            ${model('', t('Gamme enfants', 'Kids range'), t('Bientôt', 'Soon'), t('6 à 12 ans', 'Ages 6 to 12'), 'kids-mako-s.jpg', true, 'kids')}
+            ${model('', t('Gamme enfants', 'Kids range'), t('Bientôt', 'Soon'), t('6 à 12 ans', 'Ages 6 to 12'), 'kids-mako2-s.jpg', true, 'kids')}
           </div>
         </div>
 

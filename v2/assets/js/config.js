@@ -16,9 +16,12 @@ addEventListener('DOMContentLoaded', () => {
   // Rotation order for the drag viewer; extra in-between angles are added per livery when they exist
   const VIEWS = { fr: { profil: 'Profil', face: 'Face', arriere: 'Arrière', dessus: 'Dessus' }, en: { profil: 'Side', face: 'Front', arriere: 'Rear', dessus: 'Top' } };
   // Predator (Launch Edition livery) has a 15-frame turn: AI renders in between, the far side mirrored
-  // 24 views every 15° for every livery (the top view stays a thumbnail only)
+  // 24 views every 15° for every livery (the top view stays a thumbnail only); Tridens and the red MAKO turn on 8 views every 45° (enlarged view only)
+  const TURN8 = ['face', 'a045', 'profil', 'a135', 'arriere', 'a225', 'a270', 'a315'];
   const FRAMES = {
-    default: ['face', 'a015', 'a030', 'a045', 'a060', 'a075', 'profil', 'a105', 'a120', 'a135', 'a150', 'a165', 'a180', 'a195', 'arriere', 'a225', 'a240', 'a255', 'a270', 'a285', 'a300', 'a315', 'a330', 'a345']
+    default: ['face', 'a015', 'a030', 'a045', 'a060', 'a075', 'profil', 'a105', 'a120', 'a135', 'a150', 'a165', 'a180', 'a195', 'arriere', 'a225', 'a240', 'a255', 'a270', 'a285', 'a300', 'a315', 'a330', 'a345'],
+    tridens: TURN8,
+    mako: TURN8
   };
   const viewName = (v) => VIEWS[LANG][v] || (v.startsWith('a') ? `${+v.slice(1)}°` : '');
   const frames = (liv) => FRAMES[liv] || FRAMES.default;
@@ -193,21 +196,21 @@ addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---- Enlarged view of a model (click on its picture): HD photos, 360° turn ---- */
-  // AI-upscaled views (3840 px) are listed in UHD, the others show the 1680 px render; the 360° turn reuses the configurator frames; Tridens and the kids range have photos only for now
-  const UHD = new Set(['iruka-face', 'iruka-profil', 'launch-face', 'launch-profil', 'mako-3-4-avant', 'tridens']);
+  // AI-upscaled views (3840 px) are listed in UHD, the others show the 1680 px render; the 360° turn reuses the configurator frames
+  const UHD = new Set(['iruka-face', 'iruka-profil', 'iruka-arriere', 'iruka-dessus', 'launch-face', 'launch-profil', 'launch-arriere', 'launch-dessus', 'tridens']);
   const zFile = (n) => `zoom-${n}-${UHD.has(n) ? 'uhd' : 'hd'}.jpg`;
   const KEY_VIEWS = ['face', 'profil', 'arriere', 'dessus'];
   const MAKO = { fr: { '3-4-avant': 'Trois-quarts avant', profil: 'Profil', '3-4-arriere': 'Trois-quarts arrière', dessus: 'Dessus' }, en: { '3-4-avant': 'Front three-quarter', profil: 'Side', '3-4-arriere': 'Rear three-quarter', dessus: 'Top' } };
   const ZOOM = {
     iruka: { name: 'IRUKA', liv: 'blanc', photos: KEY_VIEWS.map(v => [`iruka-${v}`, VIEWS[LANG][v]]) },
     launch: { name: 'IRUKA Launch Edition', liv: 'predator', photos: KEY_VIEWS.map(v => [`launch-${v}`, VIEWS[LANG][v]]) },
-    tridens: { name: 'Tridens', photos: [['tridens', tt('Trois-quarts avant', 'Front three-quarter')]] },
-    kids: { name: tt('Gamme enfants · MAKO', 'Kids range · MAKO'), photos: Object.keys(MAKO.fr).map(v => [`mako-${v}`, MAKO[LANG][v]]) }
+    tridens: { name: 'Tridens', liv: 'tridens', lab: 'Tridens', photos: [['tridens', tt('En mer', 'At sea')], ...['face', 'profil', 'arriere'].map(v => [`tridens-${v}`, VIEWS[LANG][v]])] },
+    kids: { name: tt('Gamme enfants · MAKO', 'Kids range · MAKO'), liv: 'mako', lab: tt('MAKO rouge', 'Red MAKO'), photos: Object.keys(MAKO.fr).map(v => [`mako2-${v}`, MAKO[LANG][v]]) }
   };
   const dlg = $('#zoomDlg'), zImg = $('#zoomImg');
   const Z = { key: 'iruka', mode: 'photo', i: 0, frame: 0 };
   const zm = () => ZOOM[Z.key];
-  const zLiv = () => LIVERIES.find(l => l.id === zm().liv);
+  const zLiv = () => { const l = LIVERIES.find(x => x.id === zm().liv); return l ? l[LANG] : zm().lab; };
   const zFrames = () => frames(zm().liv);
   const zoomOut = () => zImg.classList.remove('is-zoomed');
   const zShow = () => {
@@ -221,11 +224,11 @@ addEventListener('DOMContentLoaded', () => {
       const [n, label] = m.photos[Z.i];
       zImg.src = IMG(zFile(n)); zImg.alt = `${m.name} · ${label}`;
       $('#zoomCap').textContent = `${tt('Rendu', 'Render')} · ${label} · ${UHD.has(n) ? 'Ultra HD' : 'HD'}`;
-      $('#zoomHint').textContent = m.liv ? tt('Cliquez sur la photo pour zoomer.', 'Click the photo to zoom in.') : tt('Cliquez sur la photo pour zoomer. 360° à venir pour ce modèle.', 'Click the photo to zoom in. 360° coming for this model.');
+      $('#zoomHint').textContent = tt('Cliquez sur la photo pour zoomer.', 'Click the photo to zoom in.');
     } else {
       const v = zFrames()[Z.frame];
       zImg.src = IMG(`cfg-${m.liv}-${v}.jpg`); zImg.alt = `${m.name} · ${viewName(v)}`;
-      $('#zoomCap').textContent = `${tt('Rendu', 'Render')} · ${zLiv()[LANG]} · ${viewName(v)} · 360°`;
+      $('#zoomCap').textContent = `${tt('Rendu', 'Render')} · ${zLiv()} · ${viewName(v)} · 360°`;
       $('#zoomHint').textContent = tt('Faites glisser pour tourner.', 'Drag to turn.');
     }
     const th = $('#zoomThumbs');
@@ -261,7 +264,7 @@ addEventListener('DOMContentLoaded', () => {
     if (Z.mode === 'photo' && zImg.classList.contains('is-zoomed')) { const r = zImg.getBoundingClientRect(); zImg.style.transformOrigin = `${(e.clientX - r.left) / r.width * 100}% ${(e.clientY - r.top) / r.height * 100}%`; }
     if (zx === null) return;
     const dx = e.clientX - zx;
-    if (Math.abs(dx) > 24) { zStep(dx < 0 ? 1 : -1); zx = e.clientX; }
+    if (Math.abs(dx) > (zFrames().length > 8 ? 24 : 48)) { zStep(dx < 0 ? 1 : -1); zx = e.clientX; }
   });
   zImg.addEventListener('pointerup', () => { zx = null; });
   zImg.addEventListener('click', e => {

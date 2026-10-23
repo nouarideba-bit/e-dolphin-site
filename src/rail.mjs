@@ -27,7 +27,7 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
       ${model(href('iruka'), 'cfg-blanc-face-s.jpg', 'IRUKA', t('Le modèle de série', 'The series model'), '35 990 € HT')}
       ${model(href('launch-edition'), 'cfg-predator-face-s.jpg', 'Launch Edition', t('300 exemplaires numérotés', '300 numbered units'), '90 000 $ HT')}
       ${model(href('index') + '#bientot', 'tridens-s.jpg', 'Tridens', t('Trois places · concept', 'Three seats · concept'), t('Bientôt', 'Soon'), true)}
-      ${model(href('index') + '#bientot', 'kids-mako-s.jpg', t('Gamme enfants', 'Kids range'), t('6 à 12 ans · concept', 'Ages 6 to 12 · concept'), t('Bientôt', 'Soon'), true)}`;
+      ${model(href('index') + '#bientot', 'kids-mako2-s.jpg', t('Gamme enfants', 'Kids range'), t('6 à 12 ans · concept', 'Ages 6 to 12 · concept'), t('Bientôt', 'Soon'), true)}`;
 
   return `
 <aside id="rail" class="rail fixed inset-y-0 left-0 z-50 hidden w-[104px] flex-col lg:flex" aria-label="${t('Navigation principale', 'Main navigation')}">
