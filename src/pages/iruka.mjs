@@ -77,8 +77,8 @@ export const body = (L, R) => {
       <div class="mt-12 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
         <div id="tabs" class="grid grid-cols-2 gap-3 self-start sm:grid-cols-3 lg:grid-cols-2" role="tablist" aria-label="${t('Détails IRUKA', 'IRUKA details')}"></div>
         <div class="glass relative min-w-0 overflow-hidden rounded-3xl">
-          <img id="detailImg" src="${img(R, 'detail-led.jpg')}" alt="" class="aspect-[16/9] w-full object-cover transition-opacity duration-500">
-          <span class="glass tag absolute left-4 top-4 rounded-full px-3 py-1">${t('Rendu', 'Render')}</span>
+          <img id="detailImg" src="${img(R, 'detail-led-hd.jpg')}" alt="" loading="lazy" decoding="async" class="aspect-[16/9] w-full object-cover transition-opacity duration-500">
+          <span id="detailTag" class="glass tag absolute left-4 top-4 rounded-full px-3 py-1">${t('Rendu', 'Render')}</span>
           <div class="p-6">
             <h3 id="detailTitle" class="font-display text-xl font-semibold"></h3>
             <p id="detailText" class="mt-2 text-brume"></p>
