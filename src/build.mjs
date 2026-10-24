@@ -76,12 +76,22 @@ const withDims = (html) => html.replace(/<img\b(?![^>]*\bwidth=)([^>]*?)\bsrc="(
   return d ? `<img${a}src="${src}" width="${d[0]}" height="${d[1]}"${rest}>` : m;
 });
 
+// Photos are served as WebP when a lighter WebP copy sits next to the JPEG (about 37 % lighter, 24 Oct 2026; every browser
+// since 2020). Images a script swaps or reads (they carry an id) keep their JPEG, so the scripts work unchanged.
+const webpOf = (u) => {
+  const w = u.replace(/\.jpe?g$/i, '.webp');
+  return w !== u && /^(?:\.\.\/)?assets\/img\//.test(u) && existsSync(`${OUT}/${w.replace(/^\.\.\//, '')}`) ? w : null;
+};
+const withWebp = (html) => html.replace(/<img\b[^>]*>/g, (tag) => /\sid="/.test(tag) ? tag : tag
+  .replace(/(\s(?:src|data-src)=")([^"]+)"/g, (m, a, u) => { const w = webpOf(u); return w ? `${a}${w}"` : m; })
+  .replace(/\ssrcset="([^"]+)"/g, (m, set) => ` srcset="${set.split(',').map(part => { const [u, ...d] = part.trim().split(/\s+/); return [webpOf(u) || u, ...d].join(' '); }).join(', ')}"`));
+
 for (const L of ['fr', 'en']) {
   const dir = L === 'fr' ? OUT : `${OUT}/en`, R = L === 'fr' ? '' : '../';
   mkdirSync(dir, { recursive: true });
   for (const [slug, mod] of Object.entries(SOURCES)) {
     const html = page({ L, slug, title: mod.meta[L].title, desc: mod.meta[L].desc, body: mod.body(L, R), scripts: mod.scripts || [], rail: true, head: mod.preload ? mod.preload(R) + '\n' : '' });
-    writeFileSync(`${dir}/${fileName(L, slug)}`, withDims(inlineIcons(L === 'en' ? en(html) : html)));
+    writeFileSync(`${dir}/${fileName(L, slug)}`, withWebp(withDims(inlineIcons(L === 'en' ? en(html) : html))));
   }
 }
 

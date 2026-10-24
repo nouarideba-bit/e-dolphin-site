@@ -20,8 +20,10 @@ addEventListener('DOMContentLoaded', () => {
       }
       loud.setAttribute('d', a); calm.setAttribute('d', b);
     };
-    let ph = 0; draw(0);
-    if (!reduceMotion) (function loop() { ph += .03; draw(ph); requestAnimationFrame(loop); })();
+    let ph = 0, on = false, raf = 0; draw(0);
+    // Animate only while the lines are on screen: an endless loop off screen drains phone batteries (24 Oct)
+    const loop = () => { ph += .03; draw(ph); raf = on ? requestAnimationFrame(loop) : 0; };
+    if (!reduceMotion) new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on && !raf) raf = requestAnimationFrame(loop); }).observe(loud.closest('svg') || loud);
   }
 
   // Livery picker: swap the studio render and the configurator links

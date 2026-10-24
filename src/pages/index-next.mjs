@@ -47,15 +47,15 @@ export const body = (L, R) => {
     <figure class="relative h-[86svh] min-h-[600px] overflow-hidden sm:h-[80svh]">
       ${heroLoop(L, R, 'h-full w-full object-cover')}
       <div class="home-hero-shade absolute inset-0"></div>
-      <figcaption class="tag absolute right-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
-      <div class="absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
+      <figcaption class="hero-cap tag absolute right-4 top-16 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
+      <div class="hero-copy absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
         <p class="font-mono text-[11px] uppercase tracking-[.22em] text-lagoon">${t('Conçu et assemblé en France', 'Designed and assembled in France')}</p>
         <h1 class="mt-3 max-w-4xl font-display text-[2.35rem] font-semibold leading-[1.02] sm:text-6xl xl:text-7xl">${t('Le jet-ski 100 % électrique de luxe.', 'The 100% electric luxury jet ski.')}</h1>
         <p class="mt-4 max-w-2xl text-foam/90 sm:text-lg">${t('215 ch, 60 nœuds visés, zéro essence à bord. Silencieux au mouillage pour votre yacht, économique à l\'heure pour votre flotte.', '215 hp, 60 knots targeted, zero fuel on board. Silent at anchor for your yacht, low cost per hour for your fleet.')}</p>
         <div class="mt-6 flex flex-wrap items-center gap-3">
           ${btn('launch-edition.html#numero', t('Réserver mon numéro', 'Reserve my number'), 'gem')}
-          ${btn('location.html#offre', t('Demander une offre flotte', 'Request a fleet offer'), 'sailboat', false)}
-          ${filmBtn(L, 'glass')}
+          ${btn('location.html#offre', t('Demander une offre flotte', 'Request a fleet offer'), 'sailboat', false).replace('class="', 'class="max-sm:order-2 ')}
+          ${filmBtn(L, 'glass max-sm:order-1', true)}
         </div>
         <p class="mt-5 text-sm text-foam/85">${t('À partir de', 'From')} <b class="num">${PRICE.iruka}</b> <span class="text-foam/60">·</span> Launch Edition <b class="num">${PRICE.launch}</b> <span class="num text-foam/60">${PRICE.launchAlt}</span></p>
       </div>

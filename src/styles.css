@@ -221,8 +221,20 @@ details[open] .chev { transform: rotate(45deg); }
 /* Home hero (audit 22 Oct): the headline sits on the footage, so the bottom of the picture darkens */
 .home-hero-shade { background: linear-gradient(180deg, rgba(6,19,28,.35) 0%, rgba(6,19,28,0) 22%, rgba(6,19,28,.15) 45%, rgba(6,19,28,.88) 100%); }
 
+/* Home hero on phones (24 Oct): the hero ends at the bottom of the screen and its copy stays above the tab bar (62 px),
+   so the price and the film button are visible without scrolling. 7rem = the Launch Edition band, while it is open. */
+@media (max-width: 639.98px) {
+  .home-hero > figure { height: 100svh; min-height: 520px; }
+  #annonce:not([hidden]) + .home-hero > figure { height: calc(100svh - 7rem); }
+  .home-hero .hero-copy { padding-bottom: calc(62px + 1rem + env(safe-area-inset-bottom)); }
+  /* the copy covers most of a phone screen: darken its middle too, so the subtitle reads on the sunset */
+  .home-hero-shade { background: linear-gradient(180deg, rgba(6,19,28,.35) 0%, rgba(6,19,28,.12) 18%, rgba(6,19,28,.5) 42%, rgba(6,19,28,.9) 100%); }
+}
+@media (max-width: 1023.98px) { #annonce:not([hidden]) + .home-hero .hero-cap { top: 1rem; } }
+
 /* WhatsApp button, on every page; above the tab bar on phones */
-.wa-float { position: fixed; right: 1rem; bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 45; display: inline-flex; align-items: center; gap: .5rem; border-radius: 9999px; background: #25D366; color: #06131C; padding: .7rem; box-shadow: 0 10px 30px rgba(0,0,0,.35); font-weight: 600; transition: transform .2s; }
+.wa-float { position: fixed; right: 1rem; bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 45; display: inline-flex; align-items: center; gap: .5rem; border-radius: 9999px; background: #25D366; color: #06131C; padding: .7rem; box-shadow: 0 10px 30px rgba(0,0,0,.35); font-weight: 600; transition: transform .2s, opacity .3s, visibility .3s; }
+.wa-float.is-tucked { opacity: 0; visibility: hidden; transform: translateY(.75rem); pointer-events: none; }
 .wa-float:hover { transform: translateY(-2px); }
 .wa-float-label { display: none; }
 @media (min-width: 1024px) { .wa-float { bottom: 1.5rem; right: 1.5rem; padding: .75rem 1.1rem .75rem .85rem; } .wa-float-label { display: inline; } }

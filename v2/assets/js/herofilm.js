@@ -2,8 +2,17 @@
 addEventListener('DOMContentLoaded', () => {
   const loop = document.getElementById('heroLoop'), dlg = document.getElementById('filmDlg'), film = document.getElementById('filmDlgVideo');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // The loop file is attached once the page has loaded, so the poster image paints first (mobile speed)
-  const attach = () => { if (loop && !loop.getAttribute('src')) loop.src = loop.dataset.src; };
+  // The loop file is attached once the page has loaded, so the poster image paints first (mobile speed).
+  // Phones in portrait only ever show a vertical strip of the footage: they get the same strip, cropped (0.8 MB instead of 2.2).
+  const portrait = matchMedia('(max-width: 640px) and (orientation: portrait)');
+  const want = () => (portrait.matches && loop.dataset.srcMobile) || loop.dataset.src;
+  const attach = () => { if (loop && !loop.getAttribute('src')) loop.src = want(); };
+  // Turning the phone after the start swaps to the file that fits, at the same moment of the loop
+  portrait.addEventListener('change', () => {
+    if (!loop || !loop.getAttribute('src') || loop.getAttribute('src') === want()) return;
+    const at = loop.currentTime, playing = !loop.paused;
+    loop.src = want(); loop.currentTime = at; if (playing) loop.play().catch(() => {});
+  });
   if (loop && reduce) { loop.removeAttribute('autoplay'); loop.pause(); }
   if (loop && !reduce) document.readyState === 'complete' ? attach() : addEventListener('load', attach, { once: true });
   // Sound switch: the button shows the state of the hero film (aria-pressed = sound on)

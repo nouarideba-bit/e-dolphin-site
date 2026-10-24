@@ -31,6 +31,14 @@ addEventListener('DOMContentLoaded', () => {
   const menuBtn = $('#menuBtn'), menu = $('#mobileMenu');
   menuBtn.addEventListener('click', () => { const open = menu.hidden; menu.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open)); });
 
+  /* Phones and tablets: the WhatsApp button waits until the home hero has mostly scrolled away,
+     so the first screen keeps its buttons clear (24 Oct). Elsewhere it shows as before. */
+  const wa = $('.wa-float'), heroFig = $('.home-hero > figure');
+  if (wa && heroFig) {
+    const small = matchMedia('(max-width: 1023.98px)');
+    new IntersectionObserver(([e]) => wa.classList.toggle('is-tucked', small.matches && e.intersectionRatio > .6), { threshold: [0, .6, 1] }).observe(heroFig);
+  }
+
   /* Reveal on scroll (content stays visible without it) */
   const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1 });
   $$('.rise, main section > div > h2, main figure, main article').forEach(el => { el.classList.add('rise'); io.observe(el); });

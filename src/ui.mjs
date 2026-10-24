@@ -39,12 +39,15 @@ export const ctaBand = (L) => {
 // Home hero film: a short silent loop of the real footage plays behind the hero;
 // the button opens the full film (1:28) with sound and controls.
 export const heroLoop = (L, R, cls = 'absolute inset-0 -z-20 h-full w-full object-cover') =>
-  // The loop (2.2 MB) starts once the page has loaded (herofilm.js), so the poster paints first on mobile
-  `<video id="heroLoop" class="hero-img ${cls}" data-src="${R}assets/video/edolphin-boucle-v2.mp4" poster="${img(R, 'hero-s300-1280.webp')}" autoplay muted loop playsinline preload="none" aria-label="${tr(L)('Images réelles du prototype S300 en mer, en boucle', 'Real footage of the S300 prototype at sea, looping')}"></video>`;
+  // The loop (2.2 MB, or 0.8 MB cropped for phones in portrait) starts once the page has loaded (herofilm.js), so the poster paints first on mobile
+  `<video id="heroLoop" class="hero-img ${cls}" data-src="${R}assets/video/edolphin-boucle-v2.mp4" data-src-mobile="${R}assets/video/edolphin-boucle-mobile.mp4" poster="${img(R, 'hero-s300-1280.webp')}" autoplay muted loop playsinline preload="none" aria-label="${tr(L)('Images réelles du prototype S300 en mer, en boucle', 'Real footage of the S300 prototype at sea, looping')}"></video>`;
 
 
-export const filmBtn = (L, cls = 'glass') =>
-  `<button type="button" data-film-open class="${cls} inline-flex items-center gap-3 rounded-full py-2 pl-2 pr-5 font-semibold"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><i data-lucide="play" class="h-4 w-4"></i></span>${tr(L)('Regarder le film', 'Watch the film')} <span class="num font-mono text-xs opacity-70">1:28</span></button>`;
+export const filmBtn = (L, cls = 'glass', compactOnPhone = false) => {
+  // compactOnPhone: on phones only the play button shows (the label stays for screen readers), so the hero fits above the tab bar
+  const label = `${tr(L)('Regarder le film', 'Watch the film')} <span class="num font-mono text-xs opacity-70">1:28</span>`;
+  return `<button type="button" data-film-open class="${cls} inline-flex items-center gap-3 rounded-full py-2 pl-2 pr-5 font-semibold${compactOnPhone ? ' max-sm:pr-2' : ''}"><span class="grid h-10 w-10 place-items-center rounded-full bg-lagoon text-abyss"><i data-lucide="play" class="h-4 w-4"></i></span>${compactOnPhone ? `<span class="max-sm:sr-only">${label}</span>` : label}</button>`;
+};
 
 export const filmDialog = (L, R) => {
   const t = tr(L);
