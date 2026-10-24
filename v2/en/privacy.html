@@ -30,7 +30,7 @@
 <meta property="og:locale:alternate" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Fonts are served by the site (no Google Fonts request). No font preload: on slow 4G it delayed the first paint by 0.3-0.4 s (measured 23 Oct) -->
-<link rel="stylesheet" href="../assets/site.css?v=ba884143">
+<link rel="stylesheet" href="../assets/site.css?v=aff909d4">
 
 <script defer src="../assets/js/icons.js?v=f932be4f"></script>
 <script defer src="../assets/js/site.js?v=2f465b45"></script>
@@ -44,6 +44,8 @@
 
 <aside id="rail" class="rail fixed inset-y-0 left-0 z-50 hidden w-[104px] flex-col lg:flex" aria-label="Main navigation">
   <a href="./" class="rail-logo flex h-[78px] shrink-0 flex-col items-center justify-center gap-1" aria-label="E-Dolphin, home"><svg width="44" height="33" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg><span class="font-display text-[9px] font-semibold tracking-[.28em]">E-DOLPHIN</span></a>
+  <!-- Language switch at the top of the rail, where visitors look for the flag (adam, 24 Oct: the one at the bottom went unseen) -->
+  <a href="../confidentialite.html" hreflang="fr" class="rail-lang flex shrink-0 items-center justify-center gap-2 py-3 font-mono text-[11px] tracking-[.12em]"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg><span>Français</span></a>
   <nav class="rail-nav flex-1 overflow-y-auto">
     <ul>
       <li><button type="button" class="rail-item" data-fly="models" aria-expanded="false" aria-controls="railFly"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M12 10.189V14" /> <path d="M12 2v3" /> <path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6" /> <path d="M19.38 20A11.6 11.6 0 0 0 21 14l-8.188-3.639a2 2 0 0 0-1.624 0L3 14a11.6 11.6 0 0 0 2.81 7.76" /> <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg><span>Models</span></button></li>
@@ -57,7 +59,6 @@
   </nav>
   <div class="rail-foot shrink-0">
     <button type="button" data-cart-open class="rail-item relative" aria-label="Open my selection"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide h-[22px] w-[22px]" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" /> <path d="M3 6h18" /> <path d="M16 10a4 4 0 0 1-8 0" /></svg><span>My selection</span><b data-cart-count class="num absolute right-6 top-3 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</b></button>
-    <a href="../confidentialite.html" hreflang="fr" class="rail-item !min-h-[58px]"><svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg><span>Français</span></a>
   </div>
 </aside>
 

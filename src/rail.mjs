@@ -32,6 +32,8 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
   return `
 <aside id="rail" class="rail fixed inset-y-0 left-0 z-50 hidden w-[104px] flex-col lg:flex" aria-label="${t('Navigation principale', 'Main navigation')}">
   <a href="${href('index')}" class="rail-logo flex h-[78px] shrink-0 flex-col items-center justify-center gap-1" aria-label="E-Dolphin, ${t('accueil', 'home')}">${logo(44, 33)}<span class="font-display text-[9px] font-semibold tracking-[.28em]">E-DOLPHIN</span></a>
+  <!-- Language switch at the top of the rail, where visitors look for the flag (adam, 24 Oct: the one at the bottom went unseen) -->
+  <a href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}" class="rail-lang flex shrink-0 items-center justify-center gap-2 py-3 font-mono text-[11px] tracking-[.12em]">${L === 'fr' ? flagEn() : flagFr}<span>${L === 'fr' ? 'English' : 'Français'}</span></a>
   <nav class="rail-nav flex-1 overflow-y-auto">
     <ul>
       ${panelBtn('models', 'ship', t('Modèles', 'Models'))}
@@ -45,7 +47,6 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
   </nav>
   <div class="rail-foot shrink-0">
     <button type="button" data-cart-open class="rail-item relative" aria-label="${t('Ouvrir ma sélection', 'Open my selection')}"><i data-lucide="shopping-bag" class="h-[22px] w-[22px]"></i><span>${t('Ma sélection', 'My selection')}</span><b data-cart-count class="num absolute right-6 top-3 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</b></button>
-    <a href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}" class="rail-item !min-h-[58px]">${L === 'fr' ? flagEn() : flagFr}<span>${L === 'fr' ? 'English' : 'Français'}</span></a>
   </div>
 </aside>
 

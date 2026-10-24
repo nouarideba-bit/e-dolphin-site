@@ -47,7 +47,7 @@ export const body = (L, R) => {
     <figure class="relative h-[86svh] min-h-[600px] overflow-hidden sm:h-[80svh]">
       ${heroLoop(L, R, 'h-full w-full object-cover')}
       <div class="home-hero-shade absolute inset-0"></div>
-      <div class="hero-logo pointer-events-none absolute right-4 top-16 lg:right-[8%] lg:top-1/2 lg:-translate-y-1/2" aria-hidden="true"><div class="hero-logo-spin"><svg viewBox="0 0 40 30"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/></svg></div></div>
+      <div class="hero-logo pointer-events-none absolute right-4 top-16 lg:right-[8%] lg:top-1/2 lg:-translate-y-1/2" aria-hidden="true"><div class="hero-logo-spin"><svg viewBox="0 0 40 30"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg></div></div>
       <figcaption class="hero-cap tag absolute left-4 top-16 lg:left-auto lg:right-4 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
       <div class="hero-copy absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
         <p class="font-mono text-[11px] uppercase tracking-[.22em] text-lagoon">${t('Conçu et assemblé en France', 'Designed and assembled in France')}</p>
