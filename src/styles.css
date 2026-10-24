@@ -230,7 +230,18 @@ details[open] .chev { transform: rotate(45deg); }
   /* the copy covers most of a phone screen: darken its middle too, so the subtitle reads on the sunset */
   .home-hero-shade { background: linear-gradient(180deg, rgba(6,19,28,.35) 0%, rgba(6,19,28,.12) 18%, rgba(6,19,28,.5) 42%, rgba(6,19,28,.9) 100%); }
 }
-@media (max-width: 1023.98px) { #annonce:not([hidden]) + .home-hero .hero-cap { top: 1rem; } }
+/* Very narrow phones (320 px): the copy wraps on more lines, so the hero keeps a fixed, taller height and the copy never rises under the header */
+@media (max-width: 359.98px) { .home-hero > figure, #annonce:not([hidden]) + .home-hero > figure { height: 660px; min-height: 0; } }
+@media (max-width: 1023.98px) { #annonce:not([hidden]) + .home-hero :is(.hero-cap, .hero-logo) { top: 1rem; } }
+
+/* Home hero: the E-Dolphin mark turns slowly on itself (one turn every 14 s), right of the hero; still when motion is reduced */
+/* The glow sits on the still wrapper and the turning layer holds only the drawing, so the browser keeps the mark sharp */
+.hero-logo { perspective: 900px; filter: drop-shadow(0 0 12px rgba(46,230,168,.35)); animation: hero-logo-in 1.4s .9s both; }
+.hero-logo svg { display: block; width: 52px; height: 39px; }
+.hero-logo-spin { animation: hero-logo-spin 14s linear infinite; backface-visibility: visible; }
+@media (min-width: 1024px) { .hero-logo { filter: drop-shadow(0 0 28px rgba(46,230,168,.3)); } .hero-logo svg { width: 190px; height: 143px; } }
+@keyframes hero-logo-spin { to { transform: rotateY(360deg); } }
+@keyframes hero-logo-in { from { opacity: 0; } to { opacity: .92; } }
 
 /* Motion (fx.js, 24 Oct): the home hero copy and the page titles wait, hidden, for their entrance. Only when motion is allowed
    (.fx, set in <head>); if fx.js never runs they still appear after 2 s. Words slide up behind a mask (.fx-w). */
