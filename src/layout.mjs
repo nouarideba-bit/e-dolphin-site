@@ -47,10 +47,10 @@ export const PAGES = [
 ];
 
 // Brand mark V5 (validated 22 Oct 2026): capsule, bar attached to the left stroke, small EDOLPHIN at the bar end.
-// The E of EDOLPHIN is the mark itself in miniature, so whoever sees the mark reads it as the E of E-Dolphin (adam, 24 Oct)
+// The E of EDOLPHIN is drawn, not typed: a real E with slightly rounded corners and round ends, like the mark (adam, 24 Oct)
 const mark = (c) => `<rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="${c}" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="${c}"/>`;
 // c = colour of the mark: off-white by default, IRUKA turquoise for the spinning logo of the home hero
-export const logoArt = (c = '#F6F8F7') => `${mark(c)}<g transform="translate(17.15 14.15) scale(.0567)">${mark('#0A1E2B')}</g><text x="28.4" y="15.82" text-anchor="end" textLength="8.8" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">DOLPHIN</text>`;
+export const logoArt = (c = '#F6F8F7') => `${mark(c)}<path d="M19.25 14.35H18.75A.35.35 0 0 0 18.4 14.7V15.32A.35.35 0 0 0 18.75 15.67H19.25M18.4 15.01H19.05" fill="none" stroke="#0A1E2B" stroke-width=".3" stroke-linecap="round" stroke-linejoin="round"/><text x="28.4" y="15.82" text-anchor="end" textLength="8.8" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">DOLPHIN</text>`;
 export const logo = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 40 30" aria-hidden="true">${logoArt()}</svg>`;
 
 // Language flags drawn inline (emoji flags do not render on Windows)
