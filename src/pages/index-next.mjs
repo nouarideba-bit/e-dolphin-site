@@ -50,8 +50,8 @@ export const body = (L, R) => {
     <figure class="relative h-[86svh] min-h-[600px] overflow-hidden sm:h-[80svh]">
       ${heroLoop(L, R, 'h-full w-full object-cover')}
       <div class="home-hero-shade absolute inset-0"></div>
-      <div class="hero-logo pointer-events-none absolute right-4 top-16 lg:right-[8%] lg:top-1/2 lg:-translate-y-1/2" aria-hidden="true"><div class="hero-logo-spin">${[0, 1].map(() => `<svg viewBox="0 0 40 30">${logoArt(IRUKA_BLUE)}</svg>`).join('')}</div></div>
-      <figcaption class="hero-cap tag absolute left-4 top-16 lg:left-auto lg:right-4 rounded-full bg-black/45 px-3 py-1 text-white lg:top-4">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
+      <div class="hero-logo pointer-events-none absolute right-4 top-16 lg:right-6 lg:top-6" aria-hidden="true"><div class="hero-logo-spin">${[0, 1].map(() => `<svg viewBox="0 0 40 30">${logoArt(IRUKA_BLUE)}</svg>`).join('')}</div></div>
+      <figcaption class="hero-cap tag absolute left-4 top-16 lg:left-6 rounded-full bg-black/45 px-3 py-1 text-white lg:top-6">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
       <div class="hero-copy absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
         <p class="font-mono text-[11px] uppercase tracking-[.22em] text-lagoon">${t('Conçu et assemblé en France', 'Designed and assembled in France')}</p>
         <h1 class="mt-3 max-w-4xl font-display text-[2.35rem] font-semibold leading-[1.02] sm:text-6xl xl:text-7xl">${t('Le jet-ski 100 % électrique de luxe.', 'The 100% electric luxury jet ski.')}</h1>

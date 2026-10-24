@@ -236,7 +236,7 @@ details[open] .chev { transform: rotate(45deg); }
 @media (max-width: 359.98px) { .home-hero > figure, #annonce:not([hidden]) + .home-hero > figure { height: 660px; min-height: 0; } }
 @media (max-width: 1023.98px) { #annonce:not([hidden]) + .home-hero :is(.hero-cap, .hero-logo) { top: 1rem; } }
 
-/* Home hero: the E-Dolphin mark turns slowly on itself (one turn every 14 s), right of the hero; still when motion is reduced */
+/* Home hero: the E-Dolphin mark turns slowly on itself (one turn every 14 s) in the top right corner of the photo (adam, 24 Oct); still when motion is reduced */
 /* The glow sits on the still wrapper and the turning layer holds only the drawing, so the browser keeps the mark sharp */
 .hero-logo { perspective: 900px; filter: drop-shadow(0 0 12px rgba(22,176,217,.4)); animation: hero-logo-in 1.4s .9s both; }
 .hero-logo svg { display: block; width: 39px; height: 29px; }
