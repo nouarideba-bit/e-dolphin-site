@@ -41,7 +41,8 @@ addEventListener('DOMContentLoaded', () => {
 
   /* Reveal on scroll (content stays visible without it) */
   const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1 });
-  $$('.rise, main section > div > h2, main figure, main article').forEach(el => { el.classList.add('rise'); io.observe(el); });
+  // Card groups taken over by the Motion cascade (fx.js marks them [data-fx]) are left out
+  $$('.rise, main section > div > h2, main figure, main article').filter(el => !el.closest('[data-fx]')).forEach(el => { el.classList.add('rise'); io.observe(el); });
 
   /* Newsletter */
   const nl = $('#newsletter');

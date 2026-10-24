@@ -232,6 +232,13 @@ details[open] .chev { transform: rotate(45deg); }
 }
 @media (max-width: 1023.98px) { #annonce:not([hidden]) + .home-hero .hero-cap { top: 1rem; } }
 
+/* Motion (fx.js, 24 Oct): the home hero copy and the page titles wait, hidden, for their entrance. Only when motion is allowed
+   (.fx, set in <head>); if fx.js never runs they still appear after 2 s. Words slide up behind a mask (.fx-w). */
+.fx .hero-copy > *, .fx main h1, .fx main section > div > h2 { opacity: 0; animation: fx-show .01s 2s forwards; }
+@keyframes fx-show { to { opacity: 1; } }
+.fx-w { display: inline-block; overflow: hidden; vertical-align: bottom; padding: .12em 0 .14em; margin: -.12em 0 -.14em; }
+.fx-w > span { display: inline-block; will-change: transform; }
+
 /* WhatsApp button, on every page; above the tab bar on phones */
 .wa-float { position: fixed; right: 1rem; bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 45; display: inline-flex; align-items: center; gap: .5rem; border-radius: 9999px; background: #25D366; color: #06131C; padding: .7rem; box-shadow: 0 10px 30px rgba(0,0,0,.35); font-weight: 600; transition: transform .2s, opacity .3s, visibility .3s; }
 .wa-float.is-tucked { opacity: 0; visibility: hidden; transform: translateY(.75rem); pointer-events: none; }

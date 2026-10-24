@@ -34,8 +34,18 @@ addEventListener('DOMContentLoaded', () => {
     const pre = new Image(); pre.src = `${root}assets/img/cfg-${b.dataset.liv}-profil.jpg`;
     b.addEventListener('click', () => {
       btns.forEach(o => o.setAttribute('aria-checked', String(o === b)));
-      imgEl.style.opacity = 0;
-      setTimeout(() => { imgEl.src = pre.src; imgEl.style.opacity = 1; }, reduceMotion ? 0 : 180);
+      const M = window.Motion;
+      if (M && !reduceMotion) {
+        // Motion (fx.js bundle): fade out with a slight step back, swap once the new picture is decoded, then settle in
+        M.animate(imgEl, { opacity: 0, scale: 0.97 }, { duration: 0.18 }).then(() => {
+          const show = () => M.animate(imgEl, { opacity: [0, 1], scale: [1.03, 1] }, { duration: 0.55, ease: [0.2, 0.7, 0.2, 1] });
+          imgEl.src = pre.src;
+          (imgEl.decode ? imgEl.decode() : Promise.resolve()).then(show, show);
+        });
+      } else {
+        imgEl.style.opacity = 0;
+        setTimeout(() => { imgEl.src = pre.src; imgEl.style.opacity = 1; }, reduceMotion ? 0 : 180);
+      }
       cap.textContent = b.dataset.name;
       go.href = `${pageHref('configurateur')}?modele=iruka&livree=${b.dataset.liv}`;
       go360.href = `${pageHref('configurateur')}?modele=${b.dataset.liv === 'predator' ? 'launch' : 'iruka'}&livree=${b.dataset.liv}&vue=profil`;

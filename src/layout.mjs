@@ -70,6 +70,7 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false, h
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('fx')</script>
 <title>${title}</title>
 <meta name="description" content="${desc}">
 <meta name="robots" content="${indexable(slug) ? 'index, follow' : INDEXABLE ? 'noindex, follow' : 'noindex, nofollow'}">
@@ -100,6 +101,8 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false, h
 ${structuredData({ L, slug, desc, base: BASE, url: pageUrl })}${head}
 <script defer src="${root}assets/js/icons.js"></script>
 <script defer src="${root}assets/js/site.js"></script>
+<script defer src="${root}assets/js/vendor-motion.min.js"></script>
+<script defer src="${root}assets/js/fx.js"></script>
 ${scripts.map(s => `<script defer src="${root}assets/js/${s}"></script>`).join('\n')}
 ${rail ? `<script defer src="${root}assets/js/rail.js"></script>` : ''}
 </head>
