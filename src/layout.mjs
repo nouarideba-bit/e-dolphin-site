@@ -46,8 +46,12 @@ export const PAGES = [
   { slug: 'cgv', nav: false, fr: 'Conditions générales de vente', en: 'Terms of sale' }
 ];
 
-// Brand mark V5 (validated 22 Oct 2026): capsule, bar attached to the left stroke, small EDOLPHIN at the bar end
-export const logo = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 40 30" aria-hidden="true"><rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="#F6F8F7" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="#F6F8F7"/><text x="28.4" y="15.82" text-anchor="end" textLength="10.5" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">EDOLPHIN</text></svg>`;
+// Brand mark V5 (validated 22 Oct 2026): capsule, bar attached to the left stroke, small EDOLPHIN at the bar end.
+// The E of EDOLPHIN is the mark itself in miniature, so whoever sees the mark reads it as the E of E-Dolphin (adam, 24 Oct)
+const mark = (c) => `<rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="${c}" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="${c}"/>`;
+// c = colour of the mark: off-white by default, IRUKA turquoise for the spinning logo of the home hero
+export const logoArt = (c = '#F6F8F7') => `${mark(c)}<g transform="translate(17.15 14.15) scale(.0567)">${mark('#0A1E2B')}</g><text x="28.4" y="15.82" text-anchor="end" textLength="8.8" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">DOLPHIN</text>`;
+export const logo = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 40 30" aria-hidden="true">${logoArt()}</svg>`;
 
 // Language flags drawn inline (emoji flags do not render on Windows)
 const FLAG_FR = `<svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>`;

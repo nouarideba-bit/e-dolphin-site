@@ -238,10 +238,14 @@ details[open] .chev { transform: rotate(45deg); }
 
 /* Home hero: the E-Dolphin mark turns slowly on itself (one turn every 14 s), right of the hero; still when motion is reduced */
 /* The glow sits on the still wrapper and the turning layer holds only the drawing, so the browser keeps the mark sharp */
-.hero-logo { perspective: 900px; filter: drop-shadow(0 0 12px rgba(46,230,168,.35)); animation: hero-logo-in 1.4s .9s both; }
+.hero-logo { perspective: 900px; filter: drop-shadow(0 0 12px rgba(22,176,217,.4)); animation: hero-logo-in 1.4s .9s both; }
 .hero-logo svg { display: block; width: 39px; height: 29px; }
-.hero-logo-spin { animation: hero-logo-spin 14s linear infinite; backface-visibility: visible; }
-@media (min-width: 1024px) { .hero-logo { filter: drop-shadow(0 0 28px rgba(46,230,168,.3)); } .hero-logo svg { width: 143px; height: 107px; } }
+.hero-logo-spin { position: relative; transform-style: preserve-3d; animation: hero-logo-spin 14s linear infinite; }
+/* The mark is drawn twice, back to back: each copy hides when it faces away and the back one is turned half a turn,
+   so EDOLPHIN always reads the right way round, never mirrored (adam, 24 Oct) */
+.hero-logo-spin svg { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.hero-logo-spin svg + svg { position: absolute; inset: 0; transform: rotateY(180deg); }
+@media (min-width: 1024px) { .hero-logo { filter: drop-shadow(0 0 28px rgba(22,176,217,.35)); } .hero-logo svg { width: 143px; height: 107px; } }
 @keyframes hero-logo-spin { to { transform: rotateY(360deg); } }
 @keyframes hero-logo-in { from { opacity: 0; } to { opacity: .92; } }
 
