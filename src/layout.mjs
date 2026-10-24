@@ -8,7 +8,7 @@ import { structuredData } from './seo.mjs';
 
 // Public address of the site. Switch to 'https://e-dolphin.fr/' once e-dolphin.fr points to GitHub Pages:
 // canonical links, hreflang, link previews, structured data and the sitemap all follow.
-export const BASE = 'https://nouarideba-bit.github.io/e-dolphin-site/';
+export const BASE = 'https://e-dolphin.fr/';
 // Search engines stay out until the public opening (day J, on written approval): set to true that day.
 // The dealer application is a form step reached after the six questions, so it never goes into search results.
 export const INDEXABLE = false;

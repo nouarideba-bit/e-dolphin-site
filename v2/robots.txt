@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nouarideba-bit.github.io/e-dolphin-site/sitemap.xml
+Sitemap: https://e-dolphin.fr/sitemap.xml
