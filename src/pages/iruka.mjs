@@ -44,9 +44,9 @@ export const body = (L, R) => {
           <div class="glass rounded-2xl p-4"><dt class="tag text-brume">${t('Carène', 'Hull')}</dt><dd class="mt-1 font-display text-lg font-semibold" data-k="hull">${t('Carbone', 'Carbon')}</dd></div>
         </dl>
         <p class="mt-4 flex flex-wrap gap-2 tag text-brume">
-          <span class="rounded-full border border-white/15 px-3 py-1">CE · 2013/53/UE</span><span class="rounded-full border border-white/15 px-3 py-1">ISO 16315</span><span class="rounded-full border border-white/15 px-3 py-1">ISO 13297</span><span class="rounded-full border border-white/15 px-3 py-1">CCS2</span><span class="rounded-full border border-white/15 px-3 py-1">IP67</span>
+          <span class="rounded-full border border-white/15 px-3 py-1">${t('CE visé · 2013/53/UE', 'CE targeted · 2013/53/EU')}</span><span class="rounded-full border border-white/15 px-3 py-1">${t('ISO 16315 visée', 'ISO 16315 targeted')}</span><span class="rounded-full border border-white/15 px-3 py-1">${t('ISO 13297 visée', 'ISO 13297 targeted')}</span><span class="rounded-full border border-white/15 px-3 py-1">CCS2</span><span class="rounded-full border border-white/15 px-3 py-1">IP67</span>
         </p>
-        <p class="mt-3 tag text-brume/80">${t('IRUKA : objectifs de conception, confirmés par les essais de validation.', 'IRUKA: design targets, to be confirmed by validation trials.')}</p>
+        <p class="mt-3 tag text-brume/80">${t('IRUKA : objectifs de conception, à confirmer lors des essais de validation.', 'IRUKA: design targets, to be confirmed by validation trials.')}</p>
       </div>
       <figure class="zoom relative min-w-0 overflow-hidden rounded-3xl">
         <img id="irukaImg" src="${img(R, 'iruka-side.jpg')}" alt="${t('IRUKA vu de profil sur une mer calme', 'IRUKA in profile on calm water')}" class="aspect-[4/3] w-full object-cover" loading="lazy">

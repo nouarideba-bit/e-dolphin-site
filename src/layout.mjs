@@ -195,7 +195,7 @@ ${body}
     <li>© 2026 E-Dolphin</li>
   </ul>
   <p class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-6 font-mono text-[11px] leading-relaxed text-brume/80">${t(
-    'Site privé partagé avec nos partenaires. Caractéristiques IRUKA : objectifs de conception, confirmés par les essais de validation. Visuels marqués « Rendu » : images de synthèse non contractuelles.',
+    'Site privé partagé avec nos partenaires. Caractéristiques IRUKA : objectifs de conception, à confirmer lors des essais de validation. Visuels marqués « Rendu » : images de synthèse non contractuelles.',
     'Private site shared with our partners. IRUKA specifications are design targets, to be confirmed by validation trials. Visuals marked “Render” are computer-generated and non-contractual.')}</p>
 </footer>
 

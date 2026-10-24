@@ -72,10 +72,10 @@ export const body = (L, R) => {
           <tr class="border-b border-white/10"><th scope="row" class="py-3 pr-4 text-left font-normal text-brume">${t('Recharge sur le bord', 'Charging from the yacht')}</th><td class="py-3 font-semibold">${t('≈ 7 h sur 16 A, ≈ 3 h 30 sur 32 A (230 V, de 10 à 80 %)', '≈ 7 h on 16 A, ≈ 3 h 30 on 32 A (230 V, 10 to 80 %)')}</td></tr>
           <tr class="border-b border-white/10"><th scope="row" class="py-3 pr-4 text-left font-normal text-brume">${t('Carburant à bord', 'Fuel on board')}</th><td class="py-3 font-semibold">${t('Aucun : ni bidon, ni vapeurs dans le garage', 'None: no jerrycans, no fumes in the garage')}</td></tr>
           <tr class="border-b border-white/10"><th scope="row" class="py-3 pr-4 text-left font-normal text-brume">${t('Étanchéité', 'Sealing')}</th><td class="py-3 font-semibold">${t('Électronique IP67', 'IP67 electronics')}</td></tr>
-          <tr class="border-b border-white/10"><th scope="row" class="py-3 pr-4 text-left font-normal text-brume">${t('Normes', 'Standards')}</th><td class="py-3 font-semibold">${t('CE (2013/53/UE), ISO 16315, ISO 13297', 'CE (2013/53/EU), ISO 16315, ISO 13297')}</td></tr>
+          <tr class="border-b border-white/10"><th scope="row" class="py-3 pr-4 text-left font-normal text-brume">${t('Normes visées', 'Targeted standards')}</th><td class="py-3 font-semibold">${t('Marquage CE (2013/53/UE), ISO 16315, ISO 13297', 'CE marking (2013/53/EU), ISO 16315, ISO 13297')}</td></tr>
           </tbody>
         </table>
-        <p class="mt-4 tag text-brume/80">${t('Objectifs de conception IRUKA, confirmés par les essais de validation. Temps de recharge sur le bord : estimations, pertes comprises.', 'IRUKA design targets, to be confirmed by validation trials. Charging times from the yacht: estimates, losses included.')}</p>
+        <p class="mt-4 tag text-brume/80">${t('Objectifs de conception IRUKA, à confirmer lors des essais de validation. Temps de recharge sur le bord : estimations, pertes comprises.', 'IRUKA design targets, to be confirmed by validation trials. Charging times from the yacht: estimates, losses included.')}</p>
       </div>
     </div>
   </section>

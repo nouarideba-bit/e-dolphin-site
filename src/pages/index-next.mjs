@@ -137,7 +137,7 @@ export const body = (L, R) => {
       ${stat(2.5, 1, 'h', t('Autonomie en usage mixte', 'Mixed-use range'))}
       ${stat(30, 0, 'min', t('Recharge rapide CCS2, environ', 'CCS2 fast charge, about'))}
     </dl>
-    <p class="mt-8 tag text-brume/80">${t('Objectifs de conception IRUKA, confirmés par les essais de validation.', 'IRUKA design targets, to be confirmed by validation trials.')}</p>
+    <p class="mt-8 tag text-brume/80">${t('Objectifs de conception IRUKA, à confirmer lors des essais de validation.', 'IRUKA design targets, to be confirmed by validation trials.')}</p>
   </section>
 
   <!-- 5. The numbered plate -->

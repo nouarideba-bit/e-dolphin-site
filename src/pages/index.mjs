@@ -38,7 +38,7 @@ export const body = (L, R) => {
       <div class="border-r border-white/10 p-5"><dt class="tag text-brume">${t('Recharge rapide CCS2', 'CCS2 fast charging')}</dt><dd class="num mt-1 font-display text-2xl font-semibold text-lime">≈ 30 min</dd></div>
       <div class="p-5"><dt class="tag text-brume">${t('Fabrication', 'Build')}</dt><dd class="mt-1 font-display text-2xl font-semibold">${t('Assemblé en France', 'Assembled in France')}</dd></div>
     </dl>
-    <p class="mx-auto mt-3 max-w-7xl tag text-brume/80">${t('Objectifs de conception IRUKA, confirmés par les essais de validation.', 'IRUKA design targets, to be confirmed by validation trials.')}</p>
+    <p class="mx-auto mt-3 max-w-7xl tag text-brume/80">${t('Objectifs de conception IRUKA, à confirmer lors des essais de validation.', 'IRUKA design targets, to be confirmed by validation trials.')}</p>
   </section>
 
   <!-- 3. Why electric -->
