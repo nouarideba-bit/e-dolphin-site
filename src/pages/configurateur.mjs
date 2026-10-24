@@ -20,10 +20,10 @@ export const body = (L, R) => {
         <span class="min-w-0 flex-1"><span class="block font-display font-semibold">${name}</span><span class="block text-xs text-ink2">${sub}</span></span>
         <span class="num shrink-0 text-sm font-semibold">${price}</span>
       </button>
-      <button type="button" data-zoom="${zoom}" class="cfg-zoom group absolute left-3 top-1/2 h-16 w-24 -translate-y-1/2 overflow-hidden rounded-xl" aria-label="${t('Agrandir', 'Enlarge')} ${name}" aria-haspopup="dialog">
+      ${zoom ? `<button type="button" data-zoom="${zoom}" class="cfg-zoom group absolute left-3 top-1/2 h-16 w-24 -translate-y-1/2 overflow-hidden rounded-xl" aria-label="${t('Agrandir', 'Enlarge')} ${name}" aria-haspopup="dialog">
         <img src="${img(R, file)}" alt="" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
         <span class="absolute bottom-1 right-1 grid h-6 w-6 place-items-center rounded-full bg-black/60 text-white"><i data-lucide="maximize-2" class="h-3.5 w-3.5"></i></span>
-      </button>
+      </button>` : `<span class="absolute left-3 top-1/2 h-16 w-24 -translate-y-1/2 overflow-hidden rounded-xl"><img src="${img(R, file)}" alt="" class="h-full w-full object-cover" loading="lazy"></span>`}
     </div>`;
   return `
   <div class="cfg-light">
@@ -66,8 +66,8 @@ export const body = (L, R) => {
           <div class="mt-4 grid gap-3">
             ${model('iruka', 'IRUKA', '35 990 € HT', t('Le modèle de série', 'The series model'), 'cfg-blanc-face-s.jpg', false, 'iruka')}
             ${model('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), 'cfg-predator-face-s.jpg', false, 'launch')}
-            ${model('', 'Tridens', t('Bientôt', 'Soon'), t('Prochain modèle', 'Next model'), 'tridens-s.jpg', true, 'tridens')}
-            ${model('', t('Gamme enfants', 'Kids range'), t('Bientôt', 'Soon'), t('6 à 12 ans', 'Ages 6 to 12'), 'kids-mako2-s.jpg', true, 'kids')}
+            ${model('', 'Tridens', t('Bientôt', 'Soon'), t('Prochain modèle', 'Next model'), 'tridens-flou-s.jpg', true, '')}
+            ${model('', t('Gamme enfants', 'Kids range'), t('Bientôt', 'Soon'), t('6 à 12 ans', 'Ages 6 to 12'), 'kids-mako2-flou-s.jpg', true, '')}
           </div>
         </div>
 

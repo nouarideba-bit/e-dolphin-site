@@ -103,8 +103,8 @@ export const body = (L, R) => {
       ${card('configurateur.html?modele=iruka', 'cfg-blanc-profil.jpg', t('Rendu', 'Render'), 'IRUKA', t('Le modèle de série', 'The series model'), `<span class="block text-xs font-normal text-brume">${t('à partir de', 'from')}</span>35 990 € HT`, t('Configurer', 'Configure'))}
       ${card('launch-edition.html', 'cfg-predator-profil.jpg', t('Rendu', 'Render'), 'Launch Edition', t('300 exemplaires numérotés', '300 numbered units'), `${PRICE.launch}<span class="block text-xs font-normal text-brume">${PRICE.launchAlt}</span>`, t('Réserver mon numéro', 'Reserve my number'))}
       <div id="bientot" class="contents"></div>
-      ${card('#bientot', 'tridens.jpg', t('Rendu · concept', 'Render · concept'), 'Tridens', t('Trois places, trois coques', 'Three seats, three hulls'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}
-      ${card('#bientot', 'kids-mako2.jpg', t('Rendu · concept', 'Render · concept'), t('Gamme enfants', 'Kids range'), t('6 à 12 ans, contrôle parental', 'Ages 6 to 12, parental control'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}
+      ${card('#bientot', 'tridens-flou.jpg', t('Rendu flouté · confidentiel', 'Blurred render · confidential'), 'Tridens', t('Trois places, trois coques', 'Three seats, three hulls'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}
+      ${card('#bientot', 'kids-mako2-flou.jpg', t('Rendu flouté · confidentiel', 'Blurred render · confidential'), t('Gamme enfants', 'Kids range'), t('6 à 12 ans, contrôle parental', 'Ages 6 to 12, parental control'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}
     </div>
   </section>
 

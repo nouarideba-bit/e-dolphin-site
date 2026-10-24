@@ -16,12 +16,10 @@ addEventListener('DOMContentLoaded', () => {
   // Rotation order for the drag viewer; extra in-between angles are added per livery when they exist
   const VIEWS = { fr: { profil: 'Profil', face: 'Face', arriere: 'Arrière', dessus: 'Dessus' }, en: { profil: 'Side', face: 'Front', arriere: 'Rear', dessus: 'Top' } };
   // Predator (Launch Edition livery) has a 15-frame turn: AI renders in between, the far side mirrored
-  // 24 views every 15° for every livery (the top view stays a thumbnail only); Tridens and the red MAKO turn on 8 views every 45° (enlarged view only)
-  const TURN8 = ['face', 'a045', 'profil', 'a135', 'arriere', 'a225', 'a270', 'a315'];
+  // 24 views every 15° for every livery (the top view stays a thumbnail only). Tridens and the kids range are blurred and
+  // have no enlarged view or 360° turn while they stay confidential (adam, 24 Oct)
   const FRAMES = {
-    default: ['face', 'a015', 'a030', 'a045', 'a060', 'a075', 'profil', 'a105', 'a120', 'a135', 'a150', 'a165', 'a180', 'a195', 'arriere', 'a225', 'a240', 'a255', 'a270', 'a285', 'a300', 'a315', 'a330', 'a345'],
-    tridens: TURN8,
-    mako: TURN8
+    default: ['face', 'a015', 'a030', 'a045', 'a060', 'a075', 'profil', 'a105', 'a120', 'a135', 'a150', 'a165', 'a180', 'a195', 'arriere', 'a225', 'a240', 'a255', 'a270', 'a285', 'a300', 'a315', 'a330', 'a345']
   };
   const viewName = (v) => VIEWS[LANG][v] || (v.startsWith('a') ? `${+v.slice(1)}°` : '');
   const frames = (liv) => FRAMES[liv] || FRAMES.default;
@@ -197,15 +195,12 @@ addEventListener('DOMContentLoaded', () => {
 
   /* ---- Enlarged view of a model (click on its picture): HD photos, 360° turn ---- */
   // AI-upscaled views (3840 px) are listed in UHD, the others show the 1680 px render; the 360° turn reuses the configurator frames
-  const UHD = new Set(['iruka-face', 'iruka-profil', 'iruka-arriere', 'iruka-dessus', 'launch-face', 'launch-profil', 'launch-arriere', 'launch-dessus', 'tridens', 'tridens-face', 'tridens-profil', 'tridens-arriere', 'mako2-3-4-avant', 'mako2-profil', 'mako2-3-4-arriere', 'mako2-dessus']);
+  const UHD = new Set(['iruka-face', 'iruka-profil', 'iruka-arriere', 'iruka-dessus', 'launch-face', 'launch-profil', 'launch-arriere', 'launch-dessus']);
   const zFile = (n) => `zoom-${n}-${UHD.has(n) ? 'uhd' : 'hd'}.jpg`;
   const KEY_VIEWS = ['face', 'profil', 'arriere', 'dessus'];
-  const MAKO = { fr: { '3-4-avant': 'Trois-quarts avant', profil: 'Profil', '3-4-arriere': 'Trois-quarts arrière', dessus: 'Dessus' }, en: { '3-4-avant': 'Front three-quarter', profil: 'Side', '3-4-arriere': 'Rear three-quarter', dessus: 'Top' } };
   const ZOOM = {
     iruka: { name: 'IRUKA', liv: 'blanc', photos: KEY_VIEWS.map(v => [`iruka-${v}`, VIEWS[LANG][v]]) },
-    launch: { name: 'IRUKA Launch Edition', liv: 'predator', photos: KEY_VIEWS.map(v => [`launch-${v}`, VIEWS[LANG][v]]) },
-    tridens: { name: 'Tridens', liv: 'tridens', lab: 'Tridens', photos: [['tridens', tt('En mer', 'At sea')], ...['face', 'profil', 'arriere'].map(v => [`tridens-${v}`, VIEWS[LANG][v]])] },
-    kids: { name: tt('Gamme enfants · MAKO', 'Kids range · MAKO'), liv: 'mako', lab: tt('MAKO rouge', 'Red MAKO'), photos: Object.keys(MAKO.fr).map(v => [`mako2-${v}`, MAKO[LANG][v]]) }
+    launch: { name: 'IRUKA Launch Edition', liv: 'predator', photos: KEY_VIEWS.map(v => [`launch-${v}`, VIEWS[LANG][v]]) }
   };
   const dlg = $('#zoomDlg'), zImg = $('#zoomImg');
   const Z = { key: 'iruka', mode: 'photo', i: 0, frame: 0 };
