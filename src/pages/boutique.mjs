@@ -45,11 +45,11 @@ export const body = (L, R) => {
 
   <section class="gutter pb-16">
     <div class="mx-auto grid max-w-7xl gap-6">
-      ${product('iruka', 'IRUKA', `${t('À partir de', 'From')} 35 990 € HT`, t('Le modèle', 'The model'), [
+      ${product('iruka', 'IRUKA', `${t('À partir de', 'From')} 43 900 € HT`, t('Le modèle', 'The model'), [
         t('Moteur 160 kW, 60 nœuds, batterie 35 kWh', '160 kW motor, 60 knots, 35 kWh battery'),
         t('Recharge rapide CCS2, environ 30 min', 'CCS2 fast charging, about 30 min'),
         t('Écran tactile connecté, caméras avant et arrière', 'Connected touchscreen, front and rear cameras'),
-        t('Acompte de 30 % : 10 797 € HT (hors options)', '30 % deposit: €10,797 excl. VAT (before options)'),
+        t('Acompte de 30 % : 13 170 € HT (hors options)', '30 % deposit: €13,170 excl. VAT (before options)'),
         t('Prix hors taxes, livraison et options en sus', 'Price excl. VAT, delivery and options extra')
       ], img(R, 'livery-blanc.jpg'))}
       ${product('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), [

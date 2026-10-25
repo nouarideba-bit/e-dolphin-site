@@ -24,7 +24,7 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
   ].map(([s, label, hash = '']) => `<a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="${href(s)}${hash}">${label}<i data-lucide="chevron-right" class="h-4 w-4 text-brume"></i></a>`).join('');
 
   const models = `
-      ${model(href('iruka'), 'cfg-blanc-face-s.jpg', 'IRUKA', t('Le modèle de série', 'The series model'), '35 990 € HT')}
+      ${model(href('iruka'), 'cfg-blanc-face-s.jpg', 'IRUKA', t('Le modèle de série', 'The series model'), '43 900 € HT')}
       ${model(href('launch-edition'), 'cfg-predator-face-s.jpg', 'Launch Edition', t('300 exemplaires numérotés', '300 numbered units'), '90 000 $ HT')}
       ${model(href('index') + '#bientot', 'tridens-flou-s.jpg', 'Tridens', t('Trois places · concept', 'Three seats · concept'), t('Bientôt', 'Soon'), true)}
       ${model(href('index') + '#bientot', 'kids-mako2-flou-s.jpg', t('Gamme enfants', 'Kids range'), t('6 à 12 ans · concept', 'Ages 6 to 12 · concept'), t('Bientôt', 'Soon'), true)}`;

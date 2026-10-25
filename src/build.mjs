@@ -15,7 +15,7 @@ import * as location from './pages/location.mjs';
 import * as distributeurs from './pages/distributeurs.mjs';
 import * as dossier from './pages/dossier-distributeur.mjs';
 
-// English pages: "35 990 € HT" becomes "€35,990 excl. VAT"
+// English pages: "43 900 € HT" becomes "€43,900 excl. VAT"
 const enPrices = (html) => html.replace(/(\d{1,3}(?:[ \u00a0\u202f]\d{3})*(?:,\d+)?)\s?(€|\$)(\s?HT)?(?![\w])/g,
   (_, n, sym, ht) => `${sym}${n.replace(/[ \u00a0\u202f]/g, ',').replace(/,(\d{1,2})$/, '.$1')}${ht ? ' excl. VAT' : ''}`);
 import { mentions, privacy, terms } from './pages/legal.mjs';

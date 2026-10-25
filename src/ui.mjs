@@ -72,9 +72,9 @@ export const waBtn = (L, label, text, primary = false) =>
 
 // Prices: IRUKA is set in euros, the Launch Edition in dollars (adam, 21-22 Oct). Each is shown with
 // its counter-value at the brochure rate of 1.16 $ per €, so no visitor has to convert.
-// French figures here; English pages get "€35,990 excl. VAT" from the build's price filter.
+// French figures here; English pages get "€43,900 excl. VAT" from the build's price filter.
 export const PRICE = {
-  iruka: '35 990 € HT', irukaAlt: '≈ 41 750 $ HT',
+  iruka: '43 900 € HT', irukaAlt: '≈ 50 900 $ HT',
   launch: '90 000 $ HT', launchAlt: '≈ 77 600 € HT',
   deposit: '27 000 $ HT', depositAlt: '≈ 23 300 € HT'
 };

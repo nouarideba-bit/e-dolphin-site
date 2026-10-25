@@ -1,8 +1,8 @@
 /* "For my rental" page: fleet return calculator. Every assumption is an input the operator can change.
-   IRUKA: 35 990 € excl. VAT, about 14 kWh per hour (35 kWh battery for 2 h 30 of mixed use). */
+   IRUKA: 43 900 € excl. VAT, about 14 kWh per hour (35 kWh battery for 2 h 30 of mixed use). */
 addEventListener('DOMContentLoaded', () => {
   const res = $('#fcRevenue'); if (!res) return;
-  const IRUKA = { price: 35990, kwhPerHour: 14 };
+  const IRUKA = { price: 43900, kwhPerHour: 14 };
   const v = (id) => Math.max(0, parseFloat(String($(id).value).replace(',', '.')) || 0);
   const eur = (n) => Cart.money(Math.round(n), '€');
   const eurH = (n) => Cart.money(Math.round(n * 10) / 10, '€');

@@ -100,7 +100,7 @@ export const body = (L, R) => {
       <a href="configurateur.html" class="inline-flex items-center gap-2 text-sm font-semibold text-lagoon">${t('Ouvrir le configurateur', 'Open the configurator')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
     </div>
     <div class="home-row -mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 xl:grid-cols-4">
-      ${card('configurateur.html?modele=iruka', 'cfg-blanc-profil.jpg', t('Rendu', 'Render'), 'IRUKA', t('Le modèle de série', 'The series model'), `<span class="block text-xs font-normal text-brume">${t('à partir de', 'from')}</span>35 990 € HT`, t('Configurer', 'Configure'))}
+      ${card('configurateur.html?modele=iruka', 'cfg-blanc-profil.jpg', t('Rendu', 'Render'), 'IRUKA', t('Le modèle de série', 'The series model'), `<span class="block text-xs font-normal text-brume">${t('à partir de', 'from')}</span>43 900 € HT`, t('Configurer', 'Configure'))}
       ${card('launch-edition.html', 'cfg-predator-profil.jpg', t('Rendu', 'Render'), 'Launch Edition', t('300 exemplaires numérotés', '300 numbered units'), `${PRICE.launch}<span class="block text-xs font-normal text-brume">${PRICE.launchAlt}</span>`, t('Réserver mon numéro', 'Reserve my number'))}
       <div id="bientot" class="contents"></div>
       ${card('#bientot', 'tridens-flou.jpg', t('Rendu flouté · confidentiel', 'Blurred render · confidential'), 'Tridens', t('Trois places, trois coques', 'Three seats, three hulls'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}

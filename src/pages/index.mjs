@@ -23,7 +23,7 @@ export const body = (L, R) => {
           ${btn('iruka.html', t('Découvrir IRUKA', 'Discover IRUKA'), 'arrow-right', false)}
           ${filmBtn(L)}
         </div>
-        <p class="rise mt-8 font-display text-lg">${t('À partir de', 'From')} <span class="num font-semibold">35 990 € HT</span></p>
+        <p class="rise mt-8 font-display text-lg">${t('À partir de', 'From')} <span class="num font-semibold">43 900 € HT</span></p>
         <p class="mt-2 tag text-brume/80">${t('Images réelles du prototype S300 en mer', 'Real footage of the S300 prototype at sea')}</p>
       </div>
     </div>

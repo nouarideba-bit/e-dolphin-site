@@ -64,7 +64,7 @@ export const body = (L, R) => {
         <div id="pane-model" role="tabpanel" aria-labelledby="tab-model">
           <h2 class="font-display text-xl font-semibold">${t('Choisissez votre modèle', 'Choose your model')}</h2>
           <div class="mt-4 grid gap-3">
-            ${model('iruka', 'IRUKA', '35 990 € HT', t('Le modèle de série', 'The series model'), 'cfg-blanc-face-s.jpg', false, 'iruka')}
+            ${model('iruka', 'IRUKA', '43 900 € HT', t('Le modèle de série', 'The series model'), 'cfg-blanc-face-s.jpg', false, 'iruka')}
             ${model('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), 'cfg-predator-face-s.jpg', false, 'launch')}
             ${model('', 'Tridens', t('Bientôt', 'Soon'), t('Prochain modèle', 'Next model'), 'tridens-flou-s.jpg', true, '')}
             ${model('', t('Gamme enfants', 'Kids range'), t('Bientôt', 'Soon'), t('6 à 12 ans', 'Ages 6 to 12'), 'kids-mako2-flou-s.jpg', true, '')}
@@ -104,10 +104,10 @@ export const body = (L, R) => {
   <div class="cfg-bar fixed inset-x-0 bottom-0 z-40 gutter" style="padding-bottom:max(10px, env(safe-area-inset-bottom))">
     <div class="mx-auto flex max-w-7xl items-center gap-4 py-3">
       <dl class="grid flex-1 grid-cols-2 gap-x-6 gap-y-0.5 text-xs sm:flex sm:items-center sm:gap-8 sm:text-sm">
-        <div class="hidden sm:block"><dt class="text-ink2"><span id="cfgModelName">IRUKA</span></dt><dd class="num font-semibold" id="cfgBase">35 990 € HT</dd></div>
+        <div class="hidden sm:block"><dt class="text-ink2"><span id="cfgModelName">IRUKA</span></dt><dd class="num font-semibold" id="cfgBase">43 900 € HT</dd></div>
         <div class="hidden sm:block"><dt class="text-ink2">${t('Équipements', 'Equipment')}</dt><dd class="num font-semibold" id="cfgExtra">+ 0 € HT</dd></div>
-        <div><dt class="text-ink2">${t('Total', 'Total')}</dt><dd class="num cfg-total whitespace-nowrap font-display text-base font-bold sm:text-xl">35 990 € HT</dd></div>
-        <div><dt class="text-ink2">${t('Acompte 30 %', '30 % deposit')}</dt><dd class="num cfg-deposit whitespace-nowrap font-semibold text-teal sm:text-lg">10 797 € HT</dd></div>
+        <div><dt class="text-ink2">${t('Total', 'Total')}</dt><dd class="num cfg-total whitespace-nowrap font-display text-base font-bold sm:text-xl">43 900 € HT</dd></div>
+        <div><dt class="text-ink2">${t('Acompte 30 %', '30 % deposit')}</dt><dd class="num cfg-deposit whitespace-nowrap font-semibold text-teal sm:text-lg">13 170 € HT</dd></div>
       </dl>
       <button type="button" id="cfgNextStep" class="btn-primary inline-flex shrink-0 items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold sm:px-7">${t('Suivant', 'Next')} <i data-lucide="arrow-right" class="h-4 w-4"></i></button>
     </div>
