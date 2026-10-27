@@ -3,7 +3,8 @@
    Accessories keep the reference grid of cfg-options.js; liveries, finishes, upholstery, charging, packs, Atelier and services
    are proposals, indexed on that grid and on the 43 900 € base price. price: null = on quotation, left out of the total.
    n is the item's bit in the E-Dolphin code (ED1-…): never reuse or renumber one, give a new item the next free number.
-   The accessories of cfg-options.js take bits 100 and up, in their list order (that list only grows at the end). */
+   The accessories of cfg-options.js take bits 100 and up, in their list order (that list only grows at the end).
+   t is the colour the renders are repainted in for that upholstery or deck (iruka-masks.js says where), planks adds teak strakes. */
 window.IRUKA_CFG = {
   base: 43900,
   deposit: 30,
@@ -37,17 +38,17 @@ window.IRUKA_CFG = {
     { id: 'cockpit', icon: 'armchair', fr: 'Selle et pilotage', en: 'Seat and helm', sections: [
       { id: 'seat', fr: 'Sellerie', en: 'Upholstery', pick: 'one', items: [
         { n: 11, id: 'selle-noir', fr: 'Noir carbone, surpiqûres grises', en: 'Carbon black, grey stitching', price: 0, c: ['#16181A', '#8A9299'] },
-        { n: 12, id: 'selle-ardoise', fr: 'Gris ardoise, surpiqûres lime', en: 'Slate grey, lime stitching', price: 390, c: ['#4B535A', '#9BE15D'] },
-        { n: 13, id: 'selle-sable', fr: 'Sable, surpiqûres or', en: 'Sand, gold stitching', price: 1190, c: ['#D8C6A3', '#9C7A45'] },
-        { n: 14, id: 'selle-cognac', fr: 'Cognac, surpiqûres sellier', en: 'Cognac, saddle stitching', price: 1690, c: ['#8A4B26', '#F0E2C8'] }
+        { n: 12, id: 'selle-ardoise', fr: 'Gris ardoise, surpiqûres lime', en: 'Slate grey, lime stitching', price: 390, c: ['#4B535A', '#9BE15D'], t: '#4B535A' },
+        { n: 13, id: 'selle-sable', fr: 'Sable, surpiqûres or', en: 'Sand, gold stitching', price: 1190, c: ['#D8C6A3', '#9C7A45'], t: '#D3C09A' },
+        { n: 14, id: 'selle-cognac', fr: 'Cognac, surpiqûres sellier', en: 'Cognac, saddle stitching', price: 1690, c: ['#8A4B26', '#F0E2C8'], t: '#7A4122' }
       ] },
       { id: 'seatopt', fr: 'Selle', en: 'Seat', items: [
         { n: 15, id: 'selle-logo', icon: 'badge-check', fr: 'Logo E-Dolphin brodé sur la selle', en: 'E-Dolphin logo embroidered on the seat', price: 290 }
       ] },
       { id: 'deck', fr: 'Tapis de pont', en: 'Deck pads', pick: 'one', items: [
         { n: 16, id: 'pont-noir', fr: 'Noir', en: 'Black', price: 0, c: ['#1C1F22', '#2A2E32'] },
-        { n: 17, id: 'pont-perle', fr: 'Gris perle, liseré couleur livrée', en: 'Pearl grey, livery-colour piping', price: 690, c: ['#C9CED2', '#9BE15D'] },
-        { n: 18, id: 'pont-teck', fr: 'Effet teck, mousse marine gravée', en: 'Teak look, engraved marine foam', price: 1290, c: ['#A0703F', '#E8DCC6'] }
+        { n: 17, id: 'pont-perle', fr: 'Gris perle, liseré couleur livrée', en: 'Pearl grey, livery-colour piping', price: 690, c: ['#C9CED2', '#9BE15D'], t: '#B9BEC2' },
+        { n: 18, id: 'pont-teck', fr: 'Effet teck, mousse marine gravée', en: 'Teak look, engraved marine foam', price: 1290, c: ['#A0703F', '#E8DCC6'], t: '#8E6238', planks: true }
       ] },
       { id: 'helm', fr: 'Poste de pilotage', en: 'Helm', items: [
         { n: 19, id: 'guidon-cuir', icon: 'hand', fr: 'Poignées en cuir marin surpiqué', en: 'Stitched marine leather grips', price: 240 },

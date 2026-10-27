@@ -84,26 +84,101 @@ addEventListener('DOMContentLoaded', () => {
   const viewName = (v) => (VNAME[v] ? tt(...VNAME[v]) : `${+v.slice(1)}°`);
   const img = $('#xImg'), stage = $('#xStage'), CACHE = {};
   const src = (v = S.view, l = S.pick.livery) => IMG(`cfg-${l}-${v}.jpg`);
+  const load = (u) => new Promise((ok, ko) => {
+    const p = CACHE[u] || (CACHE[u] = new Image());
+    if (p.src && p.complete) return p.naturalWidth ? ok(p) : ko();
+    p.addEventListener('load', () => ok(p), { once: true }); p.addEventListener('error', ko, { once: true });
+    if (!p.src) p.src = u;
+  });
+
+  /* ---- Upholstery and deck pads repainted on the renders, as the manufacturer's configurator shows each choice on the car
+     (adam, 27 Oct: "quand on clique sur la couleur de la selle … on doit le voir sur les photos"). A mask per render says where
+     the seat or deck pads are (iruka-masks.js); the chosen colour replaces theirs and keeps the render's light and shade. ---- */
+  const MASKS = window.IRUKA_MASKS || { seat: {}, deck: {} };
+  const PARTS = [['seat', 'selle'], ['deck', 'pont']];
+  const look = (v = S.view, l = S.pick.livery) => {
+    const parts = PARTS.map(([sec, word]) => {
+      const it = ITEMS.get(S.pick[sec]), box = it && it.t && (MASKS[sec][l] || {})[v];
+      return box ? { it, box, flat: sec === 'deck', mask: IMG(`cfg-${l}-${v}-${word}.png`) } : null;
+    }).filter(Boolean);
+    return { v, l, parts, key: [l, v, ...parts.map(p => p.it.id)].join('|') };
+  };
+  const rgb = (h) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const repaint = (ctx, mask, [x, y, w, h], it, flat) => {
+    const px = ctx.getImageData(x, y, w, h), d = px.data, N = w * h;
+    const mc = document.createElement('canvas'); mc.width = w; mc.height = h;
+    const mx = mc.getContext('2d', { willReadFrequently: true }); mx.drawImage(mask, 0, 0);
+    const a = mx.getImageData(0, 0, w, h).data;
+    const L = new Float32Array(N);
+    for (let i = 0; i < N; i++) L[i] = .2126 * d[i * 4] + .7152 * d[i * 4 + 1] + .0722 * d[i * 4 + 2];
+    // Reference shade: the 60th percentile of the part's luminance, so a black or a grey seat both land on the chosen colour
+    const hist = new Uint32Array(256); let n = 0;
+    for (let i = 0; i < N; i++) if (a[i * 4] > 128) { hist[Math.min(255, L[i] | 0)]++; n++; }
+    let ref = 1;
+    for (let k = 0, c = 0; k < 256; k++) { c += hist[k]; if (c >= n * .6) { ref = Math.max(k, 1); break; } }
+    const [r, g, b] = rgb(it.t);
+    // Deck pads are foam: their carbon weave on the render is no use, keep only the broad light (a wide blur, low contrast)
+    let F = null;
+    if (flat) {
+      const R = 7, tmp = new Float32Array(N); F = new Float32Array(N);
+      for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx++) { let s = 0, m = 0; for (let k = -R; k <= R; k++) { const q = xx + k; if (q >= 0 && q < w) { s += L[yy * w + q]; m++; } } tmp[yy * w + xx] = s / m; }
+      for (let xx = 0; xx < w; xx++) for (let yy = 0; yy < h; yy++) { let s = 0, m = 0; for (let k = -R; k <= R; k++) { const q = yy + k; if (q >= 0 && q < h) { s += tmp[q * w + xx]; m++; } } F[yy * w + xx] = s / m; }
+    }
+    for (let i = 0; i < N; i++) {
+      const al = a[i * 4] / 255;
+      if (!al) continue;
+      const cx = i % w, cy = (i / w) | 0;
+      // Soften the render's grain a little (3 x 3 average), or a pale leather drawn over a dark one looks dusty
+      let s = 0, m = 0;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const xx = cx + dx, yy = cy + dy;
+        if (xx >= 0 && yy >= 0 && xx < w && yy < h) { s += L[yy * w + xx]; m++; }
+      }
+      let k = F ? Math.min(Math.max(1 + .35 * (F[i] / ref - 1), .7), 1.12) : Math.pow(Math.min((.6 * L[i] + .4 * s / m) / ref, 1.35), .85);
+      if (it.planks) { // teak: strakes along the hull, a dark seam every 9 px, each strake a slightly different tone
+        const row = Math.floor((y + cy) / 9), f = Math.sin(row * 12.9898) * 43758.5453;
+        k *= ((y + cy) % 9 < 1.4 ? .45 : 1) * (.94 + .12 * (f - Math.floor(f))) * (.97 + .03 * Math.sin((x + cx) * .09 + row));
+      }
+      const sp = F ? 0 : Math.max(L[i] - 1.5 * ref, 0) * .8; // keep the highlights (not on foam)
+      const o = i * 4;
+      d[o] = d[o] * (1 - al) + Math.min(255, r * k + sp) * al;
+      d[o + 1] = d[o + 1] * (1 - al) + Math.min(255, g * k + sp) * al;
+      d[o + 2] = d[o + 2] * (1 - al) + Math.min(255, b * k + sp) * al;
+    }
+    ctx.putImageData(px, x, y);
+  };
+  const TINT = {};
+  const tinted = (w) => TINT[w.key] || (TINT[w.key] = Promise.all([load(src(w.v, w.l)), ...w.parts.map(p => load(p.mask))]).then(([base, ...ms]) => {
+    const cv = document.createElement('canvas'); cv.width = base.naturalWidth; cv.height = base.naturalHeight;
+    const ctx = cv.getContext('2d', { willReadFrequently: true }); ctx.drawImage(base, 0, 0);
+    w.parts.forEach((p, k) => repaint(ctx, ms[k], p.box, p.it, p.flat));
+    return new Promise(ok => cv.toBlob(b => ok(b ? URL.createObjectURL(b) : src(w.v, w.l)), 'image/jpeg', .9));
+  }).catch(() => src(w.v, w.l)));
+
   const showImage = (fade) => {
-    const u = src();
-    $('#xImgLabel').textContent = `${bespoke() ? tt('Teinte sur mesure · aperçu ', 'Bespoke colour · preview ') : ''}${T(ITEMS.get(S.pick.livery))} · ${viewName(S.view)}`;
+    const w = look();
+    $('#xImgLabel').textContent = `${bespoke() ? tt('Teinte sur mesure · aperçu ', 'Bespoke colour · preview ') : ''}${T(ITEMS.get(S.pick.livery))} · ${viewName(S.view)}${w.parts.length ? tt(' · coloris en aperçu', ' · colours previewed') : ''}`;
     $$('[data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === S.view)));
-    img.alt = `IRUKA, ${T(ITEMS.get(S.pick.livery))}, ${viewName(S.view)}`;
-    if (img.getAttribute('src') === u) return;
-    const swap = () => {
-      if (src() !== u) return; // a newer choice won the race
-      img.src = u;
+    img.alt = `IRUKA, ${T(ITEMS.get(S.pick.livery))}${w.parts.map(p => ', ' + T(p.it.s) + ' ' + T(p.it)).join('')}, ${viewName(S.view)}`;
+    if (img.dataset.key === w.key) return;
+    const swap = (u) => {
+      if (look().key !== w.key) return; // a newer choice won the race
+      img.src = u; img.dataset.key = w.key;
       if (fade && Mo) Mo.animate(img, { opacity: [.15, 1], scale: [1.025, 1] }, { duration: .6, ease: EASE });
     };
-    const c = CACHE[u];
-    if (c && c.complete) swap(); else { const p = new Image(); p.onload = swap; p.src = u; CACHE[u] = p; }
+    if (w.parts.length) tinted(w).then(swap);
+    else { const u = src(); load(u).then(() => swap(u), () => swap(u)); }
   };
+  // Views where the seat reads well: choosing an upholstery brings the craft to one of them, the deck pads show from above
+  const SEAT_VIEWS = ['a030', 'a045', 'a060', 'a075', 'profil', 'a105', 'a120', 'a135', 'a225', 'a240', 'a255', 'a270', 'a285', 'a300', 'a315', 'a330', 'dessus'];
   // Every angle of the livery is loaded at the first turn only (about 2.5 MB), not for visitors who never turn the craft
   let turning = false;
   const preload = () => turning && FRAMES.forEach(v => { const u = src(v); if (!CACHE[u]) { CACHE[u] = new Image(); CACHE[u].src = u; } });
   const turn = (d) => {
     if (!turning) { turning = true; preload(); }
     const i = Math.max(0, FRAMES.indexOf(S.view)); S.view = FRAMES[(i + d + FRAMES.length) % FRAMES.length]; showImage(false);
+    // Repaint the next two angles ahead, so a turning craft keeps its upholstery without a wait
+    [1, 2].forEach(k => { const w = look(FRAMES[(i + d * (k + 1) + 3 * FRAMES.length) % FRAMES.length]); if (w.parts.length) tinted(w); });
   };
   $('#xPrev').addEventListener('click', () => turn(-1));
   $('#xNext').addEventListener('click', () => turn(1));
@@ -114,7 +189,7 @@ addEventListener('DOMContentLoaded', () => {
   const endDrag = () => { dragX = null; stage.classList.remove('is-grabbing'); };
   stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
 
-  // Upholstery, deck and paint finish have no render yet: a material card shows the chosen swatch over the stage
+  // The paint finish has no render yet: a material card shows the chosen swatch over the stage
   let matT;
   const showMat = (it) => {
     const box = $('#xMat');
@@ -210,6 +285,11 @@ addEventListener('DOMContentLoaded', () => {
     else if (checked) { S.on.add(it.id); (it.pack || []).forEach(id => S.on.delete(id)); }
     else S.on.delete(it.id);
     if (it.s.id === 'livery') { preload(); showImage(true); }
+    else if (it.s.id === 'seat' || it.s.id === 'deck') {
+      // Like the manufacturer's camera: the craft turns to show the part just chosen
+      const v = it.s.id === 'deck' ? 'dessus' : SEAT_VIEWS.includes(S.view) ? S.view : 'a045';
+      const moved = v !== S.view; S.view = v; showImage(moved || !!it.t);
+    }
     else if (it.c || (it.id === 'mesure' && checked)) showMat(it);
     if (it.id === 'mesure') showImage(false);
     renderPanel(false); sync();
@@ -291,7 +371,7 @@ addEventListener('DOMContentLoaded', () => {
         </div>
         <p class="mt-2 text-ink2">${bespoke() ? tt('Teinte sur mesure', 'Bespoke colour') : T(liv)} · ${T(ITEMS.get(S.pick.finish))} · ${T(ITEMS.get(S.pick.seat))}</p>
         <div class="cfgx-gal mt-6 grid gap-3 sm:grid-cols-3">
-          ${['a045', 'profil', 'a135'].map((v, k) => `<div class="cfgx-shot${k === 0 ? ' sm:col-span-2 sm:row-span-2' : ''}"><img src="${src(v)}" alt="IRUKA, ${T(liv)}, ${viewName(v)}" loading="lazy"><span>${tt('Rendu', 'Render')} · ${viewName(v)}</span></div>`).join('')}
+          ${['a045', 'profil', 'a135'].map((v, k) => `<div class="cfgx-shot${k === 0 ? ' sm:col-span-2 sm:row-span-2' : ''}"><img src="${src(v)}" data-v="${v}" alt="IRUKA, ${T(liv)}, ${viewName(v)}" loading="lazy"><span>${tt('Rendu', 'Render')} · ${viewName(v)}</span></div>`).join('')}
         </div>
         <div class="mt-10 grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
           <div>
@@ -326,6 +406,7 @@ addEventListener('DOMContentLoaded', () => {
   function openSum() {
     opener = document.activeElement;
     sum.innerHTML = sumHTML(); paint(sum);
+    $$('[data-v]', sum).forEach(im => { const w = look(im.dataset.v); if (w.parts.length) tinted(w).then(u => { im.src = u; }); });
     sum.hidden = false; sum.scrollTop = 0;
     document.documentElement.classList.add('x-sum-open');
     $('[data-close]', sum).addEventListener('click', closeSum);

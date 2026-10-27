@@ -4,11 +4,12 @@ export const meta = {
   fr: { title: 'Configurateur IRUKA · E-Dolphin', desc: 'Configurez votre IRUKA option par option : livrée, sellerie, recharge, packs, Atelier. Prix et acompte calculés en direct.' },
   en: { title: 'IRUKA configurator · E-Dolphin', desc: 'Build your IRUKA option by option: livery, upholstery, charging, packs, Atelier. Live price and deposit.' }
 };
-export const scripts = ['cfg-options.js', 'iruka-catalog.js', 'iruka-cfg.js'];
+export const scripts = ['cfg-options.js', 'iruka-catalog.js', 'iruka-masks.js', 'iruka-cfg.js'];
 
 // Modelled on the Porsche configurator (adam, 27 Oct: "Sur cette base là", IRUKA only for now): the craft fills the stage,
 // the options sit in a side panel by category, the price follows every choice, a summary closes the journey.
-// iruka-cfg.js fills the panel, the price bar and the summary from iruka-catalog.js.
+// iruka-cfg.js fills the panel, the price bar and the summary from iruka-catalog.js, and repaints the seat and deck pads on the
+// renders in the chosen colours (where they sit: iruka-masks.js).
 export const body = (L, R) => {
   const t = tr(L);
   const views = [['face', 'Face', 'Front'], ['a045', '3/4 avant', '3/4 front'], ['profil', 'Profil', 'Side'], ['a135', '3/4 arrière', '3/4 rear'], ['arriere', 'Arrière', 'Rear'], ['dessus', 'Dessus', 'Top']];
