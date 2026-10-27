@@ -1,6 +1,15 @@
 // Small building blocks shared by the pages.
+import { ES } from './es.mjs';
 
-export const tr = (L) => (fr, en) => (L === 'fr' ? fr : en);
+// Spanish exists for the legal pages only (27 Oct 2026): a third text when given, else the Spanish wording of the
+// English text from src/es.mjs, else English. English texts with no Spanish wording are listed by the build.
+export const esMissing = new Set();
+export const tr = (L) => (fr, en, es) => {
+  if (L !== 'es') return L === 'fr' ? fr : en;
+  const s = es ?? ES[en];
+  if (s === undefined) esMissing.add(en);
+  return s ?? en;
+};
 export const img = (R, name) => `${R}assets/img/${name}`;
 
 export const head = ({ eyebrow, title, lead = '', id = '', center = false }) => `

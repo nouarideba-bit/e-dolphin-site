@@ -1,9 +1,10 @@
 // Navigation rail for the next version of the site: a vertical ribbon on the left (desktop),
 // a tab bar at the bottom (mobile). Models and "More" open a side panel instead of a new page.
 import { logo } from './layout.mjs';
+import { tr } from './ui.mjs';
 
-export function rail({ L, slug, href, other, flagFr, flagEn }) {
-  const t = (fr, en) => (L === 'fr' ? fr : en);
+export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
+  const t = tr(L);
   const R = L === 'fr' ? '' : '../';
   const on = (s) => (s === slug ? ' is-on" aria-current="page' : '');
   const item = (s, icon, label, cls = '') =>
@@ -33,7 +34,7 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
 <aside id="rail" class="rail fixed inset-y-0 left-0 z-50 hidden w-[104px] flex-col lg:flex" aria-label="${t('Navigation principale', 'Main navigation')}">
   <a href="${href('index')}" class="rail-logo flex h-[78px] shrink-0 flex-col items-center justify-center gap-1" aria-label="E-Dolphin, ${t('accueil', 'home')}">${logo(44, 33)}<span class="font-display text-[9px] font-semibold tracking-[.28em]">E-DOLPHIN</span></a>
   <!-- Language switch at the top of the rail, where visitors look for the flag (adam, 24 Oct: the one at the bottom went unseen) -->
-  <a href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}" class="rail-lang flex shrink-0 items-center justify-center gap-2 py-3 font-mono text-[11px] tracking-[.12em]">${L === 'fr' ? flagEn() : flagFr}<span>${L === 'fr' ? 'English' : 'Français'}</span></a>
+  <a href="${other}" hreflang="${otherL}" class="rail-lang flex shrink-0 items-center justify-center gap-2 py-3 font-mono text-[11px] tracking-[.12em]">${otherL === 'en' ? flagEn() : flagFr}<span>${otherL === 'en' ? 'English' : 'Français'}</span></a>
   <nav class="rail-nav flex-1 overflow-y-auto">
     <ul>
       ${panelBtn('models', 'ship', t('Modèles', 'Models'))}
@@ -71,7 +72,7 @@ export function rail({ L, slug, href, other, flagFr, flagEn }) {
   <div class="flex items-center justify-between py-2.5">
     <a href="${href('index')}" class="flex items-center gap-2.5" aria-label="E-Dolphin, ${t('accueil', 'home')}">${logo(40, 30)}<span class="font-display text-xs font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
     <div class="flex items-center gap-2">
-      <a href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}" class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-mono text-[11px]">${L === 'fr' ? flagEn() : flagFr}${L === 'fr' ? 'EN' : 'FR'}</a>
+      <a href="${other}" hreflang="${otherL}" class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-mono text-[11px]">${otherL === 'en' ? flagEn() : flagFr}${otherL.toUpperCase()}</a>
       <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="${t('Ouvrir ma sélection', 'Open my selection')}"><i data-lucide="shopping-bag" class="h-5 w-5"></i><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>
     </div>
   </div>

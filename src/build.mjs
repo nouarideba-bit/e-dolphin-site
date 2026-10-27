@@ -1,6 +1,7 @@
 // Renders every page in French (v2/) and English (v2/en/). Run with: npm run build
 import { mkdirSync, writeFileSync, readFileSync, existsSync, cpSync } from 'node:fs';
-import { page, logo, BASE, EN_SLUG, fileName, pageUrl, inSearch } from './layout.mjs';
+import { page, logo, BASE, EN_SLUG, ES_SLUG, fileName, pagePath, pageUrl, inSearch } from './layout.mjs';
+import { esMissing } from './ui.mjs';
 import * as index from './pages/index-next.mjs';
 import * as iruka from './pages/iruka.mjs';
 import * as experience from './pages/experience.mjs';
@@ -45,6 +46,10 @@ const enLinks = (html) => html.replace(/href="([a-z-]+)\.html/g, (m, s) => (EN_S
 // English typography, as English speakers write and search it: "100%", "jet ski"
 const enTypo = (html) => html.replace(/(\d)[   ]%/g, '$1%').replace(/\bjet-ski/g, 'jet ski');
 const en = (html) => enTypo(enLinks(enPrices(html)));
+// Spanish legal pages: "43 900 € HT" becomes "43.900 € sin IVA"; links to pages with no Spanish version lead to the English site
+const esPrices = (html) => html.replace(/(\d{1,3}(?:[ \u00a0\u202f]\d{3})+)\s?(€|\$)\s?HT(?![\w])/g, (_, n, sym) => `${n.replace(/[ \u00a0\u202f]/g, '.')} ${sym} sin IVA`);
+const esLinks = (html) => html.replace(/href="([a-z-]+)\.html/g, (m, s) => (ES_SLUG[s] ? `href="${ES_SLUG[s]}.html` : SOURCES[s] ? `href="../${pagePath('en', s)}` : m));
+const es = (html) => esLinks(esPrices(html));
 
 // Width and height on every photo, read from the file itself, so the page does not jump while images load (CLS)
 const dims = new Map();
@@ -86,14 +91,16 @@ const withWebp = (html) => html.replace(/<img\b[^>]*>/g, (tag) => /\sid="/.test(
   .replace(/(\s(?:src|data-src)=")([^"]+)"/g, (m, a, u) => { const w = webpOf(u); return w ? `${a}${w}"` : m; })
   .replace(/\ssrcset="([^"]+)"/g, (m, set) => ` srcset="${set.split(',').map(part => { const [u, ...d] = part.trim().split(/\s+/); return [webpOf(u) || u, ...d].join(' '); }).join(', ')}"`));
 
-for (const L of ['fr', 'en']) {
-  const dir = L === 'fr' ? OUT : `${OUT}/en`, R = L === 'fr' ? '' : '../';
+for (const L of ['fr', 'en', 'es']) {
+  const dir = L === 'fr' ? OUT : `${OUT}/${L}`, R = L === 'fr' ? '' : '../';
   mkdirSync(dir, { recursive: true });
   for (const [slug, mod] of Object.entries(SOURCES)) {
+    if (L === 'es' && !ES_SLUG[slug]) continue;
     const html = page({ L, slug, title: mod.meta[L].title, desc: mod.meta[L].desc, body: mod.body(L, R), scripts: mod.scripts || [], rail: true, head: mod.preload ? mod.preload(R) + '\n' : '' });
-    writeFileSync(`${dir}/${fileName(L, slug)}`, withWebp(withDims(inlineIcons(L === 'en' ? en(html) : html))));
+    writeFileSync(`${dir}/${fileName(L, slug)}`, withWebp(withDims(inlineIcons(L === 'en' ? en(html) : L === 'es' ? es(html) : html))));
   }
 }
+if (esMissing.size) console.warn(`Spanish wording missing in src/es.mjs (${esMissing.size}):\n  ${[...esMissing].join('\n  ')}`);
 
 // Old English addresses (French file names until 23 Oct 2026) forward to the new ones, so links already shared keep working
 for (const [fr, enName] of Object.entries(EN_SLUG)) writeFileSync(`${OUT}/en/${fr}.html`, `<!doctype html>

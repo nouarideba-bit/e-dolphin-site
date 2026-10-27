@@ -1,6 +1,7 @@
 /* Shared behaviour for every page: header, mobile menu, reveal, cart, newsletter. */
 document.documentElement.classList.add('js');
-const LANG = document.documentElement.lang === 'en' ? 'en' : 'fr';
+// Spanish legal pages (lang="es") use the English messages
+const LANG = document.documentElement.lang === 'fr' ? 'fr' : 'en';
 const tt = (fr, en) => (LANG === 'fr' ? fr : en);
 // Page addresses for links built by scripts: English pages have English file names (same map as EN_SLUG in src/layout.mjs)
 const EN_FILES = { decouvrir: 'discover', maison: 'about', 'yachts-flottes': 'yachts', configurateur: 'configurator', boutique: 'order', location: 'rental-fleets', distributeurs: 'dealers', 'dossier-distributeur': 'dealer-application', reserver: 'book', 'mentions-legales': 'legal-notice', confidentialite: 'privacy', cgv: 'terms-of-sale' };
@@ -98,7 +99,7 @@ const Cart = {
   render() {
     const items = this.get(), n = items.reduce((a, i) => a + i.qty, 0), c = $('#cartCount');
     c.textContent = n; c.hidden = !n;
-    const root = document.documentElement.lang === 'en' ? '../' : '';
+    const root = document.documentElement.lang === 'fr' ? '' : '../';
     $('#cartItems').innerHTML = items.length ? items.map((i, k) => {
       const p = PRODUCTS[i.id];
       return `<div class="flex gap-4 border-b border-white/10 py-4">

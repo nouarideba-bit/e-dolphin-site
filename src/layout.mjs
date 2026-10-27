@@ -2,7 +2,7 @@
 // Every page is rendered twice, French at v2/ and English at v2/en/, with the same file names.
 // With rail = true (the live site since 22 Oct), the top header gives way to the left navigation rail.
 import { rail as railNav } from './rail.mjs';
-import { WA, waLink } from './ui.mjs';
+import { WA, waLink, tr } from './ui.mjs';
 
 import { structuredData } from './seo.mjs';
 
@@ -22,9 +22,11 @@ export const EN_SLUG = {
   location: 'rental-fleets', distributeurs: 'dealers', 'dossier-distributeur': 'dealer-application', reserver: 'book',
   'mentions-legales': 'legal-notice', confidentialite: 'privacy', cgv: 'terms-of-sale'
 };
-export const fileName = (L, slug) => `${L === 'en' ? EN_SLUG[slug] || slug : slug}.html`;
-// Path from the site root: '' for the French home page, 'en/' for the English one
-export const pagePath = (L, slug) => (L === 'en' ? 'en/' : '') + (slug === 'index' ? '' : fileName(L, slug));
+// Spanish exists for the legal pages only (adam, 27 Oct 2026); their other links lead to the English site
+export const ES_SLUG = { 'mentions-legales': 'aviso-legal', confidentialite: 'privacidad', cgv: 'condiciones-de-venta' };
+export const fileName = (L, slug) => `${L === 'en' ? EN_SLUG[slug] || slug : L === 'es' ? ES_SLUG[slug] || slug : slug}.html`;
+// Path from the site root: '' for the French home page, 'en/' for the English one, 'es/' for the Spanish legal pages
+export const pagePath = (L, slug) => (L === 'fr' ? '' : `${L}/`) + (slug === 'index' ? '' : fileName(L, slug));
 export const pageUrl = (L, slug) => BASE + pagePath(L, slug);
 
 export const PAGES = [
@@ -59,14 +61,16 @@ let flagN = 0;
 const flagEn = () => { const n = ++flagN; return `<svg viewBox="0 0 60 30" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><clipPath id="uk-c"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="uk-t"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#uk-c)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>`.replace(/uk-c/g, 'uk-c' + n).replace(/uk-t/g, 'uk-t' + n); };
 
 export function page({ L, slug, title, desc, body, scripts = [], rail = false, head = '' }) {
-  const t = (fr, en) => (L === 'fr' ? fr : en);
+  const t = tr(L);
   const root = L === 'fr' ? '' : '../';
-  const href = (s) => (s === 'index' ? './' : fileName(L, s));
-  const other = L === 'fr' ? pagePath('en', slug) : '../' + pagePath('fr', slug);
+  const href = (s) => (L === 'es' && !ES_SLUG[s] ? '../' + pagePath('en', s) : s === 'index' ? './' : fileName(L, s));
+  // The other language offered: English from French and Spanish pages, French from English ones
+  const otherL = L === 'en' ? 'fr' : 'en';
+  const other = L === 'fr' ? pagePath('en', slug) : '../' + pagePath(otherL, slug);
   const navLinks = PAGES.filter(p => p.nav).map(p =>
-    `<li><a class="nav-link${p.slug === slug ? ' is-on' : ''}" href="${href(p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${p[L]}</a></li>`).join('');
+    `<li><a class="nav-link${p.slug === slug ? ' is-on' : ''}" href="${href(p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${p[L] ?? p.en}</a></li>`).join('');
   const mobileLinks = PAGES.filter(p => p.nav).map(p =>
-    `<a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5${p.slug === slug ? ' text-lagoon' : ''}" href="${href(p.slug)}">${p[L]}</a>`).join('');
+    `<a class="block rounded-xl px-4 py-3 text-lg hover:bg-white/5${p.slug === slug ? ' text-lagoon' : ''}" href="${href(p.slug)}">${p[L] ?? p.en}</a>`).join('');
   const book = t('Réserver un essai', 'Book a sea trial');
 
   return `<!doctype html>
@@ -85,7 +89,7 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false, h
 <link rel="canonical" href="${pageUrl(L, slug)}">
 <link rel="alternate" hreflang="fr" href="${pageUrl('fr', slug)}">
 <link rel="alternate" hreflang="en" href="${pageUrl('en', slug)}">
-<link rel="alternate" hreflang="x-default" href="${pageUrl('fr', slug)}">
+${ES_SLUG[slug] ? `<link rel="alternate" hreflang="es" href="${pageUrl('es', slug)}">\n` : ''}<link rel="alternate" hreflang="x-default" href="${pageUrl('fr', slug)}">
 <link rel="icon" href="${root}favicon.svg" type="image/svg+xml">
 <link rel="icon" href="${root}favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="${root}apple-touch-icon.png">
@@ -97,7 +101,7 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false, h
 <meta property="og:image" content="${BASE}assets/img/og-e-dolphin.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="${L === 'fr' ? 'fr_FR' : 'en_GB'}">
+<meta property="og:locale" content="${{ fr: 'fr_FR', en: 'en_GB', es: 'es_ES' }[L]}">
 <meta property="og:locale:alternate" content="${L === 'fr' ? 'en_GB' : 'fr_FR'}">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Fonts are served by the site (no Google Fonts request). No font preload: on slow 4G it delayed the first paint by 0.3-0.4 s (measured 23 Oct) -->
@@ -112,7 +116,7 @@ ${rail ? `<script defer src="${root}assets/js/rail.js"></script>` : ''}
 </head>
 <body class="page-${slug}${rail ? ' has-rail' : ''}">
 <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-foam focus:px-4 focus:py-2 focus:text-abyss">${t('Aller au contenu', 'Skip to content')}</a>
-${rail ? railNav({ L, slug, href, other, flagFr: FLAG_FR, flagEn }) : `<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
+${rail ? railNav({ L, slug, href, other, otherL, flagFr: FLAG_FR, flagEn }) : `<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
   <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 py-3" aria-label="${t('Navigation principale', 'Main navigation')}">
     <a href="${href('index')}" class="flex shrink-0 items-center gap-3" aria-label="E-Dolphin, ${t('accueil', 'home')}">
       ${logo(48, 36)}
@@ -175,7 +179,7 @@ ${body}
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="${waLink(L)}" target="_blank" rel="noopener"><i data-lucide="message-circle" class="h-4 w-4"></i>WhatsApp <span class="num">${WA.show}</span></a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><i data-lucide="music-2" class="h-4 w-4"></i>TikTok</a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><i data-lucide="instagram" class="h-4 w-4"></i>Instagram</a></li>
-        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="${other}" hreflang="${L === 'fr' ? 'en' : 'fr'}">${L === 'fr' ? flagEn() : FLAG_FR}${t('English', 'Français')}</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="${other}" hreflang="${otherL}">${otherL === 'en' ? flagEn() : FLAG_FR}${otherL === 'en' ? 'English' : 'Français'}</a></li>
       </ul>
     </div>
   </div>
@@ -199,6 +203,7 @@ ${body}
     <li><a class="hover:text-foam" href="${href('mentions-legales')}">${t('Mentions légales', 'Legal notice')}</a></li>
     <li><a class="hover:text-foam" href="${href('confidentialite')}">${t('Confidentialité et cookies', 'Privacy and cookies')}</a></li>
     <li><a class="hover:text-foam" href="${href('cgv')}">${t('Conditions générales de vente', 'Terms of sale')}</a></li>
+    ${L === 'es' ? '' : `<li><a class="hover:text-foam" href="${root}${pagePath('es', 'mentions-legales')}" hreflang="es" lang="es">Español · aviso legal</a></li>`}
     <li>© 2026 E-Dolphin</li>
   </ul>
   <p class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-6 font-mono text-[11px] leading-relaxed text-brume/80">${t(
