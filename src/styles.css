@@ -124,6 +124,105 @@ details[open] .chev { transform: rotate(45deg); }
 .cfg-bar { background: rgba(255,255,255,.96); color: #0A1E2B; border-top: 1px solid #DCE3E7; box-shadow: 0 -10px 30px -18px rgba(10,30,43,.35); backdrop-filter: blur(10px); }
 .cfg-light #cfgSummary .border-t { border-color: #DCE3E7; }
 
+/* IRUKA configurator modelled on the Porsche one, and its "Choose your model" entry page (preview, 27 Oct 2026) */
+.page-iruka-configurateur, .page-modeles { background: #EEF2F4; }
+.cfgx-top { background: #fff; border-bottom: 1px solid #DCE3E7; }
+.cfgx-stage { position: relative; overflow: hidden; background: radial-gradient(120% 90% at 50% 42%, #1b2026 0%, #0b0d0f 62%, #050607 100%); user-select: none; touch-action: pan-y; cursor: grab; }
+.cfgx-stage.is-grabbing { cursor: grabbing; }
+.cfgx-img { display: block; width: 100%; height: 100%; object-fit: cover; will-change: transform, opacity; }
+.cfgx-turn { position: absolute; top: 50%; transform: translateY(-50%); display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: rgba(255,255,255,.88); color: #0A1E2B; box-shadow: 0 8px 24px -10px rgba(0,0,0,.6); }
+.cfgx-views { position: absolute; left: 50%; bottom: 1rem; transform: translateX(-50%); display: flex; gap: .35rem; max-width: calc(100% - 1.5rem); overflow-x: auto; scrollbar-width: none; padding: .3rem; border-radius: 999px; background: rgba(5,6,7,.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.cfgx-views::-webkit-scrollbar { display: none; }
+.cfgx-chip { flex: none; padding: .38rem .8rem; border-radius: 999px; font-size: 12px; color: rgba(255,255,255,.85); transition: background .2s, color .2s; }
+.cfgx-chip:hover { color: #fff; background: rgba(255,255,255,.1); }
+.cfgx-chip[aria-pressed="true"] { background: #fff; color: #0A1E2B; font-weight: 600; }
+.cfgx-hint { position: absolute; right: 1.25rem; top: 1.25rem; font-size: 11px; color: rgba(255,255,255,.6); }
+.cfgx-mat { position: absolute; left: 1rem; bottom: 4.25rem; display: flex; align-items: center; gap: .75rem; max-width: min(360px, calc(100% - 2rem)); padding: .7rem .9rem; border-radius: 1rem; background: rgba(5,6,7,.72); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.cfgx-panel { background: #fff; }
+.cfgx-tabs { position: relative; display: flex; overflow-x: auto; scrollbar-width: none; background: #fff; border-bottom: 1px solid #DCE3E7; }
+.cfgx-tabs::-webkit-scrollbar { display: none; }
+.cfgx-tab { position: relative; flex: none; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 5.4rem; padding: .75rem .7rem .65rem; font-size: 12px; color: #5B6D77; transition: color .2s; }
+.cfgx-tab:hover, .cfgx-tab[aria-selected="true"] { color: #0A1E2B; }
+.cfgx-tab[aria-selected="true"] { font-weight: 600; }
+.cfgx-tab[aria-selected="true"] svg { color: #0FA3B1; }
+.cfgx-count { position: absolute; right: .9rem; top: .4rem; display: grid; place-items: center; min-width: 1.1rem; height: 1.1rem; padding: 0 .25rem; border-radius: 999px; background: #0FA3B1; color: #fff; font-size: 10px; font-weight: 600; }
+.cfgx-ink { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; border-radius: 3px 3px 0 0; background: #0FA3B1; pointer-events: none; }
+.cfgx-pad { padding: 1.25rem 1.25rem 2rem; }
+.cfgx-sec + .cfgx-sec { margin-top: 1.75rem; }
+.cfgx-sub { margin: .9rem 0 .5rem; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #5B6D77; }
+.cfgx-swgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.6rem, 1fr)); gap: .6rem; }
+.cfgx-sw { display: grid; justify-items: center; gap: .4rem; padding: .8rem .45rem .7rem; border: 1px solid #DCE3E7; border-radius: 1rem; background: #fff; text-align: center; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
+.cfgx-sw:hover { border-color: #0FA3B1; }
+.cfgx-sw.is-on { border-color: #0FA3B1; box-shadow: inset 0 0 0 2px #0FA3B1; }
+.cfgx-dot { display: block; width: 3.1rem; height: 3.1rem; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(10,30,43,.12), 0 8px 16px -10px rgba(10,30,43,.6); }
+.cfgx-dot-sm { width: 2.5rem; height: 2.5rem; flex: none; }
+.cfgx-opt { display: flex; align-items: center; gap: .8rem; padding: .75rem .85rem; border: 1px solid #DCE3E7; border-radius: 1rem; background: #fff; cursor: pointer; transition: border-color .2s, background .2s, box-shadow .2s; }
+.cfgx-opt:hover { border-color: #0FA3B1; }
+.cfgx-opt.is-on { border-color: #0FA3B1; background: #EAF7F8; box-shadow: inset 0 0 0 1px #0FA3B1; }
+.cfgx-opt.is-locked { cursor: default; }
+.cfgx-opt:has(input:focus-visible), .cfgx-sw:has(input:focus-visible) { outline: 2px solid #0FA3B1; outline-offset: 2px; }
+.cfgx-ico { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; flex: none; border-radius: .8rem; background: #EEF2F4; color: #0A1E2B; }
+.cfgx-opt.is-on .cfgx-ico { background: #fff; color: #0FA3B1; }
+.cfgx-tick { display: grid; place-items: center; width: 1.35rem; height: 1.35rem; flex: none; border-radius: 999px; border: 1.5px solid #B9C5CC; color: transparent; transition: background .2s, border-color .2s; }
+.cfgx-opt.is-on .cfgx-tick { background: #0FA3B1; border-color: #0FA3B1; color: #fff; }
+.cfgx-toast { position: fixed; left: 50%; bottom: 7rem; z-index: 80; transform: translateX(-50%); padding: .6rem 1rem; border-radius: 999px; background: #0A1E2B; color: #fff; font-size: 13px; box-shadow: 0 12px 30px -12px rgba(0,0,0,.5); }
+.cfgx-sum { position: fixed; inset: 0; z-index: 52; overflow-y: auto; background: #EEF2F4; color: #0A1E2B; }
+.cfgx-sumbar { position: sticky; top: 0; z-index: 2; background: rgba(255,255,255,.94); border-bottom: 1px solid #DCE3E7; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.cfgx-shot { position: relative; overflow: hidden; border-radius: 1.25rem; background: #0b0d0f; }
+.cfgx-shot img { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.cfgx-shot span { position: absolute; left: .75rem; bottom: .75rem; padding: .2rem .7rem; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px; }
+.cfgx-sumgrp { padding: 1.25rem 1.25rem 1rem; border-radius: 1.25rem; background: #fff; }
+.cfgx-row { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-top: 1px solid #EEF2F4; font-size: 14px; }
+.cfgx-row:first-child { border-top: 0; }
+.cfgx-row dd { flex: none; text-align: right; font-weight: 600; }
+.cfgx-pricebox { padding: 1.5rem; border-radius: 1.25rem; background: #fff; box-shadow: 0 20px 50px -30px rgba(10,30,43,.45); }
+.x-sum-open { overflow: hidden; }
+/* The WhatsApp button would cover the options; the summary offers the sea trial instead */
+.page-iruka-configurateur .wa-float { display: none; }
+/* The footer keeps its dark ground on the light configurator pages */
+.page-configurateur > footer, .page-iruka-configurateur > footer, .page-modeles > footer { background: var(--abyss); }
+/* Fade the edge of the tab row where more categories hide */
+.cfgx-tabs.fade-r { -webkit-mask-image: linear-gradient(to left, transparent, #000 2.5rem); mask-image: linear-gradient(to left, transparent, #000 2.5rem); }
+.cfgx-tabs.fade-l { -webkit-mask-image: linear-gradient(to right, transparent, #000 2.5rem); mask-image: linear-gradient(to right, transparent, #000 2.5rem); }
+.cfgx-tabs.fade-l.fade-r { -webkit-mask-image: linear-gradient(to right, transparent, #000 2.5rem calc(100% - 2.5rem), transparent); mask-image: linear-gradient(to right, transparent, #000 2.5rem calc(100% - 2.5rem), transparent); }
+.mdl-card { overflow: hidden; border-radius: 1.5rem; background: #fff; border: 1px solid #DCE3E7; transition: box-shadow .3s; }
+.mdl-card:hover { box-shadow: 0 24px 60px -34px rgba(10,30,43,.55); }
+.mdl-img { position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: #0b0d0f; }
+.mdl-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.mdl-card:hover .mdl-img img { transform: scale(1.04); }
+.mdl-tag { padding: .25rem .65rem; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .02em; background: #EEF2F4; color: #5B6D77; }
+.mdl-tag-on { background: #EAF7F8; color: #0B7C87; }
+.mdl-tag-sand { background: #F4EDE0; color: #7A5C2E; }
+.mdl-filter { padding: .5rem 1rem; border-radius: 999px; font-size: 14px; background: #fff; border: 1px solid #DCE3E7; color: #0A1E2B; transition: background .2s, color .2s, border-color .2s; }
+.mdl-filter:hover { border-color: #0FA3B1; }
+.mdl-filter[aria-pressed="true"] { background: #0A1E2B; border-color: #0A1E2B; color: #fff; }
+.mdl-code { width: 10.5rem; padding: .5rem .85rem; border-radius: 999px; border: 1px solid #B9C5CC; background: #fff; color: #0A1E2B; font-size: 13px; }
+.mdl-code:focus { outline: 2px solid #0FA3B1; outline-offset: 1px; }
+@media (min-width: 1024px) {
+  .cfgx-main { display: grid; grid-template-columns: minmax(0, 1fr) 460px; height: calc(100vh - 73px - 74px); height: calc(100dvh - 73px - 74px); }
+  .cfgx-panel { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid #DCE3E7; }
+  .cfgx-scroll { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .has-rail .cfgx-sum { left: 104px; }
+  .has-rail .cfgx-toast { margin-left: 52px; }
+}
+@media (max-width: 1023.98px) {
+  .has-rail .cfgx { padding-top: 56px; padding-bottom: 76px; }
+  .cfgx-stage { position: sticky; top: 56px; z-index: 20; height: min(56.25vw, 38vh); }
+  .cfgx-tabs { position: sticky; top: calc(56px + min(56.25vw, 38vh)); z-index: 19; }
+  .cfgx-hint { display: none; }
+  .cfgx-turn { width: 2.25rem; height: 2.25rem; }
+  .cfgx-views { bottom: .5rem; }
+  .cfgx-mat { bottom: 3.25rem; left: .5rem; }
+  .has-rail .cfgx-sum { z-index: 58; }
+  .cfgx-toast { bottom: 9.5rem; }
+}
+@media print {
+  .x-sum-open body * { visibility: hidden; }
+  .x-sum-open #xSum, .x-sum-open #xSum * { visibility: visible; }
+  .x-sum-open #xSum { position: absolute; inset: 0 auto auto 0; width: 100%; overflow: visible; }
+  .x-sum-open .cfgx-sumbar, .x-sum-open [data-add], .x-sum-open #xSum a { display: none !important; }
+}
+
 /* Launch Edition plate: carbon (default) or aluminium finish */
 .plaque-wrap .pl-alu { display: none; }
 .plaque-wrap[data-finish="alu"] .pl-alu { display: inline; }
@@ -174,6 +273,8 @@ details[open] .chev { transform: rotate(45deg); }
   .has-rail .rail-fly { top: 0; bottom: 62px; padding-top: 56px; }
   .has-rail #railShade { z-index: 44; }
   .has-rail .cfg-bar { bottom: 62px; }
+  /* The tab bar can be a few pixels shorter than 62px: fill the strip under the price bar so no content shows through */
+  .has-rail .cfg-bar::after { content: ""; position: absolute; inset: 100% 0 auto; height: 62px; background: #fff; }
   .has-rail > footer { padding-bottom: 3.5rem; }
 }
 @media (min-width: 1024px) {

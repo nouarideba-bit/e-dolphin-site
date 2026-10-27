@@ -20,7 +20,7 @@ export const indexable = (slug) => INDEXABLE && inSearch(slug);
 export const EN_SLUG = {
   decouvrir: 'discover', maison: 'about', 'yachts-flottes': 'yachts', configurateur: 'configurator', boutique: 'order',
   location: 'rental-fleets', distributeurs: 'dealers', 'dossier-distributeur': 'dealer-application', reserver: 'book',
-  'mentions-legales': 'legal-notice', confidentialite: 'privacy', cgv: 'terms-of-sale'
+  'mentions-legales': 'legal-notice', confidentialite: 'privacy', cgv: 'terms-of-sale', modeles: 'models', 'iruka-configurateur': 'iruka-configurator'
 };
 // Spanish exists for the legal pages only (adam, 27 Oct 2026); their other links lead to the English site
 export const ES_SLUG = { 'mentions-legales': 'aviso-legal', confidentialite: 'privacidad', cgv: 'condiciones-de-venta' };
@@ -45,7 +45,9 @@ export const PAGES = [
   { slug: 'reserver', nav: false, fr: 'Réserver', en: 'Book' },
   { slug: 'mentions-legales', nav: false, fr: 'Mentions légales', en: 'Legal notice' },
   { slug: 'confidentialite', nav: false, fr: 'Confidentialité et cookies', en: 'Privacy and cookies' },
-  { slug: 'cgv', nav: false, fr: 'Conditions générales de vente', en: 'Terms of sale' }
+  { slug: 'cgv', nav: false, fr: 'Conditions générales de vente', en: 'Terms of sale' },
+  { slug: 'modeles', nav: false, fr: 'Choisir son modèle', en: 'Choose your model' },
+  { slug: 'iruka-configurateur', nav: false, fr: 'Configurateur IRUKA', en: 'IRUKA configurator' }
 ];
 
 // Brand mark V5 (validated 22 Oct 2026): capsule, bar attached to the left stroke, small EDOLPHIN at the bar end.

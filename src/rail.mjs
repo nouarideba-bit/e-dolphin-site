@@ -6,7 +6,8 @@ import { tr } from './ui.mjs';
 export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
   const t = tr(L);
   const R = L === 'fr' ? '' : '../';
-  const on = (s) => (s === slug ? ' is-on" aria-current="page' : '');
+  // The configurator journey starts on the model choice page (adam, 27 Oct)
+  const on = (s) => (s === slug || (s === 'modeles' && slug === 'iruka-configurateur') ? ' is-on" aria-current="page' : '');
   const item = (s, icon, label, cls = '') =>
     `<li><a class="rail-item${cls}${on(s)}" href="${href(s)}"><i data-lucide="${icon}" class="h-[22px] w-[22px]"></i><span>${label}</span></a></li>`;
   const panelBtn = (panel, icon, label) =>
@@ -19,7 +20,7 @@ export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
       </a>`;
   // Menu by intention (audit, 22 Oct): who you are first; everything else sits under "More"
   const more = [
-    ['reserver', t('Essai en mer', 'Sea trial')], ['configurateur', t('Configurer le vôtre', 'Build yours')], ['distributeurs', t('Devenir distributeur', 'Become a dealer')],
+    ['reserver', t('Essai en mer', 'Sea trial')], ['modeles', t('Configurer le vôtre', 'Build yours')], ['distributeurs', t('Devenir distributeur', 'Become a dealer')],
     ['decouvrir', t('Découvrir E-Dolphin', 'Discover E-Dolphin')], ['experience', t("L'expérience", 'Experience')], ['maison', t('La maison', 'The house')], ['boutique', t('Commander', 'Order')],
     ['reserver', t('Questions fréquentes', 'FAQ'), '#faq'], ['cgv', t('Conditions de vente', 'Terms of sale')], ['mentions-legales', t('Mentions légales', 'Legal notice')]
   ].map(([s, label, hash = '']) => `<a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="${href(s)}${hash}">${label}<i data-lucide="chevron-right" class="h-4 w-4 text-brume"></i></a>`).join('');
@@ -41,7 +42,7 @@ export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
       ${item('yachts-flottes', 'anchor', t('Pour mon yacht', 'For my yacht'))}
       ${item('location', 'sailboat', t('Pour ma location', 'For my rental'))}
       ${item('launch-edition', 'gem', 'Launch Edition', ' rail-sand')}
-      ${item('configurateur', 'sliders-horizontal', t('Configurer', 'Build yours'))}
+      ${item('modeles', 'sliders-horizontal', t('Configurer', 'Build yours'))}
       ${item('reserver', 'calendar-check', t('Essai en mer', 'Sea trial'), ' rail-cta')}
       ${panelBtn('more', 'ellipsis', t('Plus', 'More'))}
     </ul>
@@ -57,7 +58,7 @@ export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
     <button type="button" data-fly-close class="glass rounded-full p-2" aria-label="${t('Fermer', 'Close')}"><i data-lucide="x" class="h-4 w-4"></i></button>
   </div>
   <div data-panel="models" data-title="${t('Nos modèles', 'Our models')}" class="grid gap-2 p-3">${models}
-    <a href="${href('configurateur')}" class="btn-primary mx-2 mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold">${t('Configurer le vôtre', 'Build yours')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
+    <a href="${href('modeles')}" class="btn-primary mx-2 mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold">${t('Configurer le vôtre', 'Build yours')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
   </div>
   <div data-panel="more" data-title="${t('Plus', 'More')}" class="grid gap-1 p-3" hidden>${more}
     <div class="mx-2 mt-4 flex gap-2 border-t border-white/10 pt-4 text-sm">
