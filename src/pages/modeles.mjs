@@ -54,8 +54,8 @@ export const body = (L, R) => {
         specs: spec(t('Puissance', 'Power'), '160 kW') + spec(t('Vitesse de pointe', 'Top speed'), t('60 nœuds', '60 knots')) + spec(t('Batterie', 'Battery'), '35 kWh') + spec(t('Recharge rapide DC', 'DC fast charging'), '70 kW'),
         actions: btn('iruka-configurateur.html', t('Configurer', 'Build yours'), 'sliders-horizontal', true) + btn('iruka.html', t('Découvrir', 'Discover'), 'arrow-right') })}
       ${card({ kind: 'serie', file: 'cfg-predator-a045.jpg', name: 'IRUKA Launch Edition', tags: [[t('Série limitée', 'Limited series'), 'mdl-tag-sand'], [t('300 exemplaires', '300 units')]],
-        price: `<b class="num text-[#0A1E2B]">90 000 $ HT</b>`, priceNote: t('configurateur dédié bientôt', 'dedicated configurator soon'),
-        actions: btn('launch-edition.html', t('Découvrir', 'Discover'), 'arrow-right', true) })}
+        price: `<b class="num text-[#0A1E2B]">90 000 $ HT</b>`, priceNote: t('acompte 30 %', '30 % deposit'),
+        actions: btn('iruka-configurateur.html?modele=launch', t('Configurer', 'Build yours'), 'sliders-horizontal', true) + btn('launch-edition.html', t('Découvrir', 'Discover'), 'arrow-right') })}
       ${card({ kind: 'soon', file: 'tridens-flou.jpg', name: 'Tridens', blur: true, tags: [[t('Bientôt', 'Soon')], [t('Trois places · concept', 'Three seats · concept')]],
         price: t('Prix annoncé au lancement', 'Price announced at launch'), actions: btn('index.html#bientot', t('En savoir plus', 'Learn more'), 'arrow-right') })}
       ${card({ kind: 'soon', file: 'kids-mako2-flou.jpg', name: t('Gamme enfants', 'Kids range'), blur: true, tags: [[t('Bientôt', 'Soon')], [t('6 à 12 ans · concept', 'Ages 6 to 12 · concept')]],

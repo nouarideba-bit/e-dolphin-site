@@ -150,6 +150,7 @@ details[open] .chev { transform: rotate(45deg); }
 .cfgx-pad { padding: 1.25rem 1.25rem 2rem; }
 .cfgx-sec + .cfgx-sec { margin-top: 1.75rem; }
 .cfgx-sub { margin: .9rem 0 .5rem; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #5B6D77; }
+.cfgx-perks { margin-bottom: .75rem; border-radius: .75rem; background: #F4F1EA; border: 1px solid #E4DAC6; padding: .55rem .8rem; font-size: 12px; line-height: 1.5; color: #6B5530; }
 .cfgx-swgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.6rem, 1fr)); gap: .6rem; }
 .cfgx-sw { display: grid; justify-items: center; gap: .4rem; padding: .8rem .45rem .7rem; border: 1px solid #DCE3E7; border-radius: 1rem; background: #fff; text-align: center; cursor: pointer; transition: border-color .2s, box-shadow .2s; }
 .cfgx-sw:hover { border-color: #0FA3B1; }

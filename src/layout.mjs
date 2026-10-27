@@ -36,7 +36,7 @@ export const PAGES = [
   { slug: 'experience', nav: true, fr: "L'expérience", en: 'Experience' },
   { slug: 'yachts-flottes', nav: true, fr: 'Pour mon yacht', en: 'For my yacht' },
   { slug: 'launch-edition', nav: true, fr: 'Launch Edition', en: 'Launch Edition' },
-  { slug: 'configurateur', nav: true, fr: 'Configurer', en: 'Build yours' },
+  { slug: 'modeles', nav: true, fr: 'Configurer', en: 'Build yours' },
   { slug: 'boutique', nav: true, fr: 'Commander', en: 'Order' },
   { slug: 'location', nav: false, fr: 'Pour ma location', en: 'For rental operators' },
   { slug: 'distributeurs', nav: false, fr: 'Devenir distributeur', en: 'Become a dealer' },
@@ -46,7 +46,6 @@ export const PAGES = [
   { slug: 'mentions-legales', nav: false, fr: 'Mentions légales', en: 'Legal notice' },
   { slug: 'confidentialite', nav: false, fr: 'Confidentialité et cookies', en: 'Privacy and cookies' },
   { slug: 'cgv', nav: false, fr: 'Conditions générales de vente', en: 'Terms of sale' },
-  { slug: 'modeles', nav: false, fr: 'Choisir son modèle', en: 'Choose your model' },
   { slug: 'iruka-configurateur', nav: false, fr: 'Configurateur IRUKA', en: 'IRUKA configurator' }
 ];
 

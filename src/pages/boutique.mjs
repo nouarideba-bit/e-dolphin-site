@@ -30,7 +30,7 @@ export const body = (L, R) => {
         <ul class="mt-5 grid gap-2 text-sm text-brume">${lines.map(l => `<li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-lagoon"></i>${l}</li>`).join('')}</ul>
         <label for="liv-${id}" class="mt-6 text-sm text-brume">${t('Livrée', 'Livery')}</label>
         <select id="liv-${id}" class="field" data-preview="#img-${id}">${options}</select>
-        <a href="configurateur.html?modele=${id}" class="btn-ghost mt-6 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold">${t('Personnaliser : options et 360°', 'Customise: options and 360°')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
+        <a href="iruka-configurateur.html${id === 'launch' ? '?modele=launch' : ''}" class="btn-ghost mt-6 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-semibold">${t('Personnaliser : options et 360°', 'Customise: options and 360°')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
         <button type="button" data-add="${id}" data-livery-from="#liv-${id}" class="btn-primary mt-3 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter à ma sélection', 'Add to my selection')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
       </div>
     </article>`;

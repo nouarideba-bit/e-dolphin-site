@@ -26,7 +26,7 @@ export const body = (L, R) => {
       </div>
       <div class="mt-9 flex flex-wrap gap-3">
         ${btn('#numero', t('Réserver mon numéro', 'Reserve my number'), 'gem')}
-        ${btn('configurateur.html?modele=launch&livree=predator', t('Configurer en 360°', 'Configure in 360°'), 'rotate-3d', false)}
+        ${btn('iruka-configurateur.html?modele=launch', t('Configurer en 360°', 'Configure in 360°'), 'rotate-3d', false)}
         <button type="button" data-add="launch" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Ajouter à ma sélection', 'Add to my selection')} <i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
       </div>
       <p class="mt-4 inline-flex items-center gap-2 tag text-brume"><i data-lucide="lock" class="h-3.5 w-3.5"></i>${t('Paiement de l\'acompte en ligne bientôt disponible. Votre demande réserve dès maintenant votre place dans la file.', 'Online deposit payment opening soon. Your request holds your place in line today.')}</p>

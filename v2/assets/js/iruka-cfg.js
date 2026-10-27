@@ -1,7 +1,9 @@
 /* IRUKA configurator, modelled on the Porsche one (preview, 27 Oct 2026): the craft on stage, options by category in a
    side panel, live price, E-Dolphin code, summary. Catalogue: iruka-catalog.js, plus the accessories of cfg-options.js.
    Animations use Motion (window.Motion, the engine of Framer Motion; adam, 27 Oct: "Utilise framer Motion"); none run when
-   the visitor asks for reduced motion. The configuration lives in the URL (?code=ED1-…), so it can be shared or reopened. */
+   the visitor asks for reduced motion. The configuration lives in the URL (?code=ED1-…), so it can be shared or reopened.
+   The stage always shows the same craft, the white IRUKA, repainted in the browser in the chosen livery, finish, upholstery,
+   deck and underwater lights (adam, 27 Oct: "que ce reste le même mais que la couleur change"). */
 addEventListener('DOMContentLoaded', () => {
   const C = window.IRUKA_CFG, ACC = window.CFG_OPTIONS || [];
   if (!C || !$('#xPanel')) return;
@@ -11,7 +13,16 @@ addEventListener('DOMContentLoaded', () => {
   const EASE = [.2, .7, .2, 1];
   const T = (o) => (o && typeof o === 'object' ? o[LANG] ?? o.fr : o);
   const r2 = (n) => Math.round(n * 100) / 100;
-  const fmt = (n) => Cart.money(r2(n), '€ HT');
+  const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+  const codeNs = (code) => (String(code || '').toUpperCase().replace(/[^0-9A-Z]/g, '').replace(/^ED1/, '').match(/../g) || [])
+    .map(([a, b]) => (B32.includes(a) && B32.includes(b) ? B32.indexOf(a) * 32 + B32.indexOf(b) : -1));
+  // Launch Edition: the same craft and catalogue at its own price and currency, from ?modele=launch or from its number in a code
+  const Q = new URLSearchParams(location.search), EDS = C.editions || {};
+  const edId = EDS[Q.get('modele')] ? Q.get('modele') : Object.keys(EDS).find(k => codeNs(Q.get('code')).includes(EDS[k].n));
+  const ED = edId ? EDS[edId] : null;
+  const BASE = ED ? ED.base : C.base, NAME = ED ? (ED[LANG] || ED.fr) : 'IRUKA';
+  const P = (eur) => (ED && eur ? Math.round(eur * ED.rate / 10) * 10 : eur); // euro price in the edition's currency
+  const fmt = (n) => Cart.money(r2(n), ED ? ED.cur : '€ HT');
   const slug = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const paint = (el) => window.renderIcons && renderIcons(el);
 
@@ -25,7 +36,9 @@ addEventListener('DOMContentLoaded', () => {
   const accIcon = (cat) => (ACC_ICONS.find(a => a.cat === cat) || { icon: 'plus' }).icon;
   const ITEMS = new Map();
   const GROUPS = C.groups.map(g => {
-    const sections = g.sections.map(s => ({ ...s, items: s.items.map(i => ({ ...i })) }));
+    const mine = (s) => (ED && s.id === 'livery' ? ED.liveries.map(id => s.items.find(i => i.id === id)) : s.items); // in the edition's order
+    const sections = g.sections.map(s => ({ ...s, items: mine(s).map(i => ({ ...i,
+      ...(ED && s.id === 'livery' ? { price: 0 } : {}), ...(ED && ED.included[i.id] ? { std: true, d: ED.included[i.id] } : {}) })) }));
     (g.accessories || []).forEach(cat => {
       const list = ACC.filter(o => o.cat.fr === cat).map(o => ({ ...o, n: 100 + ACC.indexOf(o), icon: accIcon(cat) }));
       (g.extra || []).filter(e => e.cat === cat).forEach(e => list.push({ ...e, icon: accIcon(cat) }));
@@ -36,21 +49,20 @@ addEventListener('DOMContentLoaded', () => {
   });
   GROUPS.forEach(g => g.sections.forEach(s => s.items.forEach(i => { i.g = g; i.s = s; ITEMS.set(i.id, i); })));
   const ONE = GROUPS.flatMap(g => g.sections).filter(s => s.pick === 'one');
+  const std = (s) => (ED && ED.std[s.id]) || s.items[0].id; // the choice that costs nothing and stays out of the code
   const BY_N = new Map([...ITEMS.values()].map(i => [i.n, i]));
 
   /* ---- State and E-Dolphin code ---- */
-  const S = { pick: Object.fromEntries(ONE.map(s => [s.id, s.items[0].id])), on: new Set(), view: 'a045', group: GROUPS[0].id };
-  const B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
-  // The code lists what differs from the standard IRUKA, two characters per item (its number n in base 32)
+  const S = { pick: Object.fromEntries(ONE.map(s => [s.id, std(s)])), on: new Set(), view: 'a045', group: GROUPS[0].id };
+  // The code lists what differs from the standard IRUKA, two characters per item (its number n in base 32); a Launch Edition
+  // adds its own number
   const encode = () => {
-    const ns = [...ONE.filter(s => S.pick[s.id] !== s.items[0].id).map(s => ITEMS.get(S.pick[s.id]).n), ...[...S.on].map(id => ITEMS.get(id).n)].sort((a, b) => a - b);
+    const ns = [...(ED ? [ED.n] : []), ...ONE.filter(s => S.pick[s.id] !== std(s)).map(s => ITEMS.get(S.pick[s.id]).n), ...[...S.on].map(id => ITEMS.get(id).n)].sort((a, b) => a - b);
     return ['ED1', ...(ns.map(n => B32[n >> 5] + B32[n & 31]).join('').match(/.{1,4}/g) || [])].join('-');
   };
   const decode = (code) => {
-    const m = String(code || '').toUpperCase().replace(/[^0-9A-Z]/g, '').replace(/^ED1/, '');
-    for (let k = 0; k + 1 < m.length; k += 2) {
-      const a = B32.indexOf(m[k]), b = B32.indexOf(m[k + 1]);
-      const it = a < 0 || b < 0 ? null : BY_N.get(a * 32 + b);
+    for (const n of codeNs(code)) {
+      const it = BY_N.get(n);
       if (!it || it.std) continue;
       if (it.s.pick === 'one') S.pick[it.s.id] = it.id; else S.on.add(it.id);
     }
@@ -61,21 +73,22 @@ addEventListener('DOMContentLoaded', () => {
   const packOf = (id) => { for (const p of S.on) { const it = ITEMS.get(p); if (it.pack && it.pack.includes(id)) return it; } return null; };
   const isOn = (it) => (it.s.pick === 'one' ? S.pick[it.s.id] === it.id : !!it.std || S.on.has(it.id) || !!packOf(it.id));
   const bespoke = () => S.on.has('mesure');
-  const cost = (it) => (it.price == null || it.std || packOf(it.id) || (it.s.id === 'livery' && bespoke()) ? 0 : it.price);
+  const cost = (it) => (it.price == null || it.std || packOf(it.id) || (it.s.id === 'livery' && bespoke()) ? 0 : P(it.price));
   const chosen = () => [...ONE.map(s => ITEMS.get(S.pick[s.id])), ...[...S.on].map(id => ITEMS.get(id))];
   const optTotal = () => r2(chosen().reduce((a, it) => a + cost(it), 0));
-  const total = () => r2(C.base + optTotal());
+  const total = () => r2(BASE + optTotal());
   const deposit = () => Math.round(total() * C.deposit) / 100;
-  const saving = (p) => Math.round(p.pack.reduce((a, id) => a + ((ITEMS.get(id) || {}).price || 0), 0) - p.price); // whole euros: easier to read than 94,97 €
+  const saving = (p) => Math.round(p.pack.reduce((a, id) => a + P((ITEMS.get(id) || {}).price || 0), 0) - P(p.price)); // whole euros or dollars: easier to read than 94,97 €
+  const stdLabel = () => (ED ? tt('Inclus', 'Included') : tt('De série', 'Standard'));
   const quoted = () => chosen().filter(it => it.price == null);
   const priceLabel = (it) => {
-    if (it.std) return tt('De série', 'Standard');
+    if (it.std) return stdLabel();
     const p = packOf(it.id);
     if (p) return tt('Inclus · ', 'Included · ') + T(p);
     if (it.price == null) return tt('Sur devis', 'On quotation');
     if (it.s.id === 'livery' && bespoke()) return tt('Sur mesure', 'Bespoke');
-    if (!it.price) return it.s.pick === 'one' && it === it.s.items[0] ? tt('De série', 'Standard') : tt('Inclus', 'Included');
-    return '+ ' + fmt(it.price);
+    if (!it.price) return it.s.pick === 'one' && it.id === std(it.s) ? stdLabel() : tt('Inclus', 'Included');
+    return '+ ' + fmt(P(it.price));
   };
 
   /* ---- Stage: renders of the chosen livery, 24 angles, drag to turn ---- */
@@ -83,7 +96,8 @@ addEventListener('DOMContentLoaded', () => {
   const VNAME = { face: ['Face', 'Front'], a045: ['3/4 avant', '3/4 front'], profil: ['Profil', 'Side'], a135: ['3/4 arrière', '3/4 rear'], arriere: ['Arrière', 'Rear'], dessus: ['Dessus', 'Top'] };
   const viewName = (v) => (VNAME[v] ? tt(...VNAME[v]) : `${+v.slice(1)}°`);
   const img = $('#xImg'), stage = $('#xStage'), CACHE = {};
-  const src = (v = S.view, l = S.pick.livery) => IMG(`cfg-${l}-${v}.jpg`);
+  const BODY = 'blanc';
+  const src = (v = S.view) => IMG(`cfg-${BODY}-${v}.jpg`);
   const load = (u) => new Promise((ok, ko) => {
     const p = CACHE[u] || (CACHE[u] = new Image());
     if (p.src && p.complete) return p.naturalWidth ? ok(p) : ko();
@@ -91,26 +105,66 @@ addEventListener('DOMContentLoaded', () => {
     if (!p.src) p.src = u;
   });
 
-  /* ---- Upholstery and deck pads repainted on the renders, as the manufacturer's configurator shows each choice on the car
-     (adam, 27 Oct: "quand on clique sur la couleur de la selle … on doit le voir sur les photos"). A mask per render says where
-     the seat or deck pads are (iruka-masks.js); the chosen colour replaces theirs and keeps the render's light and shade. ---- */
-  const MASKS = window.IRUKA_MASKS || { seat: {}, deck: {} };
+  /* ---- Each choice repainted on the renders, as the manufacturer's configurator shows it on the car (adam, 27 Oct: "quand on
+     clique sur la couleur de la selle ou de la coque … on doit le voir sur les photos"). Masks per render say where the paint,
+     stripes, seat and deck pads are (iruka-masks.js); the chosen colour replaces theirs and keeps the render's light and shade. ---- */
+  const MASKS = window.IRUKA_MASKS || { hull: {}, seat: {}, deck: {} };
   const PARTS = [['seat', 'selle'], ['deck', 'pont']];
-  const look = (v = S.view, l = S.pick.livery) => {
-    const parts = PARTS.map(([sec, word]) => {
-      const it = ITEMS.get(S.pick[sec]), box = it && it.t && (MASKS[sec][l] || {})[v];
-      return box ? { it, box, flat: sec === 'deck', mask: IMG(`cfg-${l}-${v}-${word}.png`) } : null;
-    }).filter(Boolean);
-    return { v, l, parts, key: [l, v, ...parts.map(p => p.it.id)].join('|') };
+  const look = (v = S.view) => {
+    const liv = ITEMS.get(S.pick.livery), satin = !!ITEMS.get(S.pick.finish).satin, glow = S.on.has('ledsub') ? ITEMS.get('ledsub').glow : '';
+    const parts = [];
+    if (MASKS.hull[v] && (liv.p || liv.a || satin || glow)) parts.push({ box: MASKS.hull[v], mask: IMG(`cfg-${BODY}-${v}-coque.png`), liv, satin, glow });
+    PARTS.forEach(([sec, word]) => {
+      const it = ITEMS.get(S.pick[sec]), box = it && it.t && MASKS[sec][v];
+      if (box) parts.push({ it, box, flat: sec === 'deck', mask: IMG(`cfg-${BODY}-${v}-${word}.png`) });
+    });
+    return { v, parts, key: [v, liv.id, satin ? 'satin' : '', glow, ...parts.filter(p => p.it).map(p => p.it.id)].join('|') };
   };
   const rgb = (h) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
-  const repaint = (ctx, mask, [x, y, w, h], it, flat) => {
-    const px = ctx.getImageData(x, y, w, h), d = px.data, N = w * h;
+  const maskData = (mask, w, h) => {
     const mc = document.createElement('canvas'); mc.width = w; mc.height = h;
     const mx = mc.getContext('2d', { willReadFrequently: true }); mx.drawImage(mask, 0, 0);
-    const a = mx.getImageData(0, 0, w, h).data;
-    const L = new Float32Array(N);
-    for (let i = 0; i < N; i++) L[i] = .2126 * d[i * 4] + .7152 * d[i * 4 + 1] + .0722 * d[i * 4 + 2];
+    return mx.getImageData(0, 0, w, h).data;
+  };
+  const luma = (d, N) => { const L = new Float32Array(N); for (let i = 0; i < N; i++) L[i] = .2126 * d[i * 4] + .7152 * d[i * 4 + 1] + .0722 * d[i * 4 + 2]; return L; };
+  // Shade of the q-th quantile of luminance under one channel of the mask
+  const pct = (L, a, ch, q) => {
+    const hist = new Uint32Array(256); let n = 0;
+    for (let i = 0; i < L.length; i++) if (a[i * 4 + ch] > 128) { hist[Math.min(255, L[i] | 0)]++; n++; }
+    for (let k = 0, c = 0; k < 256; k++) { c += hist[k]; if (c >= n * q) return Math.max(k, 1); }
+    return 1;
+  };
+  // The livery: the white panels take its colour (red channel of the mask), the lime stripes its accent (green). A pale paint
+  // keeps the render's shading, a dark one shows its shape through its reflections, as on a black car; satin flattens both.
+  // Pixel by pixel, never averaged, so the repainted craft stays as sharp as the render.
+  // The underwater lights tint the floor and stand under the hull (blue channel).
+  const repaintHull = (ctx, mask, [x, y, w, h], { liv, satin, glow }) => {
+    const px = ctx.getImageData(x, y, w, h), d = px.data, N = w * h, a = maskData(mask, w, h), L = luma(d, N);
+    const coats = [[0, liv.p || (satin ? '#EEF0EF' : ''), satin], [1, liv.a, false]].filter(c => c[1]).map(([ch, hex, sat]) => {
+      const T = rgb(hex);
+      return { ch, T, sat, dark: (.2126 * T[0] + .7152 * T[1] + .0722 * T[2]) / 255 < .35, ref: pct(L, a, ch, .7), hi: pct(L, a, ch, .9) };
+    });
+    const G = glow ? rgb(glow) : null;
+    for (let i = 0; i < N; i++) {
+      const o = i * 4;
+      for (const c of coats) {
+        const al = a[o + c.ch] / 255;
+        if (!al) continue;
+        let k = Math.pow(Math.min(L[i] / c.ref, 1.25), .9);
+        if (c.sat) k = 1 + (k - 1) * .6;
+        let sp = c.dark ? Math.max(L[i] - c.hi, 0) * 2.4 + 26 * k : Math.max(L[i] - .92 * c.ref, 0) * .55;
+        if (c.sat) sp *= .3;
+        for (let j = 0; j < 3; j++) { let v = c.T[j] * k + sp; if (c.sat) v = v * .93 + 12; d[o + j] = d[o + j] * (1 - al) + Math.min(255, v) * al; }
+      }
+      const g = G ? a[o + 2] / 255 * .85 : 0;
+      if (g) for (let j = 0; j < 3; j++) d[o + j] = 255 - (255 - d[o + j]) * (1 - G[j] / 255 * g);
+    }
+    ctx.putImageData(px, x, y);
+  };
+  const repaint = (ctx, mask, [x, y, w, h], it, flat) => {
+    const px = ctx.getImageData(x, y, w, h), d = px.data, N = w * h;
+    const a = maskData(mask, w, h);
+    const L = luma(d, N);
     // Reference shade: the 60th percentile of the part's luminance, so a black or a grey seat both land on the chosen colour
     const hist = new Uint32Array(256); let n = 0;
     for (let i = 0; i < N; i++) if (a[i * 4] > 128) { hist[Math.min(255, L[i] | 0)]++; n++; }
@@ -148,18 +202,18 @@ addEventListener('DOMContentLoaded', () => {
     ctx.putImageData(px, x, y);
   };
   const TINT = {};
-  const tinted = (w) => TINT[w.key] || (TINT[w.key] = Promise.all([load(src(w.v, w.l)), ...w.parts.map(p => load(p.mask))]).then(([base, ...ms]) => {
+  const tinted = (w) => TINT[w.key] || (TINT[w.key] = Promise.all([load(src(w.v)), ...w.parts.map(p => load(p.mask))]).then(([base, ...ms]) => {
     const cv = document.createElement('canvas'); cv.width = base.naturalWidth; cv.height = base.naturalHeight;
     const ctx = cv.getContext('2d', { willReadFrequently: true }); ctx.drawImage(base, 0, 0);
-    w.parts.forEach((p, k) => repaint(ctx, ms[k], p.box, p.it, p.flat));
-    return new Promise(ok => cv.toBlob(b => ok(b ? URL.createObjectURL(b) : src(w.v, w.l)), 'image/jpeg', .9));
-  }).catch(() => src(w.v, w.l)));
+    w.parts.forEach((p, k) => (p.it ? repaint(ctx, ms[k], p.box, p.it, p.flat) : repaintHull(ctx, ms[k], p.box, p)));
+    return new Promise(ok => cv.toBlob(b => ok(b ? URL.createObjectURL(b) : src(w.v)), 'image/jpeg', .93));
+  }).catch(() => src(w.v)));
 
   const showImage = (fade) => {
     const w = look();
     $('#xImgLabel').textContent = `${bespoke() ? tt('Teinte sur mesure · aperçu ', 'Bespoke colour · preview ') : ''}${T(ITEMS.get(S.pick.livery))} · ${viewName(S.view)}${w.parts.length ? tt(' · coloris en aperçu', ' · colours previewed') : ''}`;
     $$('[data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === S.view)));
-    img.alt = `IRUKA, ${T(ITEMS.get(S.pick.livery))}${w.parts.map(p => ', ' + T(p.it.s) + ' ' + T(p.it)).join('')}, ${viewName(S.view)}`;
+    img.alt = `IRUKA, ${T(ITEMS.get(S.pick.livery))}${w.parts.filter(p => p.it).map(p => ', ' + T(p.it.s) + ' ' + T(p.it)).join('')}, ${viewName(S.view)}`;
     if (img.dataset.key === w.key) return;
     const swap = (u) => {
       if (look().key !== w.key) return; // a newer choice won the race
@@ -189,12 +243,11 @@ addEventListener('DOMContentLoaded', () => {
   const endDrag = () => { dragX = null; stage.classList.remove('is-grabbing'); };
   stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
 
-  // The paint finish has no render yet: a material card shows the chosen swatch over the stage
+  // A bespoke colour has no render: a card over the stage says the sample is approved with the atelier
   let matT;
   const showMat = (it) => {
     const box = $('#xMat');
-    const dot = it.c ? `<span class="cfgx-dot cfgx-dot-sm" style="background:linear-gradient(135deg, ${it.c[0]} 0 58%, ${it.c[1]} 58% 100%)"></span>` : `<span class="cfgx-ico !bg-white/10 !text-white"><i data-lucide="paintbrush" class="h-5 w-5"></i></span>`;
-    box.innerHTML = `${dot}<span class="min-w-0"><span class="block text-[11px] uppercase tracking-[.14em] text-white/60">${T(it.s)}</span><span class="block text-sm font-semibold text-white">${T(it)}</span><span class="block text-[11px] text-white/60">${it.c ? tt('Aperçu matière · rendu à venir', 'Material preview · render to come') : tt('Échantillon validé avec l\'atelier', 'Sample approved with the atelier')}</span></span>`;
+    box.innerHTML = `<span class="cfgx-ico !bg-white/10 !text-white"><i data-lucide="paintbrush" class="h-5 w-5"></i></span><span class="min-w-0"><span class="block text-[11px] uppercase tracking-[.14em] text-white/60">${T(it.s)}</span><span class="block text-sm font-semibold text-white">${T(it)}</span><span class="block text-[11px] text-white/60">${tt('Échantillon validé avec l\'atelier', 'Sample approved with the atelier')}</span></span>`;
     paint(box); box.hidden = false;
     if (Mo) Mo.animate(box, { opacity: [0, 1], y: [16, 0] }, { duration: .4, ease: EASE });
     clearTimeout(matT);
@@ -215,7 +268,7 @@ addEventListener('DOMContentLoaded', () => {
     tabs.scrollTo({ left: tab.offsetLeft - tabs.clientWidth / 2 + tab.offsetWidth / 2, behavior: reduce ? 'auto' : 'smooth' });
   };
   const counts = () => GROUPS.forEach(g => {
-    const n = g.sections.reduce((a, s) => a + (s.pick === 'one' ? (S.pick[s.id] !== s.items[0].id ? 1 : 0) : s.items.filter(i => S.on.has(i.id)).length), 0);
+    const n = g.sections.reduce((a, s) => a + (s.pick === 'one' ? (S.pick[s.id] !== std(s) ? 1 : 0) : s.items.filter(i => S.on.has(i.id)).length), 0);
     const b = $(`[data-g="${g.id}"] .cfgx-count`, tabs); b.textContent = n; b.hidden = !n;
   });
   $$('[data-g]', tabs).forEach(b => b.addEventListener('click', () => go(b.dataset.g)));
@@ -246,7 +299,8 @@ addEventListener('DOMContentLoaded', () => {
   };
   const section = (s) => {
     let body;
-    if (s.id === 'livery') body = Object.keys(TIER).map(k => { const its = s.items.filter(i => i.tier === k); return its.length ? `<p class="cfgx-sub">${tt(...TIER[k])}</p><div class="cfgx-swgrid">${its.map(tile).join('')}</div>` : ''; }).join('');
+    if (s.id === 'livery' && ED) body = `<p class="cfgx-perks">${T(ED.perks)}</p><div class="cfgx-swgrid">${s.items.map(tile).join('')}</div>`;
+    else if (s.id === 'livery') body = Object.keys(TIER).map(k => { const its = s.items.filter(i => i.tier === k); return its.length ? `<p class="cfgx-sub">${tt(...TIER[k])}</p><div class="cfgx-swgrid">${its.map(tile).join('')}</div>` : ''; }).join('');
     else body = s.items.every(i => i.c) ? `<div class="cfgx-swgrid">${s.items.map(tile).join('')}</div>` : `<div class="grid gap-2">${s.items.map(tile).join('')}</div>`;
     const sub = s.pick === 'one' ? `<span class="truncate text-xs text-ink2">${T(ITEMS.get(S.pick[s.id]))}</span>` : '';
     const note = s.id === 'livery' && bespoke() ? `<p class="mt-3 rounded-xl bg-[#EAF7F8] px-3 py-2 text-xs text-ink2">${tt('Teinte sur mesure choisie dans l\'Atelier : la livrée ne sert plus que d\'aperçu et n\'est pas facturée.', 'Bespoke colour chosen in the Atelier: the livery is only a preview and is not charged.')}</p>` : '';
@@ -290,7 +344,8 @@ addEventListener('DOMContentLoaded', () => {
       const v = it.s.id === 'deck' ? 'dessus' : SEAT_VIEWS.includes(S.view) ? S.view : 'a045';
       const moved = v !== S.view; S.view = v; showImage(moved || !!it.t);
     }
-    else if (it.c || (it.id === 'mesure' && checked)) showMat(it);
+    else if (it.s.id === 'finish' || it.glow) showImage(true);
+    else if (it.id === 'mesure' && checked) showMat(it);
     if (it.id === 'mesure') showImage(false);
     renderPanel(false); sync();
     const el = $(`[data-id="${it.id}"]`, panel);
@@ -308,7 +363,7 @@ addEventListener('DOMContentLoaded', () => {
   };
   const sync = () => {
     $('#xCodeTxt').textContent = encode();
-    setNum('base', C.base); setNum('opts', optTotal(), '+ '); setNum('total', total()); setNum('deposit', deposit());
+    setNum('base', BASE); setNum('opts', optTotal(), '+ '); setNum('total', total()); setNum('deposit', deposit());
     counts();
     history.replaceState(null, '', '?' + new URLSearchParams({ code: encode() }));
   };
@@ -326,7 +381,7 @@ addEventListener('DOMContentLoaded', () => {
   const share = async () => {
     const url = location.href;
     try {
-      if (navigator.share) await navigator.share({ title: 'IRUKA · E-Dolphin', text: tt('Ma configuration IRUKA, code ', 'My IRUKA configuration, code ') + encode(), url });
+      if (navigator.share) await navigator.share({ title: `${NAME} · E-Dolphin`, text: tt(`Ma configuration ${NAME}, code `, `My ${NAME} configuration, code `) + encode(), url });
       else await copy(url, tt('Lien de votre configuration copié', 'Link to your configuration copied'));
     } catch (_) { /* sharing cancelled */ }
   };
@@ -342,7 +397,7 @@ addEventListener('DOMContentLoaded', () => {
       if (s.pick !== 'one' && !S.on.has(it.id) && !it.std) return;
       const label = s.pick === 'one' ? `<span class="block text-xs text-ink2">${T(s)}</span>${T(it)}` : T(it);
       const inside = it.pack ? `<span class="mt-0.5 block text-xs text-ink2">${it.pack.map(id => T(ITEMS.get(id))).join(' · ')}</span>` : '';
-      const price = it.std || (s.pick === 'one' && !cost(it) && !(s.id === 'livery' && bespoke())) ? tt('De série', 'Standard') : it.price == null ? tt('Sur devis', 'On quotation') : s.id === 'livery' && bespoke() ? tt('Sur mesure', 'Bespoke') : fmt(cost(it));
+      const price = it.std || (s.pick === 'one' && !cost(it) && !(s.id === 'livery' && bespoke())) ? stdLabel() : it.price == null ? tt('Sur devis', 'On quotation') : s.id === 'livery' && bespoke() ? tt('Sur mesure', 'Bespoke') : fmt(cost(it));
       rows.push(`<div class="cfgx-row"><dt>${label}${inside}</dt><dd class="num">${price}</dd></div>`);
     }));
     return rows.length ? `<div class="cfgx-sumgrp"><h3 class="flex items-center gap-2 font-display text-lg font-semibold"><i data-lucide="${g.icon}" class="h-5 w-5 text-teal"></i>${T(g)}</h3><dl class="mt-2">${rows.join('')}</dl></div>` : '';
@@ -366,10 +421,11 @@ addEventListener('DOMContentLoaded', () => {
       <div class="mx-auto max-w-7xl">
         <p class="eyebrow !text-teal">${tt('Résumé', 'Summary')} · ${date}</p>
         <div class="mt-2 flex flex-wrap items-end justify-between gap-4">
-          <h2 id="xSumTitle" class="font-display text-4xl font-semibold sm:text-5xl">${tt('Votre IRUKA', 'Your IRUKA')}</h2>
+          <h2 id="xSumTitle" class="font-display text-4xl font-semibold sm:text-5xl">${tt('Votre ', 'Your ')}${NAME}</h2>
           <button type="button" data-code class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 font-mono text-sm shadow-sm"><i data-lucide="copy" class="h-4 w-4 text-teal"></i>${encode()}</button>
         </div>
         <p class="mt-2 text-ink2">${bespoke() ? tt('Teinte sur mesure', 'Bespoke colour') : T(liv)} · ${T(ITEMS.get(S.pick.finish))} · ${T(ITEMS.get(S.pick.seat))}</p>
+        ${ED ? `<p class="cfgx-perks mt-3 max-w-2xl">${T(ED.perks)}</p>` : ''}
         <div class="cfgx-gal mt-6 grid gap-3 sm:grid-cols-3">
           ${['a045', 'profil', 'a135'].map((v, k) => `<div class="cfgx-shot${k === 0 ? ' sm:col-span-2 sm:row-span-2' : ''}"><img src="${src(v)}" data-v="${v}" alt="IRUKA, ${T(liv)}, ${viewName(v)}" loading="lazy"><span>${tt('Rendu', 'Render')} · ${viewName(v)}</span></div>`).join('')}
         </div>
@@ -384,7 +440,7 @@ addEventListener('DOMContentLoaded', () => {
           </div>
           <aside class="cfgx-pricebox lg:sticky lg:top-24">
             <dl class="grid gap-2 text-sm">
-              ${line(tt('IRUKA, prix de base', 'IRUKA, base price'), fmt(C.base))}
+              ${line(tt(`${ED ? ED.short : 'IRUKA'}, prix de base`, `${ED ? ED.short : 'IRUKA'}, base price`), fmt(BASE))}
               ${line(tt('Options', 'Options'), '+ ' + fmt(optTotal()))}
               ${line(tt('Prix total', 'Total price'), fmt(total()), 'border-t border-[#DCE3E7] pt-3 font-display text-2xl font-bold')}
               ${q.length ? `<p class="text-xs text-ink2">${tt('En plus, sur devis : ', 'Plus, on quotation: ')}${q.map(T).join(', ')}</p>` : ''}
@@ -394,7 +450,7 @@ addEventListener('DOMContentLoaded', () => {
             </dl>
             <div class="mt-6 grid gap-3">
               <button type="button" data-add class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 font-semibold">${tt('Ajouter à ma sélection', 'Add to my selection')}<i data-lucide="shopping-bag" class="h-4 w-4"></i></button>
-              <a href="${pageHref('reserver')}?formule=essai" class="cfg-ghost inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"><i data-lucide="calendar-check" class="h-4 w-4"></i>${tt('Réserver un essai en mer', 'Book a sea trial')}</a>
+              <a href="${pageHref('reserver')}?formule=${ED ? edId : 'essai'}" class="cfg-ghost inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold"><i data-lucide="calendar-check" class="h-4 w-4"></i>${tt('Réserver un essai en mer', 'Book a sea trial')}</a>
             </div>
             <p class="mt-5 text-xs leading-relaxed text-ink2">${tt('Prix indicatifs hors taxes, confirmés sur devis. Rendus non contractuels. Aucune vente n\'est conclue en ligne : votre sélection est envoyée à notre équipe.', 'Indicative prices excluding taxes, confirmed on quotation. Non-contractual renders. No sale is concluded online: your selection is sent to our team.')}</p>
           </aside>
@@ -416,7 +472,7 @@ addEventListener('DOMContentLoaded', () => {
     $('[data-add]', sum).addEventListener('click', () => {
       const extras = chosen().filter(it => cost(it) > 0 || (it.s.pick !== 'one' && it.price == null));
       closeSum();
-      Cart.add('iruka', bespoke() ? tt('Teinte sur mesure', 'Bespoke colour') : T(ITEMS.get(S.pick.livery)), { opts: [...extras.map(it => (it.s.pick === 'one' ? T(it.s) + ' : ' : '') + T(it)), encode()], extra: optTotal() });
+      Cart.add(ED ? edId : 'iruka', bespoke() ? tt('Teinte sur mesure', 'Bespoke colour') : T(ITEMS.get(S.pick.livery)), { opts: [...extras.map(it => (it.s.pick === 'one' ? T(it.s) + ' : ' : '') + T(it)), encode()], extra: optTotal() });
     });
     $('[data-close]', sum).focus();
     if (Mo) {
@@ -432,8 +488,13 @@ addEventListener('DOMContentLoaded', () => {
   addEventListener('keydown', e => { if (e.key === 'Escape' && !sum.hidden) closeSum(); });
 
   /* ---- Start ---- */
-  const q = new URLSearchParams(location.search);
-  decode(q.get('code'));
+  decode(Q.get('code'));
+  // Links from the home page and the former configurator name a livery (?livree=)
+  if (ITEMS.has(Q.get('livree')) && ITEMS.get(Q.get('livree')).s.id === 'livery') S.pick.livery = Q.get('livree');
+  if (ED) {
+    $('#xName').textContent = NAME; $('#xBaseName').textContent = ED.short;
+    document.title = document.title.replace('IRUKA', NAME);
+  }
   renderPanel(false); showImage(false); sync(); moveInk(true); edges();
   if (Mo) {
     Mo.animate(img, { opacity: [0, 1], scale: [1.04, 1] }, { duration: .9, ease: EASE });

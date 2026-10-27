@@ -97,10 +97,10 @@ export const body = (L, R) => {
   <section class="home-wrap gutter py-16 sm:py-24">
     <div class="flex flex-wrap items-end justify-between gap-6">
       <div>${head({ eyebrow: t('La gamme', 'The range'), title: t('Choisissez votre modèle.', 'Choose your model.') })}</div>
-      <a href="configurateur.html" class="inline-flex items-center gap-2 text-sm font-semibold text-lagoon">${t('Ouvrir le configurateur', 'Open the configurator')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
+      <a href="modeles.html" class="inline-flex items-center gap-2 text-sm font-semibold text-lagoon">${t('Ouvrir le configurateur', 'Open the configurator')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
     </div>
     <div class="home-row -mx-4 mt-10 flex snap-x snap-mandatory scroll-px-4 gap-5 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 xl:grid-cols-4">
-      ${card('configurateur.html?modele=iruka', 'cfg-blanc-profil.jpg', t('Rendu', 'Render'), 'IRUKA', t('Le modèle de série', 'The series model'), `<span class="block text-xs font-normal text-brume">${t('à partir de', 'from')}</span>43 900 € HT`, t('Configurer', 'Configure'))}
+      ${card('iruka-configurateur.html', 'cfg-blanc-profil.jpg', t('Rendu', 'Render'), 'IRUKA', t('Le modèle de série', 'The series model'), `<span class="block text-xs font-normal text-brume">${t('à partir de', 'from')}</span>43 900 € HT`, t('Configurer', 'Configure'))}
       ${card('launch-edition.html', 'cfg-predator-profil.jpg', t('Rendu', 'Render'), 'Launch Edition', t('300 exemplaires numérotés', '300 numbered units'), `${PRICE.launch}<span class="block text-xs font-normal text-brume">${PRICE.launchAlt}</span>`, t('Réserver mon numéro', 'Reserve my number'))}
       <div id="bientot" class="contents"></div>
       ${card('#bientot', 'tridens-flou.jpg', t('Rendu flouté · confidentiel', 'Blurred render · confidential'), 'Tridens', t('Trois places, trois coques', 'Three seats, three hulls'), t('Bientôt', 'Soon'), t('En développement', 'In development'), true)}
@@ -125,8 +125,8 @@ export const body = (L, R) => {
           </button>`).join('')}
         </div>
         <div class="mt-auto flex flex-wrap gap-3 pt-8">
-          <a id="livGo" href="configurateur.html?modele=iruka&livree=blanc" class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Configurer cette livrée', 'Configure this livery')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
-          <a id="liv360" href="configurateur.html?modele=iruka&livree=blanc" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Voir à 360°', 'See in 360°')} <i data-lucide="rotate-cw" class="h-4 w-4"></i></a>
+          <a id="livGo" href="iruka-configurateur.html?livree=blanc" class="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Configurer cette livrée', 'Configure this livery')} <i data-lucide="sliders-horizontal" class="h-4 w-4"></i></a>
+          <a id="liv360" href="iruka-configurateur.html?livree=blanc" class="btn-ghost inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Voir à 360°', 'See in 360°')} <i data-lucide="rotate-cw" class="h-4 w-4"></i></a>
         </div>
       </div>
     </div>
@@ -153,7 +153,7 @@ export const body = (L, R) => {
         <h2 class="mt-4 font-display text-3xl font-semibold sm:text-5xl">${t('Votre numéro, gravé en relief.', 'Your number, engraved in relief.')}</h2>
         <p class="mt-5 text-brume">${t('Chacun des 300 exemplaires porte sa plaque numérotée, en carbone ou en aluminium brossé. Une série, jamais rééditée.', 'Each of the 300 units carries its numbered plate, in carbon or brushed aluminium. One series, never reissued.')}</p>
         <p class="mt-6 flex flex-wrap items-baseline gap-x-3"><span class="num font-display text-3xl font-semibold">${PRICE.launch}</span><span class="num text-brume">${PRICE.launchAlt}</span><span class="text-sm text-brume">${t('· acompte de 30 %, ouverture prochaine', '· 30 % deposit, opening soon')}</span></p>
-        <div class="mt-8 flex flex-wrap gap-3">${btn('launch-edition.html#numero', t('Réserver mon numéro', 'Reserve my number'), 'gem')}${btn('configurateur.html?modele=launch&livree=predator', t('La voir à 360°', 'See it in 360°'), 'rotate-cw', false)}</div>
+        <div class="mt-8 flex flex-wrap gap-3">${btn('launch-edition.html#numero', t('Réserver mon numéro', 'Reserve my number'), 'gem')}${btn('iruka-configurateur.html?modele=launch', t('La voir à 360°', 'See it in 360°'), 'rotate-cw', false)}</div>
         <p class="mt-4 tag text-brume/80">${t('Visuel d\'illustration de la plaque.', 'Illustration of the plate.')}</p>
       </div>
     </div>

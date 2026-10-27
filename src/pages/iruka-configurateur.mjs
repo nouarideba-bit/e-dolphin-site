@@ -6,8 +6,9 @@ export const meta = {
 };
 export const scripts = ['cfg-options.js', 'iruka-catalog.js', 'iruka-masks.js', 'iruka-cfg.js'];
 
-// Modelled on the Porsche configurator (adam, 27 Oct: "Sur cette base là", IRUKA only for now): the craft fills the stage,
+// Modelled on the Porsche configurator (adam, 27 Oct: "Sur cette base là"): the craft fills the stage,
 // the options sit in a side panel by category, the price follows every choice, a summary closes the journey.
+// ?modele=launch opens the IRUKA Launch Edition: the same craft at its own price, its three liveries (iruka-catalog.js).
 // iruka-cfg.js fills the panel, the price bar and the summary from iruka-catalog.js, and repaints the seat and deck pads on the
 // renders in the chosen colours (where they sit: iruka-masks.js).
 export const body = (L, R) => {
@@ -20,7 +21,7 @@ export const body = (L, R) => {
       <a href="modeles.html" class="cfg-ghost inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium" aria-label="${t('Retour aux modèles', 'Back to the models')}"><i data-lucide="arrow-left" class="h-4 w-4"></i><span class="hidden sm:inline">${t('Modèles', 'Models')}</span></a>
       <div class="min-w-0">
         <p class="eyebrow !text-teal">${t('Configurateur', 'Configurator')}</p>
-        <h1 class="font-display text-xl font-semibold leading-tight sm:text-2xl">IRUKA</h1>
+        <h1 id="xName" class="font-display text-xl font-semibold leading-tight sm:text-2xl">IRUKA</h1>
       </div>
       <div class="ml-auto flex items-center gap-2">
         <button type="button" id="xCode" class="cfg-ghost hidden items-center gap-2 rounded-full px-3 py-2 font-mono text-xs sm:inline-flex" title="${t('Copier le code de cette configuration', 'Copy the code of this configuration')}"><i data-lucide="hash" class="h-4 w-4"></i><span id="xCodeTxt">ED1</span></button>
@@ -52,7 +53,7 @@ export const body = (L, R) => {
   <div class="cfg-bar fixed inset-x-0 bottom-0 z-40 gutter" style="padding-bottom:max(10px, env(safe-area-inset-bottom))">
     <div class="flex items-center gap-4 py-3">
       <dl class="grid flex-1 grid-cols-2 gap-x-6 gap-y-0.5 text-xs sm:flex sm:items-center sm:gap-8 sm:text-sm">
-        <div class="hidden md:block"><dt class="text-ink2">IRUKA</dt><dd class="num font-semibold" data-x="base"></dd></div>
+        <div class="hidden md:block"><dt id="xBaseName" class="text-ink2">IRUKA</dt><dd class="num font-semibold" data-x="base"></dd></div>
         <div class="hidden md:block"><dt class="text-ink2">${t('Options', 'Options')}</dt><dd class="num font-semibold" data-x="opts"></dd></div>
         <div><dt class="text-ink2">${t('Prix total', 'Total price')}</dt><dd class="num whitespace-nowrap font-display text-base font-bold sm:text-xl" data-x="total"></dd></div>
         <div><dt class="text-ink2">${t('Acompte 30 %', '30 % deposit')}</dt><dd class="num whitespace-nowrap font-semibold text-teal sm:text-lg" data-x="deposit"></dd></div>

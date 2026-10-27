@@ -4,10 +4,22 @@
    are proposals, indexed on that grid and on the 43 900 € base price. price: null = on quotation, left out of the total.
    n is the item's bit in the E-Dolphin code (ED1-…): never reuse or renumber one, give a new item the next free number.
    The accessories of cfg-options.js take bits 100 and up, in their list order (that list only grows at the end).
-   t is the colour the renders are repainted in for that upholstery or deck (iruka-masks.js says where), planks adds teak strakes. */
+   Every livery is painted on the same craft, the white IRUKA (adam, 27 Oct: "que ce reste le même mais que la couleur change"):
+   p is the colour of its white panels, a of its lime stripes (none: the render as it is). t is the colour of an upholstery or
+   deck, planks adds teak strakes; satin flattens the paint's reflections; glow is the colour of the underwater lights.
+   iruka-masks.js says where each of them sits on the renders.
+   The Launch Edition is the same craft and catalogue (?modele=launch, code item 41): 90 000 $ HT, its three liveries included,
+   Predator by default, the numbered owner's plate included, the other options at their euro price converted at the brochure
+   rate (1 € = 1,16 $, as the former configurator showed them) and rounded to 10 $. */
 window.IRUKA_CFG = {
   base: 43900,
   deposit: 30,
+  editions: {
+    launch: { n: 41, fr: 'IRUKA Launch Edition', en: 'IRUKA Launch Edition', short: 'Launch Edition', base: 90000, cur: '$ HT', rate: 1.16,
+      liveries: ['predator', 'blanc', 'gris'], std: { livery: 'predator' },
+      included: { plaque: { fr: 'Plaque numérotée de 001 à 300, à votre nom', en: 'Plate numbered 001 to 300, with your name' } },
+      perks: { fr: 'Série numérotée de 001 à 300 · votre numéro et votre nom gravés · certificat numérique', en: 'Numbered series from 001 to 300 · your number and name engraved · digital certificate' } }
+  },
   // Design targets shown in the summary, as on the IRUKA page
   specs: [
     ['Puissance', 'Power', '160 kW'], ['Vitesse de pointe', 'Top speed', { fr: '60 nœuds', en: '60 knots' }],
@@ -18,20 +30,20 @@ window.IRUKA_CFG = {
     { id: 'ext', icon: 'palette', fr: 'Extérieur', en: 'Exterior', sections: [
       { id: 'livery', fr: 'Livrée', en: 'Livery', pick: 'one', items: [
         { n: 1, id: 'blanc', fr: 'Blanc · noir · lime', en: 'White · black · lime', price: 0, tier: 'serie', c: ['#F2F4F3', '#9BE15D'] },
-        { n: 2, id: 'gris', fr: 'Gris · rouge', en: 'Grey · red', price: 0, tier: 'serie', c: ['#6B7075', '#D0202A'] },
-        { n: 3, id: 'magma', fr: 'Magma', en: 'Magma', price: 1290, tier: 'speciale', c: ['#1A1A1A', '#FF5A1F'] },
-        { n: 4, id: 'wasp', fr: 'Wasp', en: 'Wasp', price: 1290, tier: 'speciale', c: ['#F5C400', '#121416'] },
-        { n: 5, id: 'predator', fr: 'Predator', en: 'Predator', price: 1990, tier: 'signature', c: ['#121416', '#7CFF3A'], d: { fr: 'La livrée de la Launch Edition', en: 'The Launch Edition livery' } }
+        { n: 2, id: 'gris', fr: 'Gris · rouge', en: 'Grey · red', price: 0, tier: 'serie', c: ['#6B7075', '#D0202A'], p: '#7A8086', a: '#D0202A' },
+        { n: 3, id: 'magma', fr: 'Magma', en: 'Magma', price: 1290, tier: 'speciale', c: ['#1A1A1A', '#FF5A1F'], p: '#1C1D1F', a: '#FF5A1F' },
+        { n: 4, id: 'wasp', fr: 'Wasp', en: 'Wasp', price: 1290, tier: 'speciale', c: ['#F5C400', '#121416'], p: '#F5C400', a: '#121416' },
+        { n: 5, id: 'predator', fr: 'Predator', en: 'Predator', price: 1990, tier: 'signature', c: ['#121416', '#7CFF3A'], p: '#141618', a: '#7CFF3A', d: { fr: 'La livrée de la Launch Edition', en: 'The Launch Edition livery' } }
       ] },
       { id: 'finish', fr: 'Finition de la peinture', en: 'Paint finish', pick: 'one', items: [
         { n: 6, id: 'brillant', fr: 'Vernis brillant', en: 'Gloss clear coat', price: 0, c: ['#E9EEF1', '#FFFFFF'], d: { fr: 'Profondeur et reflets, entretien facile', en: 'Depth and shine, easy care' } },
-        { n: 7, id: 'satin', fr: 'Vernis satiné mat', en: 'Satin matte clear coat', price: 890, c: ['#9AA3A8', '#7D868B'], d: { fr: 'Toucher soyeux, traitement anti-UV', en: 'Silky touch, UV treatment' } }
+        { n: 7, id: 'satin', fr: 'Vernis satiné mat', en: 'Satin matte clear coat', price: 890, c: ['#9AA3A8', '#7D868B'], satin: true, d: { fr: 'Toucher soyeux, traitement anti-UV', en: 'Silky touch, UV treatment' } }
       ] },
       { id: 'carbon', fr: 'Carbone', en: 'Carbon', items: [
         { n: 8, id: 'carbone', icon: 'layers', fr: 'Pack carbone apparent', en: 'Exposed carbon pack', price: 2490, d: { fr: 'Capot avant, console et poignée arrière en carbone verni', en: 'Front hood, console and rear grab handle in clear-coated carbon' } }
       ] },
       { id: 'light', fr: 'Éclairage', en: 'Lighting', items: [
-        { n: 9, id: 'ledsub', icon: 'lightbulb', fr: 'Éclairage sous-marin LED', en: 'Underwater LED lighting', price: 890, d: { fr: 'Deux projecteurs sous la coque, couleur réglable', en: 'Two lights under the hull, adjustable colour' } },
+        { n: 9, id: 'ledsub', icon: 'lightbulb', fr: 'Éclairage sous-marin LED', en: 'Underwater LED lighting', price: 890, glow: '#38D6FF', d: { fr: 'Deux projecteurs sous la coque, couleur réglable', en: 'Two lights under the hull, adjustable colour' } },
         { n: 10, id: 'signature', icon: 'sparkles', fr: 'Signature lumineuse personnalisée', en: 'Custom light signature', price: 290, d: { fr: 'Feux de jour assortis à la livrée', en: 'Daytime lights matched to the livery' } }
       ] }
     ] },

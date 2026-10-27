@@ -87,7 +87,7 @@ export const body = (L, R) => {
         <li><span class="dot sand"></span><p class="eyebrow-sand mt-4">${t('Série limitée', 'Limited series')}</p><h3 class="mt-2 font-display text-xl font-semibold">Launch Edition</h3><p class="mt-1 text-sm text-brume">${t('300 exemplaires numérotés, 90 000 $ HT.', '300 numbered units, $90,000 excl. VAT.')}</p></li>
         <li><span class="dot"></span><p class="eyebrow mt-4">${t('Ensuite', 'Next')}</p><h3 class="mt-2 font-display text-xl font-semibold">${t('Tridens et gamme enfants', 'Tridens and kids range')}</h3><p class="mt-1 text-sm text-brume">${t('Trois places, et des modèles pour les 6-12 ans.', 'Three seats, and models for ages 6 to 12.')}</p></li>
       </ol>
-      <div class="mt-10 flex flex-wrap gap-3">${btn('iruka.html', t('Découvrir IRUKA', 'Discover IRUKA'), 'arrow-right')}${btn('configurateur.html', t('Configurer le vôtre', 'Build yours'), 'sliders-horizontal', false)}</div>
+      <div class="mt-10 flex flex-wrap gap-3">${btn('iruka.html', t('Découvrir IRUKA', 'Discover IRUKA'), 'arrow-right')}${btn('modeles.html', t('Configurer le vôtre', 'Build yours'), 'sliders-horizontal', false)}</div>
     </div>
   </section>
   ${ctaBand(L)}`;

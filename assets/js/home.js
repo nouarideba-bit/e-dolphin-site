@@ -47,8 +47,8 @@ addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { imgEl.src = pre.src; imgEl.style.opacity = 1; }, reduceMotion ? 0 : 180);
       }
       cap.textContent = b.dataset.name;
-      go.href = `${pageHref('configurateur')}?modele=iruka&livree=${b.dataset.liv}`;
-      go360.href = `${pageHref('configurateur')}?modele=${b.dataset.liv === 'predator' ? 'launch' : 'iruka'}&livree=${b.dataset.liv}&vue=profil`;
+      go.href = `${pageHref('iruka-configurateur')}?livree=${b.dataset.liv}`;
+      go360.href = `${pageHref('iruka-configurateur')}?${b.dataset.liv === 'predator' ? 'modele=launch' : 'livree=' + b.dataset.liv}`;
     });
   });
   // Arrow keys move between liveries (radio group behaviour)
