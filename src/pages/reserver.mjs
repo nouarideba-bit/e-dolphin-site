@@ -1,8 +1,8 @@
 import { tr } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Réserver un essai de jet-ski électrique · E-Dolphin', desc: 'Essai en mer de 45 minutes, présentation privée d\'une heure ou réservation Launch Edition avec acompte de 30 %.' },
-  en: { title: 'Book an electric jet ski sea trial · E-Dolphin', desc: '45-minute sea trial, one-hour private presentation or Launch Edition reservation with a 30% deposit.' }
+  fr: { title: 'Réserver un essai de jet-ski électrique · ONDARYS', desc: 'Essai en mer de 45 minutes, présentation privée d\'une heure ou réservation Launch Edition avec acompte de 30 %.' },
+  en: { title: 'Book an electric jet ski sea trial · ONDARYS', desc: '45-minute sea trial, one-hour private presentation or Launch Edition reservation with a 30% deposit.' }
 };
 export const scripts = ['booking.js'];
 
@@ -83,7 +83,7 @@ export const body = (L) => {
                 <p class="mt-3 text-xs text-brume">${t('Votre demande réserve votre place dans la série de 300 exemplaires. Le lien de paiement de l\'acompte vous sera envoyé dès l\'ouverture.', 'Your request holds your place in the 300-unit series. The deposit payment link will be sent as soon as it opens.')}</p>
               </div>
             </div>
-            <label class="flex items-start gap-3 text-sm text-brume"><input id="bkLicence" type="checkbox" class="mt-1 accent-[#2EE6A8]">${t('J\'ai un permis bateau (sinon, l\'essai se fait avec un pilote E-Dolphin)', 'I hold a boat licence (otherwise the trial is with an E-Dolphin pilot)')}</label>
+            <label class="flex items-start gap-3 text-sm text-brume"><input id="bkLicence" type="checkbox" class="mt-1 accent-[#2EE6A8]">${t('J\'ai un permis bateau (sinon, l\'essai se fait avec un pilote ONDARYS)', 'I hold a boat licence (otherwise the trial is with an ONDARYS pilot)')}</label>
             <div><label for="bkMsg" class="text-sm text-brume">${t('Message (facultatif)', 'Message (optional)')}</label><textarea id="bkMsg" rows="3" class="field"></textarea></div>
             <label class="flex items-start gap-3 text-sm text-brume"><input id="bkConsent" type="checkbox" class="mt-1 accent-[#2EE6A8]">${t('J\'accepte d\'être recontacté au sujet de ma demande.', 'I agree to be contacted about my request.')} <a class="underline" href="confidentialite.html">${t('Confidentialité', 'Privacy')}</a></label>
           </fieldset>
@@ -128,7 +128,7 @@ export const body = (L) => {
       <p class="eyebrow">FAQ</p>
       <h2 class="mt-4 font-display text-3xl font-semibold sm:text-4xl">${t('Questions fréquentes', 'Frequently asked questions')}</h2>
       <div class="mt-8">
-        ${faq(t('Faut-il un permis pour piloter IRUKA ?', 'Do I need a licence to ride IRUKA?'), t('En France, un permis bateau est obligatoire pour piloter un jet-ski de cette puissance. Sans permis, votre essai se fait accompagné d\'un pilote E-Dolphin.', 'In France, a boat licence is required to ride a jet-ski of this power. Without one, your trial is done with an E-Dolphin pilot.'))}
+        ${faq(t('Faut-il un permis pour piloter IRUKA ?', 'Do I need a licence to ride IRUKA?'), t('En France, un permis bateau est obligatoire pour piloter un jet-ski de cette puissance. Sans permis, votre essai se fait accompagné d\'un pilote ONDARYS.', 'In France, a boat licence is required to ride a jet-ski of this power. Without one, your trial is done with an ONDARYS pilot.'))}
         ${faq(t('Comment se recharge IRUKA ?', 'How is IRUKA charged?'), t('Par une prise CCS2, la même que celle des voitures électriques : environ 30 minutes sur une borne rapide DC. Une recharge à bord du yacht est étudiée avec chaque équipage.', 'Through a CCS2 socket, the same as electric cars: about 30 minutes on a DC fast charger. On-board charging is studied with each yacht crew.'))}
         ${faq(t('Où puis-je naviguer ?', 'Where can I ride?'), t('Là où les jet-skis sont autorisés, comme un jet-ski thermique. Certains plans d\'eau les interdisent quelle que soit l\'énergie, par exemple le lac d\'Annecy : nous y proposons seulement des présentations à quai.', 'Wherever jet-skis are allowed, like a combustion jet-ski. Some waters ban them whatever the energy, such as Lake Annecy: there we only offer quayside presentations.'))}
         ${faq(t('Comment fonctionne l\'acompte ?', 'How does the deposit work?'), t('Chaque modèle se réserve avec un acompte de 30 % du prix total, options comprises : 13 170 € HT pour un IRUKA sans option, 27 000 $ HT pour une Launch Edition. Le configurateur calcule l\'acompte exact de votre configuration. Il sera payable en ligne par paiement sécurisé dès l\'ouverture ; votre demande réserve déjà votre place.', 'Every model is reserved with a 30 % deposit on the total price, options included: €13,170 excl. VAT for an IRUKA without options, $27,000 excl. VAT for a Launch Edition. The configurator works out the exact deposit for your build. It will be payable online by secure payment once it opens; your request already holds your place.'))}

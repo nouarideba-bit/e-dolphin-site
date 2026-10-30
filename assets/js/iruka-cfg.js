@@ -1,5 +1,5 @@
 /* IRUKA configurator, modelled on the Porsche one (preview, 27 Oct 2026): the craft on stage, options by category in a
-   side panel, live price, E-Dolphin code, summary. Catalogue: iruka-catalog.js, plus the accessories of cfg-options.js.
+   side panel, live price, ONDARYS code, summary. Catalogue: iruka-catalog.js, plus the accessories of cfg-options.js.
    Animations use Motion (window.Motion, the engine of Framer Motion; adam, 27 Oct: "Utilise framer Motion"); none run when
    the visitor asks for reduced motion. The configuration lives in the URL (?code=ED1-…), so it can be shared or reopened.
    The stage always shows the same craft, the white IRUKA, repainted in the browser in the chosen livery, finish, upholstery,
@@ -52,7 +52,7 @@ addEventListener('DOMContentLoaded', () => {
   const std = (s) => (ED && ED.std[s.id]) || s.items[0].id; // the choice that costs nothing and stays out of the code
   const BY_N = new Map([...ITEMS.values()].map(i => [i.n, i]));
 
-  /* ---- State and E-Dolphin code ---- */
+  /* ---- State and ONDARYS code ---- */
   const S = { pick: Object.fromEntries(ONE.map(s => [s.id, std(s)])), on: new Set(), view: 'a045', group: GROUPS[0].id };
   // The code lists what differs from the standard IRUKA, two characters per item (its number n in base 32); a Launch Edition
   // adds its own number
@@ -381,7 +381,7 @@ addEventListener('DOMContentLoaded', () => {
   const share = async () => {
     const url = location.href;
     try {
-      if (navigator.share) await navigator.share({ title: `${NAME} · E-Dolphin`, text: tt(`Ma configuration ${NAME}, code `, `My ${NAME} configuration, code `) + encode(), url });
+      if (navigator.share) await navigator.share({ title: `${NAME} · ONDARYS`, text: tt(`Ma configuration ${NAME}, code `, `My ${NAME} configuration, code `) + encode(), url });
       else await copy(url, tt('Lien de votre configuration copié', 'Link to your configuration copied'));
     } catch (_) { /* sharing cancelled */ }
   };

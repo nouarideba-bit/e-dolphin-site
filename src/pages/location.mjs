@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, waBtn, PRICE } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Jet-skis électriques pour loueurs et hôtels · E-Dolphin', desc: 'Loueurs, hôtels, clubs : une flotte de jet-skis électriques qui tourne toute la journée. Calculez votre rentabilité, demandez une offre flotte.' },
-  en: { title: 'Electric jet skis for rental fleets and hotels · E-Dolphin', desc: 'Rental operators, hotels, clubs: an electric jet ski fleet that runs all day. Work out your return, request a fleet offer.' }
+  fr: { title: 'Jet-skis électriques pour loueurs et hôtels · ONDARYS', desc: 'Loueurs, hôtels, clubs : une flotte de jet-skis électriques qui tourne toute la journée. Calculez votre rentabilité, demandez une offre flotte.' },
+  en: { title: 'Electric jet skis for rental fleets and hotels · ONDARYS', desc: 'Rental operators, hotels, clubs: an electric jet ski fleet that runs all day. Work out your return, request a fleet offer.' }
 };
 export const scripts = ['flotte.js', 'leadform.js'];
 
@@ -40,7 +40,7 @@ export const body = (L, R) => {
   <!-- Rental programme: three pillars (Sea-Doo rental page model, adam 22 Oct) -->
   <section class="gutter py-16 sm:py-24">
     <div class="mx-auto max-w-7xl">
-      ${head({ eyebrow: t('Programme loueurs E-Dolphin', 'E-Dolphin rental programme'), title: t('Devenez loueur E-Dolphin.', 'Become an E-Dolphin rental partner.'), lead: t('Loueurs de jet-skis, hôtels, clubs de plage et marinas, partout dans le monde : proposez à vos clients le jet-ski électrique de luxe, avec un programme pensé pour une flotte.', 'Jet-ski rental companies, hotels, beach clubs and marinas, worldwide: offer your customers the electric luxury jet ski, with a programme built for a fleet.') })}
+      ${head({ eyebrow: t('Programme loueurs ONDARYS', 'ONDARYS rental programme'), title: t('Devenez loueur ONDARYS.', 'Become an ONDARYS rental partner.'), lead: t('Loueurs de jet-skis, hôtels, clubs de plage et marinas, partout dans le monde : proposez à vos clients le jet-ski électrique de luxe, avec un programme pensé pour une flotte.', 'Jet-ski rental companies, hotels, beach clubs and marinas, worldwide: offer your customers the electric luxury jet ski, with a programme built for a fleet.') })}
       <ul class="mt-10 grid gap-4 md:grid-cols-3">
         ${pillar('badge-percent', t('Tarifs flotte dédiés', 'Dedicated fleet pricing'), t('Un tarif selon le nombre de machines, à l\'achat ou en loyer mensuel clés en main.', 'Pricing based on the number of craft, bought outright or on a turnkey monthly fee.'))}
         ${pillar('shield-check', t('Garantie et service', 'Warranty and service'), t('Garantie, pièces et formation de vos équipes : les conditions sont précisées dans votre offre.', 'Warranty, parts and training for your staff: the terms are set out in your offer.'))}

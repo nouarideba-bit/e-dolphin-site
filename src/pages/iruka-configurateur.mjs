@@ -1,8 +1,8 @@
 import { tr, img } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Configurateur IRUKA · E-Dolphin', desc: 'Configurez votre IRUKA option par option : livrée, sellerie, recharge, packs, Atelier. Prix et acompte calculés en direct.' },
-  en: { title: 'IRUKA configurator · E-Dolphin', desc: 'Build your IRUKA option by option: livery, upholstery, charging, packs, Atelier. Live price and deposit.' }
+  fr: { title: 'Configurateur IRUKA · ONDARYS', desc: 'Configurez votre IRUKA option par option : livrée, sellerie, recharge, packs, Atelier. Prix et acompte calculés en direct.' },
+  en: { title: 'IRUKA configurator · ONDARYS', desc: 'Build your IRUKA option by option: livery, upholstery, charging, packs, Atelier. Live price and deposit.' }
 };
 export const scripts = ['cfg-options.js', 'iruka-catalog.js', 'iruka-masks.js', 'iruka-cfg.js'];
 

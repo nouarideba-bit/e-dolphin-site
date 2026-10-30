@@ -1,6 +1,6 @@
 // Navigation rail for the next version of the site: a vertical ribbon on the left (desktop),
 // a tab bar at the bottom (mobile). Models and "More" open a side panel instead of a new page.
-import { logo } from './layout.mjs';
+import { logo, wordmark, BRAND } from './layout.mjs';
 import { tr } from './ui.mjs';
 
 export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
@@ -21,7 +21,7 @@ export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
   // Menu by intention (audit, 22 Oct): who you are first; everything else sits under "More"
   const more = [
     ['reserver', t('Essai en mer', 'Sea trial')], ['modeles', t('Configurer le vôtre', 'Build yours')], ['distributeurs', t('Devenir distributeur', 'Become a dealer')],
-    ['decouvrir', t('Découvrir E-Dolphin', 'Discover E-Dolphin')], ['experience', t("L'expérience", 'Experience')], ['maison', t('La maison', 'The house')], ['boutique', t('Commander', 'Order')],
+    ['decouvrir', t('Découvrir ONDARYS', 'Discover ONDARYS')], ['experience', t("L'expérience", 'Experience')], ['maison', t('La maison', 'The house')], ['boutique', t('Commander', 'Order')],
     ['reserver', t('Questions fréquentes', 'FAQ'), '#faq'], ['cgv', t('Conditions de vente', 'Terms of sale')], ['mentions-legales', t('Mentions légales', 'Legal notice')]
   ].map(([s, label, hash = '']) => `<a class="fly-link flex items-center justify-between rounded-xl px-4 py-3" href="${href(s)}${hash}">${label}<i data-lucide="chevron-right" class="h-4 w-4 text-brume"></i></a>`).join('');
 
@@ -33,7 +33,7 @@ export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
 
   return `
 <aside id="rail" class="rail fixed inset-y-0 left-0 z-50 hidden w-[104px] flex-col lg:flex" aria-label="${t('Navigation principale', 'Main navigation')}">
-  <a href="${href('index')}" class="rail-logo flex h-[78px] shrink-0 flex-col items-center justify-center gap-1" aria-label="E-Dolphin, ${t('accueil', 'home')}">${logo(44, 33)}<span class="font-display text-[9px] font-semibold tracking-[.28em]">E-DOLPHIN</span></a>
+  <a href="${href('index')}" class="rail-logo flex h-[78px] shrink-0 flex-col items-center justify-center gap-1" aria-label="${BRAND}, ${t('accueil', 'home')}">${logo(36)}${wordmark('text-[12px]')}</a>
   <!-- Language switch at the top of the rail, where visitors look for the flag (adam, 24 Oct: the one at the bottom went unseen) -->
   <a href="${other}" hreflang="${otherL}" class="rail-lang flex shrink-0 items-center justify-center gap-2 py-3 font-mono text-[11px] tracking-[.12em]">${otherL === 'en' ? flagEn() : flagFr}<span>${otherL === 'en' ? 'English' : 'Français'}</span></a>
   <nav class="rail-nav flex-1 overflow-y-auto">
@@ -71,7 +71,7 @@ export function rail({ L, slug, href, other, otherL, flagFr, flagEn }) {
 
 <header id="top" class="rail-top fixed inset-x-0 top-0 z-50 gutter lg:hidden">
   <div class="flex items-center justify-between py-2.5">
-    <a href="${href('index')}" class="flex items-center gap-2.5" aria-label="E-Dolphin, ${t('accueil', 'home')}">${logo(40, 30)}<span class="font-display text-xs font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
+    <a href="${href('index')}" class="flex items-center gap-2.5" aria-label="${BRAND}, ${t('accueil', 'home')}">${logo(30)}${wordmark('text-base')}</a>
     <div class="flex items-center gap-2">
       <a href="${other}" hreflang="${otherL}" class="glass inline-flex items-center gap-1.5 rounded-full px-3 py-2 font-mono text-[11px]">${otherL === 'en' ? flagEn() : flagFr}${otherL.toUpperCase()}</a>
       <button type="button" id="cartBtn" class="glass relative rounded-full p-2.5" aria-controls="cart" aria-expanded="false" aria-label="${t('Ouvrir ma sélection', 'Open my selection')}"><i data-lucide="shopping-bag" class="h-5 w-5"></i><span id="cartCount" class="num absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-lagoon px-1 font-mono text-[10px] font-medium text-abyss" hidden>0</span></button>

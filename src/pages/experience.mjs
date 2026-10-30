@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Journée en jet-ski électrique, recharge comprise · E-Dolphin', desc: 'Une journée sur l\'eau avec IRUKA, recharge comprise. Essais à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.' },
-  en: { title: 'A day on an electric jet ski, charging included · E-Dolphin', desc: 'A day on the water with IRUKA, charging included. Trials in Monaco, Antibes, Saint-Tropez or on board your yacht.' }
+  fr: { title: 'Journée en jet-ski électrique, recharge comprise · ONDARYS', desc: 'Une journée sur l\'eau avec IRUKA, recharge comprise. Essais à Monaco, Antibes, Saint-Tropez ou à bord de votre yacht.' },
+  en: { title: 'A day on an electric jet ski, charging included · ONDARYS', desc: 'A day on the water with IRUKA, charging included. Trials in Monaco, Antibes, Saint-Tropez or on board your yacht.' }
 };
 export const scripts = ['day.js'];
 
@@ -62,7 +62,7 @@ export const body = (L, R) => {
       <ol class="mt-12 grid gap-4 md:grid-cols-4">
         ${step(1, t('Accueil au ponton', 'Welcome at the pontoon'), t('Présentation d\'IRUKA, de la recharge et des commandes.', 'Introduction to IRUKA, charging and controls.'))}
         ${step(2, t('Briefing sécurité', 'Safety briefing'), t('Gilet et bracelet de retour au pilote fournis.', 'Life jacket and rider-return wristband provided.'))}
-        ${step(3, t('À la barre', 'At the helm'), t('Avec votre permis bateau, ou accompagné d\'un pilote E-Dolphin.', 'With your boat licence, or with an E-Dolphin pilot.'))}
+        ${step(3, t('À la barre', 'At the helm'), t('Avec votre permis bateau, ou accompagné d\'un pilote ONDARYS.', 'With your boat licence, or with an ONDARYS pilot.'))}
         ${step(4, t('Retour et échange', 'Back and debrief'), t('Vos questions, la Launch Edition, la livraison.', 'Your questions, the Launch Edition, delivery.'))}
       </ol>
     </div>

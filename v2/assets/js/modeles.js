@@ -1,4 +1,4 @@
-/* "Choose your model" page: filters, E-Dolphin code, cards entering with Motion (the engine of Framer Motion). */
+/* "Choose your model" page: filters, ONDARYS code, cards entering with Motion (the engine of Framer Motion). */
 addEventListener('DOMContentLoaded', () => {
   const grid = $('#mdlGrid');
   if (!grid) return;

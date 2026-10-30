@@ -2,7 +2,7 @@
    adam, 27 Oct: "Index les prix de chaque modification sur la base des options etc et je te laisse me proposer des choses adaptées".
    Accessories keep the reference grid of cfg-options.js; liveries, finishes, upholstery, charging, packs, Atelier and services
    are proposals, indexed on that grid and on the 43 900 € base price. price: null = on quotation, left out of the total.
-   n is the item's bit in the E-Dolphin code (ED1-…): never reuse or renumber one, give a new item the next free number.
+   n is the item's bit in the ONDARYS code (ED1-…): never reuse or renumber one, give a new item the next free number.
    The accessories of cfg-options.js take bits 100 and up, in their list order (that list only grows at the end).
    Every livery is painted on the same craft, the white IRUKA (adam, 27 Oct: "que ce reste le même mais que la couleur change"):
    p is the colour of its white panels, a of its lime stripes (none: the render as it is). t is the colour of an upholstery or
@@ -55,7 +55,7 @@ window.IRUKA_CFG = {
         { n: 14, id: 'selle-cognac', fr: 'Cognac, surpiqûres sellier', en: 'Cognac, saddle stitching', price: 1690, c: ['#8A4B26', '#F0E2C8'], t: '#7A4122' }
       ] },
       { id: 'seatopt', fr: 'Selle', en: 'Seat', items: [
-        { n: 15, id: 'selle-logo', icon: 'badge-check', fr: 'Logo E-Dolphin brodé sur la selle', en: 'E-Dolphin logo embroidered on the seat', price: 290 }
+        { n: 15, id: 'selle-logo', icon: 'badge-check', fr: 'Logo ONDARYS brodé sur la selle', en: 'ONDARYS logo embroidered on the seat', price: 290 }
       ] },
       { id: 'deck', fr: 'Tapis de pont', en: 'Deck pads', pick: 'one', items: [
         { n: 16, id: 'pont-noir', fr: 'Noir', en: 'Black', price: 0, c: ['#1C1F22', '#2A2E32'] },
@@ -96,7 +96,7 @@ window.IRUKA_CFG = {
       // New accessory, slotted into its category
       extra: [{ n: 33, id: 'levage', cat: 'Amarrage', fr: 'Kit de levage pour grue de yacht', en: 'Yacht crane lifting kit', price: 1490, d: { fr: 'Points de levage renforcés et élingue', en: 'Reinforced lifting points and sling' } }] },
     { id: 'atelier', icon: 'gem', fr: 'Atelier', en: 'Atelier', sections: [
-      { id: 'atelier', fr: 'Atelier E-Dolphin', en: 'E-Dolphin Atelier', items: [
+      { id: 'atelier', fr: 'Atelier ONDARYS', en: 'ONDARYS Atelier', items: [
         { n: 34, id: 'mesure', icon: 'paintbrush', fr: 'Teinte de coque sur mesure', en: 'Bespoke hull colour', price: 4900, d: { fr: 'Votre couleur, échantillon validé avec l\'atelier ; remplace la livrée', en: 'Your colour, sample approved with the atelier; replaces the livery' } },
         { n: 35, id: 'gravure', icon: 'hash', fr: 'Nom du bateau gravé sur la console', en: 'Boat name engraved on the console', price: 490 },
         { n: 36, id: 'initiales', icon: 'badge-check', fr: 'Initiales brodées sur la selle', en: 'Initials embroidered on the seat', price: 240 },
@@ -106,7 +106,7 @@ window.IRUKA_CFG = {
     { id: 'services', icon: 'handshake', fr: 'Services', en: 'Services', sections: [
       { id: 'services', fr: 'Livraison et services', en: 'Delivery and services', items: [
         { n: 38, id: 'livraison', icon: 'ship', fr: 'Livraison et prise en main sur votre yacht', en: 'Delivery and handover on your yacht', price: 1900, d: { fr: 'À quai ou à bord, Europe et Méditerranée', en: 'At the quay or on board, Europe and the Mediterranean' } },
-        { n: 39, id: 'pilotage', icon: 'gauge', fr: 'Session de pilotage avancé, 2 h', en: 'Advanced riding session, 2 h', price: 390, d: { fr: 'Avec un pilote E-Dolphin', en: 'With an E-Dolphin rider' } },
+        { n: 39, id: 'pilotage', icon: 'gauge', fr: 'Session de pilotage avancé, 2 h', en: 'Advanced riding session, 2 h', price: 390, d: { fr: 'Avec un pilote ONDARYS', en: 'With an ONDARYS rider' } },
         { n: 40, id: 'entretien', icon: 'settings-2', fr: 'Contrat d\'entretien 3 ans', en: '3-year service plan', price: 1290, d: { fr: 'Révisions annuelles et mises à jour logicielles', en: 'Annual servicing and software updates' } }
       ] }
     ] }

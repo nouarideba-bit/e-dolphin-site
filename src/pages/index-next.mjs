@@ -1,8 +1,6 @@
 import { tr, img, head, btn, ctaBand, heroLoop, filmBtn, filmDialog, PRICE } from '../ui.mjs';
 import { plaque } from '../plaque.mjs';
 import { logoArt } from '../layout.mjs';
-// Turquoise blue of the IRUKA hull trim (sampled from iruka-front.jpg, brightened to stand out on the sea footage; adam, 24 Oct)
-const IRUKA_BLUE = '#16B0D9';
 export { meta } from './index.mjs';
 export const scripts = ['home.js', 'herofilm.js'];
 // The hero poster is the largest element on a phone screen: fetch it before anything else
@@ -50,7 +48,7 @@ export const body = (L, R) => {
     <figure class="relative h-[86svh] min-h-[600px] overflow-hidden sm:h-[80svh]">
       ${heroLoop(L, R, 'h-full w-full object-cover')}
       <div class="home-hero-shade absolute inset-0"></div>
-      <div class="hero-logo pointer-events-none absolute right-4 top-16 lg:right-6 lg:top-6" aria-hidden="true"><div class="hero-logo-spin">${[0, 1].map(() => `<svg viewBox="0 0 40 30">${logoArt(IRUKA_BLUE)}</svg>`).join('')}</div></div>
+      <div class="hero-logo pointer-events-none absolute right-4 top-16 lg:right-6 lg:top-6" aria-hidden="true"><div class="hero-logo-spin">${[0, 1].map(() => `<svg viewBox="0 0 128 128">${logoArt()}</svg>`).join('')}</div></div>
       <figcaption class="hero-cap tag absolute left-4 top-16 lg:left-6 rounded-full bg-black/45 px-3 py-1 text-white lg:top-6">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
       <div class="hero-copy absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
         <p class="font-mono text-[11px] uppercase tracking-[.22em] text-lagoon">${t('Conçu et assemblé en France', 'Designed and assembled in France')}</p>

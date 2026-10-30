@@ -1,8 +1,8 @@
 import { tr, img, head, fig, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'E-Dolphin, fabricant français de jet-skis électriques', desc: 'E-Dolphin conçoit et assemble en France des jet-skis 100 % électriques de luxe. Plus de huit ans de recherche et développement.' },
-  en: { title: 'E-Dolphin, French maker of electric jet skis', desc: 'E-Dolphin designs and assembles luxury 100% electric jet skis in France. Over eight years of research and development.' }
+  fr: { title: 'ONDARYS, fabricant français de jet-skis électriques', desc: 'ONDARYS conçoit et assemble en France des jet-skis 100 % électriques de luxe. Plus de huit ans de recherche et développement.' },
+  en: { title: 'ONDARYS, French maker of electric jet skis', desc: 'ONDARYS designs and assembles luxury 100% electric jet skis in France. Over eight years of research and development.' }
 };
 
 export const body = (L, R) => {
@@ -13,7 +13,7 @@ export const body = (L, R) => {
     <div class="mx-auto max-w-5xl text-center">
       <p class="eyebrow-sand">${t('La maison', 'The house')}</p>
       <h1 class="mx-auto mt-5 max-w-4xl font-display text-4xl font-semibold leading-tight sm:text-6xl">${t('Nous voulions entendre la mer, même à 60 nœuds.', 'We wanted to hear the sea, even at 60 knots.')}</h1>
-      <p class="mx-auto mt-6 max-w-2xl text-brume sm:text-lg">${t('E-Dolphin conçoit en France des jet-skis 100 % électriques pour ceux qui exigent le meilleur de la mer, sans le bruit ni l\'odeur. Plus de huit ans de recherche et développement, un prototype qui navigue, et une première série en préparation.', 'E-Dolphin designs 100 % electric jet-skis in France for those who expect the best of the sea, without the noise or the smell. Over eight years of research and development, a prototype on the water, and a first series in preparation.')}</p>
+      <p class="mx-auto mt-6 max-w-2xl text-brume sm:text-lg">${t('ONDARYS conçoit en France des jet-skis 100 % électriques pour ceux qui exigent le meilleur de la mer, sans le bruit ni l\'odeur. Plus de huit ans de recherche et développement, un prototype qui navigue, et une première série en préparation.', 'ONDARYS designs 100 % electric jet-skis in France for those who expect the best of the sea, without the noise or the smell. Over eight years of research and development, a prototype on the water, and a first series in preparation.')}</p>
     </div>
   </section>
 

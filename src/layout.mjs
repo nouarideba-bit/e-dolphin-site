@@ -49,12 +49,17 @@ export const PAGES = [
   { slug: 'iruka-configurateur', nav: false, fr: 'Configurateur IRUKA', en: 'IRUKA configurator' }
 ];
 
-// Brand mark V5 (validated 22 Oct 2026): capsule, bar attached to the left stroke, small EDOLPHIN at the bar end.
-// The E of EDOLPHIN is drawn, not typed: a real E with slightly rounded corners and round ends, like the mark (adam, 24 Oct)
-const mark = (c) => `<rect x="1.75" y="1.75" width="36.5" height="26.5" rx="13.25" fill="none" stroke="${c}" stroke-width="3.5"/><path d="M2 13.3H27.6a1.7 1.7 0 0 1 0 3.4H2z" fill="${c}"/>`;
-// c = colour of the mark: off-white by default, IRUKA turquoise for the spinning logo of the home hero
-export const logoArt = (c = '#F6F8F7') => `${mark(c)}<path d="M19.25 14.35H18.75A.35.35 0 0 0 18.4 14.7V15.32A.35.35 0 0 0 18.75 15.67H19.25M18.4 15.01H19.05" fill="none" stroke="#0A1E2B" stroke-width=".3" stroke-linecap="round" stroke-linejoin="round"/><text x="28.4" y="15.82" text-anchor="end" textLength="8.8" lengthAdjust="spacingAndGlyphs" font-family="Space Grotesk, IBM Plex Sans, sans-serif" font-size="2.3" font-weight="700" fill="#0A1E2B">DOLPHIN</text>`;
-export const logo = (w, h) => `<svg width="${w}" height="${h}" viewBox="0 0 40 30" aria-hidden="true">${logoArt()}</svg>`;
+// ONDARYS "Horizon" emblem (the site becomes ondarys.com, adam 30 Oct 2026): a rising sun over a wave, inside a circle.
+// Dark-background version of the brand sheet: ivory circle, light sand-gold sun and wave. Strokes thicken below 48 px so the mark holds at nav size.
+export const BRAND = 'ONDARYS';
+export const logoArt = (s = 128, c = '#F4F1EA', a = '#D4B27A') => {
+  const [ring, sun, wave] = s < 48 ? [8, 10, 10] : [4.5, 7.5, 5.5];
+  return `<circle cx="64" cy="64" r="${60 - ring / 2}" fill="none" stroke="${c}" stroke-width="${ring}"/><circle cx="64" cy="40" r="${sun}" fill="${a}"/><path d="M14 70C29 52 46 52 64 70S99 88 114 70" fill="none" stroke="${a}" stroke-width="${wave}" stroke-linecap="round"/>`;
+};
+export const logo = (s) => `<svg width="${s}" height="${s}" viewBox="0 0 128 128" aria-hidden="true">${logoArt(s)}</svg>`;
+// The wordmark is set in Cormorant Garamond with wide tracking, as on the brand sheet; the slogan goes alone, never prefixed
+export const wordmark = (cls = '') => `<span class="wordmark ${cls}">${BRAND}</span>`;
+export const slogan = (L) => (L === 'fr' ? "L'onde silencieuse" : 'The silent wave');
 
 // Language flags drawn inline (emoji flags do not render on Windows)
 const FLAG_FR = `<svg viewBox="0 0 3 2" width="21" height="14" aria-hidden="true" class="rounded-[2px]"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>`;
@@ -91,11 +96,11 @@ export function page({ L, slug, title, desc, body, scripts = [], rail = false, h
 <link rel="alternate" hreflang="fr" href="${pageUrl('fr', slug)}">
 <link rel="alternate" hreflang="en" href="${pageUrl('en', slug)}">
 ${ES_SLUG[slug] ? `<link rel="alternate" hreflang="es" href="${pageUrl('es', slug)}">\n` : ''}<link rel="alternate" hreflang="x-default" href="${pageUrl('fr', slug)}">
-<link rel="icon" href="${root}favicon.svg" type="image/svg+xml">
-<link rel="icon" href="${root}favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="${root}apple-touch-icon.png">
+<link rel="icon" href="${root}favicon-ondarys.svg" type="image/svg+xml">
+<link rel="icon" href="${root}favicon-ondarys-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="${root}apple-touch-icon-ondarys.png">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="E-Dolphin">
+<meta property="og:site_name" content="${BRAND}">
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${desc}">
 <meta property="og:url" content="${pageUrl(L, slug)}">
@@ -119,9 +124,9 @@ ${rail ? `<script defer src="${root}assets/js/rail.js"></script>` : ''}
 <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-foam focus:px-4 focus:py-2 focus:text-abyss">${t('Aller au contenu', 'Skip to content')}</a>
 ${rail ? railNav({ L, slug, href, other, otherL, flagFr: FLAG_FR, flagEn }) : `<header id="top" class="fixed inset-x-0 top-0 z-50 gutter">
   <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 py-3" aria-label="${t('Navigation principale', 'Main navigation')}">
-    <a href="${href('index')}" class="flex shrink-0 items-center gap-3" aria-label="E-Dolphin, ${t('accueil', 'home')}">
-      ${logo(48, 36)}
-      <span class="font-display text-sm font-semibold tracking-[.22em]">E-DOLPHIN</span>
+    <a href="${href('index')}" class="flex shrink-0 items-center gap-3" aria-label="${BRAND}, ${t('accueil', 'home')}">
+      ${logo(34)}
+      ${wordmark('text-lg')}
     </a>
     <ul class="hidden items-center gap-4 text-sm xl:gap-7 lg:flex">${navLinks}</ul>
     <div class="flex items-center gap-2">
@@ -151,8 +156,9 @@ ${body}
 <footer class="gutter border-t border-white/10 pb-28 pt-14 sm:pb-14">
   <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
     <div>
-      <a href="${href('index')}" class="inline-flex items-center gap-3">${logo(40, 30)}<span class="font-display font-semibold tracking-[.22em]">E-DOLPHIN</span></a>
-      <p class="mt-4 max-w-xs text-sm text-brume">${t('Jet-skis 100 % électriques de luxe, conçus et assemblés en France.', 'Luxury 100 % electric jet-skis, designed and assembled in France.')}</p>
+      <a href="${href('index')}" class="inline-flex items-center gap-3">${logo(36)}${wordmark('text-xl')}</a>
+      <p class="slogan mt-3 text-xl">${slogan(L)}</p>
+      <p class="mt-3 max-w-xs text-sm text-brume">${t('Jet-skis 100 % électriques de luxe, conçus et assemblés en France.', 'Luxury 100 % electric jet-skis, designed and assembled in France.')}</p>
     </div>
     <div>
       <p class="eyebrow-sand">${t('Le modèle', 'The model')}</p>
@@ -160,7 +166,7 @@ ${body}
         <li><a class="hover:text-foam" href="${href('iruka')}">IRUKA</a></li>
         <li><a class="hover:text-foam" href="${href('launch-edition')}">Launch Edition</a></li>
         <li><a class="hover:text-foam" href="${href('experience')}">${t("L'expérience", 'Experience')}</a></li>
-        <li><a class="hover:text-foam" href="${href('decouvrir')}">${t('Découvrir E-Dolphin', 'Discover E-Dolphin')}</a></li>
+        <li><a class="hover:text-foam" href="${href('decouvrir')}">${t('Découvrir ONDARYS', 'Discover ONDARYS')}</a></li>
         <li><a class="hover:text-foam" href="${href('maison')}">${t('La maison', 'The house')}</a></li>
       </ul>
     </div>
@@ -196,7 +202,7 @@ ${body}
         <input id="nlEmail" type="email" required autocomplete="email" placeholder="${t('votre@e-mail.com', 'your@email.com')}" class="field !mt-0 flex-1">
         <button type="submit" class="btn-primary rounded-full px-6 py-3 font-semibold">${t('S\'inscrire', 'Subscribe')}</button>
       </div>
-      <label class="mt-3 flex items-start gap-2 text-xs text-brume"><input id="nlConsent" type="checkbox" class="mt-0.5 accent-[#2EE6A8]">${t('J\'accepte de recevoir la newsletter E-Dolphin. Mon e-mail ne sert qu\'à cet envoi.', 'I agree to receive the E-Dolphin newsletter. My e-mail is used for nothing else.')}</label>
+      <label class="mt-3 flex items-start gap-2 text-xs text-brume"><input id="nlConsent" type="checkbox" class="mt-0.5 accent-[#2EE6A8]">${t('J\'accepte de recevoir la newsletter ONDARYS. Mon e-mail ne sert qu\'à cet envoi.', 'I agree to receive the ONDARYS newsletter. My e-mail is used for nothing else.')}</label>
       <p id="nlMsg" class="mt-2 text-sm" role="status" aria-live="polite"></p>
     </div>
   </form>
@@ -205,7 +211,7 @@ ${body}
     <li><a class="hover:text-foam" href="${href('confidentialite')}">${t('Confidentialité et cookies', 'Privacy and cookies')}</a></li>
     <li><a class="hover:text-foam" href="${href('cgv')}">${t('Conditions générales de vente', 'Terms of sale')}</a></li>
     ${L === 'es' ? '' : `<li><a class="hover:text-foam" href="${root}${pagePath('es', 'mentions-legales')}" hreflang="es" lang="es">Español · aviso legal</a></li>`}
-    <li>© 2026 E-Dolphin</li>
+    <li>© 2026 ${BRAND}</li>
   </ul>
   <p class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-6 font-mono text-[11px] leading-relaxed text-brume/80">${t(
     'Site privé partagé avec nos partenaires. Caractéristiques IRUKA : objectifs de conception, à confirmer lors des essais de validation. Visuels marqués « Rendu » : images de synthèse non contractuelles.',

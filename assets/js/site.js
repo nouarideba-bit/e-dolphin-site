@@ -53,7 +53,7 @@ addEventListener('DOMContentLoaded', () => {
     msg.style.color = '#FFB4A8';
     if (!/^\S+@\S+\.\S+$/.test(email)) { msg.textContent = tt('Indiquez une adresse e-mail valide.', 'Please enter a valid e-mail address.'); return; }
     if (!$('#nlConsent').checked) { msg.textContent = tt('Merci de cocher la case d\'accord.', 'Please tick the consent box.'); return; }
-    const ok = await sendForm('E-Dolphin · Inscription newsletter', { liste: 'Newsletter', email });
+    const ok = await sendForm('ONDARYS · Inscription newsletter', { liste: 'Newsletter', email });
     msg.style.color = ok ? '#2EE6A8' : '#FFB4A8';
     msg.textContent = ok ? tt('Merci, vous êtes inscrit.', 'Thank you, you are subscribed.') : tt('L\'envoi n\'a pas abouti. Réessayez dans quelques minutes.', 'Sending failed. Please try again in a few minutes.');
     if (ok) nl.reset();

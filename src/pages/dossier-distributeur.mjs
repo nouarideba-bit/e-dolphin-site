@@ -1,8 +1,8 @@
 import { tr, head, waBtn } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Demande de distributeur · E-Dolphin', desc: 'Vérifiez les opportunités de distribution E-Dolphin dans votre pays et votre région, puis déposez votre demande de distributeur.' },
-  en: { title: 'Dealer application · E-Dolphin', desc: 'Check E-Dolphin dealer opportunities in your country and region, then submit your dealer application.' }
+  fr: { title: 'Demande de distributeur · ONDARYS', desc: 'Vérifiez les opportunités de distribution ONDARYS dans votre pays et votre région, puis déposez votre demande de distributeur.' },
+  en: { title: 'Dealer application · ONDARYS', desc: 'Check ONDARYS dealer opportunities in your country and region, then submit your dealer application.' }
 };
 export const scripts = ['leadform.js', 'dossier.js'];
 
@@ -33,13 +33,13 @@ export const body = (L) => {
     `<div>${lab(id, label, req)}<select id="${id}" name="${name}"${req ? ' required' : ''} class="field"><option value="">${t('Choisir', 'Choose')}</option>${opts.map(o => `<option>${o}</option>`).join('')}</select></div>`;
   const area = (id, name, label, req = false, ph = '') => `<div class="sm:col-span-2">${lab(id, label, req)}<textarea id="${id}" name="${name}" rows="3"${req ? ' required' : ''}${ph ? ` placeholder="${ph}"` : ''} class="field"></textarea></div>`;
   const box = (name, v, label) => `<label class="flex items-center gap-2 text-sm"><input type="checkbox" name="${name}" value="${v}" class="accent-[#2EE6A8]">${label}</label>`;
-  const STEPS = [t('Entreprise', 'Company'), t('Direction et contact', 'Management and contact'), t('Activité', 'Business'), t('Installations', 'Facilities'), t('Projet E-Dolphin', 'E-Dolphin plan')];
+  const STEPS = [t('Entreprise', 'Company'), t('Direction et contact', 'Management and contact'), t('Activité', 'Business'), t('Installations', 'Facilities'), t('Projet ONDARYS', 'ONDARYS plan')];
   const step = (i, inner) => `<fieldset class="dz-step grid gap-4 sm:grid-cols-2" data-step="${i}"${i ? ' hidden' : ''}><legend class="mb-4 font-display text-2xl font-semibold sm:col-span-2">${STEPS[i]}</legend>${inner}</fieldset>`;
   return `
   <section class="gutter">
     <div class="mx-auto max-w-5xl pb-10 pt-36 sm:pt-44">
       <p class="eyebrow">${t('Demande de distributeur', 'Dealer application')}</p>
-      <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-5xl">${t('Votre demande de distributeur E-Dolphin.', 'Your E-Dolphin dealer application.')}</h1>
+      <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-5xl">${t('Votre demande de distributeur ONDARYS.', 'Your ONDARYS dealer application.')}</h1>
       <p class="mt-5 max-w-2xl text-brume sm:text-lg">${t('Vérifiez d\'abord les opportunités dans votre pays et votre région. Si votre territoire est ouvert, votre demande se remplit en cinq étapes, environ 10 minutes.', 'First check the opportunities in your country and region. If your territory is open, your application takes five steps, about 10 minutes.')}</p>
       <p id="dzNotice" class="mt-5 text-sm text-brume" hidden>${t('Cette demande fait suite aux six questions de la page distributeur.', 'This application follows the six questions on the dealer page.')} <a class="font-semibold text-lagoon underline" href="distributeurs.html#questions">${t('Y répondre', 'Answer them')}</a></p>
     </div>
@@ -57,7 +57,7 @@ export const body = (L) => {
       <p id="opOut" class="mt-4 text-sm" role="status" aria-live="polite"></p>
       <div id="opOpen" class="mt-8 rounded-3xl border border-lagoon/40 bg-lagoon/5 p-6" hidden>
         <p class="flex items-center gap-2 font-display text-xl font-semibold"><i data-lucide="circle-check" class="h-5 w-5 text-lagoon"></i><span id="opOpenTitle"></span></p>
-        <p class="mt-2 text-brume">${t('E-Dolphin constitue son réseau de distributeurs : votre territoire est ouvert aux candidatures. Le périmètre et l\'exclusivité sont définis avec vous après étude de votre dossier.', 'E-Dolphin is building its dealer network: your territory is open to applications. The territory and exclusivity are agreed with you after reviewing your application.')}</p>
+        <p class="mt-2 text-brume">${t('ONDARYS constitue son réseau de distributeurs : votre territoire est ouvert aux candidatures. Le périmètre et l\'exclusivité sont définis avec vous après étude de votre dossier.', 'ONDARYS is building its dealer network: your territory is open to applications. The territory and exclusivity are agreed with you after reviewing your application.')}</p>
         <button type="button" id="opStart" class="btn-primary mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${t('Commencer ma demande', 'Start my application')} <i data-lucide="arrow-right" class="h-4 w-4"></i></button>
       </div>
     </div>
@@ -118,7 +118,7 @@ export const body = (L) => {
           ${sel('dzMkt', 'budget_marketing', t('Budget marketing annuel prévu', 'Planned annual marketing budget'), [t('Moins de 10 k€', 'Under €10k'), t('10 à 50 k€', '€10k to €50k'), t('50 à 150 k€', '€50k to €150k'), t('Plus de 150 k€', 'Over €150k')])}
           ${sel('dzFin', 'financement_stock', t('Financement du stock', 'Stock financing'), [t('Fonds propres', 'Own funds'), t('Ligne de financement bancaire', 'Bank financing line'), t('À étudier ensemble', 'To discuss together')], true)}
           ${inp('dzOther', 'autres_marques_electriques', t('Autres marques électriques envisagées', 'Other electric brands considered'))}
-          ${area('dzWhy', 'motivation', t('Pourquoi E-Dolphin, et comment comptez-vous vendre IRUKA ?', 'Why E-Dolphin, and how do you plan to sell IRUKA?'), true)}
+          ${area('dzWhy', 'motivation', t('Pourquoi ONDARYS, et comment comptez-vous vendre IRUKA ?', 'Why ONDARYS, and how do you plan to sell IRUKA?'), true)}
           <label class="flex items-start gap-3 text-sm text-brume sm:col-span-2"><input id="dzAttest" type="checkbox" data-attest class="mt-1 accent-[#2EE6A8]">${t('J\'atteste que les informations de cette demande sont exactes.', 'I confirm the information in this application is accurate.')}</label>
           <label class="flex items-start gap-3 text-sm text-brume sm:col-span-2"><input type="checkbox" data-consent class="mt-1 accent-[#2EE6A8]"><span>${t('J\'accepte d\'être recontacté au sujet de ma demande.', 'I agree to be contacted about my application.')} <a class="underline" href="confidentialite.html">${t('Confidentialité', 'Privacy')}</a></span></label>`)}
 
@@ -129,7 +129,7 @@ export const body = (L) => {
           <p data-out class="text-sm" role="status" aria-live="polite"></p>
         </div>
       </form>
-      <div class="mt-10 border-t border-white/10 pt-6 text-sm text-brume">${t('Une question sur votre demande ?', 'A question about your application?')} <span class="ml-2 inline-block align-middle">${waBtn(L, 'WhatsApp', t('Bonjour, j\'ai une question sur ma demande de distributeur E-Dolphin.', 'Hello, I have a question about my E-Dolphin dealer application.'))}</span></div>
+      <div class="mt-10 border-t border-white/10 pt-6 text-sm text-brume">${t('Une question sur votre demande ?', 'A question about your application?')} <span class="ml-2 inline-block align-middle">${waBtn(L, 'WhatsApp', t('Bonjour, j\'ai une question sur ma demande de distributeur ONDARYS.', 'Hello, I have a question about my ONDARYS dealer application.'))}</span></div>
     </div>
   </section>`;
 };

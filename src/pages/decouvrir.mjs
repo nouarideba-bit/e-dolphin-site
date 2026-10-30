@@ -1,12 +1,12 @@
 import { tr, img, head, btn, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Le film E-Dolphin : jet-ski électrique en Méditerranée', desc: 'Le prototype S300 en mer, des criques au coucher du soleil : le film E-Dolphin, et ce qui fait la maison.' },
-  en: { title: 'The E-Dolphin film: electric jet ski in the Mediterranean', desc: 'The S300 prototype at sea, from the coves to sunset: the E-Dolphin film, and what makes the house.' }
+  fr: { title: 'Le film ONDARYS : jet-ski électrique en Méditerranée', desc: 'Le prototype S300 en mer, des criques au coucher du soleil : le film ONDARYS, et ce qui fait la maison.' },
+  en: { title: 'The ONDARYS film: electric jet ski in the Mediterranean', desc: 'The S300 prototype at sea, from the coves to sunset: the ONDARYS film, and what makes the house.' }
 };
 export const scripts = ['film.js'];
 
-// "Discover E-Dolphin": the brand film (real footage of the S300 prototype) and the house in four points.
+// "Discover ONDARYS": the brand film (real footage of the S300 prototype) and the house in four points.
 // The hero plays a short silent loop; the big player below holds the full film, with chapters and a sound switch.
 // Soundtrack: original upbeat track synthesised for the site (no third-party rights).
 const CHAPTERS = [
@@ -26,11 +26,11 @@ export const body = (L, R) => {
   return `
   <!-- Hero: muted loop from the film -->
   <section class="disc-hero relative isolate flex min-h-[88svh] items-end overflow-hidden">
-    <video id="heroFilm" class="absolute inset-0 -z-20 h-full w-full object-cover" src="${V}edolphin-boucle-v2.mp4" poster="${img(R, 'film-46.jpg')}" autoplay muted loop playsinline preload="auto" aria-label="${t('Images du film E-Dolphin, en boucle', 'E-Dolphin film footage, looping')}"></video>
+    <video id="heroFilm" class="absolute inset-0 -z-20 h-full w-full object-cover" src="${V}edolphin-boucle-v2.mp4" poster="${img(R, 'film-46.jpg')}" autoplay muted loop playsinline preload="auto" aria-label="${t('Images du film ONDARYS, en boucle', 'ONDARYS film footage, looping')}"></video>
     <div class="absolute inset-0 -z-10 bg-gradient-to-t from-abyss via-abyss/40 to-abyss/10"></div>
     <div class="gutter w-full">
       <div class="mx-auto max-w-7xl pb-16 pt-32">
-        <p class="eyebrow">${t('Découvrir E-Dolphin', 'Discover E-Dolphin')}</p>
+        <p class="eyebrow">${t('Découvrir ONDARYS', 'Discover ONDARYS')}</p>
         <h1 class="mt-4 max-w-4xl font-display text-[2.6rem] font-semibold leading-[1.02] sm:text-7xl">${t('La Méditerranée, sans le bruit.', 'The Mediterranean, without the noise.')}</h1>
         <p class="mt-5 max-w-xl text-brume sm:text-lg">${t('Une minute et demie en mer avec le prototype S300 : les rochers, les criques, le large, puis le coucher du soleil.', 'Ninety seconds at sea with the S300 prototype: the rocks, the coves, open water, then sunset.')}</p>
         <div class="mt-8 flex flex-wrap items-center gap-4">
@@ -49,7 +49,7 @@ export const body = (L, R) => {
         <button type="button" data-sound="#filmPlayer" aria-pressed="true" class="sound-btn absolute right-3 top-3 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-2 text-xs font-semibold text-white"><i data-lucide="volume-x" class="snd-off h-4 w-4"></i><i data-lucide="volume-2" class="snd-on h-4 w-4 text-lagoon"></i><span class="snd-off">${t('Activer le son', 'Sound on')}</span><span class="snd-on">${t('Couper le son', 'Mute')}</span></button>
       </div>
       <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-        <p class="font-display text-lg font-semibold">${t('Le film E-Dolphin', 'The E-Dolphin film')} <span class="num ml-2 font-mono text-xs text-brume">1:28</span></p>
+        <p class="font-display text-lg font-semibold">${t('Le film ONDARYS', 'The ONDARYS film')} <span class="num ml-2 font-mono text-xs text-brume">1:28</span></p>
         <p class="tag text-brume">${t('Images réelles du prototype S300 en Méditerranée · musique originale.', 'Real footage of the S300 prototype in the Mediterranean · original music.')}</p>
       </div>
       <h2 class="mt-12 font-display text-2xl font-semibold">${t('Chapitres', 'Chapters')}</h2>
@@ -67,7 +67,7 @@ export const body = (L, R) => {
   <!-- The house in four points -->
   <section class="gutter pb-16 sm:pb-24">
     <div class="mx-auto max-w-7xl">
-      ${head({ eyebrow: t('La maison', 'The house'), title: t('Ce qui fait E-Dolphin.', 'What makes E-Dolphin.') })}
+      ${head({ eyebrow: t('La maison', 'The house'), title: t('Ce qui fait ONDARYS.', 'What makes ONDARYS.') })}
       <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         ${pillar('volume-x', t('Le silence', 'Silence'), t('Un moteur électrique, pas de pot d\'échappement : on entend l\'eau et le vent.', 'An electric motor and no exhaust: you hear the water and the wind.'))}
         ${pillar('flag', t('Conçu en France', 'Designed in France'), t('Design, ingénierie et assemblage du pack batterie en France.', 'Design, engineering and battery pack assembly in France.'))}

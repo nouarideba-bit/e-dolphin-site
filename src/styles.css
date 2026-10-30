@@ -12,6 +12,9 @@
 @font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 300 600; font-display: swap; src: url("fonts/ibm-plex-sans-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/space-grotesk-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 @font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/space-grotesk-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* ONDARYS wordmark and slogan (brand sheet, 24 Oct 2026): Cormorant Garamond, SIL Open Font License, served by the site like the others */
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/cormorant-garamond-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 500; font-display: swap; src: url("fonts/cormorant-garamond-500-italic-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 /* Palette (cadrage 22 Oct 2026): abysse ground, navy panels, one turquoise accent,
    lime only for energy, sand for fine luxury details, brume for quiet text. */
@@ -32,6 +35,9 @@ img { max-width: 100%; }
   .gutter { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
   .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--lagoon); }
   .eyebrow-sand { font-family: "IBM Plex Mono", monospace; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--sand); }
+  /* ONDARYS wordmark: wide tracking, the trailing space of the last letter trimmed so it centres; slogan in light sand-gold italic */
+  .wordmark { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; font-weight: 600; letter-spacing: .3em; margin-right: -.3em; line-height: 1; color: #F4F1EA; }
+  .slogan { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; font-style: italic; font-weight: 500; letter-spacing: .01em; color: #D4B27A; }
   .glass { background: var(--glass); border: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
   .panel { background: var(--deep); border: 1px solid var(--line); }
   .num { font-variant-numeric: tabular-nums; }
@@ -306,7 +312,7 @@ details[open] .chev { transform: rotate(45deg); }
 .home-stats .stat { border-top: 1px solid var(--line); padding-top: 1.25rem; }
 .home-rdv { background: var(--deep); border: 1px solid var(--line); }
 
-/* Discover E-Dolphin: the road */
+/* Discover ONDARYS: the road */
 .disc-road { position: relative; }
 .disc-road li { position: relative; }
 .disc-road .dot { display: block; width: 14px; height: 14px; border-radius: 999px; border: 2px solid var(--brume); background: var(--abyss); position: relative; z-index: 1; }
@@ -338,16 +344,16 @@ details[open] .chev { transform: rotate(45deg); }
 @media (max-width: 359.98px) { .home-hero > figure, #annonce:not([hidden]) + .home-hero > figure { height: 660px; min-height: 0; } }
 @media (max-width: 1023.98px) { #annonce:not([hidden]) + .home-hero :is(.hero-cap, .hero-logo) { top: 1rem; } }
 
-/* Home hero: the E-Dolphin mark turns slowly on itself (one turn every 14 s) in the top right corner of the photo (adam, 24 Oct); still when motion is reduced */
+/* Home hero: the brand emblem (ONDARYS Horizon since 30 Oct) turns slowly on itself (one turn every 14 s) in the top right corner of the photo (adam, 24 Oct); still when motion is reduced */
 /* The glow sits on the still wrapper and the turning layer holds only the drawing, so the browser keeps the mark sharp */
-.hero-logo { perspective: 900px; filter: drop-shadow(0 0 12px rgba(22,176,217,.4)); animation: hero-logo-in 1.4s .9s both; }
-.hero-logo svg { display: block; width: 39px; height: 29px; }
+.hero-logo { perspective: 900px; filter: drop-shadow(0 0 12px rgba(212,178,122,.35)); animation: hero-logo-in 1.4s .9s both; }
+.hero-logo svg { display: block; width: 34px; height: 34px; }
 .hero-logo-spin { position: relative; transform-style: preserve-3d; animation: hero-logo-spin 14s linear infinite; }
 /* The mark is drawn twice, back to back: each copy hides when it faces away and the back one is turned half a turn,
-   so EDOLPHIN always reads the right way round, never mirrored (adam, 24 Oct) */
+   so the wave always runs the right way round, never mirrored (adam, 24 Oct) */
 .hero-logo-spin svg { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 .hero-logo-spin svg + svg { position: absolute; inset: 0; transform: rotateY(180deg); }
-@media (min-width: 1024px) { .hero-logo { filter: drop-shadow(0 0 28px rgba(22,176,217,.35)); } .hero-logo svg { width: 143px; height: 107px; } }
+@media (min-width: 1024px) { .hero-logo { filter: drop-shadow(0 0 28px rgba(212,178,122,.3)); } .hero-logo svg { width: 112px; height: 112px; } }
 @keyframes hero-logo-spin { to { transform: rotateY(360deg); } }
 @keyframes hero-logo-in { from { opacity: 0; } to { opacity: .92; } }
 

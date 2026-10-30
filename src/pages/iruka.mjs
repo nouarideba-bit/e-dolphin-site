@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'IRUKA, jet-ski électrique : fiche technique · E-Dolphin', desc: 'IRUKA, jet-ski 100 % électrique : 160 kW, 60 nœuds, batterie 35 kWh, recharge rapide CCS2, carène carbone.' },
-  en: { title: 'IRUKA electric jet ski: specifications · E-Dolphin', desc: 'IRUKA, a 100% electric jet ski: 160 kW, 60 knots, 35 kWh battery, CCS2 fast charging, carbon hull.' }
+  fr: { title: 'IRUKA, jet-ski électrique : fiche technique · ONDARYS', desc: 'IRUKA, jet-ski 100 % électrique : 160 kW, 60 nœuds, batterie 35 kWh, recharge rapide CCS2, carène carbone.' },
+  en: { title: 'IRUKA electric jet ski: specifications · ONDARYS', desc: 'IRUKA, a 100% electric jet ski: 160 kW, 60 knots, 35 kWh battery, CCS2 fast charging, carbon hull.' }
 };
 export const scripts = ['iruka.js'];
 

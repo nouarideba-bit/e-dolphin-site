@@ -151,9 +151,9 @@ addEventListener('DOMContentLoaded', () => {
     if (!lastReq || !lastReq.d) return;
     const [h, mi] = lastReq.heure.split(':').map(Number), s = new Date(lastReq.d); s.setHours(h, mi);
     const e2 = new Date(s.getTime() + lastReq.dur * 60000), f = (d) => iso(d).replace(/-/g, '') + 'T' + String(d.getHours()).padStart(2, '0') + String(d.getMinutes()).padStart(2, '0') + '00';
-    const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//E-Dolphin//Reservation//FR', 'BEGIN:VEVENT', 'UID:' + lastReq.reference + '@e-dolphin',
-      'DTSTAMP:' + f(new Date()), 'DTSTART:' + f(s), 'DTEND:' + f(e2), 'SUMMARY:E-Dolphin IRUKA · ' + lastReq.formule + tt(' (à confirmer)', ' (to be confirmed)'),
+    const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ONDARYS//Reservation//FR', 'BEGIN:VEVENT', 'UID:' + lastReq.reference + '@ondarys.com',
+      'DTSTAMP:' + f(new Date()), 'DTSTART:' + f(s), 'DTEND:' + f(e2), 'SUMMARY:ONDARYS IRUKA · ' + lastReq.formule + tt(' (à confirmer)', ' (to be confirmed)'),
       'LOCATION:' + lastReq.lieu, 'DESCRIPTION:' + tt('Référence ', 'Reference ') + lastReq.reference, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
-    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'e-dolphin-' + lastReq.reference + '.ics'; a.click();
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })); a.download = 'ondarys-' + lastReq.reference + '.ics'; a.click();
   });
 });

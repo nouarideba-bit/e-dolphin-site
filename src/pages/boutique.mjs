@@ -1,8 +1,8 @@
 import { tr, img, head } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Commander IRUKA, jet-ski électrique de luxe · E-Dolphin', desc: 'Configurez IRUKA ou la Launch Edition, choisissez votre livrée et envoyez votre sélection à notre équipe.' },
-  en: { title: 'Order IRUKA, the luxury electric jet ski · E-Dolphin', desc: 'Configure IRUKA or the Launch Edition, choose your livery and send your selection to our team.' }
+  fr: { title: 'Commander IRUKA, jet-ski électrique de luxe · ONDARYS', desc: 'Configurez IRUKA ou la Launch Edition, choisissez votre livrée et envoyez votre sélection à notre équipe.' },
+  en: { title: 'Order IRUKA, the luxury electric jet ski · ONDARYS', desc: 'Configure IRUKA or the Launch Edition, choose your livery and send your selection to our team.' }
 };
 export const scripts = ['shop.js'];
 

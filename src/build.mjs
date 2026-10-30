@@ -1,6 +1,6 @@
 // Renders every page in French (v2/) and English (v2/en/). Run with: npm run build
 import { mkdirSync, writeFileSync, readFileSync, existsSync, cpSync } from 'node:fs';
-import { page, logo, BASE, EN_SLUG, ES_SLUG, fileName, pagePath, pageUrl, inSearch } from './layout.mjs';
+import { page, logo, BRAND, BASE, EN_SLUG, ES_SLUG, fileName, pagePath, pageUrl, inSearch } from './layout.mjs';
 import { esMissing } from './ui.mjs';
 import * as index from './pages/index-next.mjs';
 import * as iruka from './pages/iruka.mjs';
@@ -106,11 +106,11 @@ if (esMissing.size) console.warn(`Spanish wording missing in src/es.mjs (${esMis
 
 // Old English addresses (French file names until 23 Oct 2026) forward to the new ones, so links already shared keep working
 for (const [fr, enName] of Object.entries(EN_SLUG)) writeFileSync(`${OUT}/en/${fr}.html`, `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>E-Dolphin</title><meta name="robots" content="noindex">
+<html lang="en"><head><meta charset="utf-8"><title>${BRAND}</title><meta name="robots" content="noindex">
 <link rel="canonical" href="${pageUrl('en', fr)}">
 <script>location.replace('${enName}.html' + location.search + location.hash);</script>
 <meta http-equiv="refresh" content="0; url=${enName}.html">
-</head><body><a href="${enName}.html">E-Dolphin</a></body></html>
+</head><body><a href="${enName}.html">${BRAND}</a></body></html>
 `);
 
 // The former configurator (a different render set per livery, so another craft at each colour) gives way to the
@@ -119,13 +119,13 @@ for (const [fr, enName] of Object.entries(EN_SLUG)) writeFileSync(`${OUT}/en/${f
 for (const L of ['fr', 'en']) {
   const dir = L === 'fr' ? OUT : `${OUT}/${L}`, cfg = fileName(L, 'iruka-configurateur'), models = fileName(L, 'modeles');
   writeFileSync(`${dir}/${fileName(L, 'configurateur')}`, `<!doctype html>
-<html lang="${L}"><head><meta charset="utf-8"><title>E-Dolphin</title><meta name="robots" content="noindex">
+<html lang="${L}"><head><meta charset="utf-8"><title>${BRAND}</title><meta name="robots" content="noindex">
 <link rel="canonical" href="${pageUrl(L, 'modeles')}">
 <script>(() => { const q = new URLSearchParams(location.search), launch = q.get('modele') === 'launch', liv = q.get('livree');
   const p = new URLSearchParams(launch ? { modele: 'launch' } : liv ? { livree: liv } : {});
   location.replace((launch || liv || q.get('modele') ? '${cfg}' : '${models}') + (String(p) ? '?' + p : '')); })();</script>
 <meta http-equiv="refresh" content="0; url=${models}">
-</head><body><a href="${models}">E-Dolphin</a></body></html>
+</head><body><a href="${models}">${BRAND}</a></body></html>
 `);
 }
 
@@ -150,16 +150,16 @@ if (!RAIL) writeFileSync(`${OUT}/404.html`, `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Page introuvable · E-Dolphin</title>
+<title>Page introuvable · ${BRAND}</title>
 <meta name="robots" content="noindex">
 <base href="${BASE}">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-ondarys.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <main class="gutter grid min-h-screen place-items-center">
   <div class="max-w-xl py-20 text-center">
-    <a href="./" class="inline-flex" aria-label="E-Dolphin, accueil">${logo(64, 48)}</a>
+    <a href="./" class="inline-flex" aria-label="${BRAND}, accueil">${logo(64)}</a>
     <p class="eyebrow mt-8">Erreur 404</p>
     <h1 class="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl">Cette page n'existe pas, ou plus.</h1>
     <p class="mt-4 text-brume">Le lien est peut-être ancien. Repartez de l'accueil ou découvrez IRUKA, le jet-ski 100 % électrique.</p>

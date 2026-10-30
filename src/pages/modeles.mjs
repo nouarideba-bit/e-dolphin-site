@@ -1,8 +1,8 @@
 import { tr, img } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Choisissez votre modèle · E-Dolphin', desc: 'La gamme E-Dolphin : choisissez votre jet-ski électrique et configurez-le option par option.' },
-  en: { title: 'Choose your model · E-Dolphin', desc: 'The E-Dolphin range: choose your electric jet ski and build it option by option.' }
+  fr: { title: 'Choisissez votre modèle · ONDARYS', desc: 'La gamme ONDARYS : choisissez votre jet-ski électrique et configurez-le option par option.' },
+  en: { title: 'Choose your model · ONDARYS', desc: 'The ONDARYS range: choose your electric jet ski and build it option by option.' }
 };
 export const scripts = ['modeles.js'];
 

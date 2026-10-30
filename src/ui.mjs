@@ -61,12 +61,12 @@ export const filmBtn = (L, cls = 'glass', compactOnPhone = false) => {
 export const filmDialog = (L, R) => {
   const t = tr(L);
   return `
-  <dialog id="filmDlg" class="film-dlg" aria-label="${t('Le film E-Dolphin', 'The E-Dolphin film')}">
+  <dialog id="filmDlg" class="film-dlg" aria-label="${t('Le film ONDARYS', 'The ONDARYS film')}">
     <div class="relative w-full max-w-6xl">
       <video id="filmDlgVideo" class="aspect-video w-full rounded-2xl bg-black" src="${R}assets/video/edolphin-film-v4.mp4" poster="${img(R, 'film-6.jpg')}" controls playsinline preload="metadata"></video>
       <div class="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm">
         <p class="text-brume">${t('Images réelles du prototype S300 en Méditerranée · musique originale', 'Real footage of the S300 prototype in the Mediterranean · original music')}</p>
-        <a href="decouvrir.html" class="font-semibold text-lagoon underline underline-offset-4">${t('Découvrir E-Dolphin', 'Discover E-Dolphin')}</a>
+        <a href="decouvrir.html" class="font-semibold text-lagoon underline underline-offset-4">${t('Découvrir ONDARYS', 'Discover ONDARYS')}</a>
       </div>
       <button type="button" data-film-close class="glass absolute -top-12 right-0 rounded-full p-2.5" aria-label="${t('Fermer le film', 'Close the film')}"><i data-lucide="x" class="h-5 w-5"></i></button>
     </div>
@@ -75,7 +75,7 @@ export const filmDialog = (L, R) => {
 
 // WhatsApp line given by the team (22 Oct 2026): captains, rental operators and dealers work on WhatsApp
 export const WA = { num: '33648198282', show: '+33 6 48 19 82 82' };
-export const waLink = (L, text) => `https://wa.me/${WA.num}?text=${encodeURIComponent(text || tr(L)('Bonjour, je vous contacte depuis le site E-Dolphin.', 'Hello, I am contacting you from the E-Dolphin website.'))}`;
+export const waLink = (L, text) => `https://wa.me/${WA.num}?text=${encodeURIComponent(text || tr(L)('Bonjour, je vous contacte depuis le site ONDARYS.', 'Hello, I am contacting you from the ONDARYS website.'))}`;
 export const waBtn = (L, label, text, primary = false) =>
   `<a href="${waLink(L, text)}" target="_blank" rel="noopener" class="${primary ? 'btn-primary' : 'btn-ghost'} inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${label || 'WhatsApp'} <i data-lucide="message-circle" class="h-4 w-4"></i></a>`;
 

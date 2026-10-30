@@ -2,8 +2,8 @@ import { plaque } from '../plaque.mjs';
 import { tr, img, head, btn, waBtn, PRICE } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'IRUKA Launch Edition · 300 exemplaires · E-Dolphin', desc: 'La première série d\'IRUKA : 300 exemplaires numérotés, 90 000 $ HT, votre numéro et votre nom gravés. Premières livraisons visées au printemps 2028.' },
-  en: { title: 'IRUKA Launch Edition · 300 units · E-Dolphin', desc: 'The first IRUKA series: 300 numbered units, $90,000 excl. VAT, your number and name engraved. First deliveries targeted for spring 2028.' }
+  fr: { title: 'IRUKA Launch Edition · 300 exemplaires · ONDARYS', desc: 'La première série d\'IRUKA : 300 exemplaires numérotés, 90 000 $ HT, votre numéro et votre nom gravés. Premières livraisons visées au printemps 2028.' },
+  en: { title: 'IRUKA Launch Edition · 300 units · ONDARYS', desc: 'The first IRUKA series: 300 numbered units, $90,000 excl. VAT, your number and name engraved. First deliveries targeted for spring 2028.' }
 };
 export const scripts = ['leadform.js', 'plaque.js'];
 

@@ -1,8 +1,8 @@
 import { tr, img, head, btn, waBtn } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'Devenir distributeur de jet-skis électriques · E-Dolphin', desc: 'Rejoignez le réseau de distributeurs E-Dolphin : représentez IRUKA, le jet-ski 100 % électrique de luxe, dans votre pays.' },
-  en: { title: 'Become an electric jet ski dealer · E-Dolphin', desc: 'Join the E-Dolphin dealer network: represent IRUKA, the 100% electric luxury jet ski, in your country.' }
+  fr: { title: 'Devenir distributeur de jet-skis électriques · ONDARYS', desc: 'Rejoignez le réseau de distributeurs ONDARYS : représentez IRUKA, le jet-ski 100 % électrique de luxe, dans votre pays.' },
+  en: { title: 'Become an electric jet ski dealer · ONDARYS', desc: 'Join the ONDARYS dealer network: represent IRUKA, the 100% electric luxury jet ski, in your country.' }
 };
 export const scripts = ['distrib.js'];
 
@@ -34,15 +34,15 @@ export const body = (L, R) => {
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-abyss via-abyss/85 to-abyss/20"></div>
     <div class="gutter"><div class="mx-auto max-w-7xl pb-20 pt-40 sm:pb-28 sm:pt-52">
       <p class="eyebrow">${t('Devenir distributeur', 'Become a dealer')}</p>
-      <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">${t('Rejoignez le réseau de distributeurs E-Dolphin.', 'Join the E-Dolphin dealer network.')}</h1>
-      <p class="mt-6 max-w-2xl text-brume sm:text-lg">${t('Partagez notre avenir. E-Dolphin choisit ses premiers distributeurs, partout dans le monde, pour représenter une marque française de jet-skis 100 % électriques de luxe auprès de trois clientèles : les propriétaires, les yachts et les loueurs.', 'Share our future. E-Dolphin is choosing its first dealers, worldwide, to represent a French brand of 100% electric luxury jet skis to three customer groups: owners, yachts and rental operators.')}</p>
-      <div class="mt-9 flex flex-wrap gap-3">${btn('#questions', t('Postuler maintenant', 'Apply now'), 'handshake')}${waBtn(L, 'WhatsApp', t('Bonjour, je souhaite devenir distributeur E-Dolphin.', 'Hello, I would like to become an E-Dolphin dealer.'))}</div>
+      <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-tight sm:text-6xl">${t('Rejoignez le réseau de distributeurs ONDARYS.', 'Join the ONDARYS dealer network.')}</h1>
+      <p class="mt-6 max-w-2xl text-brume sm:text-lg">${t('Partagez notre avenir. ONDARYS choisit ses premiers distributeurs, partout dans le monde, pour représenter une marque française de jet-skis 100 % électriques de luxe auprès de trois clientèles : les propriétaires, les yachts et les loueurs.', 'Share our future. ONDARYS is choosing its first dealers, worldwide, to represent a French brand of 100% electric luxury jet skis to three customer groups: owners, yachts and rental operators.')}</p>
+      <div class="mt-9 flex flex-wrap gap-3">${btn('#questions', t('Postuler maintenant', 'Apply now'), 'handshake')}${waBtn(L, 'WhatsApp', t('Bonjour, je souhaite devenir distributeur ONDARYS.', 'Hello, I would like to become an ONDARYS dealer.'))}</div>
     </div></div>
   </section>
 
   <section class="gutter py-16 sm:py-24">
     <div class="mx-auto max-w-7xl">
-      ${head({ eyebrow: t('Avec E-Dolphin, prenez une longueur d\'avance', 'With E-Dolphin, get ahead'), title: t('Ce que vous apporte le réseau.', 'What the network gives you.'), lead: t('Être distributeur E-Dolphin, c\'est porter le jet-ski électrique de luxe dans votre pays, avec une marque qui vous donne les moyens de le vendre.', 'Being an E-Dolphin dealer means bringing the electric luxury jet ski to your country, with a brand that gives you the means to sell it.') })}
+      ${head({ eyebrow: t('Avec ONDARYS, prenez une longueur d\'avance', 'With ONDARYS, get ahead'), title: t('Ce que vous apporte le réseau.', 'What the network gives you.'), lead: t('Être distributeur ONDARYS, c\'est porter le jet-ski électrique de luxe dans votre pays, avec une marque qui vous donne les moyens de le vendre.', 'Being an ONDARYS dealer means bringing the electric luxury jet ski to your country, with a brand that gives you the means to sell it.') })}
       <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         ${card('gem', t('Une gamme qui se distingue', 'A range that stands out'), t('IRUKA, la Launch Edition numérotée de 300 exemplaires, la version Fleet pour les loueurs, puis Tridens et la gamme enfants.', 'IRUKA, the 300-unit numbered Launch Edition, the Fleet version for rental operators, then Tridens and the kids range.'))}
         ${card('map', t('Votre territoire', 'Your territory'), t('Un périmètre défini ensemble, avec une exclusivité liée à vos engagements.', 'A territory agreed together, with exclusivity tied to your commitments.'))}
@@ -51,7 +51,7 @@ export const body = (L, R) => {
         ${card('sailboat', t('Démonstration et outils de vente', 'Demo and sales tools'), t('Machine de démonstration, film, photos, configurateur 360°, fiche capitaine et calculateur loueurs.', 'Demo craft, film, photos, 360° configurator, captain\'s sheet and rental calculator.'))}
         ${card('inbox', t('Demandes transmises', 'Leads passed on'), t('Les demandes reçues par le site depuis votre territoire sont transmises à votre équipe.', 'Requests the website receives from your territory are passed on to your team.'))}
       </ul>
-      <p class="mt-6 text-sm text-brume">${t('Vous gérez une activité de location ?', 'You run a rental business?')} <a class="font-semibold text-lagoon underline" href="location.html">${t('Devenez loueur E-Dolphin', 'Become an E-Dolphin rental partner')}</a>.</p>
+      <p class="mt-6 text-sm text-brume">${t('Vous gérez une activité de location ?', 'You run a rental business?')} <a class="font-semibold text-lagoon underline" href="location.html">${t('Devenez loueur ONDARYS', 'Become an ONDARYS rental partner')}</a>.</p>
     </div>
   </section>
 
@@ -70,7 +70,7 @@ export const body = (L, R) => {
       <div id="qNo" class="mt-8" hidden>
         <p class="font-display text-xl font-semibold">${t('Merci pour votre intérêt.', 'Thank you for your interest.')}</p>
         <p class="mt-2 text-brume">${t('Votre profil ne correspond pas encore à nos critères. Écrivez-nous si votre situation évolue, ou si vous voulez en parler.', 'Your profile does not match our criteria yet. Write to us if your situation changes, or if you would like to talk.')}</p>
-        <div class="mt-6">${waBtn(L, 'WhatsApp', t('Bonjour, je souhaite parler de la distribution E-Dolphin.', 'Hello, I would like to talk about E-Dolphin distribution.'))}</div>
+        <div class="mt-6">${waBtn(L, 'WhatsApp', t('Bonjour, je souhaite parler de la distribution ONDARYS.', 'Hello, I would like to talk about ONDARYS distribution.'))}</div>
       </div>
     </div>
   </section>`;

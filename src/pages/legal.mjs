@@ -25,9 +25,9 @@ const list = (items) => `<ul class="mt-3 grid gap-1.5 text-brume">${items.map(i 
 
 export const mentions = {
   meta: {
-    fr: { title: 'Mentions légales · E-Dolphin', desc: 'Mentions légales du site E-Dolphin (LCEN).' },
-    en: { title: 'Legal notice · E-Dolphin', desc: 'Legal notice of the E-Dolphin website.' },
-    es: { title: 'Aviso legal · E-Dolphin', desc: 'Aviso legal del sitio web de E-Dolphin (LSSI-CE).' }
+    fr: { title: 'Mentions légales · ONDARYS', desc: 'Mentions légales du site ONDARYS (LCEN).' },
+    en: { title: 'Legal notice · ONDARYS', desc: 'Legal notice of the ONDARYS website.' },
+    es: { title: 'Aviso legal · ONDARYS', desc: 'Aviso legal del sitio web de ONDARYS (LSSI-CE).' }
   },
   body: (L) => {
     const t = tr(L), x = TBC[L];
@@ -61,9 +61,9 @@ export const mentions = {
 
 export const privacy = {
   meta: {
-    fr: { title: 'Confidentialité et cookies · E-Dolphin', desc: 'Politique de confidentialité et de cookies du site E-Dolphin (RGPD, CNIL).' },
-    en: { title: 'Privacy and cookies · E-Dolphin', desc: 'Privacy and cookie policy of the E-Dolphin website (UK GDPR, GDPR, PECR).' },
-    es: { title: 'Privacidad y cookies · E-Dolphin', desc: 'Política de privacidad y cookies del sitio web de E-Dolphin (RGPD, LOPDGDD).' }
+    fr: { title: 'Confidentialité et cookies · ONDARYS', desc: 'Politique de confidentialité et de cookies du site ONDARYS (RGPD, CNIL).' },
+    en: { title: 'Privacy and cookies · ONDARYS', desc: 'Privacy and cookie policy of the ONDARYS website (UK GDPR, GDPR, PECR).' },
+    es: { title: 'Privacidad y cookies · ONDARYS', desc: 'Política de privacidad y cookies del sitio web de ONDARYS (RGPD, LOPDGDD).' }
   },
   body: (L) => {
     const t = tr(L), x = TBC[L];
@@ -87,9 +87,9 @@ export const privacy = {
 
 export const terms = {
   meta: {
-    fr: { title: 'Conditions générales de vente · E-Dolphin', desc: 'Conditions générales de vente des jet-skis IRUKA.' },
-    en: { title: 'Terms of sale · E-Dolphin', desc: 'Terms of sale for IRUKA jet-skis.' },
-    es: { title: 'Condiciones de venta · E-Dolphin', desc: 'Condiciones generales de venta de las motos de agua IRUKA.' }
+    fr: { title: 'Conditions générales de vente · ONDARYS', desc: 'Conditions générales de vente des jet-skis IRUKA.' },
+    en: { title: 'Terms of sale · ONDARYS', desc: 'Terms of sale for IRUKA jet-skis.' },
+    es: { title: 'Condiciones de venta · ONDARYS', desc: 'Condiciones generales de venta de las motos de agua IRUKA.' }
   },
   body: (L) => {
     const t = tr(L), x = TBC[L];

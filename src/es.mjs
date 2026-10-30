@@ -5,7 +5,7 @@ export const ES = {
   'Sea trial': 'Prueba en el mar',
   'Build yours': 'Configure la suya',
   'Become a dealer': 'Ser distribuidor',
-  'Discover E-Dolphin': 'Descubrir E-Dolphin',
+  'Discover ONDARYS': 'Descubrir ONDARYS',
   'Experience': 'La experiencia',
   'The house': 'La casa',
   'Order': 'Hacer un pedido',
@@ -38,7 +38,7 @@ export const ES = {
   'Secure payment opening soon. Meanwhile, send your selection to our team.': 'El pago seguro abrirá próximamente. Mientras tanto, envíe su selección a nuestro equipo.',
   'Send my request': 'Enviar mi solicitud',
   'Message us on WhatsApp': 'Escríbanos por WhatsApp',
-  'Hello, I am contacting you from the E-Dolphin website.': 'Hola, les escribo desde el sitio web de E-Dolphin.',
+  'Hello, I am contacting you from the ONDARYS website.': 'Hola, les escribo desde el sitio web de ONDARYS.',
   'Luxury 100 % electric jet-skis, designed and assembled in France.': 'Motos de agua de lujo 100 % eléctricas, diseñadas y ensambladas en Francia.',
   'You are': 'Usted es',
   'A yacht owner or captain': 'Propietario o capitán de yate',
@@ -49,6 +49,6 @@ export const ES = {
   'A few e-mails a year, one-click unsubscribe.': 'Pocos correos al año, baja con un solo clic.',
   'your@email.com': 'su@correo.com',
   'Subscribe': 'Suscribirme',
-  'I agree to receive the E-Dolphin newsletter. My e-mail is used for nothing else.': 'Acepto recibir la newsletter de E-Dolphin. Mi correo electrónico no se utiliza para nada más.',
+  'I agree to receive the ONDARYS newsletter. My e-mail is used for nothing else.': 'Acepto recibir la newsletter de ONDARYS. Mi correo electrónico no se utiliza para nada más.',
   'Private site shared with our partners. IRUKA specifications are design targets, to be confirmed by validation trials. Visuals marked “Render” are computer-generated and non-contractual.': 'Sitio privado compartido con nuestros socios. Las características de IRUKA son objetivos de diseño, pendientes de confirmación en las pruebas de validación. Las imágenes marcadas «Render» son imágenes de síntesis sin valor contractual.'
 };
