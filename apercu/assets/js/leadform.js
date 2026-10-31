@@ -20,7 +20,7 @@ addEventListener('DOMContentLoaded', () => {
       else if (el.value.trim()) data[el.name] = el.value.trim();
     });
     const send = f.querySelector('[type=submit]'); send.disabled = true;
-    const ok = await sendForm('E-Dolphin · ' + f.dataset.lead, data);
+    const ok = await sendForm('ONDARYS · ' + f.dataset.lead, data);
     send.disabled = false;
     out.style.color = ok ? '#2EE6A8' : '#FFB4A8';
     out.textContent = ok ? f.dataset.ok : tt('L\'envoi n\'a pas abouti. Réessayez ou écrivez-nous sur WhatsApp.', 'Sending failed. Please try again or message us on WhatsApp.');

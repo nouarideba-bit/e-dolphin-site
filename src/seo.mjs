@@ -12,7 +12,7 @@ export function structuredData({ L, slug, desc, base, url }) {
       {
         '@type': 'Organization', '@id': `${base}#organization`, name: 'ONDARYS', url: base,
         logo: `${base}logo-ondarys.png`,
-        description: t('Jet-skis 100 % électriques de luxe, conçus et assemblés en France.', 'Luxury 100% electric jet skis, designed and assembled in France.'),
+        description: t('Jet-skis 100 % électriques de luxe.', 'Luxury 100% electric jet skis.'),
         sameAs: ['https://www.instagram.com/_e_dolphin_/', 'https://www.tiktok.com/@edolphinnextgenpwc']
       },
       { '@type': 'WebSite', '@id': `${base}#website`, name: 'ONDARYS', url: base, inLanguage: ['fr', 'en'], publisher: org }

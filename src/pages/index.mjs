@@ -1,8 +1,8 @@
 import { tr, img, head, fig, btn, ctaBand, heroLoop, filmBtn, filmDialog } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'ONDARYS · Le jet-ski 100 % électrique de luxe', desc: 'IRUKA : 215 ch, 60 nœuds visés, zéro essence à bord. Pour votre yacht, votre flotte de location ou votre réseau de distribution. Conçu et assemblé en France.' },
-  en: { title: 'ONDARYS · The 100% electric luxury jet ski', desc: 'IRUKA: 215 hp, 60 knots targeted, zero fuel on board. For your yacht, your rental fleet or your dealer network. Designed and assembled in France.' }
+  fr: { title: 'ONDARYS · Le jet-ski 100 % électrique de luxe', desc: 'IRUKA : 215 ch, 60 nœuds visés, zéro essence à bord. Pour votre yacht, votre flotte de location ou votre réseau de distribution.' },
+  en: { title: 'ONDARYS · The 100% electric luxury jet ski', desc: 'IRUKA: 215 hp, 60 knots targeted, zero fuel on board. For your yacht, your rental fleet or your dealer network.' }
 };
 export const scripts = ['herofilm.js'];
 
@@ -15,7 +15,7 @@ export const body = (L, R) => {
     <div class="hero-shade absolute inset-0 -z-10"></div>
     <div class="gutter w-full">
       <div class="mx-auto max-w-7xl pb-28 pt-36 sm:pb-24">
-        <p class="eyebrow rise">${t('Jet-ski 100 % électrique · conçu et assemblé en France', '100 % electric jet-ski · designed and assembled in France')}</p>
+        <p class="eyebrow rise">${t('Jet-ski 100 % électrique de luxe', 'Luxury 100 % electric jet-ski')}</p>
         <h1 class="rise mt-5 max-w-3xl font-display text-[2.7rem] font-semibold leading-[1.02] sm:text-7xl">${t('Le silence <br class="hidden sm:block">a une vitesse.', 'Silence <br class="hidden sm:block">has a speed.')}</h1>
         <p class="rise mt-6 max-w-xl text-brume sm:text-lg">${t('IRUKA : 215 ch, 60 nœuds et pas une goutte d\'essence. On n\'entend plus que l\'eau, le vent et votre accélération.', 'IRUKA: 215 hp, 60 knots and not a drop of fuel. All you hear is the water, the wind and your acceleration.')}</p>
         <div class="rise mt-9 flex flex-wrap gap-3">
@@ -36,7 +36,7 @@ export const body = (L, R) => {
       <div class="border-b border-r border-white/10 p-5 lg:border-b-0"><dt class="tag text-brume">${t('Sur l\'eau', 'On the water')}</dt><dd class="mt-1 font-display text-2xl font-semibold">${t('0 émission', 'Zero emissions')}</dd></div>
       <div class="border-b border-white/10 p-5 lg:border-b-0 lg:border-r"><dt class="tag text-brume">${t('Autonomie en usage mixte', 'Mixed-use range')}</dt><dd class="num mt-1 font-display text-2xl font-semibold text-lime">2,5 h<span class="text-base">+</span></dd></div>
       <div class="border-r border-white/10 p-5"><dt class="tag text-brume">${t('Recharge rapide CCS2', 'CCS2 fast charging')}</dt><dd class="num mt-1 font-display text-2xl font-semibold text-lime">≈ 30 min</dd></div>
-      <div class="p-5"><dt class="tag text-brume">${t('Fabrication', 'Build')}</dt><dd class="mt-1 font-display text-2xl font-semibold">${t('Assemblé en France', 'Assembled in France')}</dd></div>
+      <div class="p-5"><dt class="tag text-brume">${t('Launch Edition', 'Launch Edition')}</dt><dd class="mt-1 font-display text-2xl font-semibold">${t('300 exemplaires', '300 units')}</dd></div>
     </dl>
     <p class="mx-auto mt-3 max-w-7xl tag text-brume/80">${t('Objectifs de conception IRUKA, à confirmer lors des essais de validation.', 'IRUKA design targets, to be confirmed by validation trials.')}</p>
   </section>

@@ -1,8 +1,8 @@
 import { tr, img, head, fig, ctaBand } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'ONDARYS, fabricant français de jet-skis électriques', desc: 'ONDARYS conçoit et assemble en France des jet-skis 100 % électriques de luxe. Plus de huit ans de recherche et développement.' },
-  en: { title: 'ONDARYS, French maker of electric jet skis', desc: 'ONDARYS designs and assembles luxury 100% electric jet skis in France. Over eight years of research and development.' }
+  fr: { title: 'ONDARYS, fabricant de jet-skis électriques de luxe', desc: 'ONDARYS conçoit des jet-skis 100 % électriques de luxe. Plus de huit ans de recherche et développement.' },
+  en: { title: 'ONDARYS, maker of luxury electric jet skis', desc: 'ONDARYS designs luxury 100% electric jet skis. Over eight years of research and development.' }
 };
 
 export const body = (L, R) => {
@@ -13,7 +13,7 @@ export const body = (L, R) => {
     <div class="mx-auto max-w-5xl text-center">
       <p class="eyebrow-sand">${t('La maison', 'The house')}</p>
       <h1 class="mx-auto mt-5 max-w-4xl font-display text-4xl font-semibold leading-tight sm:text-6xl">${t('Nous voulions entendre la mer, même à 60 nœuds.', 'We wanted to hear the sea, even at 60 knots.')}</h1>
-      <p class="mx-auto mt-6 max-w-2xl text-brume sm:text-lg">${t('ONDARYS conçoit en France des jet-skis 100 % électriques pour ceux qui exigent le meilleur de la mer, sans le bruit ni l\'odeur. Plus de huit ans de recherche et développement, un prototype qui navigue, et une première série en préparation.', 'ONDARYS designs 100 % electric jet-skis in France for those who expect the best of the sea, without the noise or the smell. Over eight years of research and development, a prototype on the water, and a first series in preparation.')}</p>
+      <p class="mx-auto mt-6 max-w-2xl text-brume sm:text-lg">${t('ONDARYS conçoit des jet-skis 100 % électriques pour ceux qui exigent le meilleur de la mer, sans le bruit ni l\'odeur. Plus de huit ans de recherche et développement, un prototype qui navigue, et une première série en préparation.', 'ONDARYS designs 100 % electric jet-skis for those who expect the best of the sea, without the noise or the smell. Over eight years of research and development, a prototype on the water, and a first series in preparation.')}</p>
     </div>
   </section>
 
@@ -26,7 +26,7 @@ export const body = (L, R) => {
 
   <section class="gutter py-16 sm:py-24">
     <div class="mx-auto grid max-w-7xl gap-12 md:grid-cols-3">
-      ${pillar(1, t('Conçu et assemblé en France', 'Designed and assembled in France'), t('Le design, l\'ingénierie et l\'assemblage du pack batterie sont faits en France. Le boîtier de batterie et son système de gestion sont conçus par nos équipes.', 'Design, engineering and battery pack assembly happen in France. The battery casing and its management system are designed by our teams.'))}
+      ${pillar(1, t('Conçu par nos équipes', 'Designed by our teams'), t('Le design, l\'ingénierie, le boîtier de batterie et son système de gestion sont conçus par nos équipes.', 'Design, engineering, the battery casing and its management system are designed by our teams.'))}
       ${pillar(2, t('Éprouvé en mer', 'Proven at sea'), t('Le prototype S300 a dépassé 200 heures de navigation. IRUKA vise d\'abord le marquage CE, avec une architecture prête pour les normes nautiques américaines et de classification.', 'The S300 prototype has passed 200 hours at sea. IRUKA targets CE marking first, with an architecture ready for US marine and classification standards.'))}
       ${pillar(3, t('Le silence comme engagement', 'Silence as a commitment'), t('Nous proposons aux ports et aux collectivités des campagnes de mesure du bruit et du sillage, pour décider sur des chiffres plutôt que sur des impressions.', 'We offer ports and local authorities noise and wake measurement campaigns, so decisions rest on figures rather than impressions.'))}
     </div>

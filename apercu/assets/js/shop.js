@@ -23,7 +23,7 @@ addEventListener('DOMContentLoaded', () => {
     if (!$('#cfConsent').checked) { out.textContent = tt('Merci de cocher la case d\'accord.', 'Please tick the consent box.'); return; }
     const ref = 'EC-' + Date.now().toString(36).slice(-5).toUpperCase();
     const tot = Object.entries(Cart.totals(Cart.get())).map(([c, v]) => Cart.money(v, c) + ' (acompte 30 % : ' + Cart.money(Math.round(v * 30) / 100, c) + ')').join(' + ');
-    const ok = await sendForm('E-Dolphin · Demande panier · ' + ref, { reference: ref, formulaire: 'Panier boutique', panier: Cart.summary(), total: tot, nom: name, email, telephone: phone, pays: $('#cfCountry').value.trim(), message: $('#cfMsg').value.trim() });
+    const ok = await sendForm('ONDARYS · Demande panier · ' + ref, { reference: ref, formulaire: 'Panier boutique', panier: Cart.summary(), total: tot, nom: name, email, telephone: phone, pays: $('#cfCountry').value.trim(), message: $('#cfMsg').value.trim() });
     out.style.color = ok ? '#2EE6A8' : '#FFB4A8';
     out.textContent = ok ? tt(`Demande ${ref} envoyée. Notre équipe vous rappelle pour finaliser.`, `Request ${ref} sent. Our team will call you to finalise.`) : tt('L\'envoi n\'a pas abouti. Réessayez dans quelques minutes.', 'Sending failed. Please try again in a few minutes.');
     if (ok) { $('#cartForm').reset(); Cart.set([]); }

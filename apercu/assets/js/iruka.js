@@ -27,18 +27,24 @@ addEventListener('DOMContentLoaded', () => {
   $('#segS300').addEventListener('click', () => showSpecs('s300'));
   $('#segIruka').addEventListener('click', () => showSpecs('iruka'));
 
+  // Renders unless a tag says otherwise; the helm display is a mock-up of the interface, not a photo
   const DETAILS = [
-    { icon: 'lightbulb', img: 'detail-led', fr: ['Signature lumineuse LED', 'Une signature avant et arrière reconnaissable de loin, de jour comme de nuit.'], en: ['LED light signature', 'A front and rear signature you recognise from afar, day and night.'] },
-    { icon: 'layers', img: 'detail-carbon', fr: ['Inserts carbone', 'Du carbone apparent sur les zones de contact, léger et rigide.'], en: ['Carbon inserts', 'Exposed carbon on contact areas, light and stiff.'] },
-    { icon: 'armchair', img: 'detail-seat', fr: ['Selle sport confort', 'Maintien latéral pour le pilotage sportif, coutures contrastées.'], en: ['Sport comfort seat', 'Side support for sporty riding, contrast stitching.'] },
-    { icon: 'gauge', img: 'detail-handlebar', fr: ['Guidon sport', 'Poignées ergonomiques et commandes à portée de pouce.'], en: ['Sport handlebar', 'Ergonomic grips and controls within thumb reach.'] },
-    { icon: 'wind', img: 'detail-fins', fr: ['Ailerons sport', 'Stabilité en courbe et à haute vitesse.'], en: ['Sport fins', 'Stability in turns and at high speed.'] },
-    { icon: 'circle-dot', img: 'detail-jet', fr: ['Sortie de jet course', 'Une tuyère dessinée pour la poussée, soulignée de lumière.'], en: ['Race jet nozzle', 'A nozzle shaped for thrust, outlined in light.'] }
+    { icon: 'lightbulb', img: 'detail-led-hd', fr: ['Signature lumineuse LED', 'Une signature avant et arrière reconnaissable de loin, de jour comme de nuit.'], en: ['LED light signature', 'A front and rear signature you recognise from afar, day and night.'] },
+    { icon: 'layers', img: 'detail-carbon-hd', fr: ['Inserts carbone', 'Du carbone apparent sur les zones de contact, léger et rigide.'], en: ['Carbon inserts', 'Exposed carbon on contact areas, light and stiff.'] },
+    { icon: 'armchair', img: 'detail-seat-hd', fr: ['Selle sport confort', 'Maintien latéral pour le pilotage sportif, coutures contrastées.'], en: ['Sport comfort seat', 'Side support for sporty riding, contrast stitching.'] },
+    { icon: 'gauge', img: 'detail-handlebar-hd', fr: ['Guidon sport', 'Poignées ergonomiques et commandes à portée de pouce.'], en: ['Sport handlebar', 'Ergonomic grips and controls within thumb reach.'] },
+    { icon: 'wind', img: 'detail-fins-hd', fr: ['Ailerons sport', 'Stabilité en courbe et à haute vitesse.'], en: ['Sport fins', 'Stability in turns and at high speed.'] },
+    { icon: 'circle-dot', img: 'detail-jet-hd', fr: ['Sortie de jet course', 'Une tuyère dessinée pour la poussée, soulignée de lumière.'], en: ['Race jet nozzle', 'A nozzle shaped for thrust, outlined in light.'] },
+    { icon: 'video', img: 'detail-cam-avant-hd', fr: ['Caméra avant', 'Une caméra grand angle à l\'étrave filme tout ce qui est devant vous et l\'affiche sur l\'écran du guidon.'], en: ['Front camera', 'A wide-angle bow camera films the way ahead and shows it on the helm screen.'] },
+    { icon: 'cctv', img: 'detail-cam-arriere-hd', fr: ['Caméra arrière', 'Une caméra à la poupe montre le sillage et ce qui arrive derrière, sans se retourner.'], en: ['Rear camera', 'A stern camera shows the wake and whatever is coming up behind, without turning round.'] },
+    { icon: 'layout-dashboard', img: 'detail-tableau-de-bord-hd', tag: ['Maquette d\'interface', 'Interface mock-up'], fr: ['Tableau de bord', 'Vitesse, batterie, caméras, radar de la flotte et appel au ponton sur un seul écran.'], en: ['Helm display', 'Speed, battery, cameras, fleet radar and call to the pontoon on a single screen.'] }
   ];
   const tabs = $('#tabs');
   DETAILS.forEach((d, i) => {
     const b = document.createElement('button');
     b.type = 'button'; b.setAttribute('role', 'tab'); b.className = 'tab glass lift flex items-center gap-3 rounded-2xl p-4 text-left text-sm font-medium text-brume';
+    // 9 tabs: the last one spans the row in the 2-column layouts (mobile, desktop)
+    if (i === DETAILS.length - 1) b.classList.add('col-span-2', 'sm:col-span-1', 'lg:col-span-2');
     b.setAttribute('aria-selected', i === 0);
     b.innerHTML = `<i data-lucide="${d.icon}" class="h-5 w-5 shrink-0 text-lagoon"></i><span>${d[LANG][0]}</span>`;
     b.addEventListener('click', () => select(i));
@@ -51,6 +57,7 @@ addEventListener('DOMContentLoaded', () => {
     im.style.opacity = .2;
     setTimeout(() => { im.src = `${R}assets/img/${d.img}.jpg`; im.alt = d[LANG][0]; im.style.opacity = 1; }, reduce ? 0 : 180);
     $('#detailTitle').textContent = d[LANG][0]; $('#detailText').textContent = d[LANG][1];
+    $('#detailTag').textContent = (d.tag || ['Rendu', 'Render'])[LANG === 'en' ? 1 : 0];
   }
   select(0);
 

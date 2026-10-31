@@ -158,7 +158,7 @@ ${body}
     <div>
       <a href="${href('index')}" class="inline-flex items-center gap-3">${logo(36)}${wordmark('text-xl')}</a>
       <p class="slogan mt-3 text-xl">${slogan(L)}</p>
-      <p class="mt-3 max-w-xs text-sm text-brume">${t('Jet-skis 100 % électriques de luxe, conçus et assemblés en France.', 'Luxury 100 % electric jet-skis, designed and assembled in France.')}</p>
+      <p class="mt-3 max-w-xs text-sm text-brume">${t('Jet-skis 100 % électriques de luxe.', 'Luxury 100 % electric jet-skis.')}</p>
     </div>
     <div>
       <p class="eyebrow-sand">${t('Le modèle', 'The model')}</p>

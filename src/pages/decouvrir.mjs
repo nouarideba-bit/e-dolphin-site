@@ -70,7 +70,7 @@ export const body = (L, R) => {
       ${head({ eyebrow: t('La maison', 'The house'), title: t('Ce qui fait ONDARYS.', 'What makes ONDARYS.') })}
       <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         ${pillar('volume-x', t('Le silence', 'Silence'), t('Un moteur électrique, pas de pot d\'échappement : on entend l\'eau et le vent.', 'An electric motor and no exhaust: you hear the water and the wind.'))}
-        ${pillar('flag', t('Conçu en France', 'Designed in France'), t('Design, ingénierie et assemblage du pack batterie en France.', 'Design, engineering and battery pack assembly in France.'))}
+        ${pillar('flag', t('Conçu par nos équipes', 'Designed by our teams'), t('Design, ingénierie et pack batterie conçus en interne.', 'Design, engineering and battery pack designed in-house.'))}
         ${pillar('battery-charging', t('La batterie maîtrisée', 'A battery we master'), t('Boîtier et système de gestion de la batterie conçus par nos équipes. Recharge rapide CCS2.', 'Battery casing and management system designed in-house. CCS2 fast charging.'))}
         ${pillar('waves', t('Éprouvé en mer', 'Proven at sea'), t('Plus de 200 heures de navigation sur le prototype S300.', 'Over 200 hours at sea on the S300 prototype.'))}
       </div>

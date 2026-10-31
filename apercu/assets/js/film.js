@@ -1,4 +1,4 @@
-/* "Discover E-Dolphin": the hero plays the film muted with a one-click sound switch;
+/* "Discover ONDARYS": the hero plays the film muted with a one-click sound switch;
    chapter links jump the film below to a moment and play it with sound. */
 addEventListener('DOMContentLoaded', () => {
   const film = document.getElementById('filmPlayer'), hero = document.getElementById('heroFilm');

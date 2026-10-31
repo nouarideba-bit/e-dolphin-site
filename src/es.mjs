@@ -39,7 +39,7 @@ export const ES = {
   'Send my request': 'Enviar mi solicitud',
   'Message us on WhatsApp': 'Escríbanos por WhatsApp',
   'Hello, I am contacting you from the ONDARYS website.': 'Hola, les escribo desde el sitio web de ONDARYS.',
-  'Luxury 100 % electric jet-skis, designed and assembled in France.': 'Motos de agua de lujo 100 % eléctricas, diseñadas y ensambladas en Francia.',
+  'Luxury 100 % electric jet-skis.': 'Motos de agua de lujo 100 % eléctricas.',
   'You are': 'Usted es',
   'A yacht owner or captain': 'Propietario o capitán de yate',
   'A rental operator, hotel or club': 'Empresa de alquiler, hotel o club',

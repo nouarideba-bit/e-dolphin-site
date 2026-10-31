@@ -1,7 +1,11 @@
 /* Shared behaviour for every page: header, mobile menu, reveal, cart, newsletter. */
 document.documentElement.classList.add('js');
-const LANG = document.documentElement.lang === 'en' ? 'en' : 'fr';
+// Spanish legal pages (lang="es") use the English messages
+const LANG = document.documentElement.lang === 'fr' ? 'fr' : 'en';
 const tt = (fr, en) => (LANG === 'fr' ? fr : en);
+// Page addresses for links built by scripts: English pages have English file names (same map as EN_SLUG in src/layout.mjs)
+const EN_FILES = { decouvrir: 'discover', maison: 'about', 'yachts-flottes': 'yachts', configurateur: 'configurator', boutique: 'order', location: 'rental-fleets', distributeurs: 'dealers', 'dossier-distributeur': 'dealer-application', reserver: 'book', 'mentions-legales': 'legal-notice', confidentialite: 'privacy', cgv: 'terms-of-sale', modeles: 'models', 'iruka-configurateur': 'iruka-configurator' };
+const pageHref = (slug) => `${LANG === 'en' ? EN_FILES[slug] || slug : slug}.html`;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -28,9 +32,18 @@ addEventListener('DOMContentLoaded', () => {
   const menuBtn = $('#menuBtn'), menu = $('#mobileMenu');
   menuBtn.addEventListener('click', () => { const open = menu.hidden; menu.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open)); });
 
+  /* Phones and tablets: the WhatsApp button waits until the home hero has mostly scrolled away,
+     so the first screen keeps its buttons clear (24 Oct). Elsewhere it shows as before. */
+  const wa = $('.wa-float'), heroFig = $('.home-hero > figure');
+  if (wa && heroFig) {
+    const small = matchMedia('(max-width: 1023.98px)');
+    new IntersectionObserver(([e]) => wa.classList.toggle('is-tucked', small.matches && e.intersectionRatio > .6), { threshold: [0, .6, 1] }).observe(heroFig);
+  }
+
   /* Reveal on scroll (content stays visible without it) */
   const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .1 });
-  $$('.rise, main section > div > h2, main figure, main article').forEach(el => { el.classList.add('rise'); io.observe(el); });
+  // Card groups taken over by the Motion cascade (fx.js marks them [data-fx]) are left out
+  $$('.rise, main section > div > h2, main figure, main article').filter(el => !el.closest('[data-fx]')).forEach(el => { el.classList.add('rise'); io.observe(el); });
 
   /* Newsletter */
   const nl = $('#newsletter');
@@ -40,7 +53,7 @@ addEventListener('DOMContentLoaded', () => {
     msg.style.color = '#FFB4A8';
     if (!/^\S+@\S+\.\S+$/.test(email)) { msg.textContent = tt('Indiquez une adresse e-mail valide.', 'Please enter a valid e-mail address.'); return; }
     if (!$('#nlConsent').checked) { msg.textContent = tt('Merci de cocher la case d\'accord.', 'Please tick the consent box.'); return; }
-    const ok = await sendForm('E-Dolphin · Inscription newsletter', { liste: 'Newsletter', email });
+    const ok = await sendForm('ONDARYS · Inscription newsletter', { liste: 'Newsletter', email });
     msg.style.color = ok ? '#2EE6A8' : '#FFB4A8';
     msg.textContent = ok ? tt('Merci, vous êtes inscrit.', 'Thank you, you are subscribed.') : tt('L\'envoi n\'a pas abouti. Réessayez dans quelques minutes.', 'Sending failed. Please try again in a few minutes.');
     if (ok) nl.reset();
@@ -86,7 +99,7 @@ const Cart = {
   render() {
     const items = this.get(), n = items.reduce((a, i) => a + i.qty, 0), c = $('#cartCount');
     c.textContent = n; c.hidden = !n;
-    const root = document.documentElement.lang === 'en' ? '../' : '';
+    const root = document.documentElement.lang === 'fr' ? '' : '../';
     $('#cartItems').innerHTML = items.length ? items.map((i, k) => {
       const p = PRODUCTS[i.id];
       return `<div class="flex gap-4 border-b border-white/10 py-4">

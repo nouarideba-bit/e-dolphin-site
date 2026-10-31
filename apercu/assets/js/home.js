@@ -20,8 +20,10 @@ addEventListener('DOMContentLoaded', () => {
       }
       loud.setAttribute('d', a); calm.setAttribute('d', b);
     };
-    let ph = 0; draw(0);
-    if (!reduceMotion) (function loop() { ph += .03; draw(ph); requestAnimationFrame(loop); })();
+    let ph = 0, on = false, raf = 0; draw(0);
+    // Animate only while the lines are on screen: an endless loop off screen drains phone batteries (24 Oct)
+    const loop = () => { ph += .03; draw(ph); raf = on ? requestAnimationFrame(loop) : 0; };
+    if (!reduceMotion) new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on && !raf) raf = requestAnimationFrame(loop); }).observe(loud.closest('svg') || loud);
   }
 
   // Livery picker: swap the studio render and the configurator links
@@ -32,11 +34,21 @@ addEventListener('DOMContentLoaded', () => {
     const pre = new Image(); pre.src = `${root}assets/img/cfg-${b.dataset.liv}-profil.jpg`;
     b.addEventListener('click', () => {
       btns.forEach(o => o.setAttribute('aria-checked', String(o === b)));
-      imgEl.style.opacity = 0;
-      setTimeout(() => { imgEl.src = pre.src; imgEl.style.opacity = 1; }, reduceMotion ? 0 : 180);
+      const M = window.Motion;
+      if (M && !reduceMotion) {
+        // Motion (fx.js bundle): fade out with a slight step back, swap once the new picture is decoded, then settle in
+        M.animate(imgEl, { opacity: 0, scale: 0.97 }, { duration: 0.18 }).then(() => {
+          const show = () => M.animate(imgEl, { opacity: [0, 1], scale: [1.03, 1] }, { duration: 0.55, ease: [0.2, 0.7, 0.2, 1] });
+          imgEl.src = pre.src;
+          (imgEl.decode ? imgEl.decode() : Promise.resolve()).then(show, show);
+        });
+      } else {
+        imgEl.style.opacity = 0;
+        setTimeout(() => { imgEl.src = pre.src; imgEl.style.opacity = 1; }, reduceMotion ? 0 : 180);
+      }
       cap.textContent = b.dataset.name;
-      go.href = `configurateur.html?modele=iruka&livree=${b.dataset.liv}`;
-      go360.href = `configurateur.html?modele=${b.dataset.liv === 'predator' ? 'launch' : 'iruka'}&livree=${b.dataset.liv}&vue=profil`;
+      go.href = `${pageHref('iruka-configurateur')}?livree=${b.dataset.liv}`;
+      go360.href = `${pageHref('iruka-configurateur')}?${b.dataset.liv === 'predator' ? 'modele=launch' : 'livree=' + b.dataset.liv}`;
     });
   });
   // Arrow keys move between liveries (radio group behaviour)

@@ -51,7 +51,7 @@ export const body = (L, R) => {
       <div class="hero-logo pointer-events-none absolute right-4 top-16 lg:right-6 lg:top-6" aria-hidden="true"><div class="hero-logo-spin">${[0, 1].map(() => `<svg viewBox="0 0 128 128">${logoArt()}</svg>`).join('')}</div></div>
       <figcaption class="hero-cap tag absolute left-4 top-16 lg:left-6 rounded-full bg-black/45 px-3 py-1 text-white lg:top-6">${t('Images réelles · prototype S300', 'Real footage · S300 prototype')}</figcaption>
       <div class="hero-copy absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10 sm:pb-10">
-        <p class="font-mono text-[11px] uppercase tracking-[.22em] text-lagoon">${t('Conçu et assemblé en France', 'Designed and assembled in France')}</p>
+        <p class="font-mono text-[11px] uppercase tracking-[.22em] text-lagoon">${t('L\'onde silencieuse', 'The silent wave')}</p>
         <h1 class="mt-3 max-w-4xl font-display text-[2.35rem] font-semibold leading-[1.02] sm:text-6xl xl:text-7xl">${t('Le jet-ski 100 % électrique de luxe.', 'The 100% electric luxury jet ski.')}</h1>
         <p class="mt-4 max-w-2xl text-foam/90 sm:text-lg">${t('215 ch, 60 nœuds visés, zéro essence à bord. Silencieux au mouillage pour votre yacht, économique à l\'heure pour votre flotte.', '215 hp, 60 knots targeted, zero fuel on board. Silent at anchor for your yacht, low cost per hour for your fleet.')}</p>
         <div class="mt-6 flex flex-wrap items-center gap-3">
