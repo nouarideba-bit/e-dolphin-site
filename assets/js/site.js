@@ -67,7 +67,7 @@ addEventListener('DOMContentLoaded', () => {
    the selection is sent to the team as a request instead (shop page, #demande). */
 const PRODUCTS = {
   iruka: { name: 'IRUKA', price: 43900, cur: '€ HT', img: 'iruka-side.jpg', note: { fr: 'Prix de lancement · acompte 30 %', en: 'Launch price · 30 % deposit' } },
-  launch: { name: 'IRUKA Launch Edition', price: 90000, cur: '$ HT', img: 'signature-veil.jpg', note: { fr: 'Série de 300 exemplaires · acompte 30 %', en: '300-unit series · 30 % deposit' } }
+  launch: { name: 'IRUKA Launch Edition', price: 100500, cur: '$ HT', img: 'signature-veil.jpg', note: { fr: 'Série de 300 exemplaires · acompte 30 %', en: '300-unit series · 30 % deposit' } }
 };
 const Cart = {
   key: 'edolphin-cart',

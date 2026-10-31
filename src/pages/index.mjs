@@ -113,7 +113,7 @@ export const body = (L, R) => {
         <p class="eyebrow-sand">Launch Edition</p>
         <h2 class="mt-4 font-display text-3xl font-semibold sm:text-5xl">${t('300 exemplaires numérotés.', '300 numbered units.')}</h2>
         <p class="mt-5 text-brume">${t('La première série d\'IRUKA, finitions signature et priorité de livraison.', 'The first IRUKA series, signature finish and delivery priority.')}</p>
-        <p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1"><span class="num font-display text-3xl font-semibold">90 000 $ HT</span><span class="text-sm text-brume">${t('Acompte de 30 %, ouverture prochaine', '30 % deposit, opening soon')}</span></p>
+        <p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1"><span class="num font-display text-3xl font-semibold">100 500 $ HT</span><span class="text-sm text-brume">${t('Acompte de 30 %, ouverture prochaine', '30 % deposit, opening soon')}</span></p>
         <div class="mt-8">${btn('launch-edition.html', t('Découvrir la Launch Edition', 'Discover the Launch Edition'), 'arrow-right')}</div>
       </div>
     </div>

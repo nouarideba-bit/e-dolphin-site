@@ -84,7 +84,7 @@ export const waBtn = (L, label, text, primary = false) =>
 // French figures here; English pages get "€43,900 excl. VAT" from the build's price filter.
 export const PRICE = {
   iruka: '43 900 € HT', irukaAlt: '≈ 50 900 $ HT',
-  launch: '90 000 $ HT', launchAlt: '≈ 77 600 € HT',
-  deposit: '27 000 $ HT', depositAlt: '≈ 23 300 € HT'
+  launch: '100 500 $ HT', launchAlt: '≈ 86 600 € HT',
+  deposit: '30 150 $ HT', depositAlt: '≈ 26 000 € HT'
 };
 export const priceWithAlt = (main, alt, altCls = 'text-sm font-normal text-brume') => `<span class="num">${main}</span> <span class="num ${altCls}">${alt}</span>`;

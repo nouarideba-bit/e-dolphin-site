@@ -8,14 +8,14 @@
    p is the colour of its white panels, a of its lime stripes (none: the render as it is). t is the colour of an upholstery or
    deck, planks adds teak strakes; satin flattens the paint's reflections; glow is the colour of the underwater lights.
    iruka-masks.js says where each of them sits on the renders.
-   The Launch Edition is the same craft and catalogue (?modele=launch, code item 41): 90 000 $ HT, its three liveries included,
+   The Launch Edition is the same craft and catalogue (?modele=launch, code item 41): 100 500 $ HT, its three liveries included,
    Predator by default, the numbered owner's plate included, the other options at their euro price converted at the brochure
    rate (1 € = 1,16 $, as the former configurator showed them) and rounded to 10 $. */
 window.IRUKA_CFG = {
   base: 43900,
   deposit: 30,
   editions: {
-    launch: { n: 41, fr: 'IRUKA Launch Edition', en: 'IRUKA Launch Edition', short: 'Launch Edition', base: 90000, cur: '$ HT', rate: 1.16,
+    launch: { n: 41, fr: 'IRUKA Launch Edition', en: 'IRUKA Launch Edition', short: 'Launch Edition', base: 100500, cur: '$ HT', rate: 1.16,
       liveries: ['predator', 'blanc', 'gris'], std: { livery: 'predator' },
       included: { plaque: { fr: 'Plaque numérotée de 001 à 300, à votre nom', en: 'Plate numbered 001 to 300, with your name' } },
       perks: { fr: 'Série numérotée de 001 à 300 · votre numéro et votre nom gravés · certificat numérique', en: 'Numbered series from 001 to 300 · your number and name engraved · digital certificate' } }

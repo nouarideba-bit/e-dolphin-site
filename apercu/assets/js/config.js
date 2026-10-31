@@ -25,7 +25,7 @@ addEventListener('DOMContentLoaded', () => {
 
   const MODELS = {
     iruka: { name: 'IRUKA', price: 43900, cur: '€ HT', note: { fr: 'Prix de lancement', en: 'Launch price' }, included: [] },
-    launch: { name: 'IRUKA Launch Edition', price: 90000, cur: '$ HT', note: { fr: 'Série limitée · 300 exemplaires', en: 'Limited series · 300 units' }, included: [] }
+    launch: { name: 'IRUKA Launch Edition', price: 100500, cur: '$ HT', note: { fr: 'Série limitée · 300 exemplaires', en: 'Limited series · 300 units' }, included: [] }
   };
 
   // Equipment, priced in euros excl. VAT. Grouped by category, like the reference configurator.

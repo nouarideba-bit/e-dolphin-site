@@ -52,10 +52,10 @@ export const body = (L, R) => {
         t('Acompte de 30 % : 13 170 € HT (hors options)', '30 % deposit: €13,170 excl. VAT (before options)'),
         t('Prix hors taxes, livraison et options en sus', 'Price excl. VAT, delivery and options extra')
       ], img(R, 'livery-blanc.jpg'))}
-      ${product('launch', 'IRUKA Launch Edition', '90 000 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), [
+      ${product('launch', 'IRUKA Launch Edition', '100 500 $ HT', t('Série limitée · 300 exemplaires', 'Limited series · 300 units'), [
         t('Exemplaire numéroté de 001 à 300', 'Numbered unit, 001 to 300'),
         t('Finitions signature et priorité de livraison', 'Signature finish and delivery priority'),
-        t('Acompte de 30 % : 27 000 $ HT', '30 % deposit: $27,000 excl. VAT'),
+        t('Acompte de 30 % : 30 150 $ HT', '30 % deposit: $30,150 excl. VAT'),
         t('Paiement en ligne bientôt disponible', 'Online payment opening soon')
       ], img(R, 'livery-predator.jpg'))}
     </div>

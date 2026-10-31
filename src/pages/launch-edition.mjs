@@ -2,8 +2,8 @@ import { plaque } from '../plaque.mjs';
 import { tr, img, head, btn, waBtn, PRICE } from '../ui.mjs';
 
 export const meta = {
-  fr: { title: 'IRUKA Launch Edition · 300 exemplaires · ONDARYS', desc: 'La première série d\'IRUKA : 300 exemplaires numérotés, 90 000 $ HT, votre numéro et votre nom gravés. Premières livraisons visées au printemps 2028.' },
-  en: { title: 'IRUKA Launch Edition · 300 units · ONDARYS', desc: 'The first IRUKA series: 300 numbered units, $90,000 excl. VAT, your number and name engraved. First deliveries targeted for spring 2028.' }
+  fr: { title: 'IRUKA Launch Edition · 300 exemplaires · ONDARYS', desc: 'La première série d\'IRUKA : 300 exemplaires numérotés, 100 500 $ HT, votre numéro et votre nom gravés. Premières livraisons visées au printemps 2028.' },
+  en: { title: 'IRUKA Launch Edition · 300 units · ONDARYS', desc: 'The first IRUKA series: 300 numbered units, $100,500 excl. VAT, your number and name engraved. First deliveries targeted for spring 2028.' }
 };
 export const scripts = ['leadform.js', 'plaque.js'];
 
@@ -87,7 +87,7 @@ export const body = (L, R) => {
         <ol class="mt-10 grid gap-7">
           ${step(1, t('Votre numéro', 'Your number'), t('Dans le formulaire ci-dessous : votre numéro, deux numéros de secours, votre livrée et votre gravure. Sans paiement.', 'In the form below: your number, two back-up numbers, your livery and your engraving. No payment.'))}
           ${step(2, t('Confirmation personnelle', 'Personal confirmation'), t('Notre équipe vous appelle ou vous écrit sur WhatsApp et confirme votre numéro.', 'Our team calls you or messages you on WhatsApp and confirms your number.'))}
-          ${step(3, t('Acompte de 30 %', '30 % deposit'), t('27 000 $ HT par paiement sécurisé, dès l\'ouverture du paiement en ligne.', '$27,000 excl. VAT by secure payment, as soon as online payment opens.'))}
+          ${step(3, t('Acompte de 30 %', '30 % deposit'), t('30 150 $ HT par paiement sécurisé, dès l\'ouverture du paiement en ligne.', '$30,150 excl. VAT by secure payment, as soon as online payment opens.'))}
           ${step(4, t('Livraison', 'Delivery'), t('Essai de prise en main, remise des clés et du certificat numérique, à quai ou à bord de votre yacht.', 'Hand-over trial, keys and digital certificate, at the quay or on board your yacht.'))}
         </ol>
       </div>

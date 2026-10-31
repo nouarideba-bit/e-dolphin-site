@@ -2,7 +2,7 @@
    Requests are e-mailed through sendForm (site.js). The Launch Edition deposit stays disabled
    until the company's own Stripe account is open: then set enabled: true and link = Stripe Payment Link. */
 addEventListener('DOMContentLoaded', () => {
-  const DEPOSIT = { enabled: false, percent: 30, price: 90000, amount: 27000, currency: '$ HT', link: '' };
+  const DEPOSIT = { enabled: false, percent: 30, price: 100500, amount: 30150, currency: '$ HT', link: '' };
   const BOOKING = { slots: ['09:30', '10:30', '11:30', '14:00', '15:00', '16:00', '17:00'], leadDays: 3, horizonDays: 120 };
   const TYPES = {
     essai: { label: tt('Essai en mer', 'Sea trial'), dur: 45, needsSlot: true },
