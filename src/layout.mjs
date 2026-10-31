@@ -6,9 +6,9 @@ import { WA, waLink, tr } from './ui.mjs';
 
 import { structuredData } from './seo.mjs';
 
-// Public address of the site. Switch to 'https://e-dolphin.fr/' once e-dolphin.fr points to GitHub Pages:
+// Public address of the site: ondarys.com since 31 Oct 2026 (e-dolphin.fr now redirects there from the e-dolphin-redirection repo).
 // canonical links, hreflang, link previews, structured data and the sitemap all follow.
-export const BASE = 'https://e-dolphin.fr/';
+export const BASE = 'https://ondarys.com/';
 // Search engines stay out until the public opening (day J, on written approval): set to true that day.
 // The dealer application is a form step reached after the six questions, so it never goes into search results.
 export const INDEXABLE = false;
