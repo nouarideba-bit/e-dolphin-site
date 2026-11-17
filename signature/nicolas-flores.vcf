@@ -1,7 +1,7 @@
 BEGIN:VCARD
 VERSION:3.0
-N:Florès;Nicolas;;;
-FN:Nicolas Florès
+N:FLORES;Nicolas;;M.;
+FN:M. Nicolas FLORES
 ORG:ONDARYS
 TITLE:CEO
 EMAIL;TYPE=INTERNET,WORK:n.flores@ondarys.com
