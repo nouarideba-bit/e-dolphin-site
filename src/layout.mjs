@@ -2,7 +2,7 @@
 // Every page is rendered twice, French at v2/ and English at v2/en/, with the same file names.
 // With rail = true (the live site since 22 Oct), the top header gives way to the left navigation rail.
 import { rail as railNav } from './rail.mjs';
-import { WA, waLink, tr } from './ui.mjs';
+import { WA, CONTACT, waLink, tr } from './ui.mjs';
 
 import { structuredData } from './seo.mjs';
 
@@ -183,6 +183,9 @@ ${body}
     <div>
       <p class="eyebrow-sand">${t('Nous parler', 'Talk to us')}</p>
       <ul class="mt-4 grid gap-2 text-sm text-brume">
+        <li class="text-foam">${CONTACT.name}</li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="mailto:${CONTACT.email}"><i data-lucide="mail" class="h-4 w-4"></i>${CONTACT.email}</a></li>
+        <li><a class="inline-flex items-center gap-2 hover:text-foam" href="tel:${CONTACT.tel}"><i data-lucide="phone" class="h-4 w-4"></i><span class="num">${CONTACT.show}</span></a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="${waLink(L)}" target="_blank" rel="noopener"><i data-lucide="message-circle" class="h-4 w-4"></i>WhatsApp <span class="num">${WA.show}</span></a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.tiktok.com/@edolphinnextgenpwc" target="_blank" rel="noopener"><i data-lucide="music-2" class="h-4 w-4"></i>TikTok</a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="https://www.instagram.com/_e_dolphin_/" target="_blank" rel="noopener"><i data-lucide="instagram" class="h-4 w-4"></i>Instagram</a></li>
