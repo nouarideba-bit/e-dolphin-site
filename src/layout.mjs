@@ -186,7 +186,7 @@ ${body}
     <div>
       <p class="eyebrow-sand">${t('Nous parler', 'Talk to us')}</p>
       <ul class="mt-4 grid gap-2 text-sm text-brume">
-        <li class="text-foam">${CONTACT.name}</li>
+        <li class="text-foam">${CONTACT.name}<span class="block text-xs text-brume">${CONTACT.role}, ONDARYS</span></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="mailto:${CONTACT.email}"><i data-lucide="mail" class="h-4 w-4"></i>${CONTACT.email}</a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="tel:${CONTACT.tel}"><i data-lucide="phone" class="h-4 w-4"></i><span class="num">${CONTACT.show}</span></a></li>
         <li><a class="inline-flex items-center gap-2 hover:text-foam" href="${waLink(L)}" target="_blank" rel="noopener"><i data-lucide="message-circle" class="h-4 w-4"></i>WhatsApp <span class="num">${WA.show}</span></a></li>

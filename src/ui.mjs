@@ -76,7 +76,7 @@ export const filmDialog = (L, R) => {
 // WhatsApp line given by the team (22 Oct 2026): captains, rental operators and dealers work on WhatsApp
 export const WA = { num: '33648198282', show: '+33 6 48 19 82 82' };
 // Named contact shown in the footer (adam, 17 Nov 2026).
-export const CONTACT = { name: 'Nicolas FLORES', email: 'n.flores@ondarys.com', tel: '+33648198282', show: '+33 6 48 19 82 82' };
+export const CONTACT = { name: 'Nicolas FLORES', role: 'CEO', email: 'n.flores@ondarys.com', tel: '+33648198282', show: '+33 6 48 19 82 82' };
 export const waLink = (L, text) => `https://wa.me/${WA.num}?text=${encodeURIComponent(text || tr(L)('Bonjour, je vous contacte depuis le site ONDARYS.', 'Hello, I am contacting you from the ONDARYS website.'))}`;
 export const waBtn = (L, label, text, primary = false) =>
   `<a href="${waLink(L, text)}" target="_blank" rel="noopener" class="${primary ? 'btn-primary' : 'btn-ghost'} inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-semibold">${label || 'WhatsApp'} <i data-lucide="message-circle" class="h-4 w-4"></i></a>`;
