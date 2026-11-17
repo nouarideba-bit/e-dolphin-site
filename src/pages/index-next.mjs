@@ -1,6 +1,6 @@
 import { tr, img, head, btn, ctaBand, heroLoop, filmBtn, filmDialog, PRICE } from '../ui.mjs';
 import { plaque } from '../plaque.mjs';
-import { logoArt } from '../layout.mjs';
+import { logoArt, edolphin } from '../layout.mjs';
 export { meta } from './index.mjs';
 export const scripts = ['home.js', 'herofilm.js'];
 // The hero poster is the largest element on a phone screen: fetch it before anything else
@@ -114,6 +114,7 @@ export const body = (L, R) => {
         <figcaption class="tag absolute bottom-3 left-3 rounded-full bg-black/55 px-3 py-1 text-white">${t('Rendu', 'Render')} · <span id="livCap">${t('Blanc · noir · lime', 'White · black · lime')}</span></figcaption>
       </figure>
       <div class="flex flex-col p-6 sm:p-10">
+        <div class="mb-5">${edolphin()}</div>
         <p class="eyebrow">${t('Cinq livrées', 'Five liveries')}</p>
         <h2 class="mt-3 font-display text-3xl font-semibold sm:text-4xl">${t('Un caractère pour chaque pilote.', 'A character for every rider.')}</h2>
         <div class="mt-6 grid gap-2" role="radiogroup" aria-label="${t('Livrée', 'Livery')}">

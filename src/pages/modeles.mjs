@@ -1,4 +1,5 @@
 import { tr, img } from '../ui.mjs';
+import { edolphin } from '../layout.mjs';
 
 export const meta = {
   fr: { title: 'Choisissez votre modèle · ONDARYS', desc: 'La gamme ONDARYS : choisissez votre jet-ski électrique et configurez-le option par option.' },
@@ -31,6 +32,7 @@ export const body = (L, R) => {
   <div class="cfg-light mdl">
   <section class="gutter pb-6 pt-24 lg:pt-14">
     <div class="mx-auto max-w-7xl">
+      <div class="mb-4">${edolphin('#0A1E2B', '#F4F1EA')}</div>
       <p class="eyebrow !text-teal">${t('Configurateur', 'Configurator')}</p>
       <h1 class="mt-2 font-display text-4xl font-semibold sm:text-5xl">${t('Choisissez votre modèle', 'Choose your model')}</h1>
       <p class="mt-3 max-w-2xl text-ink2">${t('Configurez votre IRUKA option par option, prix et acompte calculés en direct. Les autres modèles suivront.', 'Build your IRUKA option by option, with live price and deposit. The other models will follow.')}</p>

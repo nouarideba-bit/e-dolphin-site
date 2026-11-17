@@ -1,4 +1,5 @@
 import { tr, img, head, fig, btn, ctaBand } from '../ui.mjs';
+import { edolphin } from '../layout.mjs';
 
 export const meta = {
   fr: { title: 'IRUKA, jet-ski électrique : fiche technique · ONDARYS', desc: 'IRUKA, jet-ski 100 % électrique : 160 kW, 60 nœuds, batterie 35 kWh, recharge rapide CCS2, carène carbone.' },
@@ -13,6 +14,7 @@ export const body = (L, R) => {
   <section class="gutter pb-12 pt-32 sm:pt-40">
     <div class="mx-auto grid max-w-7xl items-end gap-10 lg:grid-cols-[1.1fr_1fr]">
       <div>
+        <div class="mb-5">${edolphin()}</div>
         <p class="eyebrow">${t('Le modèle', 'The model')}</p>
         <h1 class="mt-4 font-display text-5xl font-semibold leading-none sm:text-7xl">IRUKA<span class="mt-3 block text-2xl font-medium leading-snug text-brume sm:text-3xl">${t('Le jet-ski 100 % électrique', 'The 100% electric jet ski')}</span></h1>
         <p class="mt-6 max-w-xl text-brume sm:text-lg">${t('Le S300 navigue déjà : plus de 200 heures en mer. IRUKA reprend sa propulsion avec une carène carbone, une batterie 800 V refroidie par liquide et un équipement premium de série.', 'The S300 is already sailing: over 200 hours at sea. IRUKA takes its propulsion further with a carbon hull, a liquid-cooled 800 V battery and premium equipment as standard.')}</p>
